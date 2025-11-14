@@ -1,5 +1,6 @@
 // product data + rendering + filtering + sorting + flip behavior
 // + IntersectionObserver to highlight nav link for the visible section
+// + navbar float-on-scroll logic (JS toggles .floating and .scrolled)
 document.addEventListener('DOMContentLoaded', function () {
 
   const products = [
@@ -37,6 +38,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const sortBy = document.getElementById('sortBy');
   const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
   const sections = document.querySelectorAll('main section, header#home');
+  const siteNav = document.querySelector('.site-nav');
 
   /* ---------- render products ---------- */
   function renderProducts(list) {
@@ -150,11 +152,51 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  /* ---------- make the navbar slightly compact when page scrolls ---------- */
-  const siteNav = document.querySelector('.site-nav');
-  window.addEventListener('scroll', () => {
-    if(window.scrollY > 40) siteNav.classList.add('scrolled');
+  /* ---------- NAVBAR float-on-scroll logic ---------- */
+  const SCROLL_THRESHOLD_FLOAT = 120;   // scroll px to start floating
+  const SCROLL_THRESHOLD_COMPACT = 420; // scroll px to show compact 'scrolled' styling
+  let ticking = false;
+
+  function updateNavbarState() {
+    const y = window.scrollY || window.pageYOffset;
+    const isMobile = window.innerWidth <= 767;
+
+    // On mobile: keep navbar fixed from start (we treat as "floating")
+    if (isMobile) {
+      siteNav.classList.add('floating');
+      if (y > SCROLL_THRESHOLD_COMPACT) siteNav.classList.add('scrolled');
+      else siteNav.classList.remove('scrolled');
+      return;
+    }
+
+    // Desktop/tablet: toggle floating once user scrolls past threshold
+    if (y > SCROLL_THRESHOLD_FLOAT) siteNav.classList.add('floating');
+    else siteNav.classList.remove('floating');
+
+    // compact style deeper in scroll
+    if (y > SCROLL_THRESHOLD_COMPACT) siteNav.classList.add('scrolled');
     else siteNav.classList.remove('scrolled');
+  }
+
+  // initial call on load (so if user opens mid-page)
+  updateNavbarState();
+
+  // optimized scroll listener using requestAnimationFrame
+  window.addEventListener('scroll', function () {
+    if (!ticking) {
+      window.requestAnimationFrame(function () {
+        updateNavbarState();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  }, { passive: true });
+
+  // update on resize (to handle mobile <-> desktop)
+  window.addEventListener('resize', function () {
+    // small debounce
+    clearTimeout(window._navResizeTimeout);
+    window._navResizeTimeout = setTimeout(()=> updateNavbarState(), 120);
   });
 
   /* ---------- helpers ---------- */
@@ -166,14 +208,14 @@ document.addEventListener('DOMContentLoaded', function () {
     return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
   }
 
-  // smooth anchors for nav clicks (also respect offset for fixed nav)
+  // smooth anchors for nav clicks (also respect nav height if floating)
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
       if (href.length > 1 && document.querySelector(href)) {
         e.preventDefault();
         const target = document.querySelector(href);
-        const navHeight = document.querySelector('.site-nav').offsetHeight || 80;
+        const navHeight = (document.querySelector('.site-nav').offsetHeight) || 80;
         const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
         window.scrollTo({ top, behavior: 'smooth' });
       }
