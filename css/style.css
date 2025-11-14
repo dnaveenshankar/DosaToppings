@@ -393,6 +393,127 @@ header#home, .hero, section {
 }
 
 /* =========================
+   PROMISE — upgraded animations (no FSSAI, no button)
+   ========================= */
+
+.promise-section { padding-top: 48px; padding-bottom: 48px; }
+
+/* text layout */
+.promise-body .lead { font-size:1.05rem; color:#213; line-height:1.55; margin-bottom:.6rem; }
+
+/* list styling */
+.promise-list {
+  margin: 0;
+  padding-left: 1.05rem;
+  list-style: none;
+}
+.promise-list li {
+  position: relative;
+  margin: 10px 0;
+  padding-left: 30px;
+  color: #3b3b3b;
+  font-size: 0.98rem;
+  line-height: 1.45;
+  transform-origin: left center;
+}
+
+/* animated leaf bullet (pop on reveal) */
+.promise-list li::before{
+  content: "🌿";
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1.05rem;
+  line-height: 1;
+  opacity: 0;
+  transform: translateY(6px) scale(.96);
+  transition: transform .42s cubic-bezier(.2,.9,.2,1), opacity .42s ease;
+}
+
+/* when item visible — animation triggered by .fade-in-up.visible */
+.promise-list li.fade-in-up.visible::before {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* caption small */
+.promise-body .small { color: #6b6b6b; }
+
+/* IMAGE WRAPPER (1:1) */
+.promise-figure { display:inline-block; border-radius:18px; overflow:hidden; width:340px; height:340px; margin:0 auto; position:relative; }
+.promise-img-wrap { width:100%; height:100%; position:relative; overflow:hidden; border-radius:18px; background:linear-gradient(180deg,#fff,var(--pale)); box-shadow:0 20px 48px rgba(16,24,32,0.10); }
+
+/* image fill */
+.promise-img { width:100%; height:100%; object-fit:cover; display:block; transform-origin:center; transition: transform .9s cubic-bezier(.2,.9,.2,1), filter .6s ease; }
+
+/* shimmer layer (diagonal sweep) */
+.promise-shimmer {
+  position:absolute;
+  top:0; left:-40%;
+  width:40%;
+  height:100%;
+  background: linear-gradient(120deg, rgba(255,255,255,0.0), rgba(255,255,255,0.22), rgba(255,255,255,0.0));
+  transform: skewX(-18deg);
+  opacity: 0;
+  pointer-events:none;
+}
+
+/* shimmer animation (subtle loop) */
+@keyframes shimmerSweep {
+  0% { left:-60%; opacity:0; }
+  50% { left:120%; opacity:0.55; }
+  100% { left:220%; opacity:0; }
+}
+.promise-figure .promise-shimmer { animation: shimmerSweep 4.8s linear infinite; }
+
+/* floating gentle motion (slow) */
+@keyframes promiseFloat {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.01); }
+  100% { transform: translateY(0) scale(1); }
+}
+.promise-figure { animation: promiseFloat 8s ease-in-out infinite; transition: transform .42s ease, box-shadow .42s ease; }
+
+/* image hover/active: subtle pop for desktop */
+.promise-figure:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 30px 66px rgba(16,24,32,0.14); }
+.promise-figure:active { transform: translateY(-3px) scale(1.005); }
+
+/* micro parallax effect: the image subtly scales when its parent receives .visible (entrance) */
+.promise-figure.fade-in-up.visible .promise-img { transform: scale(1.035); transition-duration: 1s; }
+
+/* floating decorative leaf (faint) */
+.promise-leaf { position:absolute; right:8px; bottom:8px; width:86px; height:86px; opacity:0.12; transform-origin:center; pointer-events:none; }
+
+/* text reveal animation — slide/fade with CSS var delay */
+.fade-in-up { opacity:0; transform: translateY(10px); transition: opacity .6s cubic-bezier(.2,.9,.2,1), transform .6s cubic-bezier(.2,.9,.2,1); transition-delay: var(--delay, 0s); }
+.fade-in-up.visible { opacity:1; transform: translateY(0); }
+
+/* for list items add a slight scale on visible */
+.promise-list li.fade-in-up.visible { transform: translateX(0); }
+
+/* small tweaks for mobile stacking */
+@media (max-width: 992px) {
+  .promise-figure { width:300px; height:300px; }
+  .promise-figure .promise-shimmer { display:none; } /* save perf */
+}
+@media (max-width: 576px) {
+  .promise-figure { width:220px; height:220px; margin:16px auto; }
+  /* stack image on top for small mobile and center text */
+  .promise-section .row { display:flex; flex-direction:column-reverse; }
+  .promise-body { text-align:center; }
+  .promise-list { padding-left: 0; }
+  .promise-list li::before{ display:none; }
+}
+
+/* prefers-reduced-motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .promise-figure, .promise-figure .promise-shimmer, .promise-img, .promise-figure { animation: none !important; transition: none !important; transform: none !important; }
+  .fade-in-up { transition: none !important; transform: none !important; opacity:1 !important; }
+}
+
+
+
+/* =========================
    FLIP CARDS
    ========================= */
 .flip-card{ perspective:1400px; height:340px; cursor:pointer; }
