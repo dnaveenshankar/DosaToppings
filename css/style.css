@@ -436,3 +436,39 @@ main { padding-top: 6px; }
   opacity:1;
   transform:translateY(0);
 }
+
+/* Base size (desktop) */
+.fssai {
+  width: 80px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Tablet sizes */
+@media (max-width: 992px) {
+  .fssai {
+    width: 70px;
+  }
+}
+
+/* Large mobile */
+@media (max-width: 768px) {
+  .fssai {
+    width: 60px;
+  }
+}
+
+/* Small mobile */
+@media (max-width: 576px) {
+  .fssai {
+    width: 50px;
+  }
+}
+
+/* Extra small mobile */
+@media (max-width: 400px) {
+  .fssai {
+    width: 42px;
+  }
+}
+
