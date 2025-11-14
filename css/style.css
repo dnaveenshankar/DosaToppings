@@ -310,8 +310,7 @@ main { padding-top: 6px; }
 }
 
 .footer-fssai img{
-  width:70px;
-  filter:brightness(600%) invert(1);
+  width:60px;
 }
 
 /* CONTACT SPACING */
@@ -395,6 +394,7 @@ main { padding-top: 6px; }
 
 
 /* GO TO TOP BUTTON */
+/* Hide by default */
 .go-top{
   position:fixed;
   right:20px;
@@ -418,6 +418,7 @@ main { padding-top: 6px; }
   z-index:2000;
 }
 
+/* Show when mouse enters footer area */
 .go-top.show{
   opacity:1;
   pointer-events:auto;

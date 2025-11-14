@@ -253,3 +253,24 @@ document.addEventListener('DOMContentLoaded', function () {
     obs.observe(footer);
   }
 })();
+
+// SHOW GO-TOP ONLY WHEN MOUSE ENTERS FOOTER
+(function(){
+  const footer = document.getElementById("footer");
+  const goTop  = document.getElementById("goTop");
+
+  // Show button only when pointer enters footer area
+  footer.addEventListener("mouseenter", ()=>{
+    goTop.classList.add("show");
+  });
+
+  // Hide button when pointer leaves footer
+  footer.addEventListener("mouseleave", ()=>{
+    goTop.classList.remove("show");
+  });
+
+  // Scroll to top smoothly
+  goTop.addEventListener("click", () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+})();
