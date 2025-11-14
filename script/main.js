@@ -1,4 +1,5 @@
-// product data + dynamic grid + filtering + sorting + flip behavior
+// product data + rendering + filtering + sorting + flip behavior
+// + IntersectionObserver to highlight nav link for the visible section
 document.addEventListener('DOMContentLoaded', function () {
 
   const products = [
@@ -34,7 +35,10 @@ document.addEventListener('DOMContentLoaded', function () {
   const productGrid = document.getElementById('productGrid');
   const filterCategory = document.getElementById('filterCategory');
   const sortBy = document.getElementById('sortBy');
+  const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+  const sections = document.querySelectorAll('main section, header#home');
 
+  /* ---------- render products ---------- */
   function renderProducts(list) {
     productGrid.innerHTML = '';
     if(!list.length){
@@ -79,27 +83,21 @@ document.addEventListener('DOMContentLoaded', function () {
     // entrance animation
     document.querySelectorAll('.flip-card').forEach((el, i) => {
       el.style.opacity = 0;
-      el.style.transform = 'translateY(12px)';
+      el.style.transform = 'translateY(18px) scale(.995)';
       setTimeout(()=> {
-        el.style.transition = 'opacity 500ms ease, transform 500ms ease';
+        el.style.transition = 'opacity 560ms ease, transform 560ms cubic-bezier(.2,.9,.2,1)';
         el.style.opacity = 1;
-        el.style.transform = 'translateY(0)';
-      }, 80 * i);
+        el.style.transform = 'translateY(0) scale(1)';
+      }, 70 * i);
     });
   }
 
   // initial render
   renderProducts(products);
 
-  // filtering
-  filterCategory.addEventListener('change', function () {
-    applyFilters();
-  });
-
-  // sorting
-  sortBy.addEventListener('change', function () {
-    applyFilters();
-  });
+  // filtering & sorting
+  filterCategory.addEventListener('change', applyFilters);
+  sortBy.addEventListener('change', applyFilters);
 
   function applyFilters() {
     const cat = filterCategory.value;
@@ -117,21 +115,49 @@ document.addEventListener('DOMContentLoaded', function () {
     renderProducts(list);
   }
 
-  // simple toast helper (used when needed)
-  function showToast(msg){
-    const toast = document.createElement('div');
-    toast.className = 'toast-notice';
-    Object.assign(toast.style, {
-      position:'fixed', right:'20px', bottom:'20px',
-      background:'var(--green-dark)', color:'#fff', padding:'12px 16px', borderRadius:'8px', zIndex:9999, boxShadow:'0 8px 24px rgba(0,0,0,0.18)'
-    });
-    toast.innerText = msg;
-    document.body.appendChild(toast);
-    setTimeout(()=> toast.style.opacity = '0', 2400);
-    setTimeout(()=> toast.remove(), 3000);
-  }
+  /* ---------- section observers for nav highlighting & reveal animations ---------- */
 
-  // Helpers
+  // map section ids to nav links for quick lookup
+  const idToNav = {};
+  navLinks.forEach(link => {
+    const href = link.getAttribute('href');
+    if(href && href.startsWith('#')) idToNav[href.slice(1)] = link;
+  });
+
+  // IntersectionObserver options
+  const ioOptions = { root: null, rootMargin: '0px 0px -30% 0px', threshold: 0.15 };
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const id = entry.target.id;
+      if(entry.isIntersecting){
+        // highlight nav
+        Object.values(idToNav).forEach(nl => nl.classList.remove('active'));
+        if(id && idToNav[id]) idToNav[id].classList.add('active');
+
+        // reveal animation for the section (add visible class to animated children)
+        entry.target.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
+      }
+    });
+  }, ioOptions);
+
+  // observe each section and header
+  sections.forEach(sec => {
+    sectionObserver.observe(sec);
+    // mark children for reveal animation
+    sec.querySelectorAll('h2, h3, p, .feature-card, .combo-card, .flip-card, img').forEach(el => {
+      el.classList.add('fade-in-up');
+    });
+  });
+
+  /* ---------- make the navbar slightly compact when page scrolls ---------- */
+  const siteNav = document.querySelector('.site-nav');
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 40) siteNav.classList.add('scrolled');
+    else siteNav.classList.remove('scrolled');
+  });
+
+  /* ---------- helpers ---------- */
   function escapeHtml(str){ return String(str).replace(/[&<>"]/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); }
   function escapeInitials(name){
     if(!name) return '';
@@ -140,13 +166,16 @@ document.addEventListener('DOMContentLoaded', function () {
     return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
   }
 
-  // smooth anchors
+  // smooth anchors for nav clicks (also respect offset for fixed nav)
   document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
     anchor.addEventListener('click', function (e) {
       const href = this.getAttribute('href');
       if (href.length > 1 && document.querySelector(href)) {
         e.preventDefault();
-        document.querySelector(href).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const target = document.querySelector(href);
+        const navHeight = document.querySelector('.site-nav').offsetHeight || 80;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+        window.scrollTo({ top, behavior: 'smooth' });
       }
     });
   });
