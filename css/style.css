@@ -1,5 +1,5 @@
 /* ==================================================
-   DOSA TOPPINGS — style.css (complete)
+   DOSA TOPPINGS — style.css
    ================================================== */
 
 /* =========================
@@ -55,7 +55,7 @@ a {
 }
 
 /* =========================
-   NAVBAR — FIXED TOP
+   NAVBAR
    ========================= */
 .site-nav {
   position: fixed;
@@ -70,7 +70,6 @@ a {
   border: none;
 }
 
-/* brand + links */
 .logo {
   width: 52px;
   height: 52px;
@@ -95,8 +94,6 @@ a {
   margin-top: 2px;
 }
 
-
-/* NAV LINKS - style and active underline */
 .navbar-nav .nav-link {
   color: rgba(255, 255, 255, 0.94);
   font-weight: 700;
@@ -111,7 +108,6 @@ a {
   color: #fff;
 }
 
-/* active underline */
 .navbar-nav .nav-link::after {
   content: '';
   position: absolute;
@@ -136,7 +132,6 @@ a {
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
 }
 
-/* ensure main content starts below the fixed navbar */
 main {
   padding-top: calc(var(--nav-height, 72px) + 6px);
 }
@@ -234,7 +229,7 @@ section {
 }
 
 /* =========================
-   FEATURE CARDS — GENTLE, CLEAN INTERACTIONS
+   FEATURE CARDS
    ========================= */
 .feature-card {
   background: linear-gradient(180deg, #fff, var(--pale));
@@ -648,7 +643,7 @@ section {
 }
 
 /* =========================
-   ABOUT STORY — NO IMAGE
+   ABOUT STORY
    ========================= */
 .about-story-section {
   background: linear-gradient(180deg, #fffef7 0%, #fff 100%);
@@ -729,10 +724,9 @@ section {
 }
 
 /* =========================
-   FLIP CARDS — FIXED & IMPROVED
+   FLIP CARDS
    ========================= */
 
-/* root flip container */
 .flip-card {
   perspective: 1400px;
   height: 340px;
@@ -752,13 +746,11 @@ section {
   overflow: visible;
 }
 
-/* transform on hover or .active toggles flip */
 .flip-card:hover .flip-inner,
 .flip-card.active .flip-inner {
   transform: rotateY(180deg);
 }
 
-/* both faces absolute, full inset */
 .flip-front,
 .flip-back {
   position: absolute;
@@ -770,7 +762,6 @@ section {
   z-index: 1;
 }
 
-/* FRONT: keep the image to a controlled height so caption is visible */
 .flip-front {
   display: flex;
   flex-direction: column;
@@ -779,18 +770,15 @@ section {
   background: linear-gradient(180deg, #fff, var(--pale));
 }
 
-/* limit cover image height so caption and edges remain visible even on mobile */
 .flip-front .cover {
   width: 100%;
   height: 55%;
-  /* was 68% — reduced so back content appears clearer */
   object-fit: cover;
   display: block;
   filter: saturate(1.02) contrast(1.03);
   transition: transform .6s ease, filter .6s ease;
 }
 
-/* small responsive adjustments to keep proportions */
 @media (max-width: 992px) {
   .flip-front .cover {
     height: 52%;
@@ -803,7 +791,6 @@ section {
   }
 }
 
-/* caption at bottom of front (keeps readable area) */
 .card-caption {
   padding: 12px 14px;
   width: 100%;
@@ -811,10 +798,8 @@ section {
   z-index: 2;
 }
 
-/* BACK: white surface with benefits list — ensure rotated 180deg */
 .flip-back {
   background: #fff;
-  /* white back */
   color: var(--nav-green);
   transform: rotateY(180deg);
   padding: 18px;
@@ -827,7 +812,6 @@ section {
   box-shadow: 0 10px 28px rgba(16, 24, 32, 0.04);
 }
 
-/* back content styling */
 .flip-back h6 {
   margin: 0 0 6px;
   font-weight: 800;
@@ -857,7 +841,6 @@ section {
   font-size: 0.86rem;
 }
 
-/* placeholder (initials) — if no image */
 .no-image {
   display: flex;
   align-items: center;
@@ -877,7 +860,6 @@ section {
   color: var(--nav-green);
 }
 
-/* category badges */
 .cat-trad {
   background: var(--nav-green);
   color: #fff;
@@ -906,26 +888,6 @@ section {
   border-radius: 999px;
 }
 
-/* combos */
-.combo-card {
-  background: linear-gradient(180deg, #fff, var(--pale));
-  border-radius: 12px;
-  padding: 18px;
-  transition: transform .35s ease, box-shadow .35s ease;
-}
-
-.combo-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 18px 38px rgba(16, 24, 32, 0.12);
-}
-
-.price-now {
-  color: var(--nav-green);
-  font-weight: 800;
-  font-size: 1.2rem;
-}
-
-/* reduce flip overshoot on touch */
 @media (max-width: 992px) {
   .flip-inner {
     transition-duration: 520ms;
@@ -936,7 +898,6 @@ section {
   }
 }
 
-/* ensure focus outline accessible */
 .flip-card:focus-within {
   outline: 3px solid rgba(23, 97, 51, 0.12);
   border-radius: 12px;
@@ -990,7 +951,7 @@ section {
 }
 
 /* ===============================
-   FINAL GREEN FOOTER - FORMAL VERSION
+   FOOTER
    =============================== */
 .footer-green {
   background: var(--nav-green);
@@ -1098,7 +1059,6 @@ section {
   margin: 28px 0;
 }
 
-/* FOOTER BOTTOM LAYOUT */
 .footer-bottom {
   display: flex;
   flex-direction: column;
@@ -1158,7 +1118,6 @@ section {
   }
 }
 
-/* GO TO TOP BUTTON */
 .go-top {
   position: fixed;
   right: 20px;
@@ -1188,7 +1147,6 @@ section {
   transform: translateY(-6px);
 }
 
-/* ANIMATION HELPERS */
 .fade-in-up {
   opacity: 0;
   transform: translateY(22px);
@@ -1200,8 +1158,6 @@ section {
   transform: translateY(0);
 }
 
-/* FSSAI
-   responsive sizing */
 .fssai {
   width: 80px;
   height: auto;
@@ -1250,13 +1206,12 @@ section {
   }
 }
 
-/* small utility */
 .text-muted {
   color: #6b6b6b !important;
 }
 
 /* =========================
-   4-CARD VISUAL GRID (image 800x1080)
+   4-CARD VISUAL GRID
    ========================= */
 .grid-4cards {
   display: grid;
@@ -1265,7 +1220,6 @@ section {
   margin-top: 8px;
 }
 
-/* card */
 .vc-card {
   background: linear-gradient(180deg, #fff, var(--pale));
   border-radius: 14px;
@@ -1278,33 +1232,27 @@ section {
   outline: none;
 }
 
-/* focus and hover lift */
 .vc-card:hover,
 .vc-card:focus {
   transform: translateY(-8px);
   box-shadow: 0 28px 56px rgba(16, 24, 32, 0.12);
 }
 
-/* image area using background-image for consistent cropping
-   Keep aspect-ratio of 800/1080 so exported 800x1080 fits perfectly */
 .vc-media {
   width: 100%;
   aspect-ratio: 800 / 1080;
-  /* ensures image frame matches 800x1080 */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   transition: transform .9s cubic-bezier(.2, .9, .2, 1), filter .4s ease;
 }
 
-/* small zoom on hover */
 .vc-card:hover .vc-media,
 .vc-card:focus .vc-media {
   transform: scale(1.04);
   filter: saturate(1.04) contrast(1.02);
 }
 
-/* body */
 .vc-body {
   padding: 14px 14px 18px;
   display: flex;
@@ -1312,7 +1260,6 @@ section {
   gap: 10px;
 }
 
-/* meta row: number + users */
 .vc-meta {
   display: flex;
   justify-content: space-between;
@@ -1320,7 +1267,6 @@ section {
   gap: 8px;
 }
 
-/* big number badge */
 .vc-number {
   min-width: 46px;
   height: 46px;
@@ -1336,7 +1282,6 @@ section {
   box-shadow: 0 8px 18px rgba(16, 24, 32, 0.06);
 }
 
-/* small users count */
 .vc-users {
   font-size: 0.92rem;
   color: #6b6b6b;
@@ -1347,7 +1292,6 @@ section {
   border: 1px solid rgba(255, 255, 255, 0.02);
 }
 
-/* title and text */
 .vc-title {
   margin: 0;
   color: var(--nav-green);
@@ -1363,7 +1307,6 @@ section {
   line-height: 1.5;
 }
 
-/* responsive breakpoints */
 @media (max-width: 1100px) {
   .grid-4cards {
     grid-template-columns: repeat(3, 1fr);
@@ -1392,7 +1335,6 @@ section {
 
   .vc-media {
     aspect-ratio: 800 / 1080;
-    /* keeps aspect on small screens */
   }
 
   .vc-body {
@@ -1408,11 +1350,8 @@ section {
   .vc-users {
     display: none;
   }
-
-  /* keep small screens clean; remove if prefer to show */
 }
 
-/* entrance reveal (works with your IntersectionObserver) */
 .vc-card.fade-in-up {
   opacity: 0;
   transform: translateY(10px);
@@ -1424,7 +1363,6 @@ section {
   transform: translateY(0);
 }
 
-/* reduce motion */
 @media (prefers-reduced-motion: reduce) {
 
   .vc-card,
@@ -1487,7 +1425,6 @@ section {
   color: #444;
 }
 
-/* fade in */
 .quality-item.fade-in-up {
   opacity: 0;
   transform: translateY(18px);
