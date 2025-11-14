@@ -223,3 +223,33 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 });
+
+/* Footer visibility animation + Go Top */
+(function(){
+  const footer = document.getElementById("footer");
+  const goTop = document.getElementById("goTop");
+
+  // show go-to-top button
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 260) goTop.classList.add("show");
+    else goTop.classList.remove("show");
+  });
+
+  goTop.addEventListener("click", () => {
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
+
+  // reveal animation
+  if ("IntersectionObserver" in window){
+    const obs = new IntersectionObserver((items)=>{
+      items.forEach(item=>{
+        if(item.isIntersecting){
+          footer.querySelectorAll(".fade-in-up").forEach((el,i)=>{
+            setTimeout(()=> el.classList.add("visible"), i*120);
+          });
+        }
+      });
+    },{threshold:0.1});
+    obs.observe(footer);
+  }
+})();
