@@ -202,11 +202,10 @@ header#home, .hero, section {
 
 
 /* =========================
-   FEATURE CARDS — ANIMATED EMOJI + HOVER TILT
-   Paste near your FEATURES styles
+   FEATURE CARDS — GENTLE, CLEAN INTERACTIONS
    ========================= */
 
-/* card base (keeps your existing look but adds transform origin & smoother transitions) */
+/* Base card */
 .feature-card{
   background: linear-gradient(180deg,#fff,var(--pale));
   border-radius:14px;
@@ -214,28 +213,27 @@ header#home, .hero, section {
   padding:26px;
   min-height:150px;
   transform-origin:center;
-  transition: transform .45s cubic-bezier(.2,.9,.2,1), box-shadow .35s ease, filter .35s ease;
+  transition: transform .28s ease, box-shadow .28s ease, filter .28s ease;
   will-change: transform;
-  perspective: 1400px;
   position: relative;
   overflow: visible;
 }
 
-/* subtle 3D tilt on hover / focus */
+/* Inner card subtle hover (no heavy tilt) */
 .feature-card:hover,
 .feature-card:focus-within{
-  transform: translateY(-10px) rotateX(3deg) scale(1.02);
-  box-shadow: 0 30px 60px rgba(16,24,32,0.15);
-  filter: saturate(1.04);
+  transform: translateY(-6px) scale(1.01);
+  box-shadow: 0 20px 36px rgba(16,24,32,0.10);
+  filter: saturate(1.02);
 }
 
 /* mobile tap feedback */
 .feature-card:active{
-  transform: translateY(-6px) rotateX(2deg) scale(1.01);
-  box-shadow: 0 18px 34px rgba(16,24,32,0.12);
+  transform: translateY(-3px) scale(1.005);
+  box-shadow: 0 12px 22px rgba(16,24,32,0.08);
 }
 
-/* emoji container — centered, roomy */
+/* emoji container — subtle, centered */
 .feature-emoji{
   font-size:40px;
   line-height:1;
@@ -244,27 +242,26 @@ header#home, .hero, section {
   display:flex;
   align-items:center;
   justify-content:center;
-  border-radius:16px;
+  border-radius:14px;
   background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(246,234,184,0.92));
   color:var(--nav-green);
-  box-shadow: 0 8px 18px rgba(16,24,32,0.08), inset 0 -6px 14px rgba(255,255,255,0.55);
-  transition: transform .42s cubic-bezier(.2,.9,.2,1), box-shadow .42s ease;
-  margin: 0 auto;
+  box-shadow: 0 6px 14px rgba(16,24,32,0.06), inset 0 -6px 14px rgba(255,255,255,0.55);
+  transition: transform .32s ease, box-shadow .32s ease, opacity .32s ease;
+  margin: 0 auto 10px;
   transform-origin: center;
   position: relative;
   z-index: 2;
 }
 
-/* emoji subtle float and pulse */
+/* emoji gentle float */
 @keyframes emojiFloat {
   0%   { transform: translateY(0) scale(1); }
-  40%  { transform: translateY(-6px) scale(1.03); }
-  70%  { transform: translateY(-3px) scale(1.02); }
+  50%  { transform: translateY(-5px) scale(1.02); }
   100% { transform: translateY(0) scale(1); }
 }
-.feature-emoji { animation: emojiFloat 4.4s ease-in-out infinite; }
+.feature-emoji { animation: emojiFloat 5s ease-in-out infinite; }
 
-/* small sparkle pseudo-element behind emoji */
+/* subtle glow behind emoji */
 .feature-emoji::after{
   content:'';
   position:absolute;
@@ -272,33 +269,33 @@ header#home, .hero, section {
   height:64px;
   left:50%;
   top:50%;
-  transform: translate(-50%,-50%) scale(.6);
+  transform: translate(-50%,-50%) scale(.75);
   border-radius:50%;
-  background: radial-gradient(circle at 30% 30%, rgba(236,192,70,0.14), transparent 40%);
+  background: radial-gradient(circle at 30% 30%, rgba(236,192,70,0.12), transparent 40%);
   filter: blur(8px);
-  opacity:.95;
+  opacity:.9;
   pointer-events:none;
-  transition: opacity .42s ease, transform .5s ease;
+  transition: opacity .32s ease, transform .38s ease;
 }
 
-/* intensify emoji and sparkle on hover */
+/* intensify emoji on card hover (subtle) */
 .feature-card:hover .feature-emoji,
 .feature-card:focus-within .feature-emoji {
-  transform: translateY(-8px) scale(1.08);
-  box-shadow: 0 16px 36px rgba(16,24,32,0.18);
+  transform: translateY(-6px) scale(1.04);
+  box-shadow: 0 12px 28px rgba(16,24,32,0.10);
 }
 .feature-card:hover .feature-emoji::after,
 .feature-card:focus-within .feature-emoji::after {
-  transform: translate(-50%,-50%) scale(1);
+  transform: translate(-50%,-50%) scale(.95);
   opacity:1;
 }
 
-/* text styles inside card keep hierarchy */
+/* text inside card */
 .feature-card h5{ color:var(--nav-green); margin-top:12px; font-size:1.05rem; }
 .feature-card p{ color: #4a4a4a; margin:8px 0 0; }
 
-/* Entrance: staggered pop for cards (works with your 'fade-in-up' class) */
-.feature-card.fade-in-up{ opacity:0; transform: translateY(22px) scale(.995); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1); }
+/* Entrance reveal (works with your IntersectionObserver) */
+.feature-card.fade-in-up{ opacity:0; transform: translateY(18px) scale(.997); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.9,.2,1); }
 .feature-card.fade-in-up.visible{ opacity:1; transform: translateY(0) scale(1); }
 
 /* Responsive: reduce sizes on smaller screens */
@@ -318,10 +315,65 @@ header#home, .hero, section {
   .feature-emoji, .feature-emoji::after, .feature-card { animation: none !important; transition: none !important; transform: none !important; }
 }
 
-/* Optional: a tiny bounce when user taps quickly (mobile feel) */
+/* tiny mobile tap bounce for emoji */
 .feature-card:active .feature-emoji {
-  transform: translateY(-6px) scale(1.03);
-  transition: transform .18s ease;
+  transform: translateY(-4px) scale(1.02);
+  transition: transform .16s ease;
+}
+
+/* =========================
+   OUTER COLUMN (gentle container interaction)
+   ========================= */
+
+/* wrap column to make it interactive (use .feature-col on the column) */
+.feature-col {
+  position: relative;
+  transition: transform .24s ease, box-shadow .24s ease;
+  border-radius: 16px; /* smooth outer corners */
+}
+
+/* very gentle outer lift on hover (desktop/tablet) */
+.feature-col:hover {
+  transform: translateY(-4px);
+  z-index: 2;
+}
+
+/* slight tap for mobile */
+.feature-col:active {
+  transform: translateY(-2px);
+  transition: transform .12s ease-out;
+}
+
+/* inner card lifts a bit more than container for layered feel */
+.feature-col:hover .feature-card {
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 22px 40px rgba(16,24,32,0.10);
+}
+
+.feature-col:active .feature-card {
+  transform: translateY(-5px) scale(1.005);
+}
+
+/* very subtle glow behind container (soft & low opacity) */
+.feature-col:hover::after,
+.feature-col:active::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(circle at 50% 14%, rgba(236,192,70,0.08), transparent 70%);
+  pointer-events: none;
+  filter: blur(10px);
+  opacity: 1;
+  transition: opacity .28s ease;
+}
+
+.feature-col::after { opacity: 0; }
+
+/* responsive adjustments: disable hover float for small screens */
+@media (max-width: 768px){
+  .feature-col:hover { transform: none; }
+  .feature-col:active .feature-card { transform: translateY(-5px) scale(1.01); }
 }
 
 /* gradient background sections */
