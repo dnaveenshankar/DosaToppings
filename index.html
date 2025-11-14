@@ -8,7 +8,7 @@
   <!-- Favicon -->
   <link rel="icon" href="assets/icon-2.png" type="image/png">
 
-  <!-- Google Font (rounded friendly) -->
+  <!-- Google Font -->
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
 
   <!-- Bootstrap CSS -->
@@ -20,7 +20,7 @@
 <body>
 
   <!-- NAV -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white py-3 shadow-sm fixed-top">
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 shadow-sm" style="background:linear-gradient(90deg,#fff,#F6EAB8);">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="#home">
         <img src="assets/icon-1.png" alt="Dosa Toppings" class="logo me-2">
@@ -39,7 +39,7 @@
           <li class="nav-item"><a class="nav-link" href="#products">Products</a></li>
           <li class="nav-item"><a class="nav-link" href="#howto">How to Use</a></li>
           <li class="nav-item"><a class="nav-link" href="#combos">Combos</a></li>
-          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#footer">Contact</a></li>
         </ul>
       </div>
     </div>
@@ -51,62 +51,64 @@
       <h1 class="display-5 hero-title">“Tradition. Taste. Topped.”</h1>
       <p class="lead hero-sub">Authentic South Indian flavours — now made easy.</p>
       <p class="hero-small">From Grandma’s kitchen to your breakfast plate — ready to sprinkle in seconds.</p>
-
       <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
         <a href="#products" class="btn btn-cta btn-lg">Explore Our Flavours</a>
-        <a href="#contact" class="btn btn-outline-light btn-lg">Contact Us</a>
       </div>
+    </div>
 
-      <!-- SHOP NOTICE -->
-      <div class="shop-notice mt-4 p-3 rounded shadow-sm">
-        <strong>Important:</strong>
-        <span class="d-block">
-          Shopping facility is currently <strong>NOT</strong> available on our website.
-          Please place orders via <a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener" class="link-instagram">@dosa.toppings</a>
-          or WhatsApp: <a href="https://wa.me/917200514471" target="_blank" rel="noopener" class="link-whatsapp">+91 72005 14471</a>.
-        </span>
-        <small class="d-block text-muted mt-1">We’re sorry for the inconvenience — thank you for your patience.</small>
-      </div>
+    <!-- decorative floating badges -->
+    <div class="hero-badges">
+      <div class="badge b1">100% Natural</div>
+      <div class="badge b2">No Preservatives</div>
+      <div class="badge b3">Ready-to-Sprinkle</div>
     </div>
   </header>
 
   <main class="mt-5">
 
-    <!-- 3 ICONS -->
+    <!-- COLORS STRIP -->
+    <section class="color-strip d-flex">
+      <div style="background:#176133"></div>
+      <div style="background:#0f7a3f"></div>
+      <div style="background:#ECC046"></div>
+      <div style="background:#F6EAB8"></div>
+    </section>
+
+    <!-- FEATURES ROW -->
     <section class="container py-5">
       <div class="row text-center g-4">
         <div class="col-md-4">
           <div class="feature-card p-4 rounded shadow-sm">
             <div class="feature-emoji">🌿</div>
             <h5 class="mt-3">100% Natural</h5>
-            <p class="text-muted">Made from premium pulses, seeds & spices</p>
+            <p class="text-muted">Premium pulses, seeds & spices.</p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="feature-card p-4 rounded shadow-sm">
             <div class="feature-emoji">⚙️</div>
             <h5 class="mt-3">No Preservatives</h5>
-            <p class="text-muted">Pure taste, sealed freshness</p>
+            <p class="text-muted">Fresh roasted small batches.</p>
           </div>
         </div>
         <div class="col-md-4">
           <div class="feature-card p-4 rounded shadow-sm">
             <div class="feature-emoji">🍽️</div>
             <h5 class="mt-3">Ready-to-Sprinkle</h5>
-            <p class="text-muted">Instant flavour for dosa, idli, rice & snacks</p>
+            <p class="text-muted">Dosa, idli, rice & snacks.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- OUR PROMISE -->
+    <!-- PROMISE / ABOUT SNAP -->
     <section class="bg-gradient py-5">
       <div class="container">
-        <div class="row align-items-center">
+        <div class="row align-items-center g-4">
           <div class="col-lg-6">
             <h2 class="section-title">Our Promise</h2>
-            <p>We believe every meal should taste like home. Our podis are made with love, roasted in small batches, and packed fresh — so your family enjoys authentic flavour every day.</p>
-            <a href="#products" class="btn btn-outline-dark">See Full Flavour List</a>
+            <p>We roast in small batches and pack freshness for home-style taste every day. FSSAI Reg. No: <strong>12425027000407</strong>.</p>
+            <a href="#about" class="btn btn-outline-dark">Read Our Story</a>
           </div>
           <div class="col-lg-6 text-center">
             <img src="assets/hero.jpg" alt="sprinkle podi" class="img-fluid rounded animated-zoom">
@@ -119,376 +121,51 @@
     <section id="about" class="container py-5">
       <div class="row">
         <div class="col-lg-7">
-          <h2>Our Story: Where Tradition Meets Simplicity</h2>
-          <p>Dosa Toppings was born to bring timeless South Indian podi culture into modern kitchens. As life gets busier, we still crave the warmth of home-cooked flavours. That’s why our founder created Dosa Toppings — a range of instant sprinkle podis made from carefully selected ingredients like curry leaves, garlic, flax seed, horse gram, and more.</p>
-          <blockquote class="blockquote ps-3 border-start">
-            “Tradition doesn’t fade — it just finds a new way to fit our lives.”
-          </blockquote>
+          <h2>Our Story</h2>
+          <p>Dosa Toppings was born to bring South Indian podi culture into modern kitchens — traditional, healthy & easy to use.</p>
+          <blockquote class="blockquote ps-3 border-start">“Tradition doesn’t fade — it just finds a new way to fit our lives.”</blockquote>
         </div>
         <div class="col-lg-5">
-          <div class="card border-0 shadow-sm">
-            <div class="card-body">
-              <h6 class="mb-2">Our Vision</h6>
-              <p class="small text-muted">To make traditional South Indian flavours a part of every meal — effortlessly.</p>
-              <h6 class="mb-2">Our Mission</h6>
-              <p class="small text-muted">To blend authentic taste, nutrition, and convenience in every sprinkle, promoting healthier eating through natural ingredients.</p>
-
-              <div class="mt-3 d-flex align-items-center gap-2">
-                <img src="assets/fssai.png" alt="FSSAI" class="fssai">
-                <div><small>FSSAI Reg. No: <strong>12425027000407</strong></small></div>
-              </div>
-            </div>
+          <div class="card border-0 shadow-sm p-3">
+            <div class="small mb-2"><img src="assets/fssai.png" alt="FSSAI" class="fssai me-2"> FSSAI Reg. No: <strong>12425027000407</strong></div>
+            <p class="small text-muted mb-0">Manufactured & Marketed by KKM FOOD FACTORY. Hygienic, tested & sealed.</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PRODUCTS (Flip cards) -->
+    <!-- PRODUCTS: controls -->
     <section id="products" class="py-5">
       <div class="container">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-          <h2>Explore Our Authentic Range</h2>
-          <p class="mb-0 text-muted">Traditional • Health • Fusion • Kids</p>
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3 mb-3">
+          <div>
+            <h2>All Podi Varieties</h2>
+            <p class="mb-0 text-muted">Browse by category or sort the list</p>
+          </div>
+          <div class="d-flex gap-2 align-items-center">
+            <div>
+              <select id="filterCategory" class="form-select">
+                <option value="all">All Categories</option>
+                <option value="Traditional">Traditional</option>
+                <option value="Health">Health</option>
+                <option value="Fusion">Fusion</option>
+                <option value="Kids">Kids</option>
+              </select>
+            </div>
+            <div>
+              <select id="sortBy" class="form-select">
+                <option value="name-asc">Name A → Z</option>
+                <option value="name-desc">Name Z → A</option>
+                <option value="price-asc">Price Low → High</option>
+                <option value="price-desc">Price High → Low</option>
+                <option value="category">Category</option>
+              </select>
+            </div>
+          </div>
         </div>
 
-        <!-- Category labels -->
-        <div class="mb-4">
-          <span class="badge cat-trad me-2">Traditional</span>
-          <span class="badge cat-health me-2">Health</span>
-          <span class="badge cat-fusion me-2">Fusion</span>
-          <span class="badge cat-kids">Kids</span>
-        </div>
-
-        <!-- Flip cards grid -->
-        <div class="row g-4" id="productGrid">
-
-          <!-- TRADITIONAL: Curry Leaves -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front">
-                  <img src="assets/product-curry.jpg" alt="Curry Leaves Podi" class="img-fluid cover">
-                  <div class="card-caption">
-                    <h5>Curry Leaves</h5>
-                    <small class="text-muted">Traditional</small>
-                  </div>
-                </div>
-                <div class="flip-back">
-                  <h6>Curry Leaves Podi</h6>
-                  <p>Fragrant, classic powdered blend to lift dosa, idli and rice. Roasted with care for an authentic aroma.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TRADITIONAL: Garlic -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front">
-                  <img src="assets/product-garlic.jpg" alt="Garlic Podi" class="img-fluid cover">
-                  <div class="card-caption">
-                    <h5>Garlic</h5>
-                    <small class="text-muted">Traditional</small>
-                  </div>
-                </div>
-                <div class="flip-back">
-                  <h6>Garlic Podi</h6>
-                  <p>Savory garlic punch — pairs beautifully with ghee dosa or roasted vegetables.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TRADITIONAL: Idli Dosa -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">Idli</div>
-                  <div class="card-caption"><h5>Idli Dosa</h5><small class="text-muted">Traditional</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Idli Dosa Podi</h6>
-                  <p>Classic seasoning made for idli & dosa — mild, nutty and comforting.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TRADITIONAL: Coriander -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">Cori</div>
-                  <div class="card-caption"><h5>Coriander</h5><small class="text-muted">Traditional</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Coriander Podi</h6>
-                  <p>Fresh, green notes — a lovely twist to everyday dosa and rice bowls.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TRADITIONAL: Tamarind Rice Podi -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">T-R</div>
-                  <div class="card-caption"><h5>Tamarind Rice</h5><small class="text-muted">Traditional</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Tamarind Rice Podi</h6>
-                  <p>Sour-sweet spice mix inspired by tamarind rice flavours — tangy & bright.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- HEALTH: Flax Seed -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front">
-                  <img src="assets/product-flax.jpg" alt="Flax Seed Podi" class="img-fluid cover">
-                  <div class="card-caption"><h5>Flax Seed</h5><small class="text-muted">Health</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Flax Seed Podi</h6>
-                  <p>Rich in Omega-3 & fiber — crunchy, nutty podi that boosts heart health and flavour.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- HEALTH: Horse Gram -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">HG</div>
-                  <div class="card-caption"><h5>Horse Gram</h5><small class="text-muted">Health</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Horse Gram Podi</h6>
-                  <p>Protein-rich and earthy — developed for nourishment and hearty flavour.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- HEALTH: Moringa -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">Mor</div>
-                  <div class="card-caption"><h5>Moringa</h5><small class="text-muted">Health</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Moringa Podi</h6>
-                  <p>Supergreen nutrition in a sprinkle — earthy and nutritious.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- HEALTH: Sesame -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">Ses</div>
-                  <div class="card-caption"><h5>Sesame</h5><small class="text-muted">Health</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Sesame Podi</h6>
-                  <p>Nutty, fragrant sesame to add crunch and calcium to meals.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- HEALTH: Protein Mix -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">PrM</div>
-                  <div class="card-caption"><h5>Protein Mix</h5><small class="text-muted">Health</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Protein Mix Podi</h6>
-                  <p>Pulse-forward blend designed for extra protein in every sprinkle.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FUSION: Pepper Garlic -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">PG</div>
-                  <div class="card-caption"><h5>Pepper Garlic</h5><small class="text-muted">Fusion</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Pepper Garlic</h6>
-                  <p>Bold pepper and roasted garlic, great on millet & savory pancakes.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FUSION: Spicy Millet -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">SM</div>
-                  <div class="card-caption"><h5>Spicy Millet</h5><small class="text-muted">Fusion</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Spicy Millet</h6>
-                  <p>Millet-forward podi with chilli & herbs — modern and nutritious.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FUSION: Herb Chilli -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">HC</div>
-                  <div class="card-caption"><h5>Herb Chilli</h5><small class="text-muted">Fusion</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Herb Chilli</h6>
-                  <p>Aromatic herbs meet gentle chilli — perfect for fusion dishes and salads.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FUSION: Lentil Mix -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">LM</div>
-                  <div class="card-caption"><h5>Lentil Mix</h5><small class="text-muted">Fusion</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Lentil Mix</h6>
-                  <p>Protein-rich lentil blend with warm spices — filling and flavorful.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- FUSION: Tomato Burst -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">TB</div>
-                  <div class="card-caption"><h5>Tomato Burst</h5><small class="text-muted">Fusion</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Tomato Burst</h6>
-                  <p>Tangy tomato notes for a bright, modern flavor on toast, dosa or rice.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- KIDS: Choco Nut -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">CN</div>
-                  <div class="card-caption"><h5>Choco Nut</h5><small class="text-muted">Kids</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Choco Nut</h6>
-                  <p>Sweet cocoa-nut mix kids love — nutritious and tasty on pancakes or dosa.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- KIDS: Sweet Protein Mix -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">SP</div>
-                  <div class="card-caption"><h5>Sweet Protein Mix</h5><small class="text-muted">Kids</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Sweet Protein Mix</h6>
-                  <p>Mildly sweet, protein-rich blend made for children’s palates.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- KIDS: Mild Garlic -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">MG</div>
-                  <div class="card-caption"><h5>Mild Garlic</h5><small class="text-muted">Kids</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Mild Garlic</h6>
-                  <p>Gentle garlic flavor tuned for younger taste buds.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- KIDS: Peanut Crunch -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">PC</div>
-                  <div class="card-caption"><h5>Peanut Crunch</h5><small class="text-muted">Kids</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Peanut Crunch</h6>
-                  <p>Crispy peanuts and mild spices — a favourite for little ones.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- KIDS: Sprout Mix -->
-          <div class="col-sm-6 col-md-4 col-lg-3">
-            <div class="flip-card">
-              <div class="flip-inner">
-                <div class="flip-front no-image">
-                  <div class="placeholder-initials">SMx</div>
-                  <div class="card-caption"><h5>Sprout Mix</h5><small class="text-muted">Kids</small></div>
-                </div>
-                <div class="flip-back">
-                  <h6>Sprout Mix</h6>
-                  <p>Sprout-based mix to sneak in extra nutrition for kids.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+        <!-- product grid (rendered by JS) -->
+        <div id="productGrid" class="row g-4"></div>
       </div>
     </section>
 
@@ -497,14 +174,14 @@
       <div class="container">
         <div class="row g-4 align-items-center">
           <div class="col-md-6">
-            <h3>Sprinkle. Mix. Enjoy.</h3>
+            <h3>How to Use</h3>
             <ol class="how-list">
-              <li><strong>Shake the bottle</strong> — loosen the podi.</li>
-              <li><strong>Sprinkle</strong> over dosa, idli, rice or salads.</li>
-              <li><strong>Mix</strong> with ghee or sesame oil for a paste.</li>
-              <li><strong>Enjoy</strong> authentic South Indian flavour instantly.</li>
+              <li>Shake the bottle.</li>
+              <li>Sprinkle on dosa, idli, rice, or salads.</li>
+              <li>Mix with ghee or oil for a paste.</li>
+              <li>Enjoy instant authentic flavour.</li>
             </ol>
-            <p class="small text-muted">Bonus: Try it on popcorn, toast, noodles or salads.</p>
+            <p class="small text-muted">Try on popcorn, toast or noodles for a twist.</p>
           </div>
           <div class="col-md-6 text-center">
             <img src="assets/howto.jpg" alt="how to use" class="img-fluid rounded animated-float">
@@ -521,110 +198,58 @@
           <div class="col-md-4">
             <div class="combo-card p-4 rounded shadow-sm">
               <h5>Classic South Combo</h5>
-              <p class="small text-muted mb-3">Curry Leaves + Garlic + Idli Dosa</p>
-              <div class="price-block">
-                <small class="text-muted text-decoration-line-through">₹240</small>
-                <div class="price-now">₹199</div>
-              </div>
-              <p class="small text-muted mt-2">Ordering via WhatsApp / Instagram while online shop is unavailable.</p>
+              <p class="small text-muted">Curry Leaves + Garlic + Idli Dosa</p>
+              <div class="price-block"><small class="text-muted text-decoration-line-through">₹240</small><div class="price-now">₹199</div></div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="combo-card p-4 rounded shadow-sm">
               <h5>Health Combo</h5>
-              <p class="small text-muted mb-3">Flax Seed + Horse Gram + Moringa</p>
-              <div class="price-block">
-                <small class="text-muted text-decoration-line-through">₹270</small>
-                <div class="price-now">₹220</div>
-              </div>
-              <p class="small text-muted mt-2">DM us on Instagram to order.</p>
+              <p class="small text-muted">Flax Seed + Horse Gram + Moringa</p>
+              <div class="price-block"><small class="text-muted text-decoration-line-through">₹270</small><div class="price-now">₹220</div></div>
             </div>
           </div>
           <div class="col-md-4">
             <div class="combo-card p-4 rounded shadow-sm">
               <h5>Kids Combo</h5>
-              <p class="small text-muted mb-3">Choco Nut + Protein Power + Sweet Mix</p>
-              <div class="price-block">
-                <small class="text-muted text-decoration-line-through">₹250</small>
-                <div class="price-now">₹210</div>
-              </div>
-              <p class="small text-muted mt-2">Order via WhatsApp for fastest response.</p>
+              <p class="small text-muted">Choco Nut + Protein Power + Sweet Mix</p>
+              <div class="price-block"><small class="text-muted text-decoration-line-through">₹250</small><div class="price-now">₹210</div></div>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- PRODUCTION & QUALITY -->
+    <!-- PRODUCTION & QUALITY (short) -->
     <section class="bg-white py-5">
       <div class="container">
-        <h3>Our Production Promise</h3>
-        <p class="small text-muted">Our facility follows strict hygiene and FSSAI-approved food safety standards. We use HDPE bins for ingredient storage, food-grade PET bottles, and nitrogen-sealed pouches for bulk packaging — keeping every podi safe from moisture. Each product is tested for quality, taste, and shelf stability.</p>
-      </div>
-    </section>
-
-    <!-- CONTACT -->
-    <section id="contact" class="py-5 bg-gradient-light">
-      <div class="container">
-        <h3>Let’s Stay Connected!</h3>
-        <div class="row g-4 mt-3">
-          <div class="col-md-6">
-            <div class="contact-card p-4 rounded shadow-sm">
-              <h5>Contact & Order</h5>
-              <p class="mb-1"><strong>WhatsApp / Mobile:</strong> <a href="https://wa.me/917200514471" target="_blank">+91 72005 14471</a></p>
-              <p class="mb-1"><strong>Email:</strong> <a href="mailto:kkmhealthyeats4u@gmail.com">kkmhealthyeats4u@gmail.com</a></p>
-              <p class="mb-1"><strong>Instagram:</strong> <a href="https://instagram.com/dosa.toppings" target="_blank">@dosa.toppings</a></p>
-
-              <hr>
-
-              <h6 class="mb-1">Manufactured and Marketed By</h6>
-              <address class="small mb-0">
-                KKM FOOD FACTORY<br>
-                2/146/1, KARUKKANKATTUPUDUR, AVINASHI, TIRUPPUR<br>
-                TAMIL NADU - 641654
-              </address>
-
-              <div class="mt-3 d-flex gap-2">
-                <a class="btn btn-whatsapp" href="https://wa.me/917200514471" target="_blank">Message on WhatsApp</a>
-                <a class="btn btn-instagram" href="https://instagram.com/dosa.toppings" target="_blank">Visit Instagram</a>
-              </div>
-            </div>
-          </div>
-
-          <div class="col-md-6">
-            <form id="contactForm" class="p-4 rounded shadow-sm bg-white">
-              <div class="mb-3">
-                <label class="form-label">Name</label>
-                <input class="form-control" name="name" required>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input class="form-control" type="email" name="email" required>
-              </div>
-              <div class="mb-3">
-                <label class="form-label">Message</label>
-                <textarea class="form-control" rows="4" name="message"></textarea>
-              </div>
-              <button class="btn btn-cta" type="submit">Send Message</button>
-            </form>
-          </div>
-        </div>
+        <h3>Production & Quality</h3>
+        <p class="small text-muted">FSSAI-approved process. Food-grade packaging & batch testing for taste & shelf stability.</p>
       </div>
     </section>
 
   </main>
 
   <!-- FOOTER -->
-  <footer class="py-4 footer-dark">
-    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-3">
+  <footer id="footer" class="py-4 footer-dark">
+    <div class="container d-flex flex-column flex-md-row justify-content-between gap-3 align-items-start">
       <div>
-        <small>© 2025 DOSA TOPPINGS — Manufactured & Marketed by KKM FOOD FACTORY</small><br>
-        <small>Site: DOSATOPPINGS.IN</small>
+        <strong>Contact & Order</strong><br>
+        WhatsApp / Mobile: +91 72005 14471<br>
+        Email: kkmhealthyeats4u@gmail.com<br>
+        Instagram: @dosa.toppings
       </div>
-      <div class="d-flex align-items-center gap-3">
-        <a href="#home" class="text-muted">Home</a>
-        <a href="#products" class="text-muted">Products</a>
-        <a href="#contact" class="text-muted">Contact</a>
+
+      <div>
+        <strong>Manufactured and Marketed By</strong><br>
+        KKM FOOD FACTORY<br>
+        2/146/1, KARUKKANKATTUPUDUR, AVINASHI, TIRUPPUR<br>
+        TAMIL NADU - 641654
+      </div>
+
+      <div class="text-end">
+        <small>© 2025 DOSA TOPPINGS — DOSATOPPINGS.IN</small><br>
+        <small>FSSAI Reg. No: 12425027000407</small>
       </div>
     </div>
   </footer>
