@@ -147,7 +147,7 @@ header#home, .hero, section {
   }
 }
 
-/* DESKTOP / LAPTOP */
+/* DESKTOP */
 @media (min-width: 1200px) {
   .hero {
     background-image: url('../assets/hero-desktop.png');
