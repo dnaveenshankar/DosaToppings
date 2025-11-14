@@ -1,0 +1,112 @@
+:root{
+  --green-dark: #176133;
+  --gold: #ECC046;
+  --pale: #F6EAB8;
+  --font-main: 'Baloo 2', system-ui, sans-serif;
+  --glass: rgba(255,255,255,0.7);
+}
+
+/* Base */
+*{box-sizing:border-box}
+body{
+  font-family:var(--font-main);
+  background: linear-gradient(180deg,#fff,#fffaf0);
+  color:#122;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* NAV */
+.navbar { z-index: 999; }
+.logo{ width:56px; height:56px; border-radius:12px; object-fit:cover; border:3px solid rgba(0,0,0,0.06); }
+.brand-name{ color:var(--green-dark); font-weight:800; letter-spacing:0.6px; }
+
+/* HERO */
+.hero{
+  margin-top:70px;
+  min-height:520px;
+  background: linear-gradient(180deg, rgba(23,97,51,0.78), rgba(236,192,70,0.06)), url('../assets/hero.jpg') center/cover no-repeat;
+  display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+}
+.hero-title{ font-size:2.2rem; color:#fff; text-shadow:0 6px 18px rgba(0,0,0,0.28); }
+.hero-sub, .hero-small{ color: #fff; opacity:0.95 }
+.btn-cta{ background:var(--gold); color:var(--green-dark); border:none; font-weight:700; box-shadow:0 6px 20px rgba(23,97,51,0.12); }
+
+/* SHOP NOTICE */
+.shop-notice{
+  max-width:720px;
+  margin:18px auto 0;
+  background:rgba(255,255,255,0.12);
+  border-radius:12px;
+  border:1px solid rgba(255,255,255,0.08);
+  padding:12px 18px;
+  backdrop-filter: blur(4px);
+  animation: floatUp 900ms ease-out;
+}
+.link-whatsapp{ color:#fff; font-weight:700; text-decoration:underline; }
+.link-instagram{ color:#fff; font-weight:700; text-decoration:underline; }
+
+/* Features */
+.feature-card{ background:linear-gradient(180deg, #fff, var(--pale)); border-radius:12px; border:1px solid rgba(0,0,0,0.04); }
+.feature-emoji{ font-size:36px; }
+.feature-card h5{ color:var(--green-dark); }
+
+/* Section headings */
+.section-title{ color:var(--green-dark); font-weight:700; }
+
+/* People images */
+.animated-zoom{ animation: zoomIn 900ms ease both; }
+
+/* Flip card grid */
+.flip-card{ perspective:1200px; height:320px; }
+.flip-inner{ position:relative; width:100%; height:100%; transition: transform 700ms cubic-bezier(.2,.9,.2,1); transform-style:preserve-3d; border-radius:12px; box-shadow:0 10px 28px rgba(16,24,32,0.08); }
+.flip-card:hover .flip-inner,
+.flip-card:focus-within .flip-inner { transform: rotateY(180deg); }
+
+/* Mobile tap support: toggle on click */
+.flip-card.active .flip-inner { transform: rotateY(180deg); }
+
+.flip-front, .flip-back{
+  position:absolute; inset:0; backface-visibility:hidden; border-radius:12px; overflow:hidden;
+}
+.flip-front{ background:linear-gradient(180deg,#fff,var(--pale)); display:flex; flex-direction:column; justify-content:flex-end; align-items:start; padding:0; }
+.flip-front .cover{ width:100%; height:70%; object-fit:cover; display:block; }
+.card-caption{ padding:10px 12px; background:linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.9)); width:100%; }
+.flip-back{ background: linear-gradient(180deg, var(--gold), #fff); color:var(--green-dark); transform: rotateY(180deg); padding:18px; display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
+
+/* No-image placeholders */
+.no-image{ display:flex; align-items:center; justify-content:center; background:linear-gradient(180deg, var(--pale), #fff); }
+.placeholder-initials{ width:100%; height:70%; display:flex; align-items:center; justify-content:center; font-size:28px; font-weight:800; color:var(--green-dark); }
+
+/* Cards & combos */
+.combo-card{ background:linear-gradient(180deg,#fff,var(--pale)); border-radius:12px; }
+.price-block .price-now{ color:var(--green-dark); font-weight:800; font-size:1.3rem; }
+
+/* badgers */
+.cat-trad{ background:var(--green-dark); color:#fff; padding:8px 12px; border-radius:999px; }
+.cat-health{ background:#2e9b5d; color:#fff; padding:8px 12px; border-radius:999px; }
+.cat-fusion{ background:var(--gold); color:var(--green-dark); padding:8px 12px; border-radius:999px; }
+.cat-kids{ background:#f08e2b; color:#fff; padding:8px 12px; border-radius:999px; }
+
+/* contact / buttons */
+.btn-whatsapp{ background:#25D366; color:#fff; border:none; }
+.btn-instagram{ background:linear-gradient(45deg,#f58529,#dd2a7b,#8134af); color:#fff; border:none; }
+
+/* footer */
+.footer-dark{ background:linear-gradient(90deg,var(--green-dark), #0f4f2f); color:#fff; }
+
+/* small animations */
+@keyframes zoomIn { from { transform: scale(.96); opacity:0 } to { transform: scale(1); opacity:1 } }
+@keyframes floatUp { from { transform: translateY(8px); opacity:0 } to { transform: translateY(0); opacity:1 } }
+.animated-float { animation: float 3s ease-in-out infinite; }
+@keyframes float { 0%{ transform:translateY(0) }50%{ transform:translateY(-8px) }100%{ transform:translateY(0) } }
+
+/* Responsive tweaks */
+@media (max-width: 767px){
+  .hero{ min-height:420px; background-position: center 30%; }
+  .flip-card{ height:300px; }
+  .card-caption h5{ font-size:1rem; }
+}
+
+/* accessibility focus */
+.flip-card:focus-within { outline: 3px solid rgba(23,97,51,0.12); border-radius:12px; }
