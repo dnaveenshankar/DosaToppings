@@ -1,5 +1,7 @@
 /* script/main.js
    Complete site JS for Dosa Toppings
+   - Mandatory 3s preloader
+   - Preloader hide + removal
    - Product rendering + filtering + flip behavior
    - IntersectionObserver for section highlight & reveal
    - Smooth anchors (respect fixed nav)
@@ -9,6 +11,41 @@
 
 (function () {
   'use strict';
+
+  /* -------------------------
+     Config: preloader minimum display
+     ------------------------- */
+  const MIN_PRELOADER_MS = 3000; // mandatory minimum time (ms)
+  const PRELOADER_REMOVE_DELAY = 600; // allow CSS fade before removing node
+
+  /* -------------------------
+     DOM nodes (selected early)
+     ------------------------- */
+  const preloader = document.getElementById('preloader');
+  const productGrid = document.getElementById('productGrid');
+  const filterCategory = document.getElementById('filterCategory');
+  const sortBy = document.getElementById('sortBy');
+  const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
+  const sections = document.querySelectorAll('main section, header#home');
+  const siteNav = document.querySelector('.site-nav');
+  const goTop = document.getElementById('goTop');
+
+  /* -------------------------
+     Track start time (when DOM started loading)
+     We prefer DOMContentLoaded as the start marker; if DOMContentLoaded already fired,
+     we fall back to script execution time.
+     ------------------------- */
+  let _startTs = Date.now();
+  if (document.readyState === 'loading') {
+    // DOM hasn't finished parsing yet — mark start when DOMContentLoaded fires
+    document.addEventListener('DOMContentLoaded', function onDom() {
+      _startTs = Date.now();
+      document.removeEventListener('DOMContentLoaded', onDom);
+    });
+  } else {
+    // DOM already parsed; use now
+    _startTs = Date.now();
+  }
 
   /* -------------------------
      Product dataset
@@ -44,16 +81,6 @@
   ];
 
   /* -------------------------
-     DOM nodes
-     ------------------------- */
-  const productGrid = document.getElementById('productGrid');
-  const filterCategory = document.getElementById('filterCategory');
-  const sortBy = document.getElementById('sortBy');
-  const navLinks = document.querySelectorAll('.navbar-nav .nav-link');
-  const sections = document.querySelectorAll('main section, header#home');
-  const siteNav = document.querySelector('.site-nav');
-
-  /* -------------------------
      Helpers
      ------------------------- */
   function escapeHtml(str){
@@ -62,16 +89,8 @@
     });
   }
 
-  function escapeInitials(name){
-    if(!name) return '';
-    const parts = name.trim().split(' ');
-    if(parts.length === 1) return parts[0].slice(0,3).toUpperCase();
-    return (parts[0][0] + (parts[1] ? parts[1][0] : '')).toUpperCase();
-  }
-
   /* -------------------------
-     Render products (uses sample.png for now)
-     - includes product-specific benefits via featuresMap
+     Render products
      ------------------------- */
   function renderProducts(list) {
     if(!productGrid) return;
@@ -90,19 +109,16 @@
       3: ['Classic idli seasoning', 'Light & nutty', 'Family favourite'],
       4: ['Bright coriander notes', 'Freshens rice & dosa', 'Roasted for depth'],
       5: ['Tamarind tang & spice', 'Sour-sweet balance', 'Great with rice'],
-
       6: ['Omega-3 rich crunch', 'Boosts heart health', 'Nutty texture'],
       7: ['High-protein podi', 'Earthy roasted flavour', 'Satiety boosting'],
       8: ['Moringa goodness', 'Vitamin-rich sprinkle', 'Mild green taste'],
       9: ['Toasted sesame crunch', 'Good calcium source', 'Adds texture'],
       10:['Pulse-forward protein mix', 'Balanced spice profile', 'Meal-ready nutrition'],
-
       11:['Peppery heat & garlic', 'Works on millet dosa', 'Bold flavour'],
       12:['Millet-friendly spice', 'Slight smoky notes', 'Great with porridge/pancakes'],
       13:['Herbal aroma & mild chilli', 'Versatile use', 'Subtle heat'],
       14:['Lentil-based protein', 'Creamy roasted texture', 'Nutritious sprinkle'],
       15:['Tomato tang & brightness', 'Kid-friendly', 'Adds color & zing'],
-
       16:['Choco-nut sweetness', 'Kid-approved flavour', 'Great on pancakes'],
       17:['Mild sweet protein', 'Energy-packed', 'Mixes well with milk/yogurt'],
       18:['Gentle garlic flavor', 'Kid-friendly spice', 'Mild & tasty'],
@@ -160,7 +176,6 @@
             card.classList.toggle('active');
             const back = card.querySelector('.flip-back');
             if(back) back.setAttribute('aria-hidden', card.classList.contains('active') ? 'false' : 'true');
-            // auto-close after 6s
             setTimeout(()=> card.classList.remove('active'), 6000);
           }
         });
@@ -195,15 +210,9 @@
     });
   }
 
-  // initial render
-  renderProducts(products);
-
   /* -------------------------
      Filtering & Sorting
      ------------------------- */
-  if(filterCategory) filterCategory.addEventListener('change', applyFilters);
-  if(sortBy) sortBy.addEventListener('change', applyFilters);
-
   function applyFilters() {
     const cat = filterCategory ? filterCategory.value : 'all';
     let list = products.slice();
@@ -220,86 +229,86 @@
     renderProducts(list);
   }
 
+  if(filterCategory) filterCategory.addEventListener('change', applyFilters);
+  if(sortBy) sortBy.addEventListener('change', applyFilters);
+
   /* -------------------------
      IntersectionObserver: section highlight + reveal
      ------------------------- */
-  try {
-    const idToNav = {};
-    navLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if(href && href.startsWith('#')) idToNav[href.slice(1)] = link;
-    });
+  function setupSectionObserver(){
+    try {
+      const idToNav = {};
+      navLinks.forEach(link => {
+        const href = link.getAttribute('href');
+        if(href && href.startsWith('#')) idToNav[href.slice(1)] = link;
+      });
 
-    const ioOptions = { root: null, rootMargin: '0px 0px -30% 0px', threshold: 0.15 };
+      const ioOptions = { root: null, rootMargin: '0px 0px -30% 0px', threshold: 0.15 };
 
-    const sectionObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        const id = entry.target && entry.target.id;
-        if(entry.isIntersecting){
-          // highlight nav
-          Object.values(idToNav).forEach(nl => nl.classList.remove('active'));
-          if(id && idToNav[id]) idToNav[id].classList.add('active');
+      const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = entry.target && entry.target.id;
+          if(entry.isIntersecting){
+            // highlight nav
+            Object.values(idToNav).forEach(nl => nl.classList.remove('active'));
+            if(id && idToNav[id]) idToNav[id].classList.add('active');
 
-          // reveal animated children
-          entry.target.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
+            // reveal animated children
+            entry.target.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
+          }
+        });
+      }, ioOptions);
+
+      sections.forEach(sec => {
+        if(sec) sectionObserver.observe(sec);
+        if(sec){
+          sec.querySelectorAll('h2, h3, p, .feature-card, .combo-card, .flip-card, img').forEach(el => {
+            if(!el.classList.contains('fade-in-up')) el.classList.add('fade-in-up');
+          });
         }
       });
-    }, ioOptions);
-
-    sections.forEach(sec => {
-      if(sec) sectionObserver.observe(sec);
-      // ensure common children have fade-in-up for reveal
-      if(sec){
-        sec.querySelectorAll('h2, h3, p, .feature-card, .combo-card, .flip-card, img').forEach(el => {
-          if(!el.classList.contains('fade-in-up')) el.classList.add('fade-in-up');
-        });
-      }
-    });
-  } catch (err) {
-    // IntersectionObserver may not be available; fail gracefully
-    // console.warn('Section observer error', err);
+    } catch (err) {
+      console.warn('Section observer error', err);
+    }
   }
 
   /* -------------------------
      Smooth anchors (respect nav height)
      ------------------------- */
-  document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-    anchor.addEventListener('click', function (e) {
-      const href = this.getAttribute('href');
-      if (href && href.length > 1 && document.querySelector(href)) {
-        e.preventDefault();
-        const target = document.querySelector(href);
-        // measure nav height dynamically
-        const navEl = document.querySelector('.site-nav');
-        const navHeight = (navEl && navEl.offsetHeight) ? navEl.offsetHeight : (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 80);
-        const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
+  function setupAnchors(){
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href && href.length > 1 && document.querySelector(href)) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          const navEl = document.querySelector('.site-nav');
+          const navHeight = (navEl && navEl.offsetHeight) ? navEl.offsetHeight : (parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 80);
+          const top = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 12;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
     });
-  });
+  }
 
   /* -------------------------
      Footer reveal + Go-top
      ------------------------- */
-  (function footerAndGoTop() {
+  function footerAndGoTop() {
     const footer = document.getElementById('footer');
-    const goTop = document.getElementById('goTop');
-    if(!footer || !goTop) return;
+    const goTopEl = document.getElementById('goTop');
+    if(!footer || !goTopEl) return;
 
-    // detect touch devices to avoid hover logic
     const isTouch = (('ontouchstart' in window) || navigator.maxTouchPoints > 1);
-
-    // ensure hidden initially
-    goTop.classList.remove('show');
+    goTopEl.classList.remove('show');
 
     if(!isTouch){
-      footer.addEventListener('mouseenter', () => goTop.classList.add('show'));
-      footer.addEventListener('mouseleave', () => goTop.classList.remove('show'));
+      footer.addEventListener('mouseenter', () => goTopEl.classList.add('show'));
+      footer.addEventListener('mouseleave', () => goTopEl.classList.remove('show'));
     }
 
-    goTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    goTopEl.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-    // reveal footer children with observer
     if ('IntersectionObserver' in window) {
       const obs = new IntersectionObserver((entries, ob) => {
         entries.forEach(entry => {
@@ -314,12 +323,12 @@
     } else {
       footer.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
     }
-  })();
+  }
 
   /* -------------------------
      Runtime navbar-height sync
      ------------------------- */
-  (function syncNavHeight(){
+  function syncNavHeight(){
     const navSelector = '.site-nav';
     const nav = document.querySelector(navSelector);
     if(!nav) return;
@@ -331,7 +340,6 @@
       const h = Math.ceil(rect.height) || 72;
       document.documentElement.style.setProperty('--nav-height', h + 'px');
 
-      // inline fallback on main
       document.querySelectorAll('main').forEach(m => {
         if(m && m.style) m.style.paddingTop = `calc(${h}px + 6px)`;
       });
@@ -351,7 +359,6 @@
 
     window.addEventListener('orientationchange', () => { setTimeout(setNavVar, 180); }, { passive:true });
 
-    // update after toggling navbar collapse (Bootstrap)
     document.querySelectorAll('.navbar-toggler, .navbar-collapse, .navbar-toggler-icon').forEach(btn => {
       btn.addEventListener('click', () => setTimeout(setNavVar, 220));
     });
@@ -361,8 +368,64 @@
       ro.observe(nav);
     }
 
-    // initial run
     setNavVar();
-  })();
+  }
 
-})(); // end IIFE
+  /* -------------------------
+     Initialize everything (render + observers + anchors)
+     This function is called only AFTER the preloader minimum time has elapsed
+     and after the window load event.
+     ------------------------- */
+  function initAfterLoad(){
+    try {
+      // ensure loaded class is present for CSS to hide spinner
+      document.body.classList.add('loaded');
+
+      if(preloader){
+        try { preloader.setAttribute('aria-hidden', 'true'); } catch(e){/*ignore*/}
+
+        // remove preloader node after a short delay to allow CSS fade-out
+        setTimeout(()=> {
+          if(preloader && preloader.parentNode) preloader.parentNode.removeChild(preloader);
+        }, PRELOADER_REMOVE_DELAY);
+      }
+    } catch (e) { /* ignore errors */ }
+
+    // initial rendering of products
+    renderProducts(products);
+
+    // setup observers, anchors, footer behaviour and nav sync
+    setupSectionObserver();
+    setupAnchors();
+    footerAndGoTop();
+    syncNavHeight();
+  }
+
+  /* -------------------------
+     Window load handler with enforced minimum preloader time
+     ------------------------- */
+  function onWindowLoadEnforcePreloader() {
+    const now = Date.now();
+    const elapsed = Math.max(0, now - _startTs);
+    const remaining = Math.max(0, MIN_PRELOADER_MS - elapsed);
+
+    // Wait remaining milliseconds (if any), then initialize and hide preloader
+    setTimeout(() => {
+      initAfterLoad();
+    }, remaining);
+  }
+
+  /* -------------------------
+     Attach load event (robust if load already fired)
+     ------------------------- */
+  if (document.readyState === 'complete') {
+    // page already loaded — still enforce minimum display based on our _startTs
+    onWindowLoadEnforcePreloader();
+  } else {
+    window.addEventListener('load', function onLoad() {
+      window.removeEventListener('load', onLoad);
+      onWindowLoadEnforcePreloader();
+    }, { passive: true });
+  }
+
+})();
