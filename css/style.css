@@ -439,7 +439,7 @@ header#home, .hero, section { scroll-margin-top: calc(var(--nav-height, 72px) + 
    FOOTER
    =============================== */
 .footer-green {
-  background: var(--footer-bg); /* same as navbar */
+  background: var(--footer-bg);
   color: var(--white);
   padding-top: 40px;
   padding-bottom: 30px;
