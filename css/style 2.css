@@ -1,5 +1,5 @@
 /* ==================================================
-   DOSA TOPPINGS — style.css (brand-centered: Turmeric nav/footer)
+   DOSA TOPPINGS — style.css
    ================================================== */
 
 /* ==============
@@ -12,25 +12,34 @@
    ========================= */
 :root {
   /* Primary brand */
-  --turmeric: #DFAF2B;          /* Main brand yellow (nav/footer) */
-  --turmeric-700: #c89320;      /* darker turmeric for overlays */
-  --curry-green: #244A31;       /* Deep curry leaves green (contrast/opposite) */
-  --curry-green-700: #1e3f28;   /* darker green */
-  --roasted-brown: #6A3E21;     /* Rich roasted brown */
-  --chilli-red: #B8392B;        /* Accent spicy red */
+  --turmeric: #DFAF2B;
+  /* Earthy Turmeric Yellow */
+  --curry-green: #2F5D3E;
+  /* Deep Curry Leaves Green */
+  --roasted-brown: #7A4E2D;
+  /* Roasted Brown */
+  --chilli-red: #C34231;
+  /* Chilli Red */
 
   /* Secondary / accents */
-  --warm-orange: #E36900;       /* CTA warm accent */
-  --candy-blue: #43B7EB;        /* playful/child-targeted accent */
-  --bubblegum-pink: #F56AAE;    /* secondary playful accent */
-  --leaf-green: #94D97A;        /* health / freshness */
-  --dark-spice-brown: #3F2414;  /* primary body text (warmer than black) */
+  --warm-orange: #FF7A00;
+  /* CTA complement */
+  --candy-blue: #4FC3F7;
+  /* Kids primary */
+  --bubblegum-pink: #FF7FBF;
+  /* Kids secondary */
+  --leaf-green: #A5E887;
+  /* Health highlight */
+  --dark-spice-brown: #4A2C1A;
+  /* Footer / border support */
 
-  /* Backgrounds tuned to turmeric family */
-  --bg-main: #FFF6E3;           /* very light turmeric tint (page background) */
-  --bg-alt: #FFF1D0;            /* alternate sections (deeper warm beige) */
-  --panel-bg: #FFF8EC;          /* cards / surfaces (subtle) */
-  --footer-bg: var(--turmeric); /* footer & navbar primary color */
+  /* Backgrounds */
+  --bg-main: #FFF7E9;
+  /* Main background */
+  --bg-alt: #FAF3DF;
+  /* Section alternate */
+  --footer-bg: #DFAF2B;
+  /* Footer & navbar background*/
 
   /* Typography */
   --font-heading: 'Playfair Display', Georgia, serif;
@@ -38,10 +47,12 @@
   --font-label: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   --font-kids: 'Poppins', 'Baloo 2', 'Fredoka One', cursive;
 
-  /* layout & misc */
+  /* measured navbar height will be written to this by JS; fallback used if JS not present */
   --nav-height: 72px;
+
+  /* neutrals & misc */
   --white: #FFFFFF;
-  --muted: rgba(63, 36, 20, 0.44); /* warm muted using dark-spice-brown */
+  --muted: rgba(0, 0, 0, 0.44);
   --shadow-1: 0 6px 18px rgba(16, 24, 32, 0.08);
   --shadow-2: 0 12px 34px rgba(16, 24, 32, 0.12);
   --radius-md: 14px;
@@ -69,7 +80,7 @@ body {
   font-family: var(--font-body);
   margin: 0;
   background: linear-gradient(180deg, var(--bg-main), var(--bg-alt));
-  color: var(--dark-spice-brown);
+  color: rgba(0, 0, 0, 0.86);
   -webkit-text-size-adjust: 100%;
   -ms-text-size-adjust: 100%;
   line-height: 1.6;
@@ -106,7 +117,7 @@ a:focus {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(180deg, rgba(36, 46, 38, 0.96), rgba(36, 46, 38, 0.88));
+  background: linear-gradient(180deg, rgba(47, 43, 40, 0.95), rgba(47, 43, 40, 0.88));
   color: var(--white);
   transition: opacity .42s var(--ease-fast), visibility .42s var(--ease-fast);
   visibility: visible;
@@ -142,7 +153,6 @@ a:focus {
   position: relative;
   display: inline-block;
 
-  /* use tokens so the spinner always matches the brand */
   background: conic-gradient(var(--turmeric) 0deg 120deg,
       var(--roasted-brown) 120deg 240deg,
       var(--chilli-red) 240deg 360deg);
@@ -219,6 +229,7 @@ body.loaded #preloader {
   pointer-events: none;
 }
 
+
 /* =========================
    NAVBAR
    ========================= */
@@ -289,7 +300,7 @@ body.loaded #preloader {
   bottom: -6px;
   width: 56%;
   height: 3px;
-  background: var(--white);
+  background: var(--turmeric);
   border-radius: 6px;
   transition: transform .32s var(--ease-fast);
   transform-origin: center;
@@ -339,16 +350,6 @@ section {
   color: var(--white);
 }
 
-/* warm overlay to improve readability */
-.hero::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(180deg, rgba(36,58,41,0.28), rgba(223,175,43,0.12));
-  mix-blend-mode: multiply;
-}
-
 @media (min-width:768px) {
   .hero {
     background-image: url('../assets/hero-tablet.png');
@@ -373,8 +374,8 @@ section {
 .hero-title {
   font-family: var(--font-heading);
   font-size: 2.8rem;
-  color: var(--white) !important;
-  text-shadow: 0 10px 36px rgba(0, 0, 0, 0.42);
+  color: #FAF3DF;
+  text-shadow: 0 10px 36px rgba(0, 0, 0, 0.14);
   font-weight: 900;
   letter-spacing: 0.4px;
   text-align: center;
@@ -387,7 +388,7 @@ section {
   margin-top: 8px;
   text-align: center;
   max-width: 820px;
-  color: rgba(255, 255, 255, 0.92);
+  color: rgba(0, 0, 0, 0.78);
 }
 
 .btn-cta {
@@ -400,7 +401,6 @@ section {
   border-radius: 12px;
   box-shadow: var(--shadow-2);
 }
-.btn-cta:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(16,24,32,0.14); }
 
 /* color strip (strap) — uses tokens so preloader & strap match visually */
 .color-strip {
@@ -421,11 +421,11 @@ section {
 }
 
 .color-strip .c-2 {
-  background: linear-gradient(90deg, var(--roasted-brown), rgba(106, 62, 33, 0.9));
+  background: linear-gradient(90deg, var(--roasted-brown), rgba(122, 78, 45, 0.9));
 }
 
 .color-strip .c-3 {
-  background: linear-gradient(90deg, var(--chilli-red), rgba(184, 57, 43, 0.9));
+  background: linear-gradient(90deg, var(--chilli-red), rgba(195, 66, 49, 0.9));
 }
 
 .color-strip .c-4 {
@@ -436,9 +436,9 @@ section {
    FEATURE CARDS
    ========================= */
 .feature-card {
-  background: linear-gradient(180deg, var(--panel-bg), var(--bg-alt));
+  background: linear-gradient(180deg, var(--white), var(--bg-alt));
   border-radius: var(--radius-md);
-  border: 1px solid rgba(63,36,20,0.04);
+  border: 1px solid rgba(0, 0, 0, 0.04);
   padding: 26px;
   min-height: 150px;
   transform-origin: center;
@@ -534,7 +534,7 @@ section {
 }
 
 .feature-card p {
-  color: rgba(63,36,20,0.82);
+  color: rgba(0, 0, 0, 0.68);
   margin: 8px 0 0;
   font-family: var(--font-body);
 }
@@ -651,7 +651,7 @@ section {
 
 .promise-body .lead {
   font-size: 1.05rem;
-  color: rgba(63,36,20,0.78);
+  color: rgba(0, 0, 0, 0.76);
   line-height: 1.55;
   margin-bottom: .6rem;
   font-family: var(--font-body);
@@ -667,7 +667,7 @@ section {
   position: relative;
   margin: 10px 0;
   padding-left: 30px;
-  color: rgba(63,36,20,0.78);
+  color: rgba(0, 0, 0, 0.78);
   font-size: 0.98rem;
   line-height: 1.45;
   transform-origin: left center;
@@ -704,7 +704,7 @@ section {
   height: 340px;
   margin: 0 auto;
   position: relative;
-  background: linear-gradient(180deg, var(--panel-bg), var(--bg-alt));
+  background: linear-gradient(180deg, var(--white), var(--bg-alt));
   box-shadow: 0 20px 48px rgba(16, 24, 32, 0.10);
 }
 
@@ -714,7 +714,7 @@ section {
   position: relative;
   overflow: hidden;
   border-radius: 18px;
-  background: linear-gradient(180deg, var(--panel-bg), var(--bg-alt));
+  background: linear-gradient(180deg, var(--white), var(--bg-alt));
   box-shadow: 0 20px 48px rgba(16, 24, 32, 0.10);
 }
 
@@ -863,7 +863,7 @@ section {
 }
 
 .story-copy p {
-  color: rgba(63,36,20,0.86);
+  color: rgba(0, 0, 0, 0.86);
   font-size: 1.05rem;
   line-height: 1.7;
   margin-bottom: 14px;
@@ -891,7 +891,7 @@ section {
 .story-list li {
   margin-bottom: 6px;
   font-size: 1.03rem;
-  color: rgba(63,36,20,0.86)
+  color: rgba(0, 0, 0, 0.86)
 }
 
 /* fade-in */
@@ -1030,14 +1030,14 @@ section {
 
 .flip-back p.small {
   margin: 0 0 6px;
-  color: rgba(63,36,20,0.68);
+  color: rgba(0, 0, 0, 0.68);
 }
 
 .flip-back .flip-points {
   margin: 6px 0;
   padding-left: 18px;
   list-style: disc;
-  color: var(--curry-green);
+  color: #254a3a;
 }
 
 .flip-back .flip-points li {
@@ -1115,14 +1115,13 @@ section {
 }
 
 .flip-card:focus-within {
-  outline: 3px solid rgba(36, 74, 49, 0.12);
+  outline: 3px solid rgba(47, 93, 62, 0.12);
   border-radius: 12px;
 }
 
 /* =========================
    SECTION HEADING — rounded + three-stripe underline
    ========================= */
-.section-title,
 .section-title.custom-hero {
   font-family: var(--font-heading);
   color: var(--curry-green);
@@ -1142,14 +1141,7 @@ section {
   width: 160px;
   border-radius: 999px;
   background: linear-gradient(90deg, var(--turmeric) 0 33%, var(--roasted-brown) 33% 66%, var(--chilli-red) 66% 100%);
-  box-shadow: 0 8px 18px rgba(36,74,49,0.06);
-}
-
-/* If inside a dark/turmeric area, keep title white for contrast */
-.titled-on-turmeric .section-title,
-.hero .section-title,
-.dark-section .section-title {
-  color: var(--white) !important;
+  box-shadow: 0 8px 18px rgba(223, 175, 43, 0.12);
 }
 
 @media (max-width:992px) {
@@ -1197,35 +1189,13 @@ section {
   padding: 10px 6px;
 }
 
-/* Footer heading (e.g. "Quick Links") —
-   use opposite color of nav/footer (deep curry green)
-   and add a small decorative underline bar */
 .footer-block h5 {
-  color: var(--curry-green);      /* opposite of turmeric */
-  position: relative;
-  display: inline-block;          /* shrink to content so underline aligns */
-  padding-bottom: 6px;
-  margin-bottom: 10px;
+  font-size: 20px;
+  color: var(--turmeric);
+  margin-bottom: 12px;
   font-weight: 800;
-  letter-spacing: 0.2px;
+  font-family: var(--font-heading);
 }
-
-/* fine underline bar below the heading */
-.footer-block h5::after {
-  content: "";
-  display: block;
-  width: 56px;                    /* adjust width to taste */
-  height: 4px;                    /* thickness of the line */
-  background: linear-gradient(90deg, var(--curry-green), var(--curry-green-700));
-  border-radius: 3px;
-  margin-top: 8px;                /* gap between title and line */
-}
-
-/* darker variant for very small screens (optional tweak) */
-@media (max-width:420px) {
-  .footer-block h5::after { width: 44px; height: 3px; }
-}
-
 
 .footer-block a {
   display: block;
@@ -1239,13 +1209,15 @@ section {
 .footer-block a:hover {
   opacity: 1;
   transform: translateX(4px);
-  color: var(--turmeric-700);
+  color: var(--turmeric);
 }
 
 .footer-logo {
-  width: 200px;
+  width: 100px;
+  border-radius: 12px;
   display: block;
   margin-bottom: 14px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25)
 }
 
 .footer-slogan {
@@ -1253,7 +1225,6 @@ section {
   font-weight: 600;
   line-height: 1.4;
   font-family: var(--font-label);
-  color: rgba(255,255,255,0.95);
 }
 
 .footer-social {
@@ -1308,68 +1279,65 @@ section {
   margin: 28px 0;
 }
 
-/* =========================
-   Footer — 3-column alignment
-   (left / center / right)
-   ========================= */
-
 .footer-bottom {
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 18px;
+  justify-content: center;
   width: 100%;
-  padding: 12px 24px;
-  box-sizing: border-box;
-  position: relative;
+  padding: 10px 20px;
+  gap: 16px;
+  text-align: center;
 }
 
-/* left column */
 .footer-meta-left {
-  justify-self: start;
+  width: 100%;
   text-align: left;
   font-size: 13px;
   opacity: 0.95;
   font-weight: 600;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255, 255, 255, 0.92);
 }
 
-/* center column — horizontally centered regardless of left/right width */
 .footer-meta-center {
-  justify-self: center;
+  width: 100%;
   text-align: center;
   font-size: 14px;
   font-weight: 700;
   line-height: 1.5;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255, 255, 255, 0.92);
 }
 
-/* right column */
 .footer-meta-right {
-  justify-self: end;
+  width: 100%;
   text-align: right;
   font-size: 13px;
   opacity: 0.95;
   font-weight: 600;
-  color: rgba(255,255,255,0.92);
+  color: rgba(255, 255, 255, 0.92);
 }
 
-/* Responsive: stack on small screens */
-@media (max-width:767px) {
+@media (min-width:768px) {
   .footer-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 16px 20px;
-    text-align: center;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
   }
 
-  .footer-meta-left,
-  .footer-meta-center,
+  .footer-meta-left {
+    width: auto;
+    text-align: left
+  }
+
+  .footer-meta-center {
+    width: auto;
+    text-align: center
+  }
+
   .footer-meta-right {
-    justify-self: auto;
-    text-align: center;
-    width: 100%;
+    width: auto;
+    text-align: right
   }
 }
 
@@ -1382,7 +1350,7 @@ section {
   height: 48px;
   border-radius: 50%;
   background: var(--turmeric);
-  color: var(--curry-green);
+  color: var(--footer-bg);
   border: none;
   font-size: 20px;
   font-weight: 900;
@@ -1496,7 +1464,7 @@ section {
 
 .vc-text {
   margin: 0;
-  color: rgba(63,36,20,0.86);
+  color: rgba(0, 0, 0, 0.86);
   font-size: 0.96rem;
   line-height: 1.5;
   font-family: var(--font-body);
@@ -1619,7 +1587,7 @@ section {
   margin: 0;
   font-size: 0.95rem;
   line-height: 1.45;
-  color: rgba(63,36,20,0.68);
+  color: rgba(0, 0, 0, 0.68);
   font-family: var(--font-body);
 }
 
