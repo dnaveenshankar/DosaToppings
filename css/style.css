@@ -1,9 +1,5 @@
 /* ==================================================
-   DOSA TOPPINGS — style.css (Complete)
-   Concept: Traditional + Modern + Natural + South Indian touch
-   Fonts: Playfair Display (headings) + Poppins (labels/body)
-   Colors: exactly the tokens the user specified
-   Includes: preloader + strap (color-strip) using same token
+   DOSA TOPPINGS — style.css
    ================================================== */
 
 /* ==============
@@ -107,20 +103,74 @@ a:hover, a:focus { color: var(--warm-orange); text-decoration: underline; }
   transform-origin: center;
 }
 
-/* small logo */
-.preloader-logo img { width: 76px; height: 76px; object-fit: cover; border-radius: 12px; }
-
-/* spinner uses the same color as strap (turmeric) */
 .preloader-spinner {
-  width: 56px;
-  height: 56px;
+  --size: 64px;       
+  --ring: 0.2px;         
+  width: var(--size);
+  height: var(--size);
   border-radius: 50%;
-  border: 4px solid rgba(255,255,255,0.12);
-  border-top-color: var(--turmeric);
-  animation: spin 1.2s linear infinite;
-  box-shadow: 0 8px 26px rgba(0,0,0,0.4), inset 0 -6px 18px rgba(255,255,255,0.02);
+  position: relative;
+  display: inline-block;
+
+  background: conic-gradient(
+    var(--turmeric) 0deg 120deg,
+    var(--roasted-brown) 120deg 240deg,
+    var(--chilli-red) 240deg 360deg
+  );
+
+  -webkit-mask: radial-gradient(
+    farthest-side,
+    transparent calc(50% - var(--ring)),
+    black calc(50% - var(--ring))
+  );
+  mask: radial-gradient(
+    farthest-side,
+    transparent calc(50% - var(--ring)),
+    black calc(50% - var(--ring))
+  );
+
+  animation: spinner-rotate 1.05s linear infinite;
 }
-@keyframes spin { to { transform: rotate(360deg) } }
+
+.preloader-spinner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 32%;
+  height: 32%;
+  border-radius: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.95),
+    rgba(255,250,235,0.82)
+  );
+  box-shadow: 0 4px 14px rgba(0,0,0,0.23);
+  animation: spinner-inner 1.9s ease-in-out infinite;
+}
+
+@keyframes spinner-rotate {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinner-inner {
+  0%   { transform: scale(1) rotate(0deg); }
+  50%  { transform: scale(.98) rotate(8deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+@supports not (mask: radial-gradient(circle, transparent 0, black 100%)) {
+  .preloader-spinner {
+    background: transparent;
+    border-radius: 50%;
+    border: var(--ring) solid rgba(255,255,255,0.15);
+    border-top-color: var(--turmeric);
+    border-right-color: var(--roasted-brown);
+    border-bottom-color: var(--chilli-red);
+    border-left-color: rgba(255,255,255,0.08);
+    animation: spinner-rotate 1.05s linear infinite;
+  }
+}
 
 .preloader-text {
   font-family: var(--font-label);
@@ -130,7 +180,6 @@ a:hover, a:focus { color: var(--warm-orange); text-decoration: underline; }
   letter-spacing: 0.2px;
 }
 
-/* When body has class "loaded" we hide the preloader (supports progressive enhancement) */
 body.loaded #preloader {
   opacity: 0;
   visibility: hidden;
