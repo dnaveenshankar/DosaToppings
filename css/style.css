@@ -196,7 +196,7 @@ body.loaded #preloader {
   left: 0;
   width: 100%;
   z-index: 1200;
-  background: var(--footer-bg); /* same as footer */
+  background: var(--footer-bg);
   padding: 10px 14px;
   box-shadow: var(--shadow-1);
   transition: background .2s var(--ease-fast), box-shadow .2s var(--ease-fast);
@@ -312,7 +312,7 @@ header#home, .hero, section { scroll-margin-top: calc(var(--nav-height, 72px) + 
 .hero-title {
   font-family: var(--font-heading);
   font-size: 2.8rem;
-  color: var(--roasted-brown);
+  color: #FAF3DF;
   text-shadow: 0 10px 36px rgba(0,0,0,0.14);
   font-weight: 900;
   letter-spacing: 0.4px;
