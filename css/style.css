@@ -4,7 +4,8 @@
 
 /* ==============
    Import fonts
-   ============== */
+   ==============
+*/
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Poppins:wght@300;400;600;700;800;900&display=swap');
 
 /* =========================
@@ -1937,7 +1938,7 @@ section {
 
 /* ==================================================
    SIGNATURE CARDS (independent system)
-   ================================================== */
+   ==================================================*/
 
 .sig-card {
   position: relative;
@@ -2064,3 +2065,278 @@ section {
 
 
 
+/* --------------------------------------------------------------------
+   FORCE UNIFORM TYPOGRAPHY COLORS / STYLES ACROSS DESKTOP | TABLET | MOBILE
+   Place this at the VERY END of style.css to override mobile overrides.
+   -------------------------------------------------------------------- */
+
+/* central tokens for consistent typography */
+:root {
+  --typography-heading: var(--curry-green);
+  --typography-body: var(--dark-spice-brown);
+  --typography-muted: var(--muted);
+  --typography-inverse: var(--white); /* if you do intentionally have white areas, use .on-turmeric classes instead */
+}
+
+/* Apply to common text elements */
+body,
+p,
+li,
+a,
+input,
+button,
+textarea,
+label {
+  color: var(--typography-body) !important;
+  font-family: var(--font-body) !important;
+}
+
+/* Headings and section titles */
+h1, h2, h3, h4, h5, h6,
+.section-title,
+.section-title.custom-hero,
+.section-title.signature-heading,
+.brand-name,
+.hero-title,
+.vc-title,
+.feature-card h5,
+.quality-item h5,
+.sig-title {
+  color: var(--typography-heading) !important;
+  font-family: var(--font-heading) !important;
+}
+
+/* Subhead / subtitle text */
+.brand-sub,
+.hero-sub,
+.promise-body .lead,
+.story-copy p,
+.sig-desc,
+.vc-text,
+.feature-card p,
+.quality-item p,
+.footer-text {
+  color: var(--typography-body) !important;
+  font-family: var(--font-body) !important;
+}
+
+/* Muted text */
+.text-muted,
+.promise-body .small,
+.vc-users {
+  color: var(--typography-muted) !important;
+}
+
+/* Ensure section titles inside turmeric/dark areas are not forced white */
+.titled-on-turmeric .section-title,
+.hero .section-title,
+.dark-section .section-title,
+.footer-green .section-title {
+  color: var(--typography-heading) !important;
+}
+
+/* Footer headings (keep green as desktop) */
+.footer-block h5 {
+  color: var(--typography-heading) !important;
+}
+
+/* Ensure hero remains using same colors (if you want the hero to remain white on dark hero, remove the rule below) */
+.hero-title,
+.hero-sub {
+  color: var(--typography-heading) !important;
+}
+
+/* Specific override to prevent media-query color changes
+   Apply to the most common breakpoints used in your stylesheet */
+@media (max-width: 1200px),
+       (max-width: 992px),
+       (max-width: 768px),
+       (max-width: 576px) {
+  body,
+  p,
+  li,
+  a,
+  h1, h2, h3, h4, h5, h6,
+  .section-title,
+  .brand-name,
+  .brand-sub,
+  .hero-title,
+  .hero-sub,
+  .story-copy p,
+  .feature-card h5,
+  .feature-card p,
+  .vc-title,
+  .vc-text,
+  .sig-title,
+  .sig-desc,
+  .footer-block h5 {
+    color: unset;                /* reset any previous forced colors first */
+    color: var(--typography-body) !important;
+  }
+
+  /* keep headings green */
+  .section-title,
+  .section-title.custom-hero,
+  .vc-title,
+  .feature-card h5,
+  .footer-block h5 {
+    color: var(--typography-heading) !important;
+  }
+}
+
+/* Accessibility: keep reduced-motion preference as before but keep color stable */
+@media (prefers-reduced-motion: reduce) {
+  body, p, h1, h2, h3, h4, h5, h6 { color: var(--typography-body) !important; }
+}
+
+/* NOTE:
+   - If you intentionally want white text on the hero (dark background), remove or tweak the .hero-title/.hero-sub override above.
+   - If some third-party components inline style color (style="color:…"), you'll need to remove those inline styles or update them separately.
+*/
+
+/* --------------------------------------------------------------------
+   xim0lete.css
+   Purpose: Force uniform desktop typography/colors across tablet & mobile.
+   Load this file AFTER your main style.css so it can override mobile rules.
+   -------------------------------------------------------------------- */
+
+/* Central tokens (reuse existing variables from style.css) */
+:root{
+  --xim-heading: var(--curry-green);
+  --xim-body: var(--dark-spice-brown);
+  --xim-muted: var(--muted);
+  --xim-inverse: var(--white);
+}
+
+/* Base text elements - keep desktop body color everywhere */
+body,
+html,
+p,
+li,
+a,
+input,
+button,
+textarea,
+label,
+select,
+option {
+  color: var(--xim-body) !important;
+  font-family: var(--font-body) !important;
+  -webkit-font-smoothing: antialiased !important;
+}
+
+/* Headings & branded titles use desktop heading color + heading font */
+h1,h2,h3,h4,h5,h6,
+.brand-name,
+.section-title,
+.section-title.custom-hero,
+.section-title.signature-heading,
+.hero-title,
+.vc-title,
+.feature-card h5,
+.quality-item h5,
+.sig-title {
+  color: var(--xim-heading) !important;
+  font-family: var(--font-heading) !important;
+}
+
+/* Subhead / subtitle text */
+.brand-sub,
+.hero-sub,
+.promise-body .lead,
+.story-copy p,
+.sig-desc,
+.vc-text,
+.feature-card p,
+.quality-item p,
+.footer-text {
+  color: var(--xim-body) !important;
+  font-family: var(--font-body) !important;
+}
+
+/* Muted text */
+.text-muted,
+.promise-body .small,
+.vc-users {
+  color: var(--xim-muted) !important;
+}
+
+/* Footer headings keep the desktop green */
+.footer-block h5 {
+  color: var(--xim-heading) !important;
+}
+
+/* Keep hero text in brand heading color (override mobile white if present).
+   If you want hero white on dark hero, remove or change these two rules. */
+.hero-title,
+.hero-sub {
+  color: var(--xim-heading) !important;
+}
+
+/* Reset any inline or aggressive media-query color changes across common breakpoints */
+@media (max-width: 1400px),
+       (max-width: 1200px),
+       (max-width: 992px),
+       (max-width: 768px),
+       (max-width: 576px) {
+  body,
+  p,
+  li,
+  a,
+  h1,h2,h3,h4,h5,h6,
+  .section-title,
+  .brand-name,
+  .brand-sub,
+  .hero-title,
+  .hero-sub,
+  .story-copy p,
+  .feature-card h5,
+  .feature-card p,
+  .vc-title,
+  .vc-text,
+  .sig-title,
+  .sig-desc,
+  .footer-block h5 {
+    color: unset; /* remove previously forced color first */
+    color: var(--xim-body) !important;
+  }
+
+  .section-title,
+  .section-title.custom-hero,
+  .vc-title,
+  .feature-card h5,
+  .footer-block h5 {
+    color: var(--xim-heading) !important;
+  }
+}
+
+/* Ensure elements with on-turmeric / dark backgrounds don't get accidentally forced white
+   (if you DO want white on those sections, remove/adjust this selector) */
+.titled-on-turmeric .section-title,
+.hero .section-title,
+.dark-section .section-title,
+.footer-green .section-title {
+  color: var(--xim-heading) !important;
+}
+
+/* Small utility: reinstate readable link colors across breakpoints */
+a, a:link, a:visited {
+  color: var(--chilli-red) !important;
+  text-decoration: none !important;
+}
+
+a:hover, a:focus {
+  color: var(--warm-orange) !important;
+  text-decoration: underline !important;
+}
+
+/* Accessibility: keep reduced-motion behavior but not color changes */
+@media (prefers-reduced-motion: reduce) {
+  body, p, h1,h2,h3,h4,h5,h6 { color: var(--xim-body) !important; }
+}
+
+/* NOTES:
+   - If any third-party components use inline style="color:..." you'll need to remove or override those inline styles.
+   - If you want hero text to be white on the dark hero background, remove the .hero-title/.hero-sub override above.
+   - This file intentionally uses a small set of strong overrides (uses !important) so it is safe to load last and effectively neutralize unintended mobile-only color rules.
+*/
