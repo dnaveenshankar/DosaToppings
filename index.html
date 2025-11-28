@@ -2,33 +2,90 @@
 <html lang="en">
 
 <head>
+  <!-- =========================
+       Document meta & perf hints
+       ========================= -->
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Primary title / description (update description if you want SEO tuned) -->
   <title>DOSA TOPPINGS — KKM Healthy Eats</title>
+  <meta name="description"
+    content="Dosa Toppings — small-batch roasted podis and sprinkle bottles. Natural ingredients, hygienic packing, family-friendly flavours." />
+  <meta name="theme-color" content="#DFAF2B" />
+
+  <!-- Preconnect to CDNs / fonts for faster loading -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
 
   <!-- Favicon -->
   <link rel="icon" href="assets/icon-1.png" type="image/png">
 
-  <!-- NOTE: The stylesheet loads fonts via @import inside style.css -->
+  <!-- Bootstrap CSS (kept external) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom CSS -->
+  <!-- Custom CSS (fonts imported inside style.css) -->
   <link rel="stylesheet" href="css/style.css">
+
+  <!-- Minimal structured data (Organization) — update as needed -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Dosa Toppings",
+    "url": "https://yourdomain.example",
+    "logo": "https://yourdomain.example/assets/icon-5.png",
+    "sameAs": [
+      "https://instagram.com/dosa.toppings"
+    ]
+  }
+  </script>
+
+  <!-- Critical inline styles / small accessibility tweak (kept minimal) -->
+  <style>
+    /* Make skip-link visible when focused for keyboard users */
+    .skip-to-content {
+      position: absolute;
+      left: -9999px;
+      top: auto;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+    }
+
+    .skip-to-content:focus {
+      position: static;
+      left: 0;
+      width: auto;
+      height: auto;
+      padding: 8px 12px;
+      background: #103b27;
+      color: #fff;
+      z-index: 9999;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- PRELOADER (visible until page load finishes) -->
+  <!-- Skip link for keyboard & assistive tech users -->
+  <a class="skip-to-content" href="#main" aria-label="Skip to main content">Skip to content</a>
+
+  <!-- PRELOADER (visible until page load finishes)
+       - aria-hidden toggled by JS (small inline script below sets body.loaded)
+  -->
   <div id="preloader" class="preloader" aria-hidden="false" aria-live="polite" role="status">
-    <div class="preloader-inner">
-      <div class="preloader-logo" aria-hidden="true">
-      </div>
+    <div class="preloader-inner" role="presentation" aria-hidden="true">
+      <div class="preloader-logo" aria-hidden="true"></div>
       <div class="preloader-spinner" aria-hidden="true"></div>
       <div class="preloader-text">Preparing your flavours</div>
     </div>
   </div>
 
-  <!-- NAV -->
+  <!-- Accessible main nav (Bootstrap + custom tokens) -->
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top site-nav" role="navigation" aria-label="Main navigation">
     <div class="container">
       <a class="navbar-brand d-flex align-items-center" href="#home">
@@ -36,10 +93,13 @@
           <div class="brand-name">DOSA TOPPINGS</div>
         </div>
       </a>
+
+      <!-- Toggler (Bootstrap) -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navCollapse"
         aria-controls="navCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
+
       <div class="collapse navbar-collapse" id="navCollapse">
         <ul class="navbar-nav ms-auto align-items-lg-center">
           <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
@@ -53,13 +113,14 @@
     </div>
   </nav>
 
-  <!-- HERO (updated) -->
-  <header id="home" class="hero d-flex align-items-center">
+  <!-- HERO (primary visible content) -->
+  <header id="home" class="hero d-flex align-items-center" role="banner" aria-label="Homepage hero">
     <div class="container text-center text-white">
       <h1 class="display-5 hero-title">Welcome to Dosa Toppings</h1>
       <p class="lead hero-sub">Healthy flavours made easy for every dosa, idli & meal.</p>
       <p class="hero-small">We bring you a range of authentic South Indian podis, crafted using traditional roasting
         methods and clean ingredients — now in a modern, easy-to-use sprinkle bottle. Just shake → sprinkle → enjoy.</p>
+
       <div class="mt-4 d-flex justify-content-center gap-3 flex-wrap">
         <a href="#products" class="btn btn-cta btn-lg">Explore Our Flavours</a>
       </div>
@@ -74,22 +135,22 @@
     </div>
   </header>
 
-  <main class="mt-5">
+  <!-- MAIN: landmark for skip link -->
+  <main id="main" class="mt-5" role="main" aria-label="Main content">
 
-    <!-- COLORS STRIP (the "strap") — uses CSS variables, no inline colors -->
+    <!-- COLORS STRIP -->
     <section class="color-strip d-flex" aria-hidden="true">
       <div class="c-1"></div>
       <div class="c-2"></div>
       <div class="c-3"></div>
     </section>
 
-    <!-- FEATURES ROW -->
-    <section class="container py-5">
+    <!-- FEATURES -->
+    <section class="container py-5" aria-labelledby="features-title">
       <div class="row text-center g-4">
-
         <div class="col-md-4 feature-col">
           <div class="feature-card p-4 rounded shadow-sm">
-            <div class="feature-emoji">🌿</div>
+            <div class="feature-emoji" aria-hidden="true">🌿</div>
             <h5 class="mt-3">100% Natural</h5>
             <p class="text-muted">Premium pulses, seeds & spices.</p>
           </div>
@@ -97,7 +158,7 @@
 
         <div class="col-md-4 feature-col">
           <div class="feature-card p-4 rounded shadow-sm">
-            <div class="feature-emoji">⚙️</div>
+            <div class="feature-emoji" aria-hidden="true">⚙️</div>
             <h5 class="mt-3">No Preservatives</h5>
             <p class="text-muted">Fresh roasted small batches.</p>
           </div>
@@ -105,12 +166,11 @@
 
         <div class="col-md-4 feature-col">
           <div class="feature-card p-4 rounded shadow-sm">
-            <div class="feature-emoji">🍽️</div>
+            <div class="feature-emoji" aria-hidden="true">🍽️</div>
             <h5 class="mt-3">Ready-to-Sprinkle</h5>
             <p class="text-muted">Dosa, idli, rice & snacks.</p>
           </div>
         </div>
-
       </div>
     </section>
 
@@ -118,7 +178,6 @@
     <section class="bg-gradient py-5 promise-section" id="promise" aria-labelledby="promise-title">
       <div class="container">
         <div class="row align-items-center gx-4 gy-4">
-
           <div class="col-lg-6 order-1 order-lg-1">
             <h2 id="promise-title" class="section-title custom-hero" style="--delay:0s">Our Promise</h2>
 
@@ -151,7 +210,9 @@
           <div class="col-lg-6 order-2 order-lg-2 text-center">
             <div class="promise-figure fade-in-up" style="--delay:0.12s" aria-hidden="false">
               <div class="promise-img-wrap">
-                <img src="assets/promise.png" alt="Our Promise — freshness, tradition, hygiene" class="promise-img">
+                <!-- Lazy-load figure for perf -->
+                <img src="assets/promise.png" alt="Our Promise — freshness, tradition, hygiene" class="promise-img"
+                  loading="lazy">
                 <div class="promise-shimmer" aria-hidden="true"></div>
                 <svg class="promise-leaf" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M2 12c5-9 15-9 20 0-6-1-10 2-12 5-2-3-6-6-8-5z" fill="rgba(236,192,70,0.18)" />
@@ -164,12 +225,11 @@
       </div>
     </section>
 
-    <!-- ABOUT / ABOUT US (replaces previous about section) -->
+    <!-- ABOUT -->
     <section id="about" class="about-story-section py-5" aria-labelledby="about-title">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-10">
-
             <h2 id="about-title" class="section-title custom-hero" style="--delay:0s">
               🥥 ABOUT US — Tradition Made Easy for Today’s Kitchen
             </h2>
@@ -206,7 +266,6 @@
 
           </div>
         </div>
-
 
         <!-- WHY OUR PODI -->
         <section class="container py-3" aria-labelledby="why-title">
@@ -253,19 +312,17 @@
       </div>
     </section>
 
-    <!-- =========================
-     PRODUCTS: controls + product grid
-     ========================= -->
-    <section id="products" class="py-5">
+    <!-- PRODUCTS -->
+    <section id="products" class="py-5" aria-labelledby="products-title">
       <div class="container">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-start gap-3 mb-3">
           <div>
-            <h2 class="section-title custom-hero">All Podi Varieties</h2>
+            <h2 id="products-title" class="section-title custom-hero">All Podi Varieties</h2>
             <p class="mb-0 text-muted">Browse by category or sort the list</p>
           </div>
           <div class="d-flex gap-2 align-items-center">
             <div>
-              <select id="filterCategory" class="form-select">
+              <select id="filterCategory" class="form-select" aria-label="Filter products by category">
                 <option value="all">All Categories</option>
                 <option value="Traditional">Traditional</option>
                 <option value="Health">Health</option>
@@ -274,7 +331,7 @@
               </select>
             </div>
             <div>
-              <select id="sortBy" class="form-select">
+              <select id="sortBy" class="form-select" aria-label="Sort products">
                 <option value="name-asc">Name A → Z</option>
                 <option value="name-desc">Name Z → A</option>
                 <option value="price-asc">Price Low → High</option>
@@ -286,31 +343,25 @@
         </div>
 
         <!-- product grid (rendered by JS) -->
-        <div id="productGrid" class="row g-4"></div>
+        <div id="productGrid" class="row g-4" aria-live="polite"></div>
       </div>
     </section>
 
-    <!-- =========================
-     Signature Range — Complete HTML Section
-     (uses sig-card classes; requires css/signature-cards.css)
-     ========================= -->
+    <!-- SIGNATURE RANGE -->
     <section class="signature-section mt-4" aria-labelledby="signature-range-title">
       <div class="container">
-
-        <!-- Heading + tagline -->
         <div class="signature-hero">
           <h2 id="signature-range-title" class="section-title signature-heading">Signature Ranges</h2>
           <p class="signature-tagline">Pure, elevated podis — small-batch roasted, stone-ground and finished for today’s
             table.</p>
         </div>
 
-        <!-- Grid -->
         <div class="row g-4 signature-range" id="signatureProducts">
-
           <!-- Card 1 -->
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="sig-card" tabindex="0" aria-label="Classic Paruppu Podi — ₹100/50gms">
-              <div class="sig-img" style="background-image:url('assets/signature-1.png');">
+              <div class="sig-img" style="background-image:url('assets/signature-1.png');" role="img"
+                aria-label="Classic Paruppu Podi image">
                 <div class="sig-price">₹100 <span>/50gms</span></div>
               </div>
               <div class="sig-body">
@@ -329,7 +380,8 @@
           <!-- Card 2 -->
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="sig-card" tabindex="0" aria-label="Curry Leaves Podi — ₹100/50gms">
-              <div class="sig-img" style="background-image:url('assets/signature-2.png');">
+              <div class="sig-img" style="background-image:url('assets/signature-2.png');" role="img"
+                aria-label="Curry Leaves Podi image">
                 <div class="sig-price">₹100 <span>/50gms</span></div>
               </div>
               <div class="sig-body">
@@ -348,7 +400,8 @@
           <!-- Card 3 -->
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="sig-card" tabindex="0" aria-label="Moringa Podi — ₹145/50gms">
-              <div class="sig-img" style="background-image:url('assets/signature-3.png');">
+              <div class="sig-img" style="background-image:url('assets/signature-3.png');" role="img"
+                aria-label="Moringa Podi image">
                 <div class="sig-price">₹145 <span>/50gms</span></div>
               </div>
               <div class="sig-body">
@@ -367,7 +420,8 @@
           <!-- Card 4 -->
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="sig-card" tabindex="0" aria-label="Garlic Podi — ₹110/50gms">
-              <div class="sig-img" style="background-image:url('assets/signature-4.png');">
+              <div class="sig-img" style="background-image:url('assets/signature-4.png');" role="img"
+                aria-label="Garlic Podi image">
                 <div class="sig-price">₹110 <span>/50gms</span></div>
               </div>
               <div class="sig-body">
@@ -386,7 +440,8 @@
           <!-- Card 5 -->
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="sig-card" tabindex="0" aria-label="Idli Milagai Podi — ₹95/50gms">
-              <div class="sig-img" style="background-image:url('assets/signature-5.png');">
+              <div class="sig-img" style="background-image:url('assets/signature-5.png');" role="img"
+                aria-label="Idli Milagai Podi image">
                 <div class="sig-price">₹95 <span>/50gms</span></div>
               </div>
               <div class="sig-body">
@@ -405,7 +460,8 @@
           <!-- Card 6 -->
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="sig-card" tabindex="0" aria-label="Kollu Podi — ₹130/50gms">
-              <div class="sig-img" style="background-image:url('assets/signature-6.png');">
+              <div class="sig-img" style="background-image:url('assets/signature-6.png');" role="img"
+                aria-label="Kollu Podi image">
                 <div class="sig-price">₹130 <span>/50gms</span></div>
               </div>
               <div class="sig-body">
@@ -424,7 +480,8 @@
           <!-- Card 7 -->
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="sig-card" tabindex="0" aria-label="Peanut Podi — ₹120/50gms">
-              <div class="sig-img" style="background-image:url('assets/signature-7.png');">
+              <div class="sig-img" style="background-image:url('assets/signature-7.png');" role="img"
+                aria-label="Peanut Podi image">
                 <div class="sig-price">₹120 <span>/50gms</span></div>
               </div>
               <div class="sig-body">
@@ -443,7 +500,8 @@
           <!-- Card 8 -->
           <div class="col-sm-6 col-md-4 col-lg-3">
             <div class="sig-card" tabindex="0" aria-label="Sesame Podi — ₹110/50gms">
-              <div class="sig-img" style="background-image:url('assets/signature-8.png');">
+              <div class="sig-img" style="background-image:url('assets/signature-8.png');" role="img"
+                aria-label="Sesame Podi image">
                 <div class="sig-price">₹110 <span>/50gms</span></div>
               </div>
               <div class="sig-body">
@@ -459,19 +517,20 @@
             </div>
           </div>
 
-        </div> <!-- /signature-range -->
+        </div>
       </div>
     </section>
 
 
-    <!-- HOW TO USE (updated full content) -->
-    <section id="howto" class="container py-5">
-      <h2 class="section-title custom-hero fade-in-up">How It Works — At a Glance</h2>
+    <!-- HOW TO USE -->
+    <section id="howto" class="container py-5" aria-labelledby="howto-title">
+      <h2 id="howto-title" class="section-title custom-hero fade-in-up">How It Works — At a Glance</h2>
 
-      <div class="grid-4cards mt-4">
+      <div class="grid-4cards mt-4" role="list">
         <!-- Card 1 -->
-        <article class="vc-card fade-in-up" tabindex="0" aria-label="Open the cap - card">
-          <div class="vc-media" style="background-image: url('assets/step-1.png');"></div>
+        <article class="vc-card fade-in-up" tabindex="0" aria-label="Open the cap - card" role="listitem">
+          <div class="vc-media" style="background-image: url('assets/step-1.png');" role="img"
+            aria-label="Step 1 image"></div>
           <div class="vc-body">
             <div class="vc-meta">
               <div class="vc-number">1</div>
@@ -482,8 +541,9 @@
         </article>
 
         <!-- Card 2 -->
-        <article class="vc-card fade-in-up" tabindex="0" aria-label="Mix with ghee - card">
-          <div class="vc-media" style="background-image: url('assets/step-3.png');"></div>
+        <article class="vc-card fade-in-up" tabindex="0" aria-label="Mix with ghee - card" role="listitem">
+          <div class="vc-media" style="background-image: url('assets/step-3.png');" role="img"
+            aria-label="Step 3 image"></div>
           <div class="vc-body">
             <div class="vc-meta">
               <div class="vc-number">2</div>
@@ -494,8 +554,9 @@
         </article>
 
         <!-- Card 3 -->
-        <article class="vc-card fade-in-up" tabindex="0" aria-label="Use as rice mix - card">
-          <div class="vc-media" style="background-image: url('assets/step-2.png');"></div>
+        <article class="vc-card fade-in-up" tabindex="0" aria-label="Use as rice mix - card" role="listitem">
+          <div class="vc-media" style="background-image: url('assets/step-2.png');" role="img"
+            aria-label="Step 2 image"></div>
           <div class="vc-body">
             <div class="vc-meta">
               <div class="vc-number">3</div>
@@ -506,8 +567,9 @@
         </article>
 
         <!-- Card 4 -->
-        <article class="vc-card fade-in-up" tabindex="0" aria-label="Close to keep fresh - card">
-          <div class="vc-media" style="background-image: url('assets/step-4.png');"></div>
+        <article class="vc-card fade-in-up" tabindex="0" aria-label="Close to keep fresh - card" role="listitem">
+          <div class="vc-media" style="background-image: url('assets/step-4.png');" role="img"
+            aria-label="Step 4 image"></div>
           <div class="vc-body">
             <div class="vc-meta">
               <div class="vc-number">4</div>
@@ -548,135 +610,112 @@
     <!-- PRODUCTION & QUALITY -->
     <section class="quality-section py-5" id="production" aria-labelledby="production-title">
       <div class="container">
-
-        <h2 class="section-title custom-hero mb-4" id="production-title">
-          Production & Quality
-        </h2>
+        <h2 class="section-title custom-hero mb-4" id="production-title">Production & Quality</h2>
         <p class="text-muted mb-4 fade-in-up" style="--delay: .1s">
           Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern food-safety
           standards.
         </p>
 
         <div class="quality-grid">
-
-          <!-- 1 -->
+          <!-- quality items (left intact) -->
           <div class="quality-item fade-in-up" style="--delay: .15s">
             <div class="q-icon">🌶️</div>
             <h5>Hand-Picked Ingredients</h5>
             <p>Only the freshest chillies, dals, and herbs selected by trained staff.</p>
           </div>
 
-          <!-- 2 -->
           <div class="quality-item fade-in-up" style="--delay: .2s">
             <div class="q-icon">☀️</div>
             <h5>Sun-Dried for Natural Flavour</h5>
             <p>Spices are dried under direct sunlight to lock in aroma naturally.</p>
           </div>
 
-          <!-- 3 -->
           <div class="quality-item fade-in-up" style="--delay: .25s">
             <div class="q-icon">🍳</div>
             <h5>Roasted on Iron Tawa</h5>
             <p>Seasoned iron tawa roasting gives authentic colour & crispness.</p>
           </div>
 
-          <!-- 4 -->
           <div class="quality-item fade-in-up" style="--delay: .3s">
             <div class="q-icon">🧤</div>
             <h5>Hygienic Handling</h5>
             <p>Gloves, masks & sanitised workstations for safe food handling.</p>
           </div>
 
-          <!-- 5 -->
           <div class="quality-item fade-in-up" style="--delay: .35s">
             <div class="q-icon">🥄</div>
             <h5>Air-Tight Batch Processing</h5>
             <p>Small batches ensure even roasting & perfectly balanced flavour.</p>
           </div>
 
-          <!-- 6 -->
           <div class="quality-item fade-in-up" style="--delay: .4s">
             <div class="q-icon">⚙️</div>
             <h5>Modern Machinery</h5>
             <p>Grinding & packing machines maintain texture without hand contact.</p>
           </div>
 
-          <!-- 7 -->
           <div class="quality-item fade-in-up" style="--delay: .45s">
             <div class="q-icon">📦</div>
             <h5>Food-Grade Packaging</h5>
             <p>Air-tight containers lock in freshness & prevent moisture.</p>
           </div>
 
-          <!-- 8 -->
           <div class="quality-item fade-in-up" style="--delay: .5s">
             <div class="q-icon">🧪</div>
             <h5>Batch Testing</h5>
             <p>Each lot checked for flavour, aroma, texture & shelf stability.</p>
           </div>
 
-          <!-- 9 -->
           <div class="quality-item fade-in-up" style="--delay: .55s">
             <div class="q-icon">✔️</div>
             <h5>FSSAI-Compliant Process</h5>
             <p>Strict hygiene & safety standards followed at every step.</p>
           </div>
 
-          <!-- 10 -->
           <div class="quality-item fade-in-up" style="--delay: .6s">
             <div class="q-icon">🌾</div>
             <h5>Farm-to-Factory Traceability</h5>
             <p>We track each ingredient from source to final pack to ensure purity and transparency.</p>
           </div>
 
-          <!-- 11 -->
           <div class="quality-item fade-in-up" style="--delay: .65s">
             <div class="q-icon">🔥</div>
             <h5>Temperature-Controlled Roasting</h5>
             <p>Every batch is roasted at calibrated heat levels for aroma without burning.</p>
           </div>
 
-          <!-- 12 -->
           <div class="quality-item fade-in-up" style="--delay: .7s">
             <div class="q-icon">🚚</div>
             <h5>Fresh Stock Dispatch</h5>
             <p>We dispatch only freshly packed batches — never old stock or returned goods.</p>
           </div>
-
         </div>
-
       </div>
     </section>
-
   </main>
-
-  <footer id="footer" class="footer-green">
-
-    <!-- MAIN GRID SECTIONS -->
+  <!-- FOOTER -->
+  <footer id="footer" class="footer-green" role="contentinfo">
     <div class="footer-grid">
-
-      <!-- BRAND -->
       <div class="footer-block fade-in-up">
-        <img src="assets/icon-5.png" class="footer-logo" alt="Dosa Toppings Logo">
+        <img src="assets/icon-5.png" class="footer-logo" alt="Dosa Toppings Logo" loading="lazy">
         <p class="footer-slogan">Instant Authentic Flavour — From Tradition to Today.</p>
 
         <div class="footer-social">
           <a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/instagram.svg" alt="Instagram" loading="lazy">
           </a>
           <a href="#" rel="noopener">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/facebook.svg" alt="Facebook" loading="lazy">
           </a>
           <a href="#" rel="noopener">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/youtube.svg" alt="YouTube" loading="lazy">
           </a>
           <a href="https://wa.me/917200514471" target="_blank" rel="noopener">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg" alt="WhatsApp">
+            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/whatsapp.svg" alt="WhatsApp" loading="lazy">
           </a>
         </div>
       </div>
 
-      <!-- QUICK LINKS -->
       <div class="footer-block fade-in-up">
         <h5>Quick Links</h5>
         <a href="/terms.html">Terms &amp; Conditions</a>
@@ -685,7 +724,6 @@
         <a href="/privacy.html">Privacy Policy</a>
       </div>
 
-      <!-- ADDRESS -->
       <div class="footer-block fade-in-up">
         <h5>Address</h5>
         <p class="footer-text">
@@ -696,12 +734,11 @@
         </p>
 
         <div class="footer-fssai">
-          <img src="assets/fssai.png" alt="FSSAI Logo">
+          <img src="assets/fssai.png" alt="FSSAI Logo" loading="lazy">
           <span>12425027000407</span>
         </div>
       </div>
 
-      <!-- CONTACT -->
       <div class="footer-block fade-in-up footer-contact-fix">
         <h5>Contact &amp; Order</h5>
 
@@ -723,26 +760,75 @@
 
     </div>
 
-    <!-- DIVIDER -->
     <div class="footer-line"></div>
 
-    <!-- COPYRIGHT ROW -->
     <div class="footer-bottom">
       <div class="footer-meta-left">Made with 🌿 in Tamil Nadu</div>
       <div class="footer-meta-center">©2025 Dosa Toppings — Healthy Twist for Every Dosa</div>
       <div class="footer-meta-right">Dosa Toppings v1.0</div>
     </div>
 
-    <!-- GO TO TOP BUTTON -->
     <button id="goTop" class="go-top" aria-label="Go to top">↑</button>
-
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Bootstrap JS (defer to avoid render-blocking) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
 
-  <!-- Custom JS -->
-  <script src="script/main.js"></script>
+  <!-- Tiny inline script to hide preloader once DOM is interactive
+       - Non-destructive; works alongside your script/main.js
+       - Ensures preloader is removed promptly for perceived performance
+  -->
+  <script>
+    (function () {
+      function hidePreloader() {
+        try {
+          document.body.classList.add('loaded');
+          var pre = document.getElementById('preloader');
+          if (pre) pre.setAttribute('aria-hidden', 'true');
+        } catch (e) {
+          /* no-op */
+        }
+      }
+      // Run as soon as DOM is interactive
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        hidePreloader();
+      } else {
+        document.addEventListener('DOMContentLoaded', hidePreloader, { once: true });
+      }
+
+      // Go top button behaviour (progressive enhancement)
+      var goTop = function () {
+        var btn = document.getElementById('goTop');
+        if (!btn) return;
+        function toggle() {
+          if (window.scrollY > 240) btn.classList.add('show'); else btn.classList.remove('show');
+        }
+        window.addEventListener('scroll', toggle, { passive: true });
+        btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        toggle();
+      };
+      // Initialise after DOM ready
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        goTop();
+      } else {
+        document.addEventListener('DOMContentLoaded', goTop, { once: true });
+      }
+    })();
+  </script>
+
+  <!-- Custom JS (deferred) -->
+  <script src="script/main.js" defer></script>
+
+  <!-- Noscript fallback: hide preloader & show basic nav/hero if JS disabled -->
+  <noscript>
+    <style>
+      #preloader {
+        display: none !important;
+      }
+    </style>
+    <div style="padding:12px; background:#fff7e6; text-align:center;">JavaScript is disabled in your browser. Site
+      interactivity may be limited.</div>
+  </noscript>
 </body>
 
 </html>
