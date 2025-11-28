@@ -937,258 +937,102 @@ section {
   }
 }
 
-/* ============================================
-   SIGNATURE RANGE + FLIP-CARD IMAGE FIXES
-   (paste as css/signature-cards.css or append to style.css)
-   ============================================ */
-
-/* Premium handwritten title font for signature */
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-
-/* -----------------------------
-   Signature section background
-   ----------------------------- */
-.signature-section {
-  background: linear-gradient(180deg, #fffdf8, #fff9ef);
-  padding: 32px 0;
-  border-radius: 14px;
-}
-
-/* Signature heading */
-.signature-hero {
-  margin-bottom: 12px;
-}
-
-.section-title.signature-heading {
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  font-size: 2.3rem;
-  margin: 0;
-  padding-bottom: 16px;
-  color: #103b27;
-  position: relative;
-  display: inline-block;
-}
-
-.section-title.signature-heading::after {
-  content: "";
-  display: block;
-  height: 14px;
-  width: 180px;
-  border-radius: 999px;
-  margin-top: 10px;
-  background: linear-gradient(90deg,
-      var(--turmeric) 0 33%,
-      var(--roasted-brown) 33% 66%,
-      var(--chilli-red) 66% 100%);
-}
-
-.signature-tagline {
-  font-size: 0.95rem;
-  color: rgba(30,30,30,0.65);
-  margin-top: -2px;
-  margin-bottom: 22px;
-}
-
-/* ===========================
-   Signature cards (sig-*)
-   =========================== */
-.sig-card {
-  position: relative;
-  background: #fffdfa;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 18px 44px rgba(16,24,32,0.12);
-  transition: transform .35s ease, box-shadow .35s ease;
-  cursor: pointer;
-}
-
-/* hover */
-.sig-card:hover {
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 30px 70px rgba(16,24,32,0.18);
-}
-
-/* image area 1:1 */
-.sig-img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  display: block;
-  overflow: hidden;
-}
-
-/* price badge inside signature image */
-.sig-price {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  background: linear-gradient(180deg, rgba(223,175,43,0.96), rgba(223,175,43,0.82));
-  color: var(--curry-green);
-  padding: 8px 12px;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: 0.95rem;
-  box-shadow: 0 8px 18px rgba(16,24,32,0.14);
-}
-
-/* signature body */
-.sig-body {
-  padding: 16px;
-  background: linear-gradient(180deg, #fffdf6, #fff8ea);
-}
-
-.sig-cat {
-  display: inline-block;
-  padding: 6px 12px;
-  font-size: 0.73rem;
-  border-radius: 999px;
-  background: rgba(36,74,49,0.08);
-  color: #1f5a32;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.sig-title {
-  font-family: "Great Vibes", cursive;
-  font-size: 1.45rem;
-  color: #133e28;
-  margin: 0 0 4px;
-  letter-spacing: 0.2px;
-}
-
-.sig-desc {
-  font-size: 0.92rem;
-  margin: 0;
-  color: rgba(40,40,40,0.7);
-}
-
-/* signature back */
-.sig-back {
-  display: none;
-  padding: 16px;
-  background: #fffef9;
-  border-top: 1px solid rgba(0,0,0,0.05);
-  color: #254a36;
-}
-
-.sig-card.active .sig-back { display:block; }
-.sig-card.active .sig-body { display:none; }
-
-/* ---------------------------
-   FLIP CARD: revised (auto height + 1:1 image + price pill)
-   Replaces previous flip-card block
-   --------------------------- */
-
+/* =========================
+   FLIP CARDS
+   ========================= */
 .flip-card {
   perspective: 1400px;
-  height: auto;              /* allow content to determine height */
+  height: 340px;
   cursor: pointer;
   outline: none;
-  display: block;
 }
 
-/* inner acts as transform container but does not force fixed height */
 .flip-inner {
   position: relative;
-  display: block;
   width: 100%;
-  transform-style: preserve-3d;
+  height: 100%;
   transition: transform 700ms var(--ease-fast);
+  transform-style: preserve-3d;
   transform-origin: center;
   border-radius: 14px;
-  overflow: visible;
   box-shadow: 0 12px 28px rgba(16, 24, 32, 0.08);
+  overflow: visible;
 }
 
-/* flip on hover / active (same API) */
 .flip-card:hover .flip-inner,
 .flip-card.active .flip-inner {
   transform: rotateY(180deg);
 }
 
-/* front stays in normal flow so card height = front height */
-.flip-front {
-  position: relative;
-  z-index: 1;
-  backface-visibility: hidden;
-  border-radius: 14px;
-  overflow: hidden;
-  display: block;
-  background: #ffffff; /* pure white - removes brown band */
-  padding: 0; /* ensure no top gap */
-}
-
-/* image wrapper: always square (1:1) and fills top portion */
-.flip-img-wrap {
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1 / 1;      /* enforces square image */
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  display: block;
-}
-
-/* ensure <img.cover> fills wrapper and no whitespace */
-.flip-img-wrap .cover,
-.flip-front .cover {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  border-radius: 0;
-}
-
-/* price pill bottom-right inside image */
-.price-pill {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  font-weight: 800;
-  font-size: 0.95rem;
-  background: linear-gradient(180deg, rgba(223,175,43,0.98), rgba(223,175,43,0.82));
-  color: var(--curry-green);
-  box-shadow: 0 8px 20px rgba(16, 24, 32, 0.18);
-  z-index: 3;
-}
-
-/* caption under the image (pure white to avoid banding) */
-.card-caption {
-  padding: 12px 14px;
-  width: 100%;
-  background: #ffffff; /* pure white */
-  z-index: 2;
-  border-top: 1px solid rgba(0,0,0,0.04);
-  box-sizing: border-box;
-}
-
-/* Back face is an absolute overlay — exactly matches front area */
+.flip-front,
 .flip-back {
   position: absolute;
   inset: 0;
-  width: 100%;
-  box-sizing: border-box;
-  transform: rotateY(180deg);
   backface-visibility: hidden;
   border-radius: 14px;
-  z-index: 4;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.flip-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: stretch;
+  background: linear-gradient(180deg, var(--white), var(--bg-alt));
+}
+
+.flip-front .cover {
+  width: 100%;
+  height: 55%;
+  object-fit: cover;
+  display: block;
+  filter: saturate(1.02) contrast(1.03);
+  transition: transform .6s var(--ease-fast), filter .6s var(--ease-fast);
+}
+
+@media (max-width:992px) {
+  .flip-front .cover {
+    height: 52%
+  }
+}
+
+@media (max-width:576px) {
+  .flip-front .cover {
+    height: 48%
+  }
+}
+
+.card-caption {
+  padding: 12px 14px;
+  width: 100%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.98));
+  z-index: 2;
+}
+
+.flip-back {
+  background: var(--white);
+  color: var(--curry-green);
+  transform: rotateY(180deg);
+  padding: 18px;
   display: flex;
   flex-direction: column;
   gap: 8px;
-  padding: 18px;
-  background: #ffffff; /* keep plain white for consistency */
-  color: var(--curry-green);
-  box-shadow: 0 10px 28px rgba(16,24,32,0.04);
+  box-shadow: 0 10px 28px rgba(16, 24, 32, 0.04);
 }
 
-/* ensure flip-points style fits */
+.flip-back h6 {
+  margin: 0 0 6px;
+  font-weight: 800;
+  color: var(--curry-green);
+  font-family: var(--font-heading);
+}
+
+.flip-back p.small {
+  margin: 0 0 6px;
+  color: rgba(63,36,20,0.68);
+}
+
 .flip-back .flip-points {
   margin: 6px 0;
   padding-left: 18px;
@@ -1196,25 +1040,83 @@ section {
   color: var(--curry-green);
 }
 
-/* If the .flip-card is placed inside other containers with spacing,
-   the content-defined height will keep the card compact and end where
-   the caption ends (no extra golden background showing). */
-
-/* Responsive tweaks (reduce sizes on smaller screens) */
-@media (max-width: 992px) {
-  .flip-img-wrap { aspect-ratio: 1 / 1; } /* keep square */
-  .price-pill { right: 10px; bottom: 10px; padding: 6px 10px; font-size: 0.92rem; }
+.flip-back .flip-points li {
+  margin: 6px 0;
+  font-size: .98rem;
+  line-height: 1.4;
 }
 
-@media (max-width: 576px) {
-  .price-pill { right: 8px; bottom: 8px; padding: 5px 10px; font-size: 0.86rem; }
-  .card-caption { padding: 10px 12px; }
+.flip-back .small.text-muted {
+  color: var(--muted);
+  font-size: .86rem;
 }
 
-/* accessibility / reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .flip-inner { transition: none !important; }
-  .flip-card { transition: none !important; transform: none !important; }
+.no-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, var(--bg-alt), var(--white));
+  height: 55%;
+}
+
+.placeholder-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 900;
+  color: var(--curry-green);
+}
+
+/* category pills */
+.cat-trad {
+  background: var(--roasted-brown);
+  color: var(--white);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-family: var(--font-label);
+  font-weight: 800;
+}
+
+.cat-health {
+  background: var(--leaf-green);
+  color: var(--curry-green);
+  padding: 8px 12px;
+  border-radius: 999px;
+}
+
+.cat-fusion {
+  background: var(--turmeric);
+  color: var(--curry-green);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-weight: 800;
+}
+
+.cat-kids {
+  background: var(--candy-blue);
+  color: var(--white);
+  padding: 8px 12px;
+  border-radius: 999px;
+  font-family: var(--font-kids);
+  font-weight: 800;
+}
+
+@media (max-width:992px) {
+  .flip-inner {
+    transition-duration: 520ms
+  }
+
+  .flip-card {
+    height: 300px
+  }
+}
+
+.flip-card:focus-within {
+  outline: 3px solid rgba(36, 74, 49, 0.12);
+  border-radius: 12px;
 }
 
 /* =========================
@@ -1786,281 +1688,3 @@ section {
 /* =========================
    END OF STYLESHEET
    ========================= */
-
-/* ============== additions for About / Products / Howto content ============== */
-
-.about-story-section .section-title.custom-hero {
-  margin-bottom: 10px;
-}
-
-.feature-card.p-3 {
-  padding: 18px;
-  min-height: 110px;
-}
-
-/* ============================================================
-   SIGNATURE RANGE — FIX IMAGE 1:1 + KEEP FULL CONTENT VISIBLE
-   Only affects: .signature-range
-   ============================================================ */
-
-/* Make each signature card a vertical flex container */
-.signature-range .signature-card {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  min-height: 360px;
-  position: relative;
-  overflow: visible;
-}
-
-/* Flip-inner: still 3D but uses flex column inside signature section */
-.signature-range .flip-inner {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: auto; /* important — removes clipping */
-  transform-style: preserve-3d;
-  position: relative;
-}
-
-/* Front + Back: both natural height (no clipping) */
-.signature-range .flip-front,
-.signature-range .flip-back {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  backface-visibility: hidden;
-  position: absolute;
-  inset: 0;
-  height: auto;
-  min-height: 100%;
-}
-
-/* 1:1 IMAGE FIX (ONLY SIGNATURE RANGE) */
-.signature-range .signature-cover,
-.signature-range .flip-front .cover,
-.signature-range .flip-front .no-image.placeholder-initials {
-  width: 100%;
-  aspect-ratio: 1 / 1;    /* square image */
-  height: auto;
-  object-fit: cover;
-  object-position: center;
-  flex: 0 0 auto;         /* DO NOT grow */
-}
-
-/* Caption ALWAYS visible below the image */
-.signature-range .card-caption {
-  flex: 0 0 auto;
-  order: 2;
-  width: 100%;
-  padding: 14px;
-  box-sizing: border-box;
-  z-index: 3;
-  background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,250,235,0.96));
-}
-
-/* Flip-back content MUST NOT get clipped */
-.signature-range .flip-back {
-  position: absolute;
-  inset: 0;
-  padding: 18px;
-  height: auto;
-  min-height: 100%;
-  overflow: visible;
-  justify-content: flex-start;
-}
-
-/* Optional: prevent cards from becoming too tall on tiny screens */
-@media (max-width: 480px) {
-  .signature-range .signature-card { min-height: 300px; }
-
-  .signature-range .signature-cover {
-    aspect-ratio: 1 / 1;
-  }
-
-  .signature-range .card-caption {
-    padding: 12px;
-  }
-}
-
-
-/* ============================================
-   SIGNATURE RANGE — stand-alone card system
-   ============================================ */
-
-/* Premium handwritten title font */
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-
-/* Section wrapper */
-.signature-section {
-  background: linear-gradient(180deg, #fffdf8, #fff9ef);
-  padding: 32px 0;
-  border-radius: 14px;
-}
-
-/* Heading */
-.signature-hero {
-  margin-bottom: 12px;
-}
-
-.section-title.signature-heading {
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  font-size: 2.3rem;
-  margin: 0;
-  padding-bottom: 16px;
-  color: #103b27;
-  position: relative;
-  display: inline-block;
-}
-
-/* 3-color underline */
-.section-title.signature-heading::after {
-  content: "";
-  display: block;
-  height: 14px;
-  width: 180px;
-  border-radius: 999px;
-  margin-top: 10px;
-  background: linear-gradient(90deg,
-      var(--turmeric) 0 33%,
-      var(--roasted-brown) 33% 66%,
-      var(--chilli-red) 66% 100%);
-}
-
-.signature-tagline {
-  font-size: 0.95rem;
-  color: rgba(30,30,30,0.65);
-  margin-top: -2px;
-  margin-bottom: 22px;
-}
-
-/* ==================================================
-   SIGNATURE CARDS (independent system)
-   ================================================== */
-
-.sig-card {
-  position: relative;
-  background: #fffdfa;
-  border-radius: 18px;
-  overflow: hidden;
-  box-shadow: 0 18px 44px rgba(16,24,32,0.12);
-  transition: transform .35s ease, box-shadow .35s ease;
-  cursor: pointer;
-}
-
-/* Hover lift */
-.sig-card:hover {
-  transform: translateY(-8px) scale(1.01);
-  box-shadow: 0 30px 70px rgba(16,24,32,0.18);
-}
-
-/* ---------------------------------
-   IMAGE area (always 1:1 square)
-   --------------------------------- */
-
-.sig-img {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background-size: cover;
-  background-position: center;
-  position: relative;
-}
-
-/* PRICE badge inside the image */
-.sig-price {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  background: rgba(255,255,255,0.92);
-  padding: 8px 12px;
-  border-radius: 12px;
-  font-weight: 800;
-  font-size: 1rem;
-  color: #5b4316;
-  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
-}
-
-.sig-price span {
-  display: block;
-  font-size: 0.72rem;
-  opacity: 0.85;
-  margin-top: -2px;
-}
-
-/* ---------------------------------
-   CONTENT (front side)
-   --------------------------------- */
-
-.sig-body {
-  padding: 16px;
-  background: linear-gradient(180deg, #fffdf6, #fff8ea);
-}
-
-.sig-cat {
-  display: inline-block;
-  padding: 6px 12px;
-  font-size: 0.73rem;
-  border-radius: 999px;
-  background: rgba(36,74,49,0.08);
-  color: #1f5a32;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-/* Handwritten premium name */
-.sig-title {
-  font-family: "Great Vibes", cursive;
-  font-size: 1.45rem;
-  color: #133e28;
-  margin: 0 0 4px;
-  letter-spacing: 0.2px;
-}
-
-.sig-desc {
-  font-size: 0.92rem;
-  margin: 0;
-  color: rgba(40,40,40,0.7);
-}
-
-/* ---------------------------------
-   BACK CONTENT (hidden until JS toggle)
-   --------------------------------- */
-
-.sig-back {
-  display: none;
-  padding: 16px;
-  background: #fffef9;
-  border-top: 1px solid rgba(0,0,0,0.05);
-  color: #254a36;
-}
-
-.sig-back p {
-  margin-bottom: 6px;
-}
-
-.sig-card.active .sig-back {
-  display: block;
-}
-
-.sig-card.active .sig-body {
-  display: none;
-}
-
-/* ---------------------------------
-   Responsive
-   --------------------------------- */
-
-@media (max-width: 992px) {
-  .section-title.signature-heading { font-size: 1.9rem; }
-}
-
-@media (max-width: 576px) {
-  .sig-title { font-size: 1.25rem; }
-  .sig-price { font-size: 0.95rem; right: 10px; bottom: 10px; }
-  .section-title.signature-heading { font-size: 1.6rem; }
-  .sig-body { padding: 14px; }
-}
-
-
-

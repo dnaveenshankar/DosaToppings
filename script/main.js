@@ -32,77 +32,74 @@
 
   /* -------------------------
      Track start time (when DOM started loading)
-     We prefer DOMContentLoaded as the start marker; if DOMContentLoaded already fired,
-     we fall back to script execution time.
      ------------------------- */
   let _startTs = Date.now();
   if (document.readyState === 'loading') {
-    // DOM hasn't finished parsing yet — mark start when DOMContentLoaded fires
     document.addEventListener('DOMContentLoaded', function onDom() {
       _startTs = Date.now();
       document.removeEventListener('DOMContentLoaded', onDom);
     });
   } else {
-    // DOM already parsed; use now
     _startTs = Date.now();
   }
 
   /* -------------------------
-     Product dataset
+     Product dataset (podi-1 .. podi-20)
      ------------------------- */
   const products = [
     // Traditional
-    { id:1, name:'Curry Leaves', category:'Traditional', price:100, img:'assets/product-curry.jpg', desc:'Fragrant, classic powdered blend to lift dosa, idli and rice.' },
-    { id:2, name:'Garlic', category:'Traditional', price:110, img:'assets/product-garlic.jpg', desc:'Savory garlic punch — pairs beautifully with ghee dosa.' },
-    { id:3, name:'Idli Dosa', category:'Traditional', price:95, img:null, desc:'Classic seasoning made for idli & dosa — mild and nutty.' },
-    { id:4, name:'Coriander', category:'Traditional', price:105, img:null, desc:'Fresh, green notes — a twist to everyday dosa and rice bowls.' },
-    { id:5, name:'Tamarind Rice', category:'Traditional', price:120, img:null, desc:'Sour-sweet spice mix inspired by tamarind rice.' },
+    { id: 1, name: 'Curry Leaves', category: 'Traditional', price: 100, img: 'assets/podi-1.png', desc: 'Fragrant, classic powdered blend to lift dosa, idli and rice.' },
+    { id: 2, name: 'Garlic', category: 'Traditional', price: 110, img: 'assets/podi-2.png', desc: 'Savory garlic punch — pairs beautifully with ghee dosa.' },
+    { id: 3, name: 'Idli Dosa', category: 'Traditional', price: 95, img: 'assets/podi-3.png', desc: 'Classic seasoning made for idli & dosa — mild and nutty.' },
+    { id: 4, name: 'Coriander', category: 'Traditional', price: 105, img: 'assets/podi-4.png', desc: 'Fresh, green notes — a twist to everyday dosa and rice bowls.' },
+    { id: 5, name: 'Tamarind Rice', category: 'Traditional', price: 120, img: 'assets/podi-5.png', desc: 'Sour-sweet spice mix inspired by tamarind rice.' },
 
     // Health
-    { id:6, name:'Flax Seed', category:'Health', price:140, img:'assets/product-flax.jpg', desc:'Rich in Omega-3 & fiber — crunchy, nutty podi.' },
-    { id:7, name:'Horse Gram', category:'Health', price:130, img:null, desc:'Protein-rich and earthy — developed for nourishment.' },
-    { id:8, name:'Moringa', category:'Health', price:145, img:null, desc:'Supergreen nutrition in a sprinkle — earthy and nutritious.' },
-    { id:9, name:'Sesame', category:'Health', price:110, img:null, desc:'Nutty, fragrant sesame to add crunch and calcium.' },
-    { id:10, name:'Protein Mix', category:'Health', price:160, img:null, desc:'Pulse-forward blend designed for extra protein.' },
+    { id: 6, name: 'Flax Seed', category: 'Health', price: 140, img: 'assets/podi-6.png', desc: 'Rich in Omega-3 & fiber — crunchy, nutty podi.' },
+    { id: 7, name: 'Horse Gram', category: 'Health', price: 130, img: 'assets/podi-7.png', desc: 'Protein-rich and earthy — developed for nourishment.' },
+    { id: 8, name: 'Moringa', category: 'Health', price: 145, img: 'assets/podi-8.png', desc: 'Supergreen nutrition in a sprinkle — earthy and nutritious.' },
+    { id: 9, name: 'Sesame', category: 'Health', price: 110, img: 'assets/podi-9.png', desc: 'Nutty, fragrant sesame to add crunch and calcium.' },
+    { id: 10, name: 'Protein Mix', category: 'Health', price: 160, img: 'assets/podi-10.png', desc: 'Pulse-forward blend designed for extra protein.' },
 
     // Fusion
-    { id:11, name:'Pepper Garlic', category:'Fusion', price:125, img:null, desc:'Bold pepper and roasted garlic for millet & pancakes.' },
-    { id:12, name:'Spicy Millet', category:'Fusion', price:135, img:null, desc:'Millet-forward podi with chilli & herbs.' },
-    { id:13, name:'Herb Chilli', category:'Fusion', price:120, img:null, desc:'Aromatic herbs meet gentle chilli.' },
-    { id:14, name:'Lentil Mix', category:'Fusion', price:150, img:null, desc:'Protein-rich lentil blend with warm spices.' },
-    { id:15, name:'Tomato Burst', category:'Fusion', price:115, img:null, desc:'Tangy tomato notes for bright modern flavor.' },
+    { id: 11, name: 'Pepper Garlic', category: 'Fusion', price: 125, img: 'assets/podi-11.png', desc: 'Bold pepper and roasted garlic for millet & pancakes.' },
+    { id: 12, name: 'Spicy Millet', category: 'Fusion', price: 135, img: 'assets/podi-12.png', desc: 'Millet-forward podi with chilli & herbs.' },
+    { id: 13, name: 'Herb Chilli', category: 'Fusion', price: 120, img: 'assets/podi-13.png', desc: 'Aromatic herbs meet gentle chilli.' },
+    { id: 14, name: 'Lentil Mix', category: 'Fusion', price: 150, img: 'assets/podi-14.png', desc: 'Protein-rich lentil blend with warm spices.' },
+    { id: 15, name: 'Tomato Burst', category: 'Fusion', price: 115, img: 'assets/podi-15.png', desc: 'Tangy tomato notes for bright modern flavor.' },
 
     // Kids
-    { id:16, name:'Choco Nut', category:'Kids', price:130, img:null, desc:'Sweet cocoa-nut mix kids love — great on pancakes.' },
-    { id:17, name:'Sweet Protein Mix', category:'Kids', price:140, img:null, desc:'Mildly sweet, protein-rich blend for children.' },
-    { id:18, name:'Mild Garlic', category:'Kids', price:95, img:null, desc:'Gentle garlic flavor tuned for younger taste buds.' },
-    { id:19, name:'Peanut Crunch', category:'Kids', price:120, img:null, desc:'Crispy peanuts and mild spices — a little one favourite.' },
-    { id:20, name:'Sprout Mix', category:'Kids', price:150, img:null, desc:'Sprout-based mix to sneak in extra nutrition.' }
+    { id: 16, name: 'Choco Nut', category: 'Kids', price: 130, img: 'assets/podi-16.png', desc: 'Sweet cocoa-nut mix kids love — great on pancakes.' },
+    { id: 17, name: 'Sweet Protein Mix', category: 'Kids', price: 140, img: 'assets/podi-17.png', desc: 'Mildly sweet, protein-rich blend for children.' },
+    { id: 18, name: 'Mild Garlic', category: 'Kids', price: 95, img: 'assets/podi-18.png', desc: 'Gentle garlic flavor tuned for younger taste buds.' },
+    { id: 19, name: 'Peanut Crunch', category: 'Kids', price: 120, img: 'assets/podi-19.png', desc: 'Crispy peanuts and mild spices — a little one favourite.' },
+    { id: 20, name: 'Sprout Mix', category: 'Kids', price: 150, img: 'assets/podi-20.png', desc: 'Sprout-based mix to sneak in extra nutrition.' }
   ];
 
   /* -------------------------
      Helpers
      ------------------------- */
-  function escapeHtml(str){
-    return String(str).replace(/[&<>"]/g, function(c){
-      return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];
+  function escapeHtml(str) {
+    return String(str).replace(/[&<>"]/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
     });
   }
 
   /* -------------------------
      Render products
+     (flip-img-wrap + price-pill bottom-right)
      ------------------------- */
   function renderProducts(list) {
-    if(!productGrid) return;
+    if (!productGrid) return;
     productGrid.innerHTML = '';
-    if(!list || !list.length){
+    if (!list || !list.length) {
       productGrid.innerHTML = '<div class="col-12"><div class="p-4 text-center text-muted">No products found.</div></div>';
       return;
     }
 
-    const SAMPLE_IMG = 'assets/sample.png'; // placeholder image for all cards
+    const SAMPLE_IMG = 'assets/sample.png'; // fallback
 
-    // product-specific benefits (3 points each)
+    // features map
     const featuresMap = {
       1: ['Fresh curry leaf aroma', 'No artificial flavours', 'Perfect with ghee dosa'],
       2: ['Bold roasted garlic', 'Aromatic & savory', 'Pairs with sesame oil'],
@@ -113,17 +110,17 @@
       7: ['High-protein podi', 'Earthy roasted flavour', 'Satiety boosting'],
       8: ['Moringa goodness', 'Vitamin-rich sprinkle', 'Mild green taste'],
       9: ['Toasted sesame crunch', 'Good calcium source', 'Adds texture'],
-      10:['Pulse-forward protein mix', 'Balanced spice profile', 'Meal-ready nutrition'],
-      11:['Peppery heat & garlic', 'Works on millet dosa', 'Bold flavour'],
-      12:['Millet-friendly spice', 'Slight smoky notes', 'Great with porridge/pancakes'],
-      13:['Herbal aroma & mild chilli', 'Versatile use', 'Subtle heat'],
-      14:['Lentil-based protein', 'Creamy roasted texture', 'Nutritious sprinkle'],
-      15:['Tomato tang & brightness', 'Kid-friendly', 'Adds color & zing'],
-      16:['Choco-nut sweetness', 'Kid-approved flavour', 'Great on pancakes'],
-      17:['Mild sweet protein', 'Energy-packed', 'Mixes well with milk/yogurt'],
-      18:['Gentle garlic flavor', 'Kid-friendly spice', 'Mild & tasty'],
-      19:['Crunchy peanut bits', 'Good protein source', 'Crunch kids love'],
-      20:['Sprout goodness', 'High in enzymes', 'Healthy everyday sprinkle']
+      10: ['Pulse-forward protein mix', 'Balanced spice profile', 'Meal-ready nutrition'],
+      11: ['Peppery heat & garlic', 'Works on millet dosa', 'Bold flavour'],
+      12: ['Millet-friendly spice', 'Slight smoky notes', 'Great with porridge/pancakes'],
+      13: ['Herbal aroma & mild chilli', 'Versatile use', 'Subtle heat'],
+      14: ['Lentil-based protein', 'Creamy roasted texture', 'Nutritious sprinkle'],
+      15: ['Tomato tang & brightness', 'Kid-friendly', 'Adds color & zing'],
+      16: ['Choco-nut sweetness', 'Kid-approved flavour', 'Great on pancakes'],
+      17: ['Mild sweet protein', 'Energy-packed', 'Mixes well with milk/yogurt'],
+      18: ['Gentle garlic flavor', 'Kid-friendly spice', 'Mild & tasty'],
+      19: ['Crunchy peanut bits', 'Good protein source', 'Crunch kids love'],
+      20: ['Sprout goodness', 'High in enzymes', 'Healthy everyday sprinkle']
     };
 
     list.forEach(prod => {
@@ -137,12 +134,17 @@
       ];
 
       const pointsHTML = `<ul class="flip-points">${features.map(f => `<li>${escapeHtml(f)}</li>`).join('')}</ul>`;
+      const imgSrc = prod.img ? prod.img : SAMPLE_IMG;
 
       col.innerHTML = `
         <div class="flip-card" tabindex="0" data-id="${prod.id}" aria-label="${escapeHtml(prod.name)} - product card">
           <div class="flip-inner">
             <div class="flip-front">
-              <img src="${SAMPLE_IMG}" alt="${escapeHtml(prod.name)}" class="img-fluid cover">
+              <div class="flip-img-wrap" style="background-image:url('${imgSrc}');">
+                <img src="${imgSrc}" alt="${escapeHtml(prod.name)}" class="cover" />
+                <div class="price-pill">₹${prod.price}</div>
+              </div>
+
               <div class="card-caption">
                 <div class="d-flex justify-content-between align-items-center">
                   <div>
@@ -150,17 +152,19 @@
                     <small class="text-muted">${escapeHtml(prod.category)}</small>
                   </div>
                   <div class="text-end">
-                    <div class="price-now">₹${prod.price}</div>
+                    <div class="price-now visually-hidden">₹${prod.price}</div>
                   </div>
                 </div>
               </div>
             </div>
+
             <div class="flip-back" aria-hidden="true">
               <h6 class="mb-1">${escapeHtml(prod.name)}</h6>
               <p class="small mb-1">${escapeHtml(prod.desc)}</p>
               ${pointsHTML}
               <div class="small text-muted mt-2">Category: ${escapeHtml(prod.category)} | Price: ₹${prod.price}</div>
             </div>
+
           </div>
         </div>
       `;
@@ -169,31 +173,28 @@
 
       // attach interactivity
       const card = col.querySelector('.flip-card');
-      if(card){
-        // click/tap toggles flip on smaller screens (desktop hover handles desktop flip)
+      if (card) {
         card.addEventListener('click', (e) => {
           if (window.innerWidth <= 992) {
             card.classList.toggle('active');
             const back = card.querySelector('.flip-back');
-            if(back) back.setAttribute('aria-hidden', card.classList.contains('active') ? 'false' : 'true');
-            setTimeout(()=> card.classList.remove('active'), 6000);
+            if (back) back.setAttribute('aria-hidden', card.classList.contains('active') ? 'false' : 'true');
+            setTimeout(() => card.classList.remove('active'), 6000);
           }
         });
 
-        // keyboard accessibility: Enter or Space toggles flip
         card.addEventListener('keydown', (e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
             card.classList.toggle('active');
             const back = card.querySelector('.flip-back');
-            if(back) back.setAttribute('aria-hidden', card.classList.contains('active') ? 'false' : 'true');
-            setTimeout(()=> card.classList.remove('active'), 6000);
+            if (back) back.setAttribute('aria-hidden', card.classList.contains('active') ? 'false' : 'true');
+            setTimeout(() => card.classList.remove('active'), 6000);
           }
         });
 
-        // ensure aria-hidden default
         const backInit = card.querySelector('.flip-back');
-        if(backInit) backInit.setAttribute('aria-hidden', 'true');
+        if (backInit) backInit.setAttribute('aria-hidden', 'true');
       }
     });
 
@@ -202,7 +203,7 @@
     cards.forEach((el, i) => {
       el.style.opacity = 0;
       el.style.transform = 'translateY(18px) scale(.995)';
-      setTimeout(()=> {
+      setTimeout(() => {
         el.style.transition = 'opacity 560ms ease, transform 560ms cubic-bezier(.2,.9,.2,1)';
         el.style.opacity = 1;
         el.style.transform = 'translateY(0) scale(1)';
@@ -220,27 +221,27 @@
     if (cat && cat !== 'all') list = list.filter(p => p.category === cat);
 
     const s = sortBy ? sortBy.value : '';
-    if (s === 'name-asc') list.sort((a,b) => a.name.localeCompare(b.name));
-    else if (s === 'name-desc') list.sort((a,b) => b.name.localeCompare(a.name));
-    else if (s === 'price-asc') list.sort((a,b) => a.price - b.price);
-    else if (s === 'price-desc') list.sort((a,b) => b.price - a.price);
-    else if (s === 'category') list.sort((a,b) => a.category.localeCompare(b.category));
+    if (s === 'name-asc') list.sort((a, b) => a.name.localeCompare(b.name));
+    else if (s === 'name-desc') list.sort((a, b) => b.name.localeCompare(a.name));
+    else if (s === 'price-asc') list.sort((a, b) => a.price - b.price);
+    else if (s === 'price-desc') list.sort((a, b) => b.price - a.price);
+    else if (s === 'category') list.sort((a, b) => a.category.localeCompare(b.category));
 
     renderProducts(list);
   }
 
-  if(filterCategory) filterCategory.addEventListener('change', applyFilters);
-  if(sortBy) sortBy.addEventListener('change', applyFilters);
+  if (filterCategory) filterCategory.addEventListener('change', applyFilters);
+  if (sortBy) sortBy.addEventListener('change', applyFilters);
 
   /* -------------------------
      IntersectionObserver: section highlight + reveal
      ------------------------- */
-  function setupSectionObserver(){
+  function setupSectionObserver() {
     try {
       const idToNav = {};
       navLinks.forEach(link => {
         const href = link.getAttribute('href');
-        if(href && href.startsWith('#')) idToNav[href.slice(1)] = link;
+        if (href && href.startsWith('#')) idToNav[href.slice(1)] = link;
       });
 
       const ioOptions = { root: null, rootMargin: '0px 0px -30% 0px', threshold: 0.15 };
@@ -248,22 +249,19 @@
       const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           const id = entry.target && entry.target.id;
-          if(entry.isIntersecting){
-            // highlight nav
+          if (entry.isIntersecting) {
             Object.values(idToNav).forEach(nl => nl.classList.remove('active'));
-            if(id && idToNav[id]) idToNav[id].classList.add('active');
-
-            // reveal animated children
+            if (id && idToNav[id]) idToNav[id].classList.add('active');
             entry.target.querySelectorAll('.fade-in-up').forEach(el => el.classList.add('visible'));
           }
         });
       }, ioOptions);
 
       sections.forEach(sec => {
-        if(sec) sectionObserver.observe(sec);
-        if(sec){
+        if (sec) sectionObserver.observe(sec);
+        if (sec) {
           sec.querySelectorAll('h2, h3, p, .feature-card, .combo-card, .flip-card, img').forEach(el => {
-            if(!el.classList.contains('fade-in-up')) el.classList.add('fade-in-up');
+            if (!el.classList.contains('fade-in-up')) el.classList.add('fade-in-up');
           });
         }
       });
@@ -275,7 +273,7 @@
   /* -------------------------
      Smooth anchors (respect nav height)
      ------------------------- */
-  function setupAnchors(){
+  function setupAnchors() {
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
       anchor.addEventListener('click', function (e) {
         const href = this.getAttribute('href');
@@ -297,12 +295,12 @@
   function footerAndGoTop() {
     const footer = document.getElementById('footer');
     const goTopEl = document.getElementById('goTop');
-    if(!footer || !goTopEl) return;
+    if (!footer || !goTopEl) return;
 
     const isTouch = (('ontouchstart' in window) || navigator.maxTouchPoints > 1);
     goTopEl.classList.remove('show');
 
-    if(!isTouch){
+    if (!isTouch) {
       footer.addEventListener('mouseenter', () => goTopEl.classList.add('show'));
       footer.addEventListener('mouseleave', () => goTopEl.classList.remove('show'));
     }
@@ -312,9 +310,9 @@
     if ('IntersectionObserver' in window) {
       const obs = new IntersectionObserver((entries, ob) => {
         entries.forEach(entry => {
-          if(entry.isIntersecting){
+          if (entry.isIntersecting) {
             const items = footer.querySelectorAll('.fade-in-up');
-            items.forEach((el, i) => setTimeout(()=> el.classList.add('visible'), i*120));
+            items.forEach((el, i) => setTimeout(() => el.classList.add('visible'), i * 120));
             ob.disconnect();
           }
         });
@@ -328,36 +326,36 @@
   /* -------------------------
      Runtime navbar-height sync
      ------------------------- */
-  function syncNavHeight(){
+  function syncNavHeight() {
     const navSelector = '.site-nav';
     const nav = document.querySelector(navSelector);
-    if(!nav) return;
+    if (!nav) return;
 
     let resizeTimer = null;
 
-    function setNavVar(){
+    function setNavVar() {
       const rect = nav.getBoundingClientRect();
       const h = Math.ceil(rect.height) || 72;
       document.documentElement.style.setProperty('--nav-height', h + 'px');
 
       document.querySelectorAll('main').forEach(m => {
-        if(m && m.style) m.style.paddingTop = `calc(${h}px + 6px)`;
+        if (m && m.style) m.style.paddingTop = `calc(${h}px + 6px)`;
       });
 
       const margin = h + 8;
       document.querySelectorAll('header#home, .hero, main section').forEach(el => {
-        if(el && el.style) el.style.scrollMarginTop = margin + 'px';
+        if (el && el.style) el.style.scrollMarginTop = margin + 'px';
       });
     }
 
-    window.addEventListener('load', () => setTimeout(setNavVar, 90), { passive:true });
+    window.addEventListener('load', () => setTimeout(setNavVar, 90), { passive: true });
 
     window.addEventListener('resize', () => {
       if (resizeTimer) clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(()=> setNavVar(), 120);
-    }, { passive:true });
+      resizeTimer = setTimeout(() => setNavVar(), 120);
+    }, { passive: true });
 
-    window.addEventListener('orientationchange', () => { setTimeout(setNavVar, 180); }, { passive:true });
+    window.addEventListener('orientationchange', () => { setTimeout(setNavVar, 180); }, { passive: true });
 
     document.querySelectorAll('.navbar-toggler, .navbar-collapse, .navbar-toggler-icon').forEach(btn => {
       btn.addEventListener('click', () => setTimeout(setNavVar, 220));
@@ -376,17 +374,15 @@
      This function is called only AFTER the preloader minimum time has elapsed
      and after the window load event.
      ------------------------- */
-  function initAfterLoad(){
+  function initAfterLoad() {
     try {
-      // ensure loaded class is present for CSS to hide spinner
       document.body.classList.add('loaded');
 
-      if(preloader){
-        try { preloader.setAttribute('aria-hidden', 'true'); } catch(e){/*ignore*/}
+      if (preloader) {
+        try { preloader.setAttribute('aria-hidden', 'true'); } catch (e) {/*ignore*/ }
 
-        // remove preloader node after a short delay to allow CSS fade-out
-        setTimeout(()=> {
-          if(preloader && preloader.parentNode) preloader.parentNode.removeChild(preloader);
+        setTimeout(() => {
+          if (preloader && preloader.parentNode) preloader.parentNode.removeChild(preloader);
         }, PRELOADER_REMOVE_DELAY);
       }
     } catch (e) { /* ignore errors */ }
@@ -409,7 +405,6 @@
     const elapsed = Math.max(0, now - _startTs);
     const remaining = Math.max(0, MIN_PRELOADER_MS - elapsed);
 
-    // Wait remaining milliseconds (if any), then initialize and hide preloader
     setTimeout(() => {
       initAfterLoad();
     }, remaining);
@@ -419,7 +414,6 @@
      Attach load event (robust if load already fired)
      ------------------------- */
   if (document.readyState === 'complete') {
-    // page already loaded — still enforce minimum display based on our _startTs
     onWindowLoadEnforcePreloader();
   } else {
     window.addEventListener('load', function onLoad() {
