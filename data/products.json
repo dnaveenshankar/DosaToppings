@@ -1,0 +1,94 @@
+{
+  "version": "2025-11-29",
+  "updated": "2025-11-29T10:00:00+05:30",
+  "products": [
+    {
+      "id": "sig-001",
+      "title": "Classic Paruppu Podi",
+      "category": "Signature",
+      "price": 100,
+      "unit": "50gms",
+      "short": "Lentil-forward, nutty & aromatic.",
+      "description": "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.",
+      "image": "assets/signature-1.png",
+      "tags": ["dal", "mild", "aroma"]
+    },
+    {
+      "id": "sig-002",
+      "title": "Curry Leaves Podi",
+      "category": "Signature",
+      "price": 100,
+      "unit": "50gms",
+      "short": "Fragrant curry leaf & roasted dals.",
+      "description": "Aromatic and herbaceous — great with rice and chutney.",
+      "image": "assets/signature-2.png",
+      "tags": ["herbal", "aromatic"]
+    },
+    {
+      "id": "sig-003",
+      "title": "Moringa Podi",
+      "category": "Signature",
+      "price": 145,
+      "unit": "50gms",
+      "short": "Nutrient-rich moringa, mild spice.",
+      "description": "Vitamin-rich sprinkle — delicious in rice or porridge.",
+      "image": "assets/signature-3.png",
+      "tags": ["moringa", "healthy"]
+    },
+    {
+      "id": "sig-004",
+      "title": "Garlic Podi",
+      "category": "Signature",
+      "price": 110,
+      "unit": "50gms",
+      "short": "Roasted garlic — bold & savory.",
+      "description": "Bold garlic flavour that pairs beautifully with ghee dosa.",
+      "image": "assets/signature-4.png",
+      "tags": ["garlic", "strong"]
+    },
+    {
+      "id": "sig-005",
+      "title": "Idli Milagai Podi",
+      "category": "Signature",
+      "price": 95,
+      "unit": "50gms",
+      "short": "Classic mild & nutty seasoning.",
+      "description": "Mild & nutty — perfect for idli and breakfast bowls.",
+      "image": "assets/signature-5.png",
+      "tags": ["idli", "mild"]
+    },
+    {
+      "id": "sig-006",
+      "title": "Kollu Podi",
+      "category": "Signature",
+      "price": 130,
+      "unit": "50gms",
+      "short": "Protein-rich horse gram blend.",
+      "description": "Earthy & nourishing — great in rice mixes.",
+      "image": "assets/signature-6.png",
+      "tags": ["kollu", "protein"]
+    },
+    {
+      "id": "sig-007",
+      "title": "Peanut Podi",
+      "category": "Signature",
+      "price": 120,
+      "unit": "50gms",
+      "short": "Crispy peanuts & warm spices.",
+      "description": "Crunchy, nutty & satisfying.",
+      "image": "assets/signature-7.png",
+      "tags": ["peanut", "crispy"]
+    },
+    {
+      "id": "sig-008",
+      "title": "Sesame Podi",
+      "category": "Signature",
+      "price": 110,
+      "unit": "50gms",
+      "short": "Toasted sesame & fragrant spices.",
+      "description": "Nutty, toasty flavour — great with rice & dosa.",
+      "image": "assets/signature-8.png",
+      "tags": ["sesame", "nutty"]
+    }
+  ]
+}
