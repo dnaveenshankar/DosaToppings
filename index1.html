@@ -107,12 +107,20 @@
     section {
       scroll-margin-top: calc(var(--nav-height, 72px)+8px)
     }
+
+    /* Helpful: ensure preloader sits above everything and respects reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      .preloader-pill .pill-seg {
+        animation: none !important;
+      }
+    }
   </style>
 
   <!-- =========================
-       2) PRELOADER
+       2) PRELOADER (REPLACED: three-color pill loader)
        ========================= -->
   <style>
+    /* Preloader overlay */
     #preloader {
       position: fixed;
       inset: 0;
@@ -124,84 +132,154 @@
       color: var(--white);
       transition: opacity .42s var(--ease-fast), visibility .42s var(--ease-fast);
       visibility: visible;
-      opacity: 1
+      opacity: 1;
     }
 
     #preloader[aria-hidden="true"] {
       pointer-events: none;
       opacity: 0;
-      visibility: hidden
+      visibility: hidden;
     }
 
+    /* Inner card */
     .preloader-inner {
       display: inline-flex;
       flex-direction: column;
       gap: 14px;
       align-items: center;
-      padding: 24px 28px;
-      border-radius: 14px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.04));
-      box-shadow: 0 18px 46px rgba(0, 0, 0, 0.5)
+      padding: 18px 22px;
+      border-radius: 12px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(0, 0, 0, 0.06));
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+      min-width: 220px;
+      max-width: 92%;
     }
 
-    .preloader-spinner {
-      --size: 64px;
-      --ring: 0.2px;
-      width: var(--size);
-      height: var(--size);
-      border-radius: 50%;
+    .preloader-label {
+      font-family: var(--font-label);
+      font-weight: 700;
+      font-size: .95rem;
+      color: rgba(255, 255, 255, 0.95);
+      letter-spacing: .2px;
+      text-align: center;
+    }
+
+    /* Pill loader container (three segments) */
+    .preloader-pill {
+      width: 220px;
+      height: 18px;
+      border-radius: 999px;
+      display: flex;
+      overflow: hidden;
       position: relative;
-      background: conic-gradient(var(--turmeric) 0deg 120deg, var(--roasted-brown) 120deg 240deg, var(--chilli-red) 240deg 360deg);
-      -webkit-mask: radial-gradient(farthest-side, transparent calc(50% - var(--ring)), black calc(50% - var(--ring)));
-      mask: radial-gradient(farthest-side, transparent calc(50% - var(--ring)), black calc(50% - var(--ring)));
-      animation: spinner-rotate 1.05s linear infinite
+      align-items: center;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
+      background: rgba(255, 255, 255, 0.02);
     }
 
-    .preloader-spinner::after {
+    /* Each colored segment */
+    .preloader-pill .pill-seg {
+      height: 100%;
+      flex: 0 0 auto;
+      transform-origin: center;
+      /* start slightly shrunken and animate */
+      transform: scaleX(.95);
+    }
+
+    .pill-seg.turmeric {
+      width: 20%;
+      background: linear-gradient(180deg, var(--turmeric), var(--turmeric-700));
+    }
+
+    .pill-seg.brown {
+      width: 18%;
+      background: linear-gradient(180deg, var(--roasted-brown), #5a3219);
+    }
+
+    .pill-seg.chilli {
+      width: 62%;
+      background: linear-gradient(180deg, var(--chilli-red), #9d2f25);
+    }
+
+    /* subtle internal shine (moving) */
+    .preloader-pill::after {
       content: "";
       position: absolute;
-      inset: 0;
-      margin: auto;
-      width: 32%;
-      height: 32%;
-      border-radius: 50%;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 250, 235, 0.82));
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.23);
-      animation: spinner-inner 1.9s ease-in-out infinite
+      top: -40%;
+      left: -30%;
+      width: 30%;
+      height: 200%;
+      background: linear-gradient(120deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.04));
+      transform: skewX(-18deg);
+      animation: pill-shine 2.6s linear infinite;
+      pointer-events: none;
     }
 
-    @keyframes spinner-rotate {
-      to {
-        transform: rotate(360deg)
-      }
-    }
-
-    @keyframes spinner-inner {
+    @keyframes pill-shine {
       0% {
-        transform: scale(1) rotate(0deg)
+        left: -40%;
+        opacity: 0;
       }
 
-      50% {
-        transform: scale(.98) rotate(8deg)
+      30% {
+        left: 50%;
+        opacity: 0.5;
       }
 
       100% {
-        transform: scale(1) rotate(0deg)
+        left: 150%;
+        opacity: 0;
       }
     }
 
-    .preloader-text {
-      font-family: var(--font-label);
-      font-weight: 600;
-      font-size: .95rem;
-      color: rgba(255, 255, 255, .95);
-      letter-spacing: .2px
+    /* Each segment has a subtle pop animation in sequence */
+    .pill-seg {
+      animation: pill-pop 900ms cubic-bezier(.2, .9, .2, 1) infinite;
+    }
+
+    .pill-seg.turmeric {
+      animation-delay: 0ms;
+    }
+
+    .pill-seg.brown {
+      animation-delay: 220ms;
+    }
+
+    .pill-seg.chilli {
+      animation-delay: 440ms;
+    }
+
+    @keyframes pill-pop {
+      0% {
+        transform: translateY(0) scaleX(.98) scaleY(0.98);
+        filter: saturate(0.92);
+      }
+
+      40% {
+        transform: translateY(-6px) scaleX(1.02) scaleY(1.04);
+        filter: saturate(1.06);
+      }
+
+      100% {
+        transform: translateY(0) scaleX(.98) scaleY(0.98);
+        filter: saturate(0.98);
+      }
+    }
+
+    /* fallback for reduced-motion users */
+    @media (prefers-reduced-motion: reduce) {
+
+      .preloader-pill::after,
+      .preloader-pill .pill-seg {
+        animation: none !important;
+        transform: none !important;
+      }
     }
 
     body.loaded #preloader {
       opacity: 0;
       visibility: hidden;
-      pointer-events: none
+      pointer-events: none;
     }
   </style>
 
@@ -643,30 +721,24 @@
       }
     }
 
-    /* Promise heading + 3-segment pill underline (paste inside your promise section CSS) */
+    /* Promise heading + 3-segment pill underline (reused style already included earlier) */
     .promise-title {
       font-family: var(--font-heading);
       font-weight: 900;
       font-size: clamp(2.0rem, 4.4vw, 3.6rem);
-      /* responsive large heading */
       color: var(--curry-green);
       margin: 0 0 12px;
       line-height: 1.02;
       letter-spacing: 0.2px;
       text-align: left;
-      /* keep left aligned within the column */
     }
 
-    /* Decorative pill container */
     .promise-pill {
       width: 240px;
-      /* total width of the pill */
       height: 16px;
-      /* thickness like the image */
       border-radius: 999px;
       display: flex;
       gap: 0;
-      /* segments touch each other */
       box-shadow: 0 8px 20px rgba(16, 24, 32, 0.08);
       margin-top: 14px;
       overflow: hidden;
@@ -674,14 +746,12 @@
       background: transparent;
     }
 
-    /* individual segments inside the pill */
     .promise-pill__seg {
       height: 100%;
       flex-shrink: 0;
       display: block;
     }
 
-    /* sizes tuned to match the image proportions */
     .promise-pill__seg--left {
       width: 22%;
       background: linear-gradient(180deg, var(--turmeric), var(--turmeric-700));
@@ -697,19 +767,6 @@
       background: linear-gradient(180deg, var(--chilli-red), #9d2f25);
     }
 
-    /* small rounded caps within the pill for subtle inset */
-    .promise-pill::before,
-    .promise-pill::after {
-      content: "";
-      position: absolute;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      opacity: 0.06;
-      pointer-events: none;
-    }
-
-    /* responsive tweaks */
     @media (max-width: 768px) {
       .promise-pill {
         width: 180px;
@@ -719,14 +776,6 @@
 
       .promise-title {
         font-size: clamp(1.6rem, 6vw, 2.6rem);
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-
-      .promise-title,
-      .promise-pill {
-        transition: none !important;
       }
     }
   </style>
@@ -954,11 +1003,17 @@
   <a class="skip-to-content" href="#main" aria-label="Skip to main content">Skip to content</a>
 
   <!-- PRELOADER -->
-  <div id="preloader" class="preloader" aria-hidden="false" aria-live="polite" role="status">
+  <div id="preloader" class="preloader" aria-hidden="false" aria-live="polite" role="status"
+    aria-label="Loading content">
     <div class="preloader-inner" role="presentation" aria-hidden="true">
-      <div class="preloader-logo" aria-hidden="true"></div>
-      <div class="preloader-spinner" aria-hidden="true"></div>
-      <div class="preloader-text">Preparing your flavours</div>
+      <div class="preloader-label" aria-hidden="false">Preparing your flavours</div>
+
+      <!-- Pill loader: three colored segments (turmeric / roasted-brown / chilli-red) -->
+      <div class="preloader-pill" role="img" aria-hidden="true" aria-label="Loading animation">
+        <span class="pill-seg turmeric" aria-hidden="true"></span>
+        <span class="pill-seg brown" aria-hidden="true"></span>
+        <span class="pill-seg chilli" aria-hidden="true"></span>
+      </div>
     </div>
   </div>
 
@@ -1358,7 +1413,28 @@
       }
       function hidePreloader() { document.body.classList.add('loaded'); const pre = document.getElementById('preloader'); if (pre) pre.setAttribute('aria-hidden', 'true') }
       function goTopInit() { var btn = document.getElementById('goTop'); if (!btn) return; function toggle() { if (window.scrollY > 240) btn.classList.add('show'); else btn.classList.remove('show'); } window.addEventListener('scroll', toggle, { passive: true }); btn.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }) }); toggle() }
-      if (document.readyState === 'complete' || document.readyState === 'interactive') { hidePreloader(); goTopInit(); loadProducts(); } else { document.addEventListener('DOMContentLoaded', function () { hidePreloader(); goTopInit(); loadProducts(); }, { once: true }); }
+      function startApp() {
+        hidePreloader();
+        goTopInit();
+        loadProducts();
+      }
+
+      // --- Minimum 2 seconds for loader ---
+      const MIN_LOAD_TIME = 2000;
+      const startTime = Date.now();
+
+      function finishLoad() {
+        const elapsed = Date.now() - startTime;
+        const remaining = MIN_LOAD_TIME - elapsed;
+        setTimeout(startApp, remaining > 0 ? remaining : 0);
+      }
+
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        finishLoad();
+      } else {
+        document.addEventListener('DOMContentLoaded', finishLoad, { once: true });
+      }
+
     })();
   </script>
 
