@@ -617,8 +617,10 @@
     .signature-section {
       background: linear-gradient(180deg, var(--panel-bg), var(--bg-alt));
       padding: 32px 0;
-      border-radius: 14px
+      border-radius: 22px;
+      box-shadow: 0 12px 36px rgba(16, 24, 32, 0.10);
     }
+
 
     .section-title.signature-heading {
       font-family: 'Playfair Display', serif;
@@ -643,6 +645,21 @@
       border-radius: 18px;
       box-shadow: 0 18px 44px rgba(16, 24, 32, .12);
       transition: transform .35s ease
+    }
+
+    .sig-card {
+      background: #fffdfa;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 14px 36px rgba(16, 24, 32, 0.10);
+      transition: transform .30s ease, box-shadow .30s ease;
+      cursor: pointer;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .sig-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 44px rgba(16, 24, 32, 0.16);
     }
 
     .sig-img {
@@ -778,12 +795,14 @@
         font-size: clamp(1.6rem, 6vw, 2.6rem);
       }
     }
-  </style>
 
-  <!-- =========================
-       9) HOWTO / 4-CARD GRID
-       ========================= -->
-  <style>
+    .image-note {
+      font-size: 0.82rem;
+      color: rgba(40, 40, 40, 0.55);
+      font-style: italic;
+      letter-spacing: 0.3px;
+    }
+
     .grid-4cards {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -1302,18 +1321,26 @@
       </div>
     </section>
 
+
     <!-- SIGNATURE RANGE -->
     <section id="products" class="signature-section mt-4" aria-labelledby="signature-range-title">
       <div class="container">
         <div class="signature-hero">
           <h2 id="signature-range-title" class="section-title signature-heading">Signature Ranges</h2>
-          <p class="signature-tagline">Pure, elevated podis — small-batch
-            roasted, stone-ground and finished for today’s
-            table.</p>
+          <p class="signature-tagline">
+            Pure, elevated podis — small-batch roasted, stone-ground and finished for today’s table.
+          </p>
+
+          <!-- IMAGE NOTE -->
+          <p class="image-note text-center mt-2">
+            *Images shown are for illustration purposes only.
+          </p>
         </div>
+
         <div class="row g-4 signature-range" id="signatureProducts" aria-live="polite"></div>
       </div>
     </section>
+
 
     <!-- HOW TO USE -->
     <section id="howto" class="container py-5" aria-labelledby="howto-title">
