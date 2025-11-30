@@ -6,22 +6,23 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Dosa Toppings — Healthy Twist for Every Dosa</title>
     <meta name="description" content="Dosa Toppings — authentic, small-batch podis & spices." />
+    <link rel="icon" type="image/png" href="assets/icon-2.png" />
     <style>
-        /* ===== root tokens ===== */
         :root {
-            --nav-yellow: #FFCF2B;
-            --accent-green: #1d7a3a;
-            --muted: #59636a;
+            --brand-1: #1d7a3a;
+            --brand-2: #f3c02b;
+            --muted: #5b6b6b;
+            --bg: #ffffff;
             --card-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
             --soft-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
             --max-width: 1200px;
-            --radius: 14px;
             --gutter: 20px;
+            --radius: 12px;
             --easing: cubic-bezier(.2, .9, .3, 1);
-            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
         }
 
-        /* ===== reset ===== */
+        /* reset */
         * {
             box-sizing: border-box
         }
@@ -33,9 +34,9 @@
 
         body {
             margin: 0;
-            background: #fff;
+            background: var(--bg);
             color: #162026;
-            line-height: 1.5;
+            line-height: 1.45;
             font-size: 16px;
             -webkit-font-smoothing: antialiased
         }
@@ -45,7 +46,6 @@
             display: block
         }
 
-        /* alias container as requested */
         .conater,
         .container {
             max-width: var(--max-width);
@@ -54,7 +54,7 @@
             width: 100%;
         }
 
-        /* ===== PRELOADER (white bg, logo only) ===== */
+        /* PRELOADER (static square logo, 3s) */
         .preloader {
             position: fixed;
             inset: 0;
@@ -71,43 +71,28 @@
         .preloader.hidden {
             opacity: 0;
             visibility: hidden;
-            pointer-events: none
+            pointer-events: none;
         }
 
         .preloader .logo {
-            width: 120px;
-            height: 120px;
+            width: 140px;
+            height: 140px;
             display: grid;
             place-items: center;
-            border-radius: 16px;
-            padding: 10px;
-            animation: pre-spin 1.6s linear infinite;
+            padding: 8px;
             background: linear-gradient(180deg, #fff, #fffaf0);
             box-shadow: 0 12px 44px rgba(20, 40, 20, 0.06);
+            border-radius: 0;
+            border-top: 6px solid var(--brand-2);
         }
 
         .preloader .logo img {
             width: 100%;
             height: auto;
             display: block;
-            filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.06));
         }
 
-        @keyframes pre-spin {
-            0% {
-                transform: rotate(0)
-            }
-
-            50% {
-                transform: rotate(180deg)
-            }
-
-            100% {
-                transform: rotate(360deg)
-            }
-        }
-
-        /* ===== HEADER / centered nav like image ===== */
+        /* HEADER */
         .topbar {
             position: fixed;
             top: 0;
@@ -115,7 +100,7 @@
             right: 0;
             z-index: 1200;
             background: rgba(255, 255, 255, 0.96);
-            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.10);
+            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
             padding: 10px 8px;
             border-bottom: 1px solid rgba(10, 20, 10, 0.03);
             backdrop-filter: blur(6px);
@@ -132,7 +117,6 @@
             padding: 0 var(--gutter);
         }
 
-        /* left logo */
         .brand-left {
             display: flex;
             align-items: center;
@@ -141,24 +125,20 @@
 
         .brand-logo {
             height: 56px;
-            width: auto;
-            border-radius: 10px
+            width: auto
         }
 
-        /* right placeholder to keep center truly centered */
         .brand-right {
             width: 64px;
             height: 1px
         }
 
-        /* center nav absolutely centered in nav-inner */
         .nav-center {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
             z-index: 1250;
-            display: block;
         }
 
         .nav-list {
@@ -168,12 +148,12 @@
             margin: 0;
             padding: 0;
             align-items: center;
-            white-space: nowrap
+            white-space: nowrap;
         }
 
         .nav-list a {
             text-decoration: none;
-            color: var(--nav-yellow);
+            color: var(--brand-2);
             font-weight: 700;
             padding: 8px 10px;
             border-radius: 8px;
@@ -188,30 +168,11 @@
         .nav-list a:focus {
             transform: translateY(-3px);
             color: #222;
-            background: rgba(255, 255, 255, 0.42);
+            background: rgba(255, 255, 255, 0.4);
             box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
         }
 
-        .caret {
-            font-size: 12px;
-            color: rgba(0, 0, 0, 0.55);
-            transform: translateY(-1px)
-        }
-
-        .badge-new {
-            background: #ff6fa4;
-            color: #fff;
-            font-weight: 800;
-            font-size: 11px;
-            padding: 4px 8px;
-            border-radius: 14px;
-            margin-left: 6px;
-            display: inline-flex;
-            align-items: center
-        }
-
-        /* responsive: collapse nav into flow on small screens */
-        @media (max-width:760px) {
+        @media(max-width:760px) {
             .nav-center {
                 position: static;
                 transform: none;
@@ -238,42 +199,73 @@
             }
         }
 
-        /* ===== HERO ===== */
-        .hero {
-            margin-top: 94px;
-            position: relative;
-            width: 100%;
-            min-height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(180deg, #fff, #fbfdf9);
-            padding: 18px 0
-        }
-
+        /* HERO
+       - Desktop/tablet: cover (cropped if needed)
+       - Mobile (<=768px): full-screen (100vh) and scale image to fit width: background-size: 100% auto
+    */
+        /* slides keep full available width; height follows 16:9 (1920x1080) */
         .slides {
             width: 100%;
-            height: clamp(380px, 60vh, 760px);
+            max-width: 1400px;
+            /* keep your existing max if desired */
+            margin: 0 auto;
             position: relative;
-            border-radius: 20px;
             overflow: hidden;
-            max-width: 1400px
+            border-radius: 20px;
+
+            /* preferred: modern browsers */
+            aspect-ratio: 16 / 9;
+            /* this makes height = width * 9/16 */
+
+            /* fallback for older browsers: padding-top trick */
+            height: auto;
         }
 
+        /* fallback for browsers that don't support aspect-ratio */
+        .slides::before {
+            content: "";
+            display: block;
+            width: 100%;
+            padding-top: 56.25%;
+            /* 9/16 = 0.5625 -> 56.25% */
+            /* visible only when aspect-ratio isn't honored; keep positioned absolute slides inside */
+        }
+
+        /* keep slide backgrounds sized to the container width (no cropping)
+   This preserves the 16:9 ratio of your original 1920x1080 images */
         .slide {
             position: absolute;
             inset: 0;
-            background-size: cover;
-            background-position: center;
+            background-repeat: no-repeat;
+            background-position: center center;
+
+            /* Use width-based fitting so image width always matches container width,
+     and height scales automatically to keep original ratio */
+            background-size: 100% auto;
+
             opacity: 0;
             transform: translateY(12px) scale(1.02);
-            transition: opacity .9s var(--easing), transform .9s var(--easing)
+            transition: opacity .9s var(--easing), transform .9s var(--easing);
         }
 
         .slide.show {
             opacity: 1;
-            transform: translateY(0) scale(1)
+            transform: translateY(0) scale(1);
         }
+
+        /* Optional: if you still want cover behavior on larger screens, override with media query */
+        @media (min-width: 769px) {
+            .slides {
+                /* keep a max height on very tall screens if you want */
+                max-height: 760px;
+            }
+
+            .slide {
+                /* desktop can crop (cover) if you prefer — comment out to always use 100% width fit */
+                background-size: cover;
+            }
+        }
+
 
         .overlay {
             position: absolute;
@@ -296,7 +288,7 @@
 
         .caption h2 {
             margin: 0 0 6px;
-            color: var(--accent-green);
+            color: var(--brand-1);
             font-size: 20px
         }
 
@@ -328,10 +320,47 @@
         }
 
         .dot.active {
-            background: var(--nav-yellow)
+            background: var(--brand-2)
         }
 
-        /* ===== MARQUEE ===== */
+        /* MOBILE-SPECIFIC: treat hero as 1920x1080 images and fit by width
+       - Make the hero container full viewport height (100vh)
+       - Use background-size: 100% auto so the image width always fits exactly, preserving aspect ratio
+    */
+        @media (max-width: 768px) {
+            .slides {
+                height: 100vh;
+                border-radius: 0;
+            }
+
+            /* full-screen on mobile */
+            .slide {
+                background-size: 100% auto;
+                /* fit by width, maintain 16:9 */
+                background-position: center top;
+            }
+
+            .overlay {
+                padding: 20px;
+                align-items: flex-end;
+            }
+
+            /* ensure caption sits visually */
+            .caption {
+                background: rgba(255, 255, 255, 0.9);
+            }
+
+            /* slightly more opaque on mobile */
+        }
+
+        /* keep desktop/tablet cover behavior */
+        @media (min-width: 769px) {
+            .slide {
+                background-size: cover;
+            }
+        }
+
+        /* Marquee + sections + products + footer (unchanged from previous layout) */
         .marquee-wrap {
             margin: 26px 0 12px
         }
@@ -350,7 +379,7 @@
             animation: marquee 14s linear infinite;
             font-weight: 800;
             font-size: 18px;
-            color: var(--accent-green)
+            color: var(--brand-1)
         }
 
         .marq-item {
@@ -373,7 +402,6 @@
             }
         }
 
-        /* ===== SECTIONS ===== */
         .section {
             padding: 26px 0
         }
@@ -387,7 +415,7 @@
 
         .section-title h3 {
             margin: 0;
-            color: var(--accent-green);
+            color: var(--brand-1);
             font-size: 18px
         }
 
@@ -404,20 +432,6 @@
             box-shadow: var(--card-shadow)
         }
 
-        .about-list {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap
-        }
-
-        .about-list .item {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            min-width: 220px
-        }
-
-        /* ===== PRODUCTS ===== */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -455,7 +469,7 @@
 
         .price {
             font-weight: 800;
-            color: var(--accent-green)
+            color: var(--brand-1)
         }
 
         .badge {
@@ -467,7 +481,6 @@
             margin-left: 8px
         }
 
-        /* mobile scroll */
         .scroll-x {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
@@ -486,36 +499,120 @@
             flex: 0 0 auto
         }
 
-        /* ===== FOOTER ===== */
         footer {
             margin-top: 30px;
-            padding: 30px 0;
-            background: #f7fbf6;
-            color: #1e2a24;
-            border-top: 1px solid rgba(12, 18, 12, 0.03)
+            padding: 36px 0 18px;
+            background: var(--brand-2);
+            color: #fff;
+            position: relative;
+            border-top: 6px solid var(--brand-1);
         }
 
         .footer-inner {
             display: flex;
-            gap: 18px;
+            gap: 24px;
             align-items: flex-start;
             justify-content: space-between;
             flex-wrap: wrap
         }
 
-        /* ===== GO TO TOP ===== */
+        .footer-left,
+        .footer-center,
+        .footer-right {
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .footer-left img {
+            height: 96px;
+            width: auto;
+            margin-bottom: 8px
+        }
+
+        .footer-left p {
+            margin: 6px 0 14px;
+            color: rgba(255, 255, 255, 0.95)
+        }
+
+        .socials {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px
+        }
+
+        .socials a {
+            display: inline-grid;
+            place-items: center;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            text-decoration: none
+        }
+
+        .footer-center h4,
+        .footer-right h4 {
+            margin: 0 0 12px;
+            color: var(--brand-1)
+        }
+
+        .footer-center .addr,
+        .footer-right .contact {
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.6
+        }
+
+        .notice-wrap {
+            display: flex;
+            justify-content: center;
+            margin: 18px 0
+        }
+
+        .notice {
+            background: rgba(0, 0, 0, 0.12);
+            padding: 18px 28px;
+            border-radius: 12px;
+            max-width: 880px;
+            text-align: center;
+            font-weight: 700;
+            color: #fff
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 14px;
+            flex-wrap: wrap
+        }
+
+        .footer-bottom .left,
+        .footer-bottom .center,
+        .footer-bottom .right {
+            color: rgba(255, 255, 255, 0.95)
+        }
+
+        .footer-bottom .center {
+            text-align: center;
+            flex: 1
+        }
+
         .to-top {
             position: fixed;
-            right: 18px;
-            bottom: 22px;
-            background: var(--accent-green);
+            right: 28px;
+            bottom: 28px;
+            background: var(--brand-1);
             color: #fff;
-            width: 52px;
-            height: 52px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             display: grid;
             place-items: center;
-            box-shadow: 0 12px 44px rgba(10, 20, 10, 0.18);
+            box-shadow: 0 18px 48px rgba(0, 0, 0, 0.18);
             cursor: pointer;
             border: none;
             font-weight: 800;
@@ -523,17 +620,7 @@
             z-index: 1500
         }
 
-        .to-top:focus {
-            outline: 3px solid rgba(255, 207, 43, 0.22);
-            outline-offset: 3px
-        }
-
-        .muted {
-            color: var(--muted)
-        }
-
-        /* ===== responsive rules ===== */
-        @media (min-width:720px) {
+        @media(min-width:720px) {
             .about-grid {
                 grid-template-columns: 1fr 1fr
             }
@@ -548,7 +635,7 @@
             }
         }
 
-        @media (min-width:1000px) {
+        @media(min-width:1000px) {
             .products-grid {
                 grid-template-columns: repeat(4, 1fr)
             }
@@ -557,67 +644,48 @@
                 border-radius: 20px
             }
         }
-
-        @media (max-width:520px) {
-            .brand-logo {
-                height: 44px
-            }
-
-            .caption h2 {
-                font-size: 18px
-            }
-
-            .marquee {
-                font-size: 15px
-            }
-        }
     </style>
 </head>
 
 <body>
 
-    <!-- MANDATORY 3s PRELOADER (white background only logo) -->
+    <!-- PRELOADER -->
     <div class="preloader" id="preloader" aria-hidden="true">
         <div class="logo" aria-hidden="true">
             <img src="assets/icon-5.png" alt="Dosa Toppings logo" />
         </div>
     </div>
 
-    <!-- HEADER with centered nav -->
+    <!-- NAV -->
     <header class="topbar" role="banner" aria-label="Main navigation">
         <div class="nav-inner conater">
-            <!-- left: logo -->
             <div class="brand-left">
-                <a href="#" aria-label="Dosa Toppings home">
-                    <img src="assets/icon-5.png" alt="Dosa Toppings" class="brand-logo" />
-                </a>
+                <a href="#home" aria-label="Dosa Toppings home"><img src="assets/icon-5.png" alt="logo"
+                        class="brand-logo" /></a>
             </div>
 
-            <!-- center: nav -->
             <nav class="nav-center" role="navigation" aria-label="Primary">
                 <ul class="nav-list" role="menubar">
                     <li role="none"><a role="menuitem" href="#home">Home</a></li>
                     <li role="none"><a role="menuitem" href="#about-us">About Us</a></li>
-                    <li role="none"><a role="menuitem" href="#products">Products <span class="caret">▾</span></a></li>
-                    <li role="none"><a role="menuitem" href="#quality">Quality <span class="caret">▾</span></a></li>
+                    <li role="none"><a role="menuitem" href="#products">Products</a></li>
+                    <li role="none"><a role="menuitem" href="#quality">Quality</a></li>
                     <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
-                    <li role="none"><a role="menuitem" href="#shopall">Shop All <span class="badge-new">New</span></a>
-                    </li>
+                    <li role="none"><a role="menuitem" href="#shopall">Shop All</a></li>
                 </ul>
             </nav>
 
-            <!-- right placeholder -->
             <div class="brand-right" aria-hidden="true"></div>
         </div>
     </header>
 
-    <!-- MAIN CONTENT -->
-    <main id="home" style="background:#fff;">
+    <main id="home">
 
-        <!-- HERO: 4 slides (assets/) -->
+        <!-- HERO -->
         <section class="hero" aria-label="Hero slider">
             <div class="conater">
                 <div class="slides" id="slides" aria-live="polite" aria-atomic="true">
+                    <!-- Use your 1920x1080 images here -->
                     <div class="slide show" style="background-image:url('assets/hero-1.png');" role="img"
                         aria-label="Hero 1"></div>
                     <div class="slide" style="background-image:url('assets/hero-2.png');" role="img"
@@ -646,8 +714,6 @@
                     <div class="marq-item">🌿 &nbsp; 100% Natural</div>
                     <div class="marq-item">⚙️ &nbsp; No Preservatives</div>
                     <div class="marq-item">🍽️ &nbsp; Ready-to-Sprinkle</div>
-
-                    <!-- duplicate for continuous effect -->
                     <div class="marq-item">🌿 &nbsp; 100% Natural</div>
                     <div class="marq-item">⚙️ &nbsp; No Preservatives</div>
                     <div class="marq-item">🍽️ &nbsp; Ready-to-Sprinkle</div>
@@ -655,13 +721,12 @@
             </div>
         </div>
 
-        <!-- ABOUT US -->
+        <!-- ABOUT -->
         <section id="about-us" class="section">
             <div class="conater">
                 <div class="section-title">
                     <h3>About Us</h3>
                 </div>
-
                 <div class="about-grid">
                     <div class="about-card">
                         <p><strong>Dosa Toppings</strong> was born with one simple idea — to bring the authentic taste
@@ -676,8 +741,6 @@
                             <li>Simple cooking</li>
                             <li>Family-friendly flavours</li>
                         </ul>
-                        <p class="muted">From busy moms to working professionals to kids who love tasty food — Dosa
-                            Toppings makes every meal flavourful and nutritious.</p>
                     </div>
 
                     <div class="about-card">
@@ -686,8 +749,6 @@
                             deliver home-style taste every day.</p>
                         <p><strong>Pure ingredients</strong>, no shortcuts. No fillers, no artificial flavours — only
                             trusted spices from farms across Tamil Nadu.</p>
-                        <p><strong>Tradition, refined.</strong> Family recipes adapted for consistent quality in every
-                            pack.</p>
                     </div>
                 </div>
 
@@ -732,23 +793,20 @@
                 <p class="muted">Pure, elevated podis — small-batch roasted, stone-ground and finished for today’s
                     table. <em>*Images shown are for illustration purposes only.*</em></p>
 
-                <!-- mobile horizontally scrollable -->
                 <div class="scroll-x" id="products-scroll">
                     <div class="products-row" id="productsRow"></div>
                 </div>
 
-                <!-- desktop grid -->
                 <div class="products-grid" id="productsGrid" style="display:none"></div>
             </div>
         </section>
 
-        <!-- PRODUCTION & QUALITY -->
+        <!-- QUALITY -->
         <section id="quality" class="section">
             <div class="conater">
                 <div class="section-title">
                     <h3>Production &amp; Quality</h3>
                 </div>
-
                 <div class="about-card">
                     <p>Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
                         food-safety standards.</p>
@@ -779,110 +837,93 @@
                                 <div class="muted">Gloves, masks & sanitised workstations for safe food handling.</div>
                             </div>
                         </div>
-                        <div class="item">
-                            <div>🥄</div>
-                            <div><strong>Air-Tight Batch Processing</strong>
-                                <div class="muted">Small batches ensure even roasting & perfectly balanced flavour.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div>⚙️</div>
-                            <div><strong>Modern Machinery</strong>
-                                <div class="muted">Grinding & packing machines maintain texture without hand contact.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div>📦</div>
-                            <div><strong>Food-Grade Packaging</strong>
-                                <div class="muted">Air-tight containers lock in freshness & prevent moisture.</div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div>🧪</div>
-                            <div><strong>Batch Testing</strong>
-                                <div class="muted">Each lot checked for flavour, aroma, texture & shelf stability.</div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div>✔️</div>
-                            <div><strong>FSSAI-Compliant Process</strong>
-                                <div class="muted">Strict hygiene & safety standards followed at every step.</div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- FOOTER -->
-        <footer id="contact" role="contentinfo">
-            <div class="conater footer-inner">
-                <div style="display:flex;gap:12px;align-items:center;">
-                    <img src="assets/icon-5.png" alt="logo" style="height:64px;width:auto;border-radius:10px" />
-                    <div>
-                        <strong>Dosa Toppings</strong><br />
-                        Instant Authentic Flavour — From Tradition to Today.<br />
-                        <small class="muted">Made with 🌿 in Tamil Nadu • ©2025 Dosa Toppings v1.0</small>
-                    </div>
-                </div>
-
-                <div style="min-width:240px">
-                    <strong>Contact & Order</strong>
-                    <div class="muted" style="margin-top:6px">
-                        WhatsApp / Mobile: <br /><a href="tel:+917200514471">+91 72005 14471</a><br />
-                        Email: <a href="mailto:kkmhealthyeats4u@gmail.com">kkmhealthyeats4u@gmail.com</a><br />
-                        Instagram: <a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener">
-                            @dosa.toppings</a><br />
-                        Address: KKM FOOD FACTORY, 2/146/1, Karukkankattupudur, Avinashi, Tiruppur, Tamil Nadu – 641654
-                    </div>
-                </div>
-
-                <div style="min-width:180px">
-                    <strong>We use</strong>
-                    <div class="muted" style="margin-top:6px">FSSAI: 12425027000407</div>
-                    <div style="margin-top:10px;font-size:13px">As of now, we do not accept orders through this website.
-                        Please use WhatsApp or Instagram for placing orders.</div>
-                </div>
-            </div>
-        </footer>
     </main>
 
-    <!-- Go to top -->
+    <!-- FOOTER -->
+    <footer aria-label="Site footer">
+        <div class="conater footer-inner">
+            <div class="footer-left">
+                <img src="assets/icon-5.png" alt="Dosa Toppings logo" />
+                <p>Instant Authentic Flavour — From Tradition to Today.</p>
+                <div class="socials">
+                    <a href="#" aria-label="Instagram">📷</a>
+                    <a href="tel:+917200514471" aria-label="Phone">📞</a>
+                    <a href="https://wa.me/917200514471" aria-label="WhatsApp">💬</a>
+                    <a href="#" aria-label="Google Maps">📍</a>
+                </div>
+            </div>
+
+            <div class="footer-center">
+                <h4 style="margin-bottom:6px">Address</h4>
+                <div class="addr">
+                    <strong>KKM FOOD FACTORY</strong><br />
+                    2/146/1, Karukkankattupudur,<br />
+                    Avinashi, Tiruppur,<br />
+                    Tamil Nadu – 641654
+                </div>
+
+                <div style="margin-top:12px">
+                    <img src="assets/icon-2.png" alt="FSSAI"
+                        style="height:36px;display:inline-block;vertical-align:middle" />
+                    <div style="display:inline-block;margin-left:8px;color:#fff">12425027000407</div>
+                </div>
+
+                <div class="notice-wrap">
+                    <div class="notice">
+                        As of now, we do not accept orders through this website. This website is for display &
+                        informational purposes only. Please use WhatsApp or Instagram for placing orders. We apologise
+                        for the inconvenience.
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-right">
+                <h4 style="margin-bottom:6px">Contact & Order</h4>
+                <div class="contact">
+                    <strong>WhatsApp / Mobile:</strong><br />
+                    <a href="tel:+917200514471" style="color:#fff">+91 72005 14471</a><br /><br />
+                    <strong>Email:</strong><br />
+                    <a href="mailto:kkmhealthyeats4u@gmail.com"
+                        style="color:#fff">kkmhealthyeats4u@gmail.com</a><br /><br />
+                    <strong>Instagram:</strong><br />
+                    <a href="https://instagram.com/dosa.toppings" style="color:#fff">@dosa.toppings</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="conater footer-bottom">
+            <div class="left">Made with 🌿 in Tamil Nadu</div>
+            <div class="center">©2025 Dosa Toppings — Healthy Twist for Every Dosa</div>
+            <div class="right">Dosa Toppings v1.0</div>
+        </div>
+    </footer>
+
     <button class="to-top" id="toTop" title="Go to top" aria-label="Go to top">↑</button>
 
     <script>
-        /* ===== PRELOADER: mandatory 3 seconds ===== */
+        /* PRELOADER */
         (function () {
             const pre = document.getElementById('preloader');
             const MIN_MS = 3000;
             const started = Date.now();
-
             function hidePreloader() {
                 const delta = Date.now() - started;
                 const wait = Math.max(0, MIN_MS - delta);
                 setTimeout(() => { pre.classList.add('hidden'); }, wait);
             }
-
-            if (document.readyState === 'complete' || document.readyState === 'interactive') {
-                hidePreloader();
-            } else {
-                window.addEventListener('DOMContentLoaded', hidePreloader);
-                setTimeout(() => pre.classList.add('hidden'), 10000);
-            }
+            if (document.readyState === 'complete' || document.readyState === 'interactive') hidePreloader();
+            else { window.addEventListener('DOMContentLoaded', hidePreloader); setTimeout(() => pre.classList.add('hidden'), 10000); }
         })();
 
-        /* ===== HERO SLIDER (auto-change every 5s) ===== */
+        /* HERO SLIDER (5s) */
         (function () {
             const slides = Array.from(document.querySelectorAll('.slide'));
             const dotsWrap = document.getElementById('dots');
-            let idx = 0;
-            const total = slides.length;
-            const INTERVAL = 5000; // 5 seconds
-            let timer = null;
-
-            // create dots
+            let idx = 0; const total = slides.length; const INTERVAL = 5000; let timer = null;
             for (let i = 0; i < total; i++) {
                 const d = document.createElement('button');
                 d.className = 'dot' + (i === 0 ? ' active' : '');
@@ -891,43 +932,26 @@
                 dotsWrap.appendChild(d);
             }
             const dots = Array.from(dotsWrap.children);
-
-            function show(i) {
-                slides.forEach((s, si) => s.classList.toggle('show', si === i));
-                dots.forEach((d, di) => d.classList.toggle('active', di === i));
-            }
-            function goTo(i) {
-                idx = (i + total) % total;
-                show(idx);
-                restart();
-            }
+            function show(i) { slides.forEach((s, si) => s.classList.toggle('show', si === i)); dots.forEach((d, di) => d.classList.toggle('active', di === i)); }
+            function goTo(i) { idx = (i + total) % total; show(idx); restart(); }
             function next() { idx = (idx + 1) % total; show(idx); }
             function restart() { if (timer) clearInterval(timer); timer = setInterval(next, INTERVAL); }
 
-            // start slider after preloader finishes to avoid flash
             const pre = document.getElementById('preloader');
             const startSlider = () => { show(idx); restart(); }
             const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { startSlider(); obs.disconnect(); } });
             obs.observe(pre, { attributes: true });
-
-            // fallback start
             setTimeout(() => { if (!timer) startSlider(); }, 3200);
 
-            // pause on hover/focus
             const slideEl = document.getElementById('slides');
             slideEl.addEventListener('mouseenter', () => clearInterval(timer));
             slideEl.addEventListener('mouseleave', restart);
             slideEl.addEventListener('focusin', () => clearInterval(timer));
             slideEl.addEventListener('focusout', restart);
-
-            // keyboard nav
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') goTo((idx + 1) % total);
-                if (e.key === 'ArrowLeft') goTo((idx - 1 + total) % total);
-            });
+            document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') goTo((idx + 1) % total); if (e.key === 'ArrowLeft') goTo((idx - 1 + total) % total); });
         })();
 
-        /* ===== PRODUCTS data + render + responsive layout toggle ===== */
+        /* PRODUCTS render + layout toggle */
         (function () {
             const products = [
                 { "id": "sig-001", "title": "Classic Paruppu Podi", "price": 100, "unit": "50gms", "short": "Lentil-forward, nutty & aromatic.", "description": "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", "image": "assets/signature-1.png" },
@@ -939,57 +963,23 @@
                 { "id": "sig-007", "title": "Peanut Podi", "price": 120, "unit": "50gms", "short": "Crispy peanuts & warm spices.", "description": "Crunchy, nutty & satisfying.", "image": "assets/signature-7.png" },
                 { "id": "sig-008", "title": "Sesame Podi", "price": 110, "unit": "50gms", "short": "Toasted sesame & fragrant spices.", "description": "Nutty, toasty flavour — great with rice & dosa.", "image": "assets/signature-8.png" }
             ];
-
             const row = document.getElementById('productsRow');
             const grid = document.getElementById('productsGrid');
-
             products.forEach(p => {
-                const card = document.createElement('article');
-                card.className = 'product-card';
-                card.innerHTML = `
-          <img src="${p.image}" alt="${p.title}" loading="lazy" />
-          <div class="product-info">
-            <h4>${p.title} <span class="badge">${p.unit}</span></h4>
-            <div class="muted">${p.short}</div>
-            <div style="margin-top:8px"><span class="price">₹${p.price}</span></div>
-            <div class="muted" style="margin-top:8px">${p.description}</div>
-          </div>
-        `;
+                const card = document.createElement('article'); card.className = 'product-card';
+                card.innerHTML = `<img src="${p.image}" alt="${p.title}" loading="lazy" /><div class="product-info"><h4>${p.title} <span class="badge">${p.unit}</span></h4><div class="muted">${p.short}</div><div style="margin-top:8px"><span class="price">₹${p.price}</span></div><div class="muted" style="margin-top:8px">${p.description}</div></div>`;
                 row.appendChild(card);
                 grid.appendChild(card.cloneNode(true));
             });
-
-            function layoutToggle() {
-                if (window.innerWidth >= 1000) {
-                    grid.style.display = 'grid';
-                    document.getElementById('products-scroll').style.display = 'none';
-                } else {
-                    grid.style.display = 'none';
-                    document.getElementById('products-scroll').style.display = 'block';
-                }
-            }
-            window.addEventListener('resize', layoutToggle);
-            setTimeout(layoutToggle, 350);
+            function layoutToggle() { if (window.innerWidth >= 1000) { grid.style.display = 'grid'; document.getElementById('products-scroll').style.display = 'none'; } else { grid.style.display = 'none'; document.getElementById('products-scroll').style.display = 'block'; } }
+            window.addEventListener('resize', layoutToggle); setTimeout(layoutToggle, 350);
         })();
 
-        /* ===== GO TO TOP ===== */
-        (function () {
-            const btn = document.getElementById('toTop');
-            btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none';
-            });
-            btn.style.display = 'none';
-        })();
+        /* GO TO TOP */
+        (function () { const btn = document.getElementById('toTop'); btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); window.addEventListener('scroll', () => { if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none'; }); btn.style.display = 'none'; })();
 
-        /* ===== MARQUEE pause on hover/touch ===== */
-        (function () {
-            const marquee = document.getElementById('marquee');
-            marquee.addEventListener('mouseenter', () => marquee.style.animationPlayState = 'paused');
-            marquee.addEventListener('mouseleave', () => marquee.style.animationPlayState = 'running');
-            marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
-            marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
-        })();
+        /* MARQUEE pause */
+        (function () { const marquee = document.getElementById('marquee'); marquee.addEventListener('mouseenter', () => marquee.style.animationPlayState = 'paused'); marquee.addEventListener('mouseleave', () => marquee.style.animationPlayState = 'running'); marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true }); marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true }); })();
     </script>
 </body>
 
