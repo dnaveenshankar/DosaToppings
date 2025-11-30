@@ -5,25 +5,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Dosa Toppings — Healthy Twist for Every Dosa</title>
+    <!-- Bootstrap Icons (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="icon" href="assets/icon-2.png" type="image/png">
 
     <style>
+        /* =================== VARIABLES & RESET =================== */
         :root {
             --brand-1: #1d7a3a;
-            /* primary */
+            /* green */
             --brand-2: #f3c02b;
-            /* accent (nav yellow) */
+            /* yellow */
             --muted: #5b6b6b;
             --bg: #ffffff;
-            --card-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
-            --soft-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
             --max-width: 1200px;
             --gutter: 20px;
             --easing: cubic-bezier(.2, .9, .3, 1);
-            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            --card-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
+            --soft-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
         }
 
-        /* reset */
         * {
             box-sizing: border-box
         }
@@ -54,7 +56,7 @@
             width: 100%
         }
 
-        /* ---------- PRELOADER (3s, no border line) ---------- */
+        /* =================== PRELOADER (3s) =================== */
         .preloader {
             position: fixed;
             inset: 0;
@@ -80,51 +82,43 @@
             display: grid;
             place-items: center;
             padding: 8px;
-            background: #fff;
+            background: #fff
         }
 
-        .preloader .logo img {
+        .preloader img {
             width: 100%;
             height: auto;
             display: block
         }
 
-        /* ---------- NAV (centered, fixed) ---------- */
-        header {
+        /* =================== HEADER / NAV =================== */
+        header.site-header {
             position: fixed;
+            top: 0;
             left: 0;
             right: 0;
-            top: 0;
             z-index: 1200;
-            background: rgba(255, 255, 255, 0.96);
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(6px);
             box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
-            padding: 10px 8px;
-            backdrop-filter: blur(6px)
+            transition: padding .22s var(--easing), box-shadow .22s var(--easing);
+            padding: 14px 0;
         }
 
         .nav-inner {
-            position: relative;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--gutter);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 var(--gutter)
-        }
-
-        .brand-left {
-            display: flex;
-            align-items: center;
+            position: relative;
             gap: 12px
         }
 
-        .brand-logo {
-            height: 56px;
-            width: auto
-        }
-
-        .brand-right {
-            width: 64px
+        .brand-left img {
+            height: 64px;
+            transition: height .22s
         }
 
         .nav-center {
@@ -132,30 +126,25 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            z-index: 1250
+            z-index: 1100
         }
 
         .nav-list {
             display: flex;
-            gap: 26px;
+            gap: 28px;
             list-style: none;
             margin: 0;
             padding: 0;
-            align-items: center;
             white-space: nowrap
         }
 
         .nav-list a {
             text-decoration: none;
             color: var(--brand-2);
-            font-weight: 700;
+            font-weight: 800;
             padding: 8px 10px;
-            border-radius: 8px;
-            transition: all .16s var(--easing);
-            font-size: 15px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px
+            border-radius: 6px;
+            font-size: 15px
         }
 
         .nav-list a:hover {
@@ -164,34 +153,140 @@
             box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06)
         }
 
-        @media (max-width:760px) {
-            .nav-center {
-                position: static;
-                transform: none;
-                margin-left: 6px;
-                margin-right: 6px
+        .brand-right {
+            width: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end
+        }
+
+        /* hamburger (mobile) */
+        .hamburger {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 40px;
+            padding: 6px;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+
+        .hamburger:focus {
+            outline: 3px solid rgba(29, 122, 58, 0.12);
+            outline-offset: 2px;
+        }
+
+        .hamburger .bi {
+            font-size: 24px;
+            line-height: 1;
+            color: var(--brand-1);
+            transition: transform .18s, color .18s;
+        }
+
+        @media(max-width:520px) {
+            .hamburger {
+                width: 56px;
+                height: 44px;
+                padding: 8px;
             }
 
-            .nav-inner {
-                align-items: flex-start
-            }
-
-            .brand-logo {
-                height: 44px
-            }
-
-            .nav-list {
-                flex-wrap: wrap;
-                gap: 12px;
-                justify-content: center
-            }
-
-            .brand-right {
-                width: 44px
+            .hamburger .bi {
+                font-size: 28px;
             }
         }
 
-        /* ---------- HERO (16:9 — mobile fit width) ---------- */
+        .hamburger .bar {
+            width: 26px !important;
+            height: 3px !important;
+            background: var(--brand-1) !important;
+            border-radius: 2px;
+            display: block;
+            transition: all .22s
+        }
+
+        .hamburger .bar+.bar {
+            margin-top: 7px !important
+        }
+
+        .hamburger.open .bar:nth-child(1) {
+            transform: translateY(8px) rotate(45deg)
+        }
+
+        .hamburger.open .bar:nth-child(2) {
+            opacity: 0
+        }
+
+        .hamburger.open .bar:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg)
+        }
+
+        /* mobile menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            overflow: hidden;
+            background: linear-gradient(180deg, #fff, #fbfff4);
+            transition: height .32s var(--easing);
+            z-index: 1190;
+            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.06)
+        }
+
+        .mobile-menu.open {
+            height: 100vh;
+            overflow: auto
+        }
+
+        .mobile-menu-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 22px
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding-top: 20px
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 20px;
+            color: var(--brand-1)
+        }
+
+        /* shrink styles */
+        header.site-header.shrink {
+            padding: 8px 0;
+            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.06)
+        }
+
+        header.site-header.shrink .brand-left img {
+            height: 44px !important
+        }
+
+        @media(max-width:900px) {
+            .nav-center {
+                display: none !important
+            }
+
+            .hamburger {
+                display: flex !important
+            }
+
+            .brand-left img {
+                height: 44px
+            }
+        }
+
+        /* =================== HERO SLIDER (16:9 ratio) =================== */
         .hero {
             margin-top: 94px;
             padding: 18px 0;
@@ -232,7 +327,6 @@
             }
         }
 
-        /* overlay caption */
         .overlay {
             position: absolute;
             inset: 0;
@@ -245,7 +339,7 @@
         .caption {
             max-width: 720px;
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.76));
-            padding: 16px 18px;
+            padding: 14px 16px;
             border-radius: 12px;
             box-shadow: var(--soft-shadow);
             pointer-events: auto
@@ -262,7 +356,6 @@
             color: var(--muted)
         }
 
-        /* dots */
         .dots {
             position: absolute;
             right: 18px;
@@ -271,7 +364,7 @@
             gap: 10px;
             padding: 8px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.72);
+            background: rgba(255, 255, 255, 0.9);
             box-shadow: var(--soft-shadow);
             z-index: 20
         }
@@ -289,7 +382,7 @@
             background: var(--brand-2)
         }
 
-        /* ---------- MARQUEE ---------- */
+        /* =================== MARQUEE =================== */
         .marquee-wrap {
             margin: 22px 0
         }
@@ -297,28 +390,33 @@
         .marqueebox {
             border-radius: 12px;
             padding: 8px;
-            box-shadow: var(--card-shadow)
+            box-shadow: var(--card-shadow);
+            overflow: hidden;
+            background: #fffef7
         }
 
         .marquee {
             display: flex;
-            gap: 22px;
+            gap: 28px;
             align-items: center;
             white-space: nowrap;
-            animation: marquee 14s linear infinite;
-            font-weight: 800;
-            font-size: 18px;
-            color: var(--brand-1)
+            will-change: transform;
+            animation-name: marquee;
+            animation-timing-function: linear;
+            animation-iteration-count: infinite
         }
 
         .marq-item {
             display: inline-flex;
-            gap: 10px;
+            gap: 12px;
             align-items: center;
             padding: 8px 12px;
             border-radius: 999px;
             background: linear-gradient(90deg, #fffef7, #f9fff4);
-            box-shadow: 0 8px 28px rgba(8, 12, 10, 0.04)
+            box-shadow: 0 8px 28px rgba(8, 12, 10, 0.04);
+            font-weight: 800;
+            color: var(--brand-1);
+            font-size: 18px
         }
 
         @keyframes marquee {
@@ -331,7 +429,12 @@
             }
         }
 
-        /* ---------- SECTIONS ---------- */
+        .marqueebox:hover .marquee,
+        .marqueebox:active .marquee {
+            animation-play-state: paused
+        }
+
+        /* =================== SECTIONS / PRODUCTS / FOOTER =================== */
         .section {
             padding: 26px 0
         }
@@ -349,7 +452,6 @@
             font-size: 20px
         }
 
-        /* about cards */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr;
@@ -376,7 +478,6 @@
             min-width: 220px
         }
 
-        /* ---------- PRODUCTS ---------- */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -470,7 +571,7 @@
         }
 
         @media(max-width:520px) {
-            .brand-logo {
+            .brand-left img {
                 height: 44px
             }
 
@@ -483,7 +584,6 @@
             }
         }
 
-        /* ---------- PRODUCTION & QUALITY list styling ---------- */
         .quality-list {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -501,7 +601,6 @@
             align-items: flex-start
         }
 
-        /* ---------- FOOTER ---------- */
         footer {
             margin-top: 30px;
             padding: 36px 0;
@@ -562,7 +661,6 @@
             text-align: center
         }
 
-        /* ---------- GO TO TOP ---------- */
         .to-top {
             position: fixed;
             right: 18px;
@@ -590,6 +688,18 @@
         .muted {
             color: var(--muted)
         }
+
+        @media (min-width: 901px) {
+            .hamburger {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .hamburger {
+                display: flex !important;
+            }
+        }
     </style>
 </head>
 
@@ -597,214 +707,15 @@
 
     <!-- PRELOADER -->
     <div class="preloader" id="preloader" aria-hidden="true">
-        <div class="logo" aria-hidden="true"><img src="assets/icon-5.png" alt="Dosa Toppings logo"></div>
+        <div class="logo" aria-hidden="true"><img src="assets/icon-5.png" alt="logo"></div>
     </div>
-    <!-- ===== REPLACEMENT HEADER (single, responsive, green hamburger) ===== -->
-    <style>
-        :root {
-            --brand-1: #1d7a3a;
-            --brand-2: #f3c02b;
-            --max-width: 1200px;
-            --gutter: 20px;
-            --easing: cubic-bezier(.2, .9, .3, 1);
-            --shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
-        }
 
-        header.site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: rgba(255, 255, 255, 0.98);
-            box-shadow: var(--shadow);
-            z-index: 1200;
-            transition: padding 220ms var(--easing), box-shadow 220ms var(--easing);
-            backdrop-filter: blur(6px);
-        }
-
-        .nav-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 12px var(--gutter);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-        }
-
-        .brand-left {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .brand-logo {
-            height: 64px;
-            width: auto;
-            transition: height 200ms var(--easing);
-        }
-
-        .nav-center {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1100;
-        }
-
-        .nav-list {
-            display: flex;
-            gap: 26px;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            align-items: center;
-            white-space: nowrap;
-        }
-
-        .nav-list a {
-            text-decoration: none;
-            color: var(--brand-2);
-            font-weight: 700;
-            padding: 8px 10px;
-            border-radius: 8px;
-            font-size: 15px;
-        }
-
-        .brand-right {
-            width: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-        }
-
-        /* ---------- Hamburger (three lines) ---------- */
-        .hamburger {
-            display: none;
-            /* visible only on mobile */
-            width: 46px;
-            height: 46px;
-            border-radius: 10px;
-            border: 0;
-            background: transparent;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .hamburger .bar {
-            width: 22px;
-            height: 2px;
-            border-radius: 2px;
-            background: var(--brand-1);
-            /* green bars */
-            display: block;
-            transition: transform .22s ease, opacity .18s ease, width .22s ease, height .22s ease;
-        }
-
-        .hamburger .bar+.bar {
-            margin-top: 5px;
-        }
-
-        /* transform to X */
-        .hamburger.open .bar:nth-child(1) {
-            transform: translateY(6px) rotate(45deg);
-            width: 20px;
-            height: 2px;
-            border-radius: 2px;
-        }
-
-        .hamburger.open .bar:nth-child(2) {
-            opacity: 0;
-            transform: scaleX(0);
-        }
-
-        .hamburger.open .bar:nth-child(3) {
-            transform: translateY(-6px) rotate(-45deg);
-            width: 20px;
-            height: 2px;
-            border-radius: 2px;
-        }
-
-        /* Mobile menu (slide down) */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 0;
-            overflow: hidden;
-            background: linear-gradient(180deg, #fff, #fbfff4);
-            transition: height .32s var(--easing);
-            z-index: 1190;
-            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.06);
-        }
-
-        .mobile-menu.open {
-            height: 100vh;
-            overflow: auto;
-        }
-
-        .mobile-menu-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 22px;
-        }
-
-        .mobile-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            padding-top: 18px;
-        }
-
-        .mobile-nav a {
-            font-weight: 800;
-            color: var(--brand-1);
-            text-decoration: none;
-            font-size: 18px;
-        }
-
-        /* Shrink header on scroll / mobile */
-        header.site-header.shrink {
-            padding: 6px 12px;
-            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.06);
-        }
-
-        header.site-header.shrink .brand-logo {
-            height: 44px;
-        }
-
-        /* ===== responsive rules ===== */
-        @media (max-width: 900px) {
-            .nav-center {
-                display: none;
-            }
-
-            /* hide desktop nav on mobile */
-            .hamburger {
-                display: flex;
-            }
-
-            /* show hamburger */
-            .brand-right {
-                display: flex;
-            }
-
-            /* show control area */
-            .brand-logo {
-                height: 44px;
-            }
-        }
-    </style>
-
+    <!-- HEADER -->
     <header class="site-header" role="banner" aria-label="Main navigation">
         <div class="nav-inner">
-            <div class="brand-left">
-                <a href="#home" aria-label="Home"><img src="assets/icon-5.png" alt="logo" class="brand-logo"></a>
-            </div>
+            <div class="brand-left"><a href="#home"><img src="assets/icon-5.png" alt="Dosa Toppings logo"></a></div>
 
-            <nav class="nav-center" role="navigation" aria-label="Primary">
+            <nav class="nav-center" role="navigation" aria-label="Primary navigation">
                 <ul class="nav-list" role="menubar">
                     <li><a role="menuitem" href="#home">Home</a></li>
                     <li><a role="menuitem" href="#about-us">About Us</a></li>
@@ -816,26 +727,24 @@
             </nav>
 
             <div class="brand-right">
-                <button id="hamburgerBtn" class="hamburger" aria-label="Open menu" aria-controls="mobileMenu"
-                    aria-expanded="false">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
+                <button id="hamburgerBtn" class="hamburger" aria-label="Open menu" aria-expanded="false"
+                    aria-controls="mobileMenu" type="button">
+                    <i id="hamburgerIcon" class="bi bi-list" aria-hidden="true"></i>
                 </button>
             </div>
+
         </div>
     </header>
 
-    <!-- Mobile slide-down menu -->
+    <!-- MOBILE MENU -->
     <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
         <div class="mobile-menu-inner">
-            <div style="display:flex;align-items:center;justify-content:space-between">
+            <div style="display:flex;align-items:center;justify-content:space-between;">
                 <a href="#home"><img src="assets/icon-5.png" alt="logo" style="height:56px"></a>
                 <button id="mobileClose" aria-label="Close menu"
                     style="background:none;border:0;font-size:28px;cursor:pointer">×</button>
             </div>
-
-            <nav class="mobile-nav" aria-label="Mobile primary navigation" id="mobileNav">
+            <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
                 <a href="#home">Home</a>
                 <a href="#about-us">About Us</a>
                 <a href="#products">Products</a>
@@ -845,55 +754,6 @@
             </nav>
         </div>
     </div>
-
-    <script>
-        (function () {
-            // Grab elements
-            const header = document.querySelector('header.site-header');
-            const btn = document.getElementById('hamburgerBtn');
-            const mobileMenu = document.getElementById('mobileMenu');
-            const mobileClose = document.getElementById('mobileClose');
-            const mobileLinks = document.querySelectorAll('#mobileNav a');
-
-            // Open/close functions
-            function openMenu() {
-                mobileMenu.classList.add('open');
-                mobileMenu.setAttribute('aria-hidden', 'false');
-                btn.classList.add('open');
-                btn.setAttribute('aria-expanded', 'true');
-                mobileClose && mobileClose.focus();
-                document.body.style.overflow = 'hidden'; // prevent background scroll when menu open
-            }
-            function closeMenu() {
-                mobileMenu.classList.remove('open');
-                mobileMenu.setAttribute('aria-hidden', 'true');
-                btn.classList.remove('open');
-                btn.setAttribute('aria-expanded', 'false');
-                btn.focus();
-                document.body.style.overflow = ''; // restore scrolling
-            }
-
-            // Toggle
-            btn.addEventListener('click', () => {
-                if (mobileMenu.classList.contains('open')) closeMenu(); else openMenu();
-            });
-
-            // close handlers
-            mobileClose && mobileClose.addEventListener('click', closeMenu);
-            mobileLinks.forEach(a => a.addEventListener('click', closeMenu));
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu(); });
-
-            // shrink header on scroll or small screens
-            function updateHeaderState() {
-                if (window.scrollY > 40 || window.innerWidth <= 900) header.classList.add('shrink');
-                else header.classList.remove('shrink');
-            }
-            window.addEventListener('scroll', updateHeaderState, { passive: true });
-            window.addEventListener('resize', updateHeaderState);
-            updateHeaderState();
-        })();
-    </script>
-
 
     <main id="home">
 
@@ -923,96 +783,9 @@
         </section>
 
         <!-- MARQUEE -->
-        <!-- MARQUEE (3 items in markup — auto-looping + responsive shrink) -->
-        <style>
-            /* container */
-            .marquee-wrap {
-                margin: 22px 0;
-            }
-
-            .marqueebox {
-                border-radius: 12px;
-                padding: 8px;
-                box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
-                overflow: hidden;
-                /* hide overflow for the scroll effect */
-                background: #fffef7;
-            }
-
-            /* the moving row */
-            .marquee {
-                display: flex;
-                gap: 28px;
-                /* desktop gap */
-                align-items: center;
-                white-space: nowrap;
-                will-change: transform;
-                animation-name: marquee;
-                animation-timing-function: linear;
-                animation-iteration-count: infinite;
-                animation-play-state: running;
-            }
-
-            .marq-item {
-                display: inline-flex;
-                gap: 12px;
-                align-items: center;
-                padding: 8px 12px;
-                border-radius: 999px;
-                background: linear-gradient(90deg, #fffef7, #f9fff4);
-                box-shadow: 0 8px 28px rgba(8, 12, 10, 0.04);
-                font-weight: 800;
-                color: #1d7a3a;
-                font-size: 18px;
-                /* desktop font-size */
-            }
-
-            @keyframes marquee {
-                0% {
-                    transform: translateX(0);
-                }
-
-                100% {
-                    transform: translateX(-50%);
-                }
-
-                /* we duplicate content so -50% loops */
-            }
-
-            /* pause on hover/touch */
-            .marqueebox:hover .marquee,
-            .marqueebox:active .marquee {
-                animation-play-state: paused;
-            }
-
-            /* RESPONSIVE SHRINK */
-            @media (max-width: 900px) {
-                .marq-item {
-                    font-size: 16px;
-                    padding: 7px 10px;
-                }
-
-                .marquee {
-                    gap: 20px;
-                }
-            }
-
-            @media (max-width: 520px) {
-                .marq-item {
-                    font-size: 14px;
-                    padding: 6px 8px;
-                }
-
-                .marquee {
-                    gap: 12px;
-                }
-            }
-        </style>
-
         <div class="marquee-wrap">
             <div class="conater marqueebox">
                 <div class="marquee" id="marquee" aria-hidden="false">
-                    <!-- keep only 3 items here — JS duplicates them to create the loop -->
                     <div class="marq-item">🌿 &nbsp; 100% Natural</div>
                     <div class="marq-item">⚙️ &nbsp; No Preservatives</div>
                     <div class="marq-item">🍽️ &nbsp; Ready-to-Sprinkle</div>
@@ -1020,84 +793,12 @@
             </div>
         </div>
 
-        <script>
-            (function () {
-                const marquee = document.getElementById('marquee');
-                if (!marquee) return;
-
-                // Make sure we have the minimal markup (3 items) — clone them so we can loop smoothly.
-                // We'll duplicate until the content width is at least 2x the visible width so translateX(-50%) loops seamlessly.
-                const container = marquee.parentElement;
-                const baseItems = Array.from(marquee.children).map(n => n.cloneNode(true));
-
-                // Guard: if no items, stop
-                if (baseItems.length === 0) return;
-
-                // Ensure an initial render (in case CSS hasn't computed yet)
-                function ensureClones() {
-                    // Remove any previously appended clones beyond the initial set to avoid runaway growth
-                    // Keep only the original base sequence followed by clones
-                    while (marquee.children.length > baseItems.length * 6) { // safety cap
-                        for (let i = 0; i < baseItems.length && marquee.children.length > baseItems.length; i++) {
-                            marquee.removeChild(marquee.lastChild);
-                        }
-                    }
-
-                    // Append clones until marquee.scrollWidth >= container.offsetWidth * 2 (so -50% covers full content)
-                    const target = Math.max(container.offsetWidth * 2, 1000); // minimum
-                    let iter = 0;
-                    while (marquee.scrollWidth < target && iter < 20) {
-                        baseItems.forEach(cl => marquee.appendChild(cl.cloneNode(true)));
-                        iter++;
-                    }
-                }
-
-                // Set animation duration proportionally to content width so speed feels consistent
-                function setAnimDuration() {
-                    // speed factor: pixels per second (adjust this to change speed)
-                    const pxPerSec = 140; // higher => faster
-                    const contentWidth = marquee.scrollWidth;
-                    const duration = Math.max(6, Math.round(contentWidth / pxPerSec)); // seconds, min 6s
-                    marquee.style.animationDuration = duration + 's';
-                    // ensure transform end (-50%) corresponds to duplicated content. The CSS keyframes uses -50%.
-                }
-
-                // Run after images/fonts/layout stabilize
-                function initMarquee() {
-                    ensureClones();
-                    setAnimDuration();
-                }
-
-                // Initialize once on load and also on resize (throttled)
-                window.addEventListener('load', initMarquee);
-                let resizeTO;
-                window.addEventListener('resize', () => {
-                    clearTimeout(resizeTO);
-                    resizeTO = setTimeout(() => {
-                        // reset to only the base items then re-init
-                        const originals = Array.from(marquee.children).slice(0, baseItems.length);
-                        marquee.innerHTML = '';
-                        originals.forEach(n => marquee.appendChild(n.cloneNode(true)));
-                        initMarquee();
-                    }, 220);
-                });
-
-                // Touch support: pause on touchstart (UX)
-                marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
-                marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
-
-                // Run once immediately in case load already happened
-                setTimeout(initMarquee, 50);
-            })();
-        </script>
-
         <!-- ABOUT US -->
         <section id="about-us" class="section">
             <div class="conater">
                 <div class="section-title">
                     <h3>About Us</h3>
                 </div>
-
                 <div class="about-grid">
                     <div class="about-card">
                         <p><strong>Dosa Toppings</strong> was born with one simple idea — to bring the authentic taste
@@ -1176,27 +877,22 @@
                 <p class="muted">Pure, elevated podis — small-batch roasted, stone-ground and finished for today’s
                     table. <em>*Images shown are for illustration purposes only.*</em></p>
 
-                <!-- horizontal scroll for mobile -->
                 <div class="scroll-x" id="products-scroll">
                     <div class="products-row" id="productsRow"></div>
                 </div>
-
-                <!-- desktop grid -->
                 <div class="products-grid" id="productsGrid" style="display:none"></div>
             </div>
         </section>
 
-        <!-- PRODUCTION & QUALITY -->
+        <!-- QUALITY -->
         <section id="quality" class="section">
             <div class="conater">
                 <div class="section-title">
                     <h3>Production &amp; Quality</h3>
                 </div>
-
                 <div class="about-card">
                     <p>Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
                         food-safety standards.</p>
-
                     <div class="quality-list">
                         <div class="quality-item">
                             <div>🌶️</div>
@@ -1227,8 +923,7 @@
                         <div class="quality-item">
                             <div>🥄</div>
                             <div><strong>Air-Tight Batch Processing</strong>
-                                <div class="muted">Small batches ensure even roasting & perfectly balanced flavour.
-                                </div>
+                                <div class="muted">Small batches ensure even roasting & balanced flavour.</div>
                             </div>
                         </div>
                         <div class="quality-item">
@@ -1260,7 +955,6 @@
                 </div>
             </div>
         </section>
-
     </main>
 
     <!-- FOOTER -->
@@ -1270,9 +964,10 @@
                 <img src="assets/icon-5.png" alt="logo">
                 <p>Instant Authentic Flavour — From Tradition to Today.</p>
                 <div class="socials">
-                    <a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener">Instagram</a>
-                    <a href="https://wa.me/917200514471" target="_blank" rel="noopener">WhatsApp</a>
-                    <a href="mailto:kkmhealthyeats4u@gmail.com">Email</a>
+                    <a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener"
+                        style="color:#fff">Instagram</a>
+                    <a href="https://wa.me/917200514471" target="_blank" rel="noopener" style="color:#fff">WhatsApp</a>
+                    <a href="mailto:kkmhealthyeats4u@gmail.com" style="color:#fff">Email</a>
                 </div>
             </div>
 
@@ -1280,11 +975,7 @@
                 <h4>Address</h4>
                 <div>KKM FOOD FACTORY<br>2/146/1, Karukkankattupudur,<br>Avinashi, Tiruppur,<br>Tamil Nadu – 641654
                 </div>
-
-                <div style="margin-top:12px">
-                    <strong>FSSAI:</strong> 12425027000407
-                </div>
-
+                <div style="margin-top:12px"><strong>FSSAI:</strong> 12425027000407</div>
                 <div class="notice">As of now, we do not accept orders through this website. This website is for display
                     & informational purposes only. Please use WhatsApp or Instagram for placing orders. We apologise for
                     the inconvenience.</div>
@@ -1308,140 +999,184 @@
         </div>
     </footer>
 
-    <!-- GO TO TOP -->
-    <button class="to-top" id="toTop" title="Go to top" aria-label="Go to top">↑</button>
+    <button class="to-top" id="toTop" title="Go to top" aria-label="Go to top" style="display:none">↑</button>
 
-    <!-- SCRIPTS -->
+    <!-- =================== SCRIPTS =================== -->
     <script>
-        /* PRELOADER: mandatory 3 seconds */
+        const btn = document.getElementById('hamburgerBtn');
+        const icon = document.getElementById('hamburgerIcon');
+        const menu = document.getElementById('mobileMenu');
+
+        function openMenu() {
+            menu.classList.add('open');
+            btn.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+            icon.classList.remove('bi-list');
+            icon.classList.add('bi-x');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeMenu() {
+            menu.classList.remove('open');
+            btn.classList.remove('open');
+            btn.setAttribute('aria-expanded', 'false');
+            icon.classList.remove('bi-x');
+            icon.classList.add('bi-list');
+            document.body.style.overflow = '';
+        }
+        btn.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
+
         (function () {
             const pre = document.getElementById('preloader');
             const MIN_MS = 3000;
             const started = Date.now();
-            function hidePreloader() {
+            function hidePre() {
                 const delta = Date.now() - started;
                 const wait = Math.max(0, MIN_MS - delta);
-                setTimeout(() => { pre.classList.add('hidden'); }, wait);
+                setTimeout(() => pre.classList.add('hidden'), wait);
             }
-            if (document.readyState === 'complete' || document.readyState === 'interactive') hidePreloader();
-            else { window.addEventListener('DOMContentLoaded', hidePreloader); setTimeout(() => pre.classList.add('hidden'), 10000); }
+            if (document.readyState === 'complete' || document.readyState === 'interactive') hidePre();
+            else { window.addEventListener('DOMContentLoaded', hidePre); setTimeout(() => pre.classList.add('hidden'), 10000); }
         })();
 
-        /* HERO SLIDER (5s) with dots + pause on hover */
+        /* HERO SLIDER: 5s, start after preloader hidden, pause on hover */
         (function () {
             const slides = Array.from(document.querySelectorAll('.slide'));
             const dotsWrap = document.getElementById('dots');
-            let idx = 0;
-            const total = slides.length;
             const INTERVAL = 5000;
-            let timer = null;
+            let idx = 0, timer = null;
+
+            if (!slides.length) return;
 
             // create dots
-            for (let i = 0; i < total; i++) {
-                const d = document.createElement('button');
-                d.className = 'dot' + (i === 0 ? ' active' : '');
-                d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-                d.addEventListener('click', () => goTo(i));
-                dotsWrap.appendChild(d);
-            }
+            slides.forEach((s, i) => {
+                const b = document.createElement('button');
+                b.className = 'dot' + (i === 0 ? ' active' : '');
+                b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                b.addEventListener('click', () => goTo(i));
+                dotsWrap.appendChild(b);
+            });
             const dots = Array.from(dotsWrap.children);
 
             function show(i) {
                 slides.forEach((s, si) => s.classList.toggle('show', si === i));
                 dots.forEach((d, di) => d.classList.toggle('active', di === i));
             }
-            function goTo(i) {
-                idx = (i + total) % total;
-                show(idx);
-                restart();
-            }
-            function next() { idx = (idx + 1) % total; show(idx); }
+            function next() { idx = (idx + 1) % slides.length; show(idx); }
+            function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); }
             function restart() { if (timer) clearInterval(timer); timer = setInterval(next, INTERVAL); }
 
-            // start when preloader hides to avoid flash
+            // start after preloader hidden to avoid visual flash
             const pre = document.getElementById('preloader');
-            const startSlider = () => { show(idx); restart(); }
-            const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { startSlider(); obs.disconnect(); } });
+            const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); } });
             obs.observe(pre, { attributes: true });
 
             // fallback start
-            setTimeout(() => { if (!timer) startSlider(); }, 3200);
+            setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
 
-            const slideEl = document.getElementById('slides');
-            slideEl.addEventListener('mouseenter', () => clearInterval(timer));
-            slideEl.addEventListener('mouseleave', restart);
-            slideEl.addEventListener('focusin', () => clearInterval(timer));
-            slideEl.addEventListener('focusout', restart);
+            const slideWrap = document.getElementById('slides');
+            slideWrap.addEventListener('mouseenter', () => clearInterval(timer));
+            slideWrap.addEventListener('mouseleave', restart);
+            slideWrap.addEventListener('focusin', () => clearInterval(timer));
+            slideWrap.addEventListener('focusout', restart);
 
             // keyboard nav
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') goTo((idx + 1) % total);
-                if (e.key === 'ArrowLeft') goTo((idx - 1 + total) % total);
+                if (e.key === 'ArrowRight') goTo(idx + 1);
+                if (e.key === 'ArrowLeft') goTo(idx - 1);
             });
         })();
 
-        /* PRODUCTS data + render + desktop/mobile layout toggle */
+        /* MARQUEE: duplicate items to allow smooth -50% loop and set duration */
+        (function () {
+            const marquee = document.getElementById('marquee');
+            if (!marquee) return;
+            const container = marquee.parentElement;
+            const base = Array.from(marquee.children).map(n => n.cloneNode(true));
+            function ensure() {
+                const target = Math.max(container.offsetWidth * 2, 1000);
+                let iter = 0;
+                while (marquee.scrollWidth < target && iter < 20) { base.forEach(b => marquee.appendChild(b.cloneNode(true))); iter++; }
+            }
+            function setDuration() {
+                const pxPerSec = 140;
+                const dur = Math.max(6, Math.round(marquee.scrollWidth / pxPerSec));
+                marquee.style.animationDuration = dur + 's';
+            }
+            function init() { ensure(); setDuration(); }
+            window.addEventListener('load', init);
+            let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(() => { marquee.innerHTML = ''; base.forEach(b => marquee.appendChild(b.cloneNode(true))); init(); }, 160); });
+            marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
+            marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
+            setTimeout(init, 50);
+        })();
+
+        /* PRODUCTS: render and layout toggle */
         (function () {
             const products = [
-                { "id": "sig-001", "title": "Classic Paruppu Podi", "category": "Signature", "price": 100, "unit": "50gms", "short": "Lentil-forward, nutty & aromatic.", "description": "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", "image": "assets/signature-1.png" },
-                { "id": "sig-002", "title": "Curry Leaves Podi", "category": "Signature", "price": 100, "unit": "50gms", "short": "Fragrant curry leaf & roasted dals.", "description": "Aromatic and herbaceous — great with rice and chutney.", "image": "assets/signature-2.png" },
-                { "id": "sig-003", "title": "Moringa Podi", "category": "Signature", "price": 145, "unit": "50gms", "short": "Nutrient-rich moringa, mild spice.", "description": "Vitamin-rich sprinkle — delicious in rice or porridge.", "image": "assets/signature-3.png" },
-                { "id": "sig-004", "title": "Garlic Podi", "category": "Signature", "price": 110, "unit": "50gms", "short": "Roasted garlic — bold & savory.", "description": "Bold garlic flavour that pairs beautifully with ghee dosa.", "image": "assets/signature-4.png" },
-                { "id": "sig-005", "title": "Idli Milagai Podi", "category": "Signature", "price": 95, "unit": "50gms", "short": "Classic mild & nutty seasoning.", "description": "Mild & nutty — perfect for idli and breakfast bowls.", "image": "assets/signature-5.png" },
-                { "id": "sig-006", "title": "Kollu Podi", "category": "Signature", "price": 130, "unit": "50gms", "short": "Protein-rich horse gram blend.", "description": "Earthy & nourishing — great in rice mixes.", "image": "assets/signature-6.png" },
-                { "id": "sig-007", "title": "Peanut Podi", "category": "Signature", "price": 120, "unit": "50gms", "short": "Crispy peanuts & warm spices.", "description": "Crunchy, nutty & satisfying.", "image": "assets/signature-7.png" },
-                { "id": "sig-008", "title": "Sesame Podi", "category": "Signature", "price": 110, "unit": "50gms", "short": "Toasted sesame & fragrant spices.", "description": "Nutty, toasty flavour — great with rice & dosa.", "image": "assets/signature-8.png" }
+                { "id": "sig-001", "title": "Classic Paruppu Podi", "price": 100, "unit": "50gms", "short": "Lentil-forward, nutty & aromatic.", "description": "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", "image": "assets/signature-1.png" },
+                { "id": "sig-002", "title": "Curry Leaves Podi", "price": 100, "unit": "50gms", "short": "Fragrant curry leaf & roasted dals.", "description": "Aromatic and herbaceous — great with rice and chutney.", "image": "assets/signature-2.png" },
+                { "id": "sig-003", "title": "Moringa Podi", "price": 145, "unit": "50gms", "short": "Nutrient-rich moringa, mild spice.", "description": "Vitamin-rich sprinkle — delicious in rice or porridge.", "image": "assets/signature-3.png" },
+                { "id": "sig-004", "title": "Garlic Podi", "price": 110, "unit": "50gms", "short": "Roasted garlic — bold & savory.", "description": "Bold garlic flavour that pairs beautifully with ghee dosa.", "image": "assets/signature-4.png" },
+                { "id": "sig-005", "title": "Idli Milagai Podi", "price": 95, "unit": "50gms", "short": "Classic mild & nutty seasoning.", "description": "Mild & nutty — perfect for idli and breakfast bowls.", "image": "assets/signature-5.png" },
+                { "id": "sig-006", "title": "Kollu Podi", "price": 130, "unit": "50gms", "short": "Protein-rich horse gram blend.", "description": "Earthy & nourishing — great in rice mixes.", "image": "assets/signature-6.png" },
+                { "id": "sig-007", "title": "Peanut Podi", "price": 120, "unit": "50gms", "short": "Crispy peanuts & warm spices.", "description": "Crunchy, nutty & satisfying.", "image": "assets/signature-7.png" },
+                { "id": "sig-008", "title": "Sesame Podi", "price": 110, "unit": "50gms", "short": "Toasted sesame & fragrant spices.", "description": "Nutty, toasty flavour — great with rice & dosa.", "image": "assets/signature-8.png" }
             ];
-
-            const row = document.getElementById('productsRow');
-            const grid = document.getElementById('productsGrid');
+            const row = document.getElementById('productsRow'), grid = document.getElementById('productsGrid');
+            if (!row || !grid) return;
 
             products.forEach(p => {
                 const card = document.createElement('article');
                 card.className = 'product-card';
-                card.innerHTML = `
-          <img src="${p.image}" alt="${p.title}" loading="lazy" />
-          <div class="product-info">
-            <h4>${p.title} <span class="badge">${p.unit}</span></h4>
-            <div class="muted">${p.short}</div>
-            <div style="margin-top:8px"><span class="price">₹${p.price}</span></div>
-            <div class="muted" style="margin-top:8px">${p.description}</div>
-          </div>
-        `;
+                card.innerHTML = `<img src="${p.image}" alt="${p.title}" loading="lazy"><div class="product-info"><h4>${p.title} <span class="badge">${p.unit}</span></h4><div class="muted">${p.short}</div><div style="margin-top:8px"><span class="price">₹${p.price}</span></div><div class="muted" style="margin-top:8px">${p.description}</div></div>`;
                 row.appendChild(card);
                 grid.appendChild(card.cloneNode(true));
             });
 
-            function layoutToggle() {
-                if (window.innerWidth >= 1000) {
-                    grid.style.display = 'grid';
-                    document.getElementById('products-scroll').style.display = 'none';
+            function layout() {
+                if (window.innerWidth >= 1000) { grid.style.display = 'grid'; document.getElementById('products-scroll').style.display = 'none'; }
+                else { grid.style.display = 'none'; document.getElementById('products-scroll').style.display = 'block'; }
+            }
+            window.addEventListener('resize', layout);
+            setTimeout(layout, 350);
+        })();
+
+        /* HEADER: mobile shrink and menu toggle */
+        (function () {
+            const header = document.querySelector('header.site-header');
+            const btn = document.getElementById('hamburgerBtn');
+            const menu = document.getElementById('mobileMenu');
+            const closeBtn = document.getElementById('mobileClose');
+            const links = document.querySelectorAll('#mobileNav a');
+
+            function openMenu() { menu.classList.add('open'); menu.setAttribute('aria-hidden', 'false'); btn.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; updateHeader(); }
+            function closeMenu() { menu.classList.remove('open'); menu.setAttribute('aria-hidden', 'true'); btn.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; updateHeader(); }
+
+            btn.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
+            closeBtn && closeBtn.addEventListener('click', closeMenu);
+            links.forEach(a => a.addEventListener('click', closeMenu));
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu(); });
+
+            function updateHeader() {
+                const w = window.innerWidth;
+                const sc = window.scrollY;
+                if (w <= 900) {
+                    if (sc > 20 || menu.classList.contains('open')) header.classList.add('shrink'); else header.classList.remove('shrink');
                 } else {
-                    grid.style.display = 'none';
-                    document.getElementById('products-scroll').style.display = 'block';
+                    if (sc > 40) header.classList.add('shrink'); else header.classList.remove('shrink');
                 }
             }
-            window.addEventListener('resize', layoutToggle);
-            setTimeout(layoutToggle, 350);
+            window.addEventListener('scroll', updateHeader, { passive: true });
+            window.addEventListener('resize', updateHeader);
+            updateHeader();
         })();
 
         /* GO TO TOP */
         (function () {
             const btn = document.getElementById('toTop');
             btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none';
-            });
+            window.addEventListener('scroll', () => { if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none'; });
             btn.style.display = 'none';
-        })();
-
-        /* MARQUEE pause on hover/touch */
-        (function () {
-            const marquee = document.getElementById('marquee');
-            marquee.addEventListener('mouseenter', () => marquee.style.animationPlayState = 'paused');
-            marquee.addEventListener('mouseleave', () => marquee.style.animationPlayState = 'running');
-            marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
-            marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
         })();
     </script>
 </body>
