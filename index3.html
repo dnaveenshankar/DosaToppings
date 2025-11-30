@@ -599,6 +599,322 @@
     <div class="preloader" id="preloader" aria-hidden="true">
         <div class="logo" aria-hidden="true"><img src="assets/icon-5.png" alt="Dosa Toppings logo"></div>
     </div>
+    <!-- HEADER (responsive + shrink + hamburger) -->
+    <style>
+        /* header container */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1200;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(6px);
+            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
+            transition: padding 220ms ease, box-shadow 220ms ease, background 220ms ease;
+        }
+
+        /* default (desktop) */
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 14px 22px;
+            gap: 12px;
+        }
+
+        .brand-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-logo {
+            height: 64px;
+            width: auto;
+            transition: height 220ms ease, transform 220ms ease;
+        }
+
+        .nav-center {
+            flex: 1 1 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 36px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .nav-list a {
+            text-decoration: none;
+            color: #f3c02b;
+            /* yellow link color */
+            font-weight: 800;
+            font-size: 18px;
+            padding: 8px 6px;
+            transition: color .18s ease, transform .18s ease;
+        }
+
+        .nav-list a:hover {
+            color: #1d7a3a;
+            transform: translateY(-2px);
+        }
+
+        /* right area (keeps layout balanced) */
+        .brand-right {
+            min-width: 48px;
+        }
+
+        /* hamburger (hidden desktop) */
+        .hamburger {
+            display: none;
+            appearance: none;
+            -webkit-appearance: none;
+            border: 0;
+            background: transparent;
+            padding: 10px;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            width: 46px;
+            height: 46px;
+            border-radius: 10px;
+        }
+
+        .hamburger .bar {
+            display: block;
+            width: 22px;
+            height: 2px;
+            border-radius: 2px;
+            background: #222;
+            transition: transform .22s ease, opacity .18s ease;
+        }
+
+        .hamburger .bar+.bar {
+            margin-top: 5px;
+        }
+
+        /* mobile menu (slide down) */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            overflow: hidden;
+            background: linear-gradient(180deg, #ffffff, #fbfff4);
+            z-index: 1190;
+            transition: height .32s cubic-bezier(.2, .9, .3, 1);
+            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.06);
+        }
+
+        .mobile-menu.open {
+            height: 100vh;
+            overflow: auto;
+        }
+
+        .mobile-menu-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 22px;
+        }
+
+        .mobile-nav {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            padding-top: 18px;
+        }
+
+        .mobile-nav a {
+            font-weight: 800;
+            color: #1d7a3a;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        /* ===== shrink behavior on scroll or small screen ===== */
+        header.shrink {
+            padding: 8px 16px;
+            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.06);
+        }
+
+        header.shrink .brand-logo {
+            height: 44px;
+        }
+
+        /* ===== responsive breakpoints ===== */
+        @media (max-width: 900px) {
+            .nav-center {
+                display: none;
+            }
+
+            /* hide centered nav on mobile */
+            .hamburger {
+                display: inline-flex;
+            }
+
+            /* show hamburger */
+            .brand-right {
+                display: none;
+            }
+
+            /* hide right filler if present */
+        }
+
+        /* small tweak for very small devices */
+        @media (max-width: 420px) {
+            .nav-inner {
+                padding-left: 12px;
+                padding-right: 12px;
+            }
+
+            .nav-list a {
+                font-size: 16px;
+                gap: 18px;
+            }
+        }
+
+        /* accessible focus states */
+        .hamburger:focus {
+            outline: 3px solid rgba(243, 192, 43, 0.18);
+            outline-offset: 3px;
+        }
+
+        .nav-list a:focus {
+            outline: 3px solid rgba(29, 122, 58, 0.12);
+            outline-offset: 4px;
+            border-radius: 6px;
+        }
+    </style>
+
+    <header role="banner" aria-label="Main navigation">
+        <div class="nav-inner conater" id="navInner">
+            <div class="brand-left">
+                <a href="#home" aria-label="home">
+                    <img src="assets/icon-5.png" class="brand-logo" alt="logo">
+                </a>
+            </div>
+
+            <nav class="nav-center" role="navigation" aria-label="Primary">
+                <ul class="nav-list" role="menubar" id="navList">
+                    <li><a role="menuitem" href="#home">Home</a></li>
+                    <li><a role="menuitem" href="#about-us">About Us</a></li>
+                    <li><a role="menuitem" href="#products">Products</a></li>
+                    <li><a role="menuitem" href="#quality">Quality</a></li>
+                    <li><a role="menuitem" href="#contact">Contact</a></li>
+                    <li><a role="menuitem" href="#shopall">Shop All</a></li>
+                </ul>
+            </nav>
+
+            <!-- hamburger placed in header for mobile -->
+            <div class="brand-right" aria-hidden="true" id="brandRight">
+                <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-controls="mobileMenu"
+                    aria-expanded="false">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile slide-down menu (hidden by default) -->
+    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
+        <div class="mobile-menu-inner">
+            <div style="display:flex;align-items:center;justify-content:space-between">
+                <a href="#home"><img src="assets/icon-5.png" alt="logo" style="height:56px"></a>
+                <button id="mobileClose" aria-label="Close menu"
+                    style="background:none;border:0;font-size:28px;cursor:pointer">×</button>
+            </div>
+
+            <nav class="mobile-nav" aria-label="Mobile primary navigation" id="mobileNav">
+                <a href="#home">Home</a>
+                <a href="#about-us">About Us</a>
+                <a href="#products">Products</a>
+                <a href="#quality">Quality</a>
+                <a href="#contact">Contact</a>
+                <a href="#shopall">Shop All</a>
+            </nav>
+        </div>
+    </div>
+
+    <script>
+        (function () {
+            const header = document.querySelector('header');
+            const hamburger = document.getElementById('hamburgerBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileClose = document.getElementById('mobileClose');
+            const mobileLinks = document.querySelectorAll('#mobileNav a');
+            const navInner = document.getElementById('navInner');
+
+            // Toggle mobile menu
+            function openMenu() {
+                mobileMenu.classList.add('open');
+                mobileMenu.style.height = '100vh';
+                mobileMenu.setAttribute('aria-hidden', 'false');
+                hamburger.classList.add('open');
+                hamburger.setAttribute('aria-expanded', 'true');
+                // focus close button
+                mobileClose && mobileClose.focus();
+            }
+            function closeMenu() {
+                mobileMenu.classList.remove('open');
+                mobileMenu.style.height = '0';
+                mobileMenu.setAttribute('aria-hidden', 'true');
+                hamburger.classList.remove('open');
+                hamburger.setAttribute('aria-expanded', 'false');
+                // return focus to hamburger
+                hamburger.focus();
+            }
+
+            hamburger.addEventListener('click', () => {
+                if (mobileMenu.classList.contains('open')) closeMenu(); else openMenu();
+            });
+
+            mobileClose && mobileClose.addEventListener('click', closeMenu);
+
+            // close when clicking any mobile link (good UX)
+            mobileLinks.forEach(a => a.addEventListener('click', closeMenu));
+
+            // close on Escape
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
+                    closeMenu();
+                }
+            });
+
+            // Shrink header on scroll (only if scrolled down a bit)
+            function onScroll() {
+                if (window.scrollY > 40) header.classList.add('shrink');
+                else header.classList.remove('shrink');
+            }
+            window.addEventListener('scroll', onScroll, { passive: true });
+
+            // Also make header shrink automatically on small screens (initial state)
+            function onResize() {
+                if (window.innerWidth <= 900) header.classList.add('shrink');
+                else {
+                    // keep shrink state based on scroll for larger screens
+                    if (window.scrollY > 40) header.classList.add('shrink'); else header.classList.remove('shrink');
+                }
+            }
+            window.addEventListener('resize', onResize, { passive: true });
+
+            // initial run
+            onResize();
+            onScroll();
+        })();
+    </script>
 
     <!-- HEADER -->
     <header role="banner" aria-label="Main navigation">
@@ -650,18 +966,173 @@
         </section>
 
         <!-- MARQUEE -->
+        <!-- MARQUEE (3 items in markup — auto-looping + responsive shrink) -->
+        <style>
+            /* container */
+            .marquee-wrap {
+                margin: 22px 0;
+            }
+
+            .marqueebox {
+                border-radius: 12px;
+                padding: 8px;
+                box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
+                overflow: hidden;
+                /* hide overflow for the scroll effect */
+                background: #fffef7;
+            }
+
+            /* the moving row */
+            .marquee {
+                display: flex;
+                gap: 28px;
+                /* desktop gap */
+                align-items: center;
+                white-space: nowrap;
+                will-change: transform;
+                animation-name: marquee;
+                animation-timing-function: linear;
+                animation-iteration-count: infinite;
+                animation-play-state: running;
+            }
+
+            .marq-item {
+                display: inline-flex;
+                gap: 12px;
+                align-items: center;
+                padding: 8px 12px;
+                border-radius: 999px;
+                background: linear-gradient(90deg, #fffef7, #f9fff4);
+                box-shadow: 0 8px 28px rgba(8, 12, 10, 0.04);
+                font-weight: 800;
+                color: #1d7a3a;
+                font-size: 18px;
+                /* desktop font-size */
+            }
+
+            @keyframes marquee {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(-50%);
+                }
+
+                /* we duplicate content so -50% loops */
+            }
+
+            /* pause on hover/touch */
+            .marqueebox:hover .marquee,
+            .marqueebox:active .marquee {
+                animation-play-state: paused;
+            }
+
+            /* RESPONSIVE SHRINK */
+            @media (max-width: 900px) {
+                .marq-item {
+                    font-size: 16px;
+                    padding: 7px 10px;
+                }
+
+                .marquee {
+                    gap: 20px;
+                }
+            }
+
+            @media (max-width: 520px) {
+                .marq-item {
+                    font-size: 14px;
+                    padding: 6px 8px;
+                }
+
+                .marquee {
+                    gap: 12px;
+                }
+            }
+        </style>
+
         <div class="marquee-wrap">
             <div class="conater marqueebox">
                 <div class="marquee" id="marquee" aria-hidden="false">
-                    <div class="marq-item">🌿 &nbsp; 100% Natural</div>
-                    <div class="marq-item">⚙️ &nbsp; No Preservatives</div>
-                    <div class="marq-item">🍽️ &nbsp; Ready-to-Sprinkle</div>
+                    <!-- keep only 3 items here — JS duplicates them to create the loop -->
                     <div class="marq-item">🌿 &nbsp; 100% Natural</div>
                     <div class="marq-item">⚙️ &nbsp; No Preservatives</div>
                     <div class="marq-item">🍽️ &nbsp; Ready-to-Sprinkle</div>
                 </div>
             </div>
         </div>
+
+        <script>
+            (function () {
+                const marquee = document.getElementById('marquee');
+                if (!marquee) return;
+
+                // Make sure we have the minimal markup (3 items) — clone them so we can loop smoothly.
+                // We'll duplicate until the content width is at least 2x the visible width so translateX(-50%) loops seamlessly.
+                const container = marquee.parentElement;
+                const baseItems = Array.from(marquee.children).map(n => n.cloneNode(true));
+
+                // Guard: if no items, stop
+                if (baseItems.length === 0) return;
+
+                // Ensure an initial render (in case CSS hasn't computed yet)
+                function ensureClones() {
+                    // Remove any previously appended clones beyond the initial set to avoid runaway growth
+                    // Keep only the original base sequence followed by clones
+                    while (marquee.children.length > baseItems.length * 6) { // safety cap
+                        for (let i = 0; i < baseItems.length && marquee.children.length > baseItems.length; i++) {
+                            marquee.removeChild(marquee.lastChild);
+                        }
+                    }
+
+                    // Append clones until marquee.scrollWidth >= container.offsetWidth * 2 (so -50% covers full content)
+                    const target = Math.max(container.offsetWidth * 2, 1000); // minimum
+                    let iter = 0;
+                    while (marquee.scrollWidth < target && iter < 20) {
+                        baseItems.forEach(cl => marquee.appendChild(cl.cloneNode(true)));
+                        iter++;
+                    }
+                }
+
+                // Set animation duration proportionally to content width so speed feels consistent
+                function setAnimDuration() {
+                    // speed factor: pixels per second (adjust this to change speed)
+                    const pxPerSec = 140; // higher => faster
+                    const contentWidth = marquee.scrollWidth;
+                    const duration = Math.max(6, Math.round(contentWidth / pxPerSec)); // seconds, min 6s
+                    marquee.style.animationDuration = duration + 's';
+                    // ensure transform end (-50%) corresponds to duplicated content. The CSS keyframes uses -50%.
+                }
+
+                // Run after images/fonts/layout stabilize
+                function initMarquee() {
+                    ensureClones();
+                    setAnimDuration();
+                }
+
+                // Initialize once on load and also on resize (throttled)
+                window.addEventListener('load', initMarquee);
+                let resizeTO;
+                window.addEventListener('resize', () => {
+                    clearTimeout(resizeTO);
+                    resizeTO = setTimeout(() => {
+                        // reset to only the base items then re-init
+                        const originals = Array.from(marquee.children).slice(0, baseItems.length);
+                        marquee.innerHTML = '';
+                        originals.forEach(n => marquee.appendChild(n.cloneNode(true)));
+                        initMarquee();
+                    }, 220);
+                });
+
+                // Touch support: pause on touchstart (UX)
+                marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
+                marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
+
+                // Run once immediately in case load already happened
+                setTimeout(initMarquee, 50);
+            })();
+        </script>
 
         <!-- ABOUT US -->
         <section id="about-us" class="section">
