@@ -1,17 +1,25 @@
-<style>
-        /* =================== THEME & RESET =================== */
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Dosa Toppings — Healthy Twist for Every Dosa</title>
+    <link rel="icon" href="assets/icon-2.png" type="image/png">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <style>
         :root {
             --brand-1: #1d7a3a;
-            /* green */
             --brand-2: #f3c02b;
-            /* yellow (accent) */
             --muted: #5b6b6b;
-            --bg: #ffffff;
+            --bg: #fff7e6;
+            --card-gap: 18px;
+            --card-width: 320px;
+            /* consistent card width */
+            --card-height: 240px;
+            /* image height */
+            --card-bottom-space: 22px;
             --max-width: 1200px;
-            --gutter: 20px;
-            --easing: cubic-bezier(.2, .9, .3, 1);
-            --card-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
-            --soft-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
             font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
         }
 
@@ -19,18 +27,15 @@
             box-sizing: border-box
         }
 
+
         html,
         body {
-            height: 100%
-        }
-
-        body {
+            height: 100%;
             margin: 0;
             background: var(--bg);
             color: #142026;
             -webkit-font-smoothing: antialiased;
-            line-height: 1.5;
-            font-size: 16px;
+            line-height: 1.4
         }
 
         img {
@@ -41,11 +46,11 @@
         .conater {
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 var(--gutter);
+            padding: 0 18px;
             width: 100%
         }
 
-        /* =================== PRELOADER (3s) =================== */
+        /* PRELOADER */
         .preloader {
             position: fixed;
             inset: 0;
@@ -54,9 +59,9 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity .45s var(--easing), visibility .45s var(--easing);
+            transition: opacity .45s, visibility .45s;
             visibility: visible;
-            opacity: 1;
+            opacity: 1
         }
 
         .preloader.hidden {
@@ -71,16 +76,24 @@
             display: grid;
             place-items: center;
             padding: 8px;
-            background: #fff
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(8, 12, 20, 0.06)
         }
 
-        .preloader img {
-            width: 100%;
-            height: auto;
-            display: block
+        .preloader .caption {
+            margin-top: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--brand-1);
+            text-align: center;
+            background: rgba(29, 122, 58, 0.06);
+            padding: 6px 10px;
+            border-radius: 999px;
+            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.04)
         }
 
-        /* =================== HEADER / NAV =================== */
+        /* HEADER */
         header.site-header {
             position: fixed;
             top: 0;
@@ -90,184 +103,165 @@
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(6px);
             box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
-            transition: padding .22s var(--easing), box-shadow .22s var(--easing);
-            padding: 14px 0;
+            padding: 14px 0
         }
 
         .nav-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 var(--gutter);
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 12px;
             position: relative;
-            gap: 12px
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 18px
+        }
+
+        .brand-left {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center
         }
 
         .brand-left img {
-            height: 64px;
-            transition: height .22s
+            height: 44px
         }
 
-        /* center nav (desktop) */
+        /* center the nav text & logo kept centered visually */
         .nav-center {
-            position: absolute;
-            left: 50%;
-            top: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 1100
+            display: flex;
+            gap: 24px;
+            align-items: center
         }
 
         .nav-list {
             display: flex;
-            gap: 28px;
+            gap: 20px;
             list-style: none;
             margin: 0;
             padding: 0;
             white-space: nowrap
         }
 
-        /* =================== FORCED NAV STYLE: BLACK + TEXT FORMAT =================== */
         .nav-list a {
             text-decoration: none;
-            color: #000 !important;
-            /* FORCE black color */
+            color: #000;
             font-weight: 800;
-            /* bold */
-            font-family: inherit;
-            /* same font stack */
-            padding: 8px 10px;
-            border-radius: 6px;
-            font-size: 16px;
-            /* slightly larger for readability */
-            text-transform: none !important;
-            /* normal case (no uppercase) */
-            letter-spacing: 0.3px;
-            /* subtle letter spacing */
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 15px;
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        .nav-list a:hover {
-            color: #000;
-            /* keep black on hover */
-            transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+            gap: 8px
         }
 
         .brand-right {
-            width: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px
         }
 
-        /* hamburger - uses bootstrap icon (green) */
-        .hamburger {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 40px;
-            padding: 6px;
-            border: 0;
-            background: transparent;
-            cursor: pointer;
-            border-radius: 8px;
+        @media(min-width:1000px) {
+            .brand-left img {
+                height: 64px
+            }
         }
 
-        .hamburger .bi {
-            font-size: 24px;
-            color: var(--brand-1);
-            transition: transform .18s, color .18s
-        }
-
-        .hamburger:focus {
-            outline: 3px solid rgba(29, 122, 58, 0.12);
-            outline-offset: 2px
-        }
-
-        /* mobile menu */
-        .mobile-menu {
+        /* bottom nav (mobile) */
+        .bottom-nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 0;
-            overflow: hidden;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 14px;
+            z-index: 1400;
             background: linear-gradient(180deg, #fff, #fbfff4);
-            transition: height .32s var(--easing);
-            z-index: 1190;
-            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.06)
+            border-radius: 14px;
+            padding: 8px 12px;
+            box-shadow: 0 12px 40px rgba(8, 12, 20, 0.12);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.04)
         }
 
-        .mobile-menu.open {
-            height: 100vh;
-            overflow: auto
-        }
-
-        .mobile-menu-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 22px
-        }
-
-        .mobile-nav {
+        .bottom-nav a {
             display: flex;
             flex-direction: column;
-            gap: 18px;
-            padding-top: 20px
+            align-items: center;
+            text-decoration: none;
+            color: #111;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 6px 8px;
+            border-radius: 10px;
+            min-width: 56px
         }
 
-        /* force mobile nav text black + same format */
-        .mobile-nav a {
-            text-decoration: none !important;
-            color: #000 !important;
-            /* force black */
-            font-weight: 800 !important;
-            font-size: 20px !important;
-            text-transform: none !important;
-            letter-spacing: 0.3px !important;
+        .bottom-nav a .bi {
+            font-size: 18px;
+            margin-bottom: 4px
         }
 
-        header.site-header.shrink {
-            padding: 8px 0;
-            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.06)
+        .bottom-nav a.active {
+            background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+            color: #fff;
+            box-shadow: 0 8px 22px rgba(29, 122, 58, 0.12)
         }
 
-        header.site-header.shrink .brand-left img {
-            height: 44px !important
-        }
-
-        @media(max-width:900px) {
-            .nav-center {
-                display: none !important
-            }
-
-            .hamburger {
-                display: flex !important
-            }
-
-            .brand-left img {
-                height: 44px
-            }
-        }
-
-        @media(min-width:901px) {
-            .hamburger {
+        @media(min-width:900px) {
+            .bottom-nav {
                 display: none
             }
         }
 
-        /* =================== HERO SLIDER (16:9 ratio) =================== */
+        /* MOBILE: Center the logo inside the header */
+        @media (max-width: 900px) {
+
+            /* hide desktop menu */
+            .nav-center {
+                display: none !important;
+            }
+
+            .nav-inner {
+                position: relative;
+                justify-content: center;
+                height: 64px;
+            }
+
+            /* center the logo */
+            .brand-left {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                margin: 0;
+                padding: 0;
+            }
+
+            .brand-left img {
+                height: 48px;
+                width: auto;
+            }
+
+            /* hide empty right column */
+            .brand-right {
+                display: none !important;
+            }
+        }
+
+        /* HERO - use same bg as page */
         .hero {
             margin-top: 94px;
-            padding: 18px 0;
+            padding: 16px 0;
             display: flex;
             justify-content: center;
-            background: linear-gradient(180deg, #fff, #fbfdf9)
+            background: var(--bg)
         }
 
         .slides {
@@ -275,7 +269,7 @@
             max-width: 1400px;
             position: relative;
             overflow: hidden;
-            border-radius: 20px;
+            border-radius: 18px;
             background: #eee;
             aspect-ratio: 16/9
         }
@@ -284,51 +278,16 @@
             position: absolute;
             inset: 0;
             background-repeat: no-repeat;
-            background-position: center center;
+            background-position: center;
             opacity: 0;
             transform: translateY(12px) scale(1.02);
-            transition: opacity .9s var(--easing), transform .9s var(--easing);
+            transition: opacity .9s, transform .9s;
             background-size: 100% auto
         }
 
         .slide.show {
             opacity: 1;
-            transform: translateY(0) scale(1)
-        }
-
-        @media(min-width:769px) {
-            .slide {
-                background-size: cover
-            }
-        }
-
-        .overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: flex-end;
-            padding: 28px;
-            pointer-events: none
-        }
-
-        .caption {
-            max-width: 720px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.76));
-            padding: 14px 16px;
-            border-radius: 12px;
-            box-shadow: var(--soft-shadow);
-            pointer-events: auto
-        }
-
-        .caption h2 {
-            margin: 0 0 6px;
-            color: var(--brand-1);
-            font-size: 20px
-        }
-
-        .caption p {
-            margin: 0;
-            color: var(--muted)
+            transform: none
         }
 
         .dots {
@@ -340,7 +299,7 @@
             padding: 8px;
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.9);
-            box-shadow: var(--soft-shadow);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
             z-index: 20
         }
 
@@ -349,15 +308,15 @@
             height: 12px;
             border-radius: 50%;
             background: rgba(0, 0, 0, 0.12);
-            cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.2)
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer
         }
 
         .dot.active {
             background: var(--brand-2)
         }
 
-        /* =================== MARQUEE =================== */
+        /* MARQUEE */
         .marquee-wrap {
             margin: 22px 0
         }
@@ -365,7 +324,7 @@
         .marqueebox {
             border-radius: 12px;
             padding: 8px;
-            box-shadow: var(--card-shadow);
+            box-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
             overflow: hidden;
             background: #fffef7
         }
@@ -376,9 +335,7 @@
             align-items: center;
             white-space: nowrap;
             will-change: transform;
-            animation-name: marquee;
-            animation-timing-function: linear;
-            animation-iteration-count: infinite
+            animation: mar 18s linear infinite
         }
 
         .marq-item {
@@ -391,10 +348,10 @@
             box-shadow: 0 8px 28px rgba(8, 12, 10, 0.04);
             font-weight: 800;
             color: var(--brand-1);
-            font-size: 18px
+            font-size: 16px
         }
 
-        @keyframes marquee {
+        @keyframes mar {
             0% {
                 transform: translateX(0)
             }
@@ -404,12 +361,11 @@
             }
         }
 
-        .marqueebox:hover .marquee,
-        .marqueebox:active .marquee {
+        .marqueebox:hover .marquee {
             animation-play-state: paused
         }
 
-        /* =================== SECTIONS / PRODUCTS / FOOTER =================== */
+        /* sections */
         .section {
             padding: 26px 0
         }
@@ -427,207 +383,254 @@
             font-size: 20px
         }
 
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px
+        .muted {
+            color: var(--muted)
         }
 
-        .about-card {
-            background: linear-gradient(180deg, #fff, #fffef9);
-            border-radius: 12px;
-            padding: 18px;
-            box-shadow: var(--card-shadow)
-        }
-
-        .about-list {
+        /* CARD ROW: SINGLE HORIZONTAL ROW (desktop & mobile) */
+        .card-wrap {
             display: flex;
-            gap: 14px;
-            flex-wrap: wrap
+            gap: var(--card-gap);
+            padding: 12px 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scroll-snap-type: x mandatory;
+            align-items: flex-start;
+            scroll-behavior: smooth;
+            white-space: nowrap;
         }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 14px;
-            margin-top: 12px
-        }
-
+        /* consistent card */
         .product-card {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            padding: 12px;
-            border-radius: 12px;
+            flex: 0 0 auto;
+            scroll-snap-align: center;
+            width: var(--card-width);
+            min-width: var(--card-width);
             background: linear-gradient(180deg, #fff, #fffef7);
-            box-shadow: var(--card-shadow);
-            transition: transform .16s var(--easing)
+            border-radius: 12px;
+            box-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform .16s;
+            margin-bottom: var(--card-bottom-space);
         }
 
         .product-card:hover {
             transform: translateY(-6px)
         }
 
-        .product-card img {
-            width: 96px;
-            height: 96px;
+        .product-card .img {
+            width: 100%;
+            height: var(--card-height);
+            position: relative;
+            overflow: hidden;
+            background: #eee
+        }
+
+        .product-card .img img {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
-            border-radius: 10px;
-            flex-shrink: 0
+            display: block
         }
 
-        .product-info h4 {
-            margin: 0 0 8px;
-            font-size: 16px
-        }
-
-        .price {
+        .price-badge {
+            position: absolute;
+            right: 14px;
+            bottom: 12px;
+            background: #fff;
+            padding: 10px 14px;
+            border-radius: 12px;
             font-weight: 800;
+            color: var(--brand-1);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06)
+        }
+
+        .product-card .body {
+            padding: 14px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px
+        }
+
+        .tag-pill {
+            display: inline-block;
+            background: #eaf6ea;
+            color: var(--brand-1);
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-weight: 800;
+            font-size: 13px
+        }
+
+        .product-card h4 {
+            margin: 0;
+            font-family: 'Merriweather', serif;
+            font-size: 20px;
             color: var(--brand-1)
         }
 
-        .badge {
-            background: #fff7d6;
-            color: #b88600;
-            padding: 6px 8px;
-            border-radius: 999px;
-            font-weight: 700;
-            margin-left: 8px
+        .desc {
+            color: var(--muted);
+            font-size: 15px;
+            margin-top: 6px
         }
 
-        .scroll-x {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 10px;
-            margin-top: 10px
-        }
-
-        .products-row {
+        /* small-card for backups */
+        .small-card {
             display: flex;
             gap: 12px;
-            padding: 12px 0
+            align-items: center;
+            padding: 10px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, #fff, #fffef7);
+            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06)
         }
 
-        .scroll-x .product-card {
-            min-width: 260px;
-            flex: 0 0 auto
+        .small-card img {
+            width: 88px;
+            height: 88px;
+            object-fit: cover;
+            border-radius: 8px
+        }
+
+        /* combos grid two per row visually (we still use horizontal row but grid fallback if desired) */
+        .combos-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 12px
         }
 
         @media(min-width:720px) {
-            .about-grid {
-                grid-template-columns: 1fr 1fr
-            }
-
-            .products-grid {
+            .combos-grid {
                 grid-template-columns: repeat(2, 1fr)
             }
-
-            .product-card img {
-                width: 120px;
-                height: 120px
-            }
         }
 
+        /* when screen big, keep same card width but center track visually */
         @media(min-width:1000px) {
-            .products-grid {
-                grid-template-columns: repeat(4, 1fr)
+            .card-wrap {
+                padding: 16px 0
             }
 
-            .slides {
-                border-radius: 20px
-            }
-        }
-
-        @media(max-width:520px) {
-            .brand-left img {
-                height: 44px
-            }
-
-            .caption h2 {
-                font-size: 18px
-            }
-
-            .marquee {
-                font-size: 15px
+            /* leave card width same for consistent appearance */
+            .product-card {
+                width: var(--card-width);
+                min-width: var(--card-width)
             }
         }
 
-        .quality-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
-            margin-top: 12px
-        }
-
-        .quality-item {
-            background: #fff;
-            border-radius: 10px;
-            padding: 12px;
-            box-shadow: var(--soft-shadow);
-            display: flex;
-            gap: 10px;
-            align-items: flex-start
-        }
-
-        footer {
-            margin-top: 30px;
-            padding: 36px 0;
+        /* footer */
+        /* Clean single footer */
+        .footer {
             background: var(--brand-2);
+            /* your yellow */
             color: #fff;
-            border-top: 6px solid var(--brand-1)
+            border-top: 6px solid var(--brand-1);
+            padding: 28px 0 12px 0;
+            overflow: hidden;
+            border-radius: 6px 6px 0 0;
         }
 
-        .footer-inner {
+        .footer .footer-inner {
             display: flex;
-            gap: 18px;
+            gap: 24px;
             align-items: flex-start;
             justify-content: space-between;
-            flex-wrap: wrap
+            flex-wrap: wrap;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--gutter);
         }
 
-        .footer-left,
-        .footer-center,
-        .footer-right {
+        .footer .col {
             flex: 1;
-            min-width: 220px
+            min-width: 220px;
         }
 
-        .footer-left img {
-            height: 84px;
-            width: auto;
-            margin-bottom: 8px
+        /* titles in green */
+        .footer h4 {
+            margin: 0 0 10px 0;
+            color: var(--brand-1);
+            font-size: 16px;
         }
 
-        .socials {
+        /* socials */
+        .footer-socials {
             display: flex;
             gap: 12px;
-            margin-top: 8px
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
         }
 
-        .notice {
-            background: rgba(0, 0, 0, 0.12);
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: 700;
+        .footer-socials a {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            text-decoration: none;
             color: #fff;
-            margin-top: 14px
+            font-weight: 700;
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            transition: transform .12s ease, background .12s;
         }
 
+        .footer-socials a:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .footer-socials .bi {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        /* divider above copyright */
+        .footer-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.06);
+            margin: 18px 0 12px 0;
+            max-width: var(--max-width);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* bottom row */
         .footer-bottom {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 8px var(--gutter);
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            margin-top: 14px;
-            flex-wrap: wrap
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: #fff;
         }
 
-        .footer-bottom .center {
-            flex: 1;
-            text-align: center
+        /* mobile: stack columns */
+        @media (max-width:720px) {
+            .footer .footer-inner {
+                padding: 0 14px;
+                gap: 12px;
+            }
+
+            .footer .col {
+                min-width: 100%;
+            }
+
+            .footer-bottom {
+                font-size: 13px;
+                text-align: center;
+                justify-content: center;
+                gap: 8px;
+            }
         }
+
 
         .to-top {
             position: fixed;
@@ -652,9 +655,768 @@
             outline: 3px solid rgba(255, 207, 43, 0.22);
             outline-offset: 3px
         }
-
-        /* small utilities */
-        .muted {
-            color: var(--muted)
-        }
     </style>
+</head>
+
+<body>
+    <!-- PRELOADER -->
+    <div id="preloader" class="preloader" aria-hidden="true">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px;">
+            <div class="logo"><img src="assets/icon-5.png" alt="Dosa Toppings logo"
+                    style="width:100%;height:auto;display:block"></div>
+            <div class="caption">Healthy Twist for every dosa !</div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header class="site-header" role="banner" aria-label="Main navigation">
+        <div class="nav-inner conater">
+            <div class="brand-left"><a href="#home" aria-label="Home"><img src="assets/icon-5.png"
+                        alt="Dosa Toppings logo"></a></div>
+            <nav class="nav-center" role="navigation" aria-label="Primary navigation">
+                <ul class="nav-list" role="menubar">
+                    <li><a role="menuitem" href="#best-seller">Bestsellers</a></li>
+                    <li><a role="menuitem" href="#combos">Combos</a></li>
+                    <li><a role="menuitem" href="#products">All</a></li>
+                    <li><a role="menuitem" href="#about-us">About</a></li>
+                    <li><a role="menuitem" href="#quality">Production</a></li>
+                    <li><a role="menuitem" href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="brand-right" aria-hidden="true"></div>
+        </div>
+    </header>
+
+    <!-- bottom nav (mobile) -->
+    <nav class="bottom-nav" role="navigation" aria-label="Mobile quick navigation">
+        <a href="#home" title="Home" class="bn-home active"><i class="bi bi-house-door"></i><span>Home</span></a>
+        <a href="#best-seller" title="Bestsellers" class="bn-best"><i class="bi bi-star-fill"></i><span>Bests</span></a>
+        <a href="#combos" title="Combos" class="bn-combos"><i class="bi bi-box-seam"></i><span>Combos</span></a>
+        <a href="#products" title="Products" class="bn-products"><i class="bi bi-basket3"></i><span>All</span></a>
+        <a href="#contact" title="Contact" class="bn-contact"><i class="bi bi-envelope"></i><span>Contact</span></a>
+    </nav>
+
+    <main id="home">
+        <!-- HERO -->
+        <section class="hero" aria-label="Hero">
+            <div class="conater">
+                <div class="slides" id="slides" aria-live="polite" aria-atomic="true">
+                    <div class="slide show" style="background-image:url('assets/hero-1.png');" role="img"
+                        aria-label="Hero 1"></div>
+                    <div class="slide" style="background-image:url('assets/hero-2.png');" role="img"
+                        aria-label="Hero 2"></div>
+                    <div class="slide" style="background-image:url('assets/hero-3.png');" role="img"
+                        aria-label="Hero 3"></div>
+                    <div class="slide" style="background-image:url('assets/hero-4.png');" role="img"
+                        aria-label="Hero 4"></div>
+                    <div class="dots" id="dots" aria-hidden="false"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- MARQUEE -->
+        <div class="marquee-wrap">
+            <div class="conater marqueebox">
+                <div class="marquee" id="marquee" aria-hidden="false">
+                    <div class="marq-item">🌿 &nbsp; 100% Natural</div>
+                    <div class="marq-item">⚙️ &nbsp; No Preservatives</div>
+                    <div class="marq-item">🍽️ &nbsp; Ready-to-Sprinkle</div>
+                    <div class="marq-item">🌿 &nbsp; 100% Natural</div>
+                    <div class="marq-item">⚙️ &nbsp; No Preservatives</div>
+                    <div class="marq-item">🍽️ &nbsp; Ready-to-Sprinkle</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- BEST SELLERS -->
+        <section id="best-seller" class="section" aria-label="Best sellers">
+            <div class="conater">
+                <div class="section-title">
+                    <h3>Bestsellers</h3>
+                </div>
+                <div id="bestRow" class="card-wrap" aria-live="polite" aria-atomic="true"></div>
+            </div>
+        </section>
+
+        <!-- COMBOS -->
+        <section id="combos" class="section" aria-label="Combos">
+            <div class="conater">
+                <div class="section-title">
+                    <h3>Combos</h3>
+                </div>
+                <div id="combosRow" class="card-wrap"></div>
+            </div>
+        </section>
+
+        <!-- ALL PRODUCTS -->
+        <section id="products" class="section" aria-labelledby="productsTitle">
+            <div class="conater">
+                <div class="section-title">
+                    <h3 id="productsTitle">All Products</h3>
+                </div>
+                <p class="muted">Pure, elevated podis — small-batch roasted, stone-ground and finished for today’s
+                    table.</p>
+                <div id="productsRow" class="card-wrap" style="padding-bottom:18px;"></div>
+            </div>
+        </section>
+
+        <!-- PROMISE / ABOUT / WHY / PRODUCTION (containerized, headings underline, hover quality) -->
+        <section id="promise-about"
+            style="background:#fff7e6; padding:48px 0; font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;">
+            <div class="conater" style="max-width:1200px; margin:0 auto; padding:0 20px; color:#222;">
+
+                <!-- Our Promise (containerized) -->
+                <div style="display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap; margin-bottom:34px;">
+                    <!-- Text -->
+                    <div style="flex:1 1 420px; min-width:240px;">
+                        <h2
+                            style="margin:0 0 8px; color:#1d7a3a; font-size:30px; font-weight:800; letter-spacing:0.2px; position:relative;">
+                            Our Promise
+                        </h2>
+                        <!-- red underline -->
+                        <div style="width:96px; height:6px; border-radius:6px; background:#c23b2b; margin:12px 0 18px;">
+                        </div>
+
+                        <p style="margin:0 0 12px; color:#3b3b3b; font-size:16px; line-height:1.6;">
+                            <strong>Freshly roasted, stone-ground, and packed with care</strong> — small batches that
+                            preserve aroma and deliver home-style taste every day.
+                        </p>
+
+                        <ul
+                            style="list-style:none; padding:0; margin:12px 0 0; display:grid; gap:12px; max-width:720px;">
+                            <li style="display:flex; gap:12px; align-items:flex-start;">
+                                <div style="min-width:28px; font-size:18px; line-height:1;">🌿</div>
+                                <div><strong>Pure ingredients, no shortcuts.</strong> No fillers, no artificial flavours
+                                    — only trusted spices from farms across Tamil Nadu.</div>
+                            </li>
+                            <li style="display:flex; gap:12px; align-items:flex-start;">
+                                <div style="min-width:28px; font-size:18px; line-height:1;">🕰️</div>
+                                <div><strong>Tradition, refined.</strong> Family recipes adapted for consistent quality
+                                    in every pack.</div>
+                            </li>
+                            <li style="display:flex; gap:12px; align-items:flex-start;">
+                                <div style="min-width:28px; font-size:18px; line-height:1;">🧼</div>
+                                <div><strong>Hygiene first.</strong> Strict quality checks throughout roasting and
+                                    packing to ensure purity and freshness.</div>
+                            </li>
+                            <li style="display:flex; gap:12px; align-items:flex-start;">
+                                <div style="min-width:28px; font-size:18px; line-height:1;">🚜</div>
+                                <div><strong>Farm-to-pack freshness.</strong> Spices picked at peak harvest — cleaned,
+                                    sun-dried, roasted and sealed.</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Image -->
+                    <div
+                        style="flex:0 0 320px; min-width:220px; display:flex; justify-content:center; align-items:flex-start;">
+                        <img src="assets/promise.png" alt="Our Promise"
+                            style="width:100%; max-width:340px; border-radius:14px; box-shadow:0 10px 30px rgba(8,12,20,0.08); object-fit:cover;">
+                    </div>
+                </div>
+
+                <!-- About + Why -->
+                <div style="display:grid; grid-template-columns: 1fr; gap:26px; margin-bottom:28px;">
+                    <!-- About -->
+                    <div
+                        style="background:#fffef7; border-radius:12px; padding:18px; box-shadow:0 8px 28px rgba(8,12,20,0.06);">
+                        <h3 style="margin:0 0 10px; color:#1d7a3a; font-size:22px; font-weight:800; position:relative;">
+                            About Us</h3>
+                        <div style="width:64px; height:6px; border-radius:6px; background:#c23b2b; margin:10px 0 12px;">
+                        </div>
+
+                        <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
+                            Dosa Toppings was born with one simple idea — to bring the authentic taste of home into
+                            today’s fast-moving lifestyle.
+                        </p>
+                        <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
+                            Our recipes come from classic South Indian kitchens, but our packaging is designed for
+                            modern convenience. Every bottle carries the flavour, aroma, and love of home-style podis.
+                        </p>
+
+                        <div style="display:flex; gap:18px; flex-wrap:wrap; margin-top:6px; align-items:flex-start;">
+                            <div style="min-width:220px;">
+                                <strong style="display:block; margin-bottom:8px; color:#26352b;">We believe in:</strong>
+                                <ul style="margin:0; padding-left:18px; color:#374047; line-height:1.6;">
+                                    <li>Honest ingredients</li>
+                                    <li>Clean labels</li>
+                                    <li>Healthy choices</li>
+                                    <li>Simple cooking</li>
+                                    <li>Family-friendly flavours</li>
+                                </ul>
+                            </div>
+
+                            <div style="flex:1; min-width:180px; color:#374047; line-height:1.6;">
+                                From busy moms to working professionals to kids who love tasty food — Dosa Toppings
+                                makes every meal flavourful and nutritious.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Why Our Podi Tastes Better (cards grid) -->
+                    <div>
+                        <h3 style="margin:0 0 10px; color:#1d7a3a; font-size:22px; font-weight:800; position:relative;">
+                            Why Our Podi Tastes Better ?</h3>
+                        <div style="width:64px; height:6px; border-radius:6px; background:#c23b2b; margin:10px 0 12px;">
+                        </div>
+
+                        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; margin-top:12px;">
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Handpicked ingredients</strong>
+                                <div style="color:#455a52; font-size:14px;">We select the best pulses, herbs and
+                                    chillies at source.</div>
+                            </div>
+
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Slow-roasted for deep flavour</strong>
+                                <div style="color:#455a52; font-size:14px;">Traditional roasting unlocks aroma and
+                                    colour.</div>
+                            </div>
+
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Balanced spice levels</strong>
+                                <div style="color:#455a52; font-size:14px;">Flavour profiles that suit kids and adults
+                                    alike.</div>
+                            </div>
+
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Made fresh in batches</strong>
+                                <div style="color:#455a52; font-size:14px;">Small-batch production preserves aroma and
+                                    consistency.</div>
+                            </div>
+
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Packed in hygienic facility</strong>
+                                <div style="color:#455a52; font-size:14px;">FSSAI-compliant processes and air-tight
+                                    packaging.</div>
+                            </div>
+
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Farm-to-Factory traceability</strong>
+                                <div style="color:#455a52; font-size:14px;">We track each ingredient from source to
+                                    final pack.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Production & Quality (linked to #quality) -->
+                <div id="quality"
+                    style="background:linear-gradient(180deg,#fffef7,#fff); border-radius:12px; padding:18px; box-shadow:0 8px 28px rgba(8,12,20,0.06);">
+                    <h3 style="margin:0 0 12px; color:#1d7a3a; font-size:22px; font-weight:800; position:relative;">
+                        Production &amp; Quality</h3>
+                    <div style="width:64px; height:6px; border-radius:6px; background:#c23b2b; margin:10px 0 12px;">
+                    </div>
+
+                    <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
+                        Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
+                        food-safety standards.
+                    </p>
+
+                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:12px;">
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🌶️</div><strong
+                                style="display:block; margin-top:6px;">Hand-Picked Ingredients</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Only the freshest chillies,
+                                dals, and herbs selected by trained staff.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">☀️</div><strong
+                                style="display:block; margin-top:6px;">Sun-Dried for Natural Flavour</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Spices are dried under direct
+                                sunlight to lock in aroma naturally.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🍳</div><strong style="display:block; margin-top:6px;">Roasted
+                                on Iron Tawa</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Seasoned iron tawa roasting
+                                gives authentic colour & crispness.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🧤</div><strong style="display:block; margin-top:6px;">Hygienic
+                                Handling</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Gloves, masks & sanitised
+                                workstations for safe food handling.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🥄</div><strong
+                                style="display:block; margin-top:6px;">Air-Tight Batch Processing</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Small batches ensure even
+                                roasting & perfectly balanced flavour.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">⚙️</div><strong style="display:block; margin-top:6px;">Modern
+                                Machinery</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Grinding & packing machines
+                                maintain texture without hand contact.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">📦</div><strong
+                                style="display:block; margin-top:6px;">Food-Grade Packaging</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Air-tight containers lock in
+                                freshness & prevent moisture.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🧪</div><strong style="display:block; margin-top:6px;">Batch
+                                Testing</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Each lot checked for flavour,
+                                aroma, texture & shelf stability.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">✔️</div><strong
+                                style="display:block; margin-top:6px;">FSSAI-Compliant Process</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Strict hygiene & safety
+                                standards followed at every step.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🌾</div><strong
+                                style="display:block; margin-top:6px;">Farm-to-Factory Traceability</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">We track each ingredient from
+                                source to final pack to ensure purity and transparency.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🔥</div><strong
+                                style="display:block; margin-top:6px;">Temperature-Controlled Roasting</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Every batch is roasted at
+                                calibrated heat levels for aroma without burning.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🚚</div><strong style="display:block; margin-top:6px;">Fresh
+                                Stock Dispatch</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">We dispatch only freshly packed
+                                batches — never old stock or returned goods.</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Inline small styles for hover + responsiveness -->
+            <style>
+                /* hover effect for quality & info cards */
+                .quality-card:hover,
+                .info-card:hover {
+                    transform: translateY(-8px) !important;
+                    box-shadow: 0 18px 44px rgba(8, 12, 20, 0.12) !important;
+                }
+
+                /* responsive adjustments */
+                @media (max-width:1000px) {
+                    #promise-about .conater>div {
+                        grid-template-columns: 1fr !important;
+                    }
+
+                    #promise-about>.conater>div>div {
+                        grid-template-columns: 1fr !important;
+                    }
+
+                    #promise-about .conater {
+                        padding: 0 14px;
+                    }
+
+                    /* collapse the 3-col quality grid to 2 then 1 */
+                    #promise-about [style*="grid-template-columns: repeat(3, 1fr)"] {
+                        grid-template-columns: repeat(2, 1fr) !important;
+                    }
+                }
+
+                @media (max-width:600px) {
+                    #promise-about [style*="grid-template-columns: repeat(2, 1fr)"] {
+                        grid-template-columns: 1fr !important;
+                    }
+
+                    #promise-about img {
+                        max-width: 100% !important;
+                        height: auto !important;
+                    }
+                }
+            </style>
+        </section>
+
+
+
+    </main>
+
+    <footer id="contact" role="contentinfo" aria-label="Footer"
+        style="background:#F3C02B; color:#fff; border-top:6px solid #1D7A3A; padding:32px 0 16px 0;">
+
+        <!-- MAIN ROW -->
+        <div style="max-width:1200px; margin:auto; padding:0 18px;
+                display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start;">
+
+            <!-- LEFT -->
+            <div style="flex:1; min-width:240px;">
+                <img src="assets/icon-5.png" alt="Dosa Toppings logo"
+                    style="height:72px; display:block; margin-bottom:12px;">
+
+                <p style="margin:0 0 12px 0; font-size:15px;">
+                    Instant Authentic Flavour — From Tradition to Today.
+                </p>
+
+                <!-- Social buttons -->
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;">
+
+                    <a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px;
+                           padding:8px 14px; border-radius:30px;
+                           background:#ffffff20; color:#fff; font-weight:600;
+                           text-decoration:none; backdrop-filter:blur(4px);
+                           box-shadow:0 4px 12px rgba(0,0,0,0.10);">
+                        <i class="bi bi-instagram" style="font-size:18px;"></i>
+                    </a>
+
+                    <a href="https://wa.me/917200514471" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px;
+                           padding:8px 14px; border-radius:30px;
+                           background:#25D366; color:#fff; font-weight:600;
+                           text-decoration:none; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+                        <i class="bi bi-whatsapp" style="font-size:18px;"></i>
+                    </a>
+
+                    <a href="mailto:kkmhealthyeats4u@gmail.com" style="display:flex; align-items:center; gap:6px;
+                           padding:8px 14px; border-radius:30px;
+                           background:#ffffff20; color:#fff; font-weight:600;
+                           text-decoration:none; backdrop-filter:blur(4px);
+                           box-shadow:0 4px 12px rgba(0,0,0,0.10);">
+                        <i class="bi bi-envelope" style="font-size:18px;"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ADDRESS -->
+            <div style="flex:1; min-width:240px;">
+                <h4 style="margin:0 0 10px 0; color:#1D7A3A; font-size:17px;">Address</h4>
+
+                <div style="line-height:1.6; font-size:15px;">
+                    KKM FOOD FACTORY<br>
+                    2/146/1, Karukkankattupudur,<br>
+                    Avinashi, Tiruppur,<br>
+                    Tamil Nadu – 641654
+                </div>
+
+                <div style="margin-top:10px; font-size:15px;">
+                    <strong>FSSAI:</strong> 12425027000407
+                </div>
+            </div>
+
+            <!-- CONTACT -->
+            <div style="flex:1; min-width:240px;">
+                <h4 style="margin:0 0 10px 0; color:#1D7A3A; font-size:17px;">Contact & Order</h4>
+
+                <div style="line-height:1.7; font-size:15px;">
+                    WhatsApp / Mobile:
+                    <a href="tel:+917200514471" style="color:#fff; text-decoration:underline;">
+                        +91 72005 14471
+                    </a><br>
+
+                    Email:
+                    <a href="mailto:kkmhealthyeats4u@gmail.com" style="color:#fff; text-decoration:underline;">
+                        kkmhealthyeats4u@gmail.com
+                    </a><br>
+
+                    Instagram:
+                    <a href="https://instagram.com/dosa.toppings" style="color:#fff; text-decoration:underline;">
+                        @dosa.toppings
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- DIVIDER -->
+        <div style="height:1px; background:#ffffff40; margin:22px auto 16px; max-width:1200px;"></div>
+
+        <!-- BOTTOM ROW -->
+        <div style="max-width:1200px; margin:auto; padding:0 18px;
+                display:flex; justify-content:space-between; align-items:center;
+                flex-wrap:wrap; font-size:14px;">
+
+            <div>Made with 🌿 in Tamil Nadu</div>
+            <div>©2025 Dosa Toppings — Healthy Twist for Every Dosa</div>
+            <div>Dosa Toppings v1.0</div>
+        </div>
+    </footer>
+
+    <button class="to-top" id="toTop" title="Go to top" aria-label="Go to top" style="display:none">↑</button>
+
+    <!-- INLINE DATA -->
+    <script>
+        const storeData = {
+            products: [
+                { id: "sig-001", title: "Classic Paruppu Podi", price: 100, unit: "50gms", short: "Lentil-forward, nutty & aromatic.", description: "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", image: "assets/signature-1.png", tags: ["HOME_MADE", "HEALTHY"] },
+                { id: "sig-002", title: "Curry Leaves Podi", price: 100, unit: "50gms", short: "Fragrant curry leaf & roasted dals.", description: "Aromatic and herbaceous — great with rice and chutney.", image: "assets/signature-2.png", tags: ["HOME_MADE"] },
+                { id: "sig-003", title: "Moringa Podi", price: 145, unit: "50gms", short: "Nutrient-rich moringa, mild spice.", description: "Vitamin-rich sprinkle — delicious in rice or porridge.", image: "assets/signature-3.png", tags: ["HEALTHY"] },
+                { id: "sig-004", title: "Garlic Podi", price: 110, unit: "50gms", short: "Roasted garlic — bold & savory.", description: "Bold garlic flavour that pairs beautifully with ghee dosa.", image: "assets/signature-4.png", tags: ["HOME_MADE"] },
+                { id: "sig-005", title: "Idli Milagai Podi", price: 95, unit: "50gms", short: "Classic mild & nutty seasoning.", description: "Mild & nutty — perfect for idli and breakfast bowls.", image: "assets/signature-5.png", tags: ["KIDS"] },
+                { id: "sig-006", title: "Kollu Podi", price: 130, unit: "50gms", short: "Protein-rich horse gram blend.", description: "Earthy & nourishing — great in rice mixes.", image: "assets/signature-6.png", tags: ["HEALTHY"] },
+                { id: "sig-007", title: "Peanut Podi", price: 120, unit: "50gms", short: "Crispy peanuts & warm spices.", description: "Crunchy, nutty & satisfying.", image: "assets/signature-7.png", tags: [] },
+                { id: "sig-008", title: "Sesame Podi", price: 110, unit: "50gms", short: "Toasted sesame & fragrant spices.", description: "Nutty, toasty flavour — great with rice & dosa.", image: "assets/signature-8.png", tags: ["HOME_MADE"] },
+                { id: "sig-009", title: "Millet Mix Podi", price: 150, unit: "50gms", short: "Wholesome millet + spices.", description: "A modern twist with finger millet for extra fibre and nutty aroma.", image: "assets/signature-9.png", tags: ["HEALTHY"] },
+                { id: "sig-010", title: "Tangy Tomato Podi", price: 105, unit: "50gms", short: "Tangy tomato with mild spice.", description: "Bright tangy notes — great as a spread or sprinkle for kids and adults.", image: "assets/signature-10.png", tags: ["KIDS"] }
+            ],
+            combos: [
+                { id: "combo-001", title: "Breakfast Starter Combo", price: 280, unit: "3 x 50gms", items: ["sig-001", "sig-005", "sig-002"], short: "Classic Paruppu + Idli Milagai + Curry Leaves — morning-ready.", image: "assets/combo-1.png" },
+                { id: "combo-002", title: "Health Pack Combo", price: 360, unit: "3 x 50gms", items: ["sig-003", "sig-006", "sig-009"], short: "Moringa + Kollu + Millet mix for a nourishing boost.", image: "assets/combo-2.png" },
+                { id: "combo-003", title: "Family Favourite Combo", price: 340, unit: "3 x 50gms", items: ["sig-004", "sig-007", "sig-008"], short: "Garlic + Peanut + Sesame — balanced family flavours.", image: "assets/combo-3.png" },
+                { id: "combo-004", title: "Kids Lunchbox Combo", price: 295, unit: "3 x 50gms", items: ["sig-005", "sig-010", "sig-001"], short: "Mild & tasty trio kids will love — safe spice levels.", image: "assets/combo-4.png" }
+            ],
+            bestSellers: ["sig-003", "sig-004", "sig-001", "sig-007"]
+        };
+    </script>
+
+    <!-- MAIN SCRIPT -->
+    <script>
+        (function () {
+            /* SAFE preloader hide */
+            const pre = document.getElementById('preloader');
+            (function hidePre() {
+                const min = 3000; const started = Date.now();
+                function hideNow() { const elapsed = Date.now() - started; setTimeout(() => pre.classList.add('hidden'), Math.max(0, min - elapsed)); }
+                if (document.readyState === 'complete' || document.readyState === 'interactive') hideNow(); else window.addEventListener('DOMContentLoaded', hideNow);
+                setTimeout(() => pre.classList.add('hidden'), 10000);
+            })();
+
+            /* helpers */
+            function esc(s) { if (s === null || s === undefined) return ''; return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
+            function debounce(fn, ms) { let t; return function () { clearTimeout(t); t = setTimeout(() => fn.apply(this, arguments), ms); }; }
+
+            /* DOM refs */
+            const bestRow = document.getElementById('bestRow');
+            const combosRow = document.getElementById('combosRow');
+            const productsRow = document.getElementById('productsRow');
+            const dotsWrap = document.getElementById('dots');
+
+            /* create product card (shared) */
+            function createProductCard(p) {
+                const art = document.createElement('article');
+                art.className = 'product-card';
+                art.innerHTML = `
+          <div class="img"><img src="${esc(p.image)}" alt="${esc(p.title)}"><div class="price-badge">₹${Number(p.price || 0).toFixed(0)} / ${esc(p.unit || '')}</div></div>
+          <div class="body"><div class="tag-pill">Signature</div><h4>${esc(p.title)}</h4><div class="desc">${esc(p.short || '')}</div></div>
+        `;
+                return art;
+            }
+
+            /* create combo card */
+            function createComboCard(c, lookup) {
+                const firstImg = c.image || (lookup[c.items && c.items[0]] && lookup[c.items[0]].image) || 'assets/signature-1.png';
+                const fake = { image: firstImg, title: c.title, price: c.price, unit: c.unit, short: c.short };
+                return createProductCard(fake);
+            }
+
+            /* renderers */
+            function renderBest() {
+                bestRow.innerHTML = '';
+                const lookup = {}; storeData.products.forEach(p => lookup[p.id] = p);
+                const ids = (storeData.bestSellers && storeData.bestSellers.length) ? storeData.bestSellers.slice() : storeData.products.slice(0, 4).map(p => p.id);
+                ids.map(id => lookup[id]).filter(Boolean).forEach(p => bestRow.appendChild(createProductCard(p)));
+            }
+            function renderCombos() {
+                combosRow.innerHTML = '';
+                const lookup = {}; storeData.products.forEach(p => lookup[p.id] = p);
+                storeData.combos.forEach(c => combosRow.appendChild(createComboCard(c, lookup)));
+            }
+            function renderProducts() {
+                productsRow.innerHTML = '';
+                storeData.products.forEach(p => productsRow.appendChild(createProductCard(p)));
+            }
+
+            /* hero slider (keeps previous behavior) */
+            (function heroSlider() {
+                const slides = Array.from(document.querySelectorAll('.slide'));
+                if (!slides.length) return;
+                const dots = document.getElementById('dots');
+                let idx = 0, timer = null, interval = 5000;
+                slides.forEach((s, i) => { const b = document.createElement('button'); b.className = 'dot' + (i === 0 ? ' active' : ''); b.setAttribute('aria-label', 'Go to slide ' + (i + 1)); b.addEventListener('click', () => goTo(i)); if (dots) dots.appendChild(b); });
+                const dotBtns = dots ? Array.from(dots.children) : [];
+                function show(i) { slides.forEach((s, si) => s.classList.toggle('show', si === i)); dotBtns.forEach((d, di) => d.classList.toggle('active', di === i)); }
+                function next() { idx = (idx + 1) % slides.length; show(idx); }
+                function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); }
+                function restart() { if (timer) clearInterval(timer); timer = setInterval(next, interval); }
+                const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); } });
+                obs.observe(pre, { attributes: true });
+                setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
+                const wrap = document.getElementById('slides');
+                if (wrap) { wrap.addEventListener('mouseenter', () => clearInterval(timer)); wrap.addEventListener('mouseleave', restart); wrap.addEventListener('focusin', () => clearInterval(timer)); wrap.addEventListener('focusout', restart); }
+                document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') goTo(idx + 1); if (e.key === 'ArrowLeft') goTo(idx - 1); });
+            })();
+
+            /* universal horizontal carousel with looping clones if overflow */
+            function setupLoopingCarousel(container, intervalMs) {
+                if (!container) return null;
+                const cards = Array.from(container.querySelectorAll('.product-card'));
+                if (!cards.length) return null;
+
+                // remove any previous clones marker
+                function removeClones() {
+                    Array.from(container.querySelectorAll('[data-clone="true"]')).forEach(n => n.remove());
+                }
+
+                // compute card width and visible count
+                function metrics() {
+                    const card = container.querySelector('.product-card');
+                    if (!card) return { cardW: Math.round(container.clientWidth * 0.9), visible: 1 };
+                    const cardRect = card.getBoundingClientRect();
+                    const style = window.getComputedStyle(container);
+                    let gap = parseFloat(style.getPropertyValue('gap')) || parseFloat(style.getPropertyValue('column-gap')) || parseFloat(style.getPropertyValue('grid-column-gap')) || 18;
+                    const cardW = Math.round(cardRect.width);
+                    const visible = Math.max(1, Math.floor((container.clientWidth + gap) / (cardW + gap)));
+                    return { cardW, gap, visible };
+                }
+
+                let { cardW, gap, visible } = metrics();
+                let originalScrollWidth = container.scrollWidth;
+                let timer = null;
+                let paused = false;
+
+                // clones only needed when content overflows
+                function ensureClones() {
+                    removeClones();
+                    originalScrollWidth = container.scrollWidth;
+                    if (container.scrollWidth <= container.clientWidth + 2) return false; // no overflow -> no clones
+                    // append clones of first `visible + 1` items to enable smooth loop
+                    const cloneCount = Math.min(Math.max(1, visible + 1), container.querySelectorAll('.product-card').length);
+                    const toClone = Array.from(container.querySelectorAll('.product-card')).slice(0, cloneCount);
+                    toClone.forEach(n => {
+                        const clone = n.cloneNode(true);
+                        clone.setAttribute('data-clone', 'true');
+                        container.appendChild(clone);
+                    });
+                    originalScrollWidth = container.scrollWidth - cloneCount * (cardW + gap); // approximate original width (used below)
+                    return true;
+                }
+
+                let hasClones = ensureClones();
+
+                function start() {
+                    stop();
+                    timer = setInterval(() => {
+                        if (paused) return;
+                        // if no overflow (no clones), just scroll by step until reach end then stop (or optionally bounce)
+                        const maxScroll = container.scrollWidth - container.clientWidth;
+                        const step = Math.round(cardW + gap);
+                        // if not overflowing, don't auto-scroll
+                        if (container.scrollWidth <= container.clientWidth + 2) {
+                            // nothing to do
+                            stop();
+                            return;
+                        }
+                        // otherwise perform smooth scroll by step
+                        const nextLeft = Math.min(Math.round(container.scrollLeft + step), maxScroll);
+                        container.scrollTo({ left: nextLeft, behavior: 'smooth' });
+                        // after a small delay (allow smooth scroll) check for loop condition
+                        setTimeout(() => {
+                            // if we passed original scroll width (i.e., are in clone area), jump back by originalScrollWidth
+                            if (container.scrollLeft >= (originalScrollWidth - 2)) {
+                                // jump back to equivalent position (no animation)
+                                container.scrollLeft = container.scrollLeft - originalScrollWidth;
+                            }
+                        }, 420);
+                    }, intervalMs);
+                }
+
+                function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
+                // pause/resume on user interaction
+                container.addEventListener('mouseenter', () => { paused = true; stop(); });
+                container.addEventListener('mouseleave', () => { paused = false; start(); });
+                container.addEventListener('touchstart', () => { paused = true; stop(); }, { passive: true });
+                container.addEventListener('touchend', () => { paused = false; start(); }, { passive: true });
+                // pointer interactions (drag/swipe)
+                container.addEventListener('pointerdown', () => { paused = true; stop(); }, { passive: true });
+                container.addEventListener('pointerup', () => { paused = false; start(); }, { passive: true });
+
+                // visible intersection - only autoplay when visible
+                const io = new IntersectionObserver(entries => {
+                    entries.forEach(en => {
+                        if (en.isIntersecting) { start(); }
+                        else { stop(); }
+                    });
+                }, { threshold: 0.4 });
+                io.observe(container);
+
+                // handle resize: recompute metrics and clones
+                window.addEventListener('resize', debounce(() => {
+                    ({ cardW, gap, visible } = metrics());
+                    hasClones = ensureClones();
+                }, 160));
+
+                // initial small delay to allow layout & start if needed
+                setTimeout(() => {
+                    ({ cardW, gap, visible } = metrics());
+                    hasClones = ensureClones();
+                    // start only when overflow
+                    if (container.scrollWidth > container.clientWidth + 2) start();
+                }, 80);
+
+                return { start, stop, destroy: () => { stop(); removeClones(); io.disconnect(); } };
+            }
+
+            /* run renderers */
+            try {
+                renderBest();
+                renderCombos();
+                renderProducts();
+            } catch (e) { console.error('render error', e); }
+
+            /* set up carousels (6s) */
+            const productsController = setupLoopingCarousel(productsRow, 6000);
+
+            /* bottom nav highlight */
+            (function bottomNavHighlight() {
+                const items = document.querySelectorAll('.bottom-nav a');
+                function setActive() {
+                    items.forEach(i => i.classList.remove('active'));
+                    const map = { home: 'bn-home', 'best-seller': 'bn-best', combos: 'bn-combos', products: 'bn-products', contact: 'bn-contact' };
+                    const h = (location.hash || '#home').replace('#', '');
+                    const cls = map[h] || 'bn-home';
+                    const el = document.querySelector('.' + cls);
+                    if (el) el.classList.add('active');
+                }
+                window.addEventListener('hashchange', setActive);
+                window.addEventListener('load', setActive);
+                setActive();
+            })();
+
+            /* to top button */
+            (function toTop() {
+                const btn = document.getElementById('toTop');
+                if (!btn) return;
+                window.addEventListener('scroll', () => { if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none'; }, { passive: true });
+                btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+            })();
+
+            /* safe window error handlers to unfreeze preloader if an uncaught error occurs */
+            window.addEventListener('error', ev => { console.error(ev.message, ev.error); pre.classList.add('hidden'); });
+            window.addEventListener('unhandledrejection', ev => { console.error(ev.reason); pre.classList.add('hidden'); });
+        })();
+    </script>
+</body>
+
+</html>
