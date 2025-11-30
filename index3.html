@@ -8,102 +8,21 @@
     <link rel="icon" href="assets/icon-2.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
-        /* Best-seller single-item carousel (mobile) */
-        .card-wrap-best {
-            position: relative;
-            overflow: hidden;
-            padding-bottom: 6px;
-        }
-
-        .card-track {
-            display: flex;
-            gap: 12px;
-            transition: transform .45s cubic-bezier(.2, .9, .3, 1);
-            will-change: transform;
-            padding: 12px 6px;
-        }
-
-        .card-track .product-card {
-            box-sizing: border-box;
-        }
-
-        @media (max-width:999px) {
-            .card-track .product-card {
-                min-width: 100%;
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-
-            .best-controls {
-                position: absolute;
-                left: 50%;
-                transform: translateX(-50%);
-                bottom: 8px;
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                z-index: 1200;
-            }
-
-            .best-btn {
-                background: rgba(255, 255, 255, 0.95);
-                border: 0;
-                padding: 6px 10px;
-                border-radius: 8px;
-                font-size: 20px;
-                box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
-                cursor: pointer;
-            }
-
-            .best-dots {
-                display: flex;
-                gap: 8px;
-                align-items: center;
-            }
-
-            .best-dot {
-                width: 8px;
-                height: 8px;
-                border-radius: 50%;
-                background: rgba(0, 0, 0, 0.12);
-            }
-
-            .best-dot.active {
-                background: var(--brand-2);
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-            }
-        }
-
-        @media (min-width:1000px) {
-            .card-track {
-                gap: 18px;
-                padding: 0;
-            }
-
-            .card-track .product-card {
-                min-width: 0;
-                flex: 0 0 calc(25% - 18px);
-                max-width: calc(25% - 18px);
-            }
-
-            .best-controls {
-                display: none;
-            }
-        }
-
         :root {
             --brand-1: #1d7a3a;
             --brand-2: #f3c02b;
             --muted: #5b6b6b;
             --bg: #fff7e6;
-            --card-bg: #fffef7;
-            --max-width: 1200px;
             --gutter: 18px;
-            font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            --max-width: 1200px;
+            --card-gap: 12px;
+            /* used across CSS & read by JS */
+            --mobile-card-bottom-space: 16px;
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
         }
 
         * {
-            box-sizing: border-box;
+            box-sizing: border-box
         }
 
         html,
@@ -112,40 +31,37 @@
             margin: 0;
             background: var(--bg);
             color: #142026;
-            -webkit-font-smoothing: antialiased;
-            line-height: 1.4;
+            -webkit-font-smoothing: antialiased
         }
 
         img {
-            max-width: 100%;
             display: block;
+            max-width: 100%
         }
 
         .conater {
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 var(--gutter);
-            width: 100%;
+            width: 100%
         }
 
         /* PRELOADER */
         .preloader {
             position: fixed;
             inset: 0;
-            background: #ffffff;
+            background: #fff;
             z-index: 99999;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: opacity .45s cubic-bezier(.2, .9, .3, 1), visibility .45s cubic-bezier(.2, .9, .3, 1);
-            visibility: visible;
-            opacity: 1;
+            transition: opacity .45s, visibility .45s
         }
 
         .preloader.hidden {
             opacity: 0;
             visibility: hidden;
-            pointer-events: none;
+            pointer-events: none
         }
 
         .preloader .logo {
@@ -156,7 +72,7 @@
             padding: 8px;
             background: #fff;
             border-radius: 14px;
-            box-shadow: 0 8px 30px rgba(8, 12, 20, 0.06);
+            box-shadow: 0 8px 30px rgba(8, 12, 20, 0.06)
         }
 
         .preloader .caption {
@@ -167,22 +83,20 @@
             text-align: center;
             background: rgba(29, 122, 58, 0.06);
             padding: 6px 10px;
-            border-radius: 999px;
-            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.04);
+            border-radius: 999px
         }
 
-        /* Header */
+        /* HEADER */
         header.site-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1200;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, .98);
             backdrop-filter: blur(6px);
-            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
-            transition: padding .22s;
-            padding: 14px 0;
+            box-shadow: 0 10px 30px rgba(8, 12, 20, .08);
+            z-index: 1200;
+            padding: 14px 0
         }
 
         .nav-inner {
@@ -190,15 +104,13 @@
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            position: relative;
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 var(--gutter);
+            padding: 0 var(--gutter)
         }
 
         .brand-left img {
-            height: 64px;
-            transition: height .18s;
+            height: 64px
         }
 
         .nav-center {
@@ -206,7 +118,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            z-index: 1100;
+            z-index: 1100
         }
 
         .nav-list {
@@ -214,33 +126,18 @@
             gap: 24px;
             list-style: none;
             margin: 0;
-            padding: 0;
-            white-space: nowrap;
+            padding: 0
         }
 
         .nav-list a {
+            font-weight: 800;
             text-decoration: none;
             color: #000;
-            font-weight: 800;
             padding: 8px 10px;
-            border-radius: 8px;
-            font-size: 15px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
+            border-radius: 8px
         }
 
-        @media(max-width:900px) {
-            .nav-center {
-                display: none
-            }
-
-            .brand-left img {
-                height: 44px
-            }
-        }
-
-        /* bottom nav (mobile) */
+        /* bottom nav */
         .bottom-nav {
             position: fixed;
             left: 50%;
@@ -250,11 +147,9 @@
             background: linear-gradient(180deg, #fff, #fbfff4);
             border-radius: 14px;
             padding: 8px 12px;
-            box-shadow: 0 12px 40px rgba(8, 12, 20, 0.12);
+            box-shadow: 0 12px 40px rgba(8, 12, 20, .12);
             display: flex;
-            gap: 12px;
-            align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.04);
+            gap: 12px
         }
 
         .bottom-nav a {
@@ -270,30 +165,38 @@
             min-width: 56px
         }
 
-        .bottom-nav a .bi {
-            font-size: 18px;
-            margin-bottom: 4px
-        }
-
         .bottom-nav a.active {
             background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
-            color: #fff;
-            box-shadow: 0 8px 22px rgba(29, 122, 58, 0.12)
+            color: #fff
         }
 
         @media(min-width:900px) {
             .bottom-nav {
                 display: none
             }
+
+            .brand-left img {
+                height: 64px
+            }
         }
 
-        /* Hero */
+        @media(max-width:900px) {
+            .brand-left img {
+                height: 44px
+            }
+
+            .nav-center {
+                display: none
+            }
+        }
+
+        /* HERO */
         .hero {
             margin-top: 94px;
             padding: 16px 0;
             display: flex;
             justify-content: center;
-            background: linear-gradient(180deg, #fff, #fbfdf9);
+            background: linear-gradient(180deg, #fff, #fbfdf9)
         }
 
         .slides {
@@ -303,18 +206,18 @@
             overflow: hidden;
             border-radius: 18px;
             aspect-ratio: 16/9;
-            background: #eee;
+            background: #eee
         }
 
         .slide {
             position: absolute;
             inset: 0;
-            background-repeat: no-repeat;
             background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
             opacity: 0;
-            transform: translateY(12px) scale(1.02);
-            transition: opacity .9s, transform .9s;
-            background-size: cover
+            transform: translateY(12px);
+            transition: opacity .9s, transform .9s
         }
 
         .slide.show {
@@ -330,7 +233,7 @@
             gap: 10px;
             padding: 8px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
             z-index: 20
         }
@@ -339,8 +242,8 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.12);
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, .12);
+            border: 2px solid rgba(255, 255, 255, .2);
             cursor: pointer
         }
 
@@ -356,7 +259,7 @@
         .marqueebox {
             border-radius: 12px;
             padding: 8px;
-            box-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
+            box-shadow: 0 10px 36px rgba(8, 12, 20, .08);
             overflow: hidden;
             background: #fffef7
         }
@@ -366,8 +269,7 @@
             gap: 28px;
             align-items: center;
             white-space: nowrap;
-            will-change: transform;
-            animation: mar 18s linear infinite;
+            animation: mar 18s linear infinite
         }
 
         @keyframes mar {
@@ -387,56 +289,27 @@
             padding: 8px 12px;
             border-radius: 999px;
             background: linear-gradient(90deg, #fffef7, #f9fff4);
-            box-shadow: 0 8px 28px rgba(8, 12, 10, 0.04);
             font-weight: 800;
-            color: var(--brand-1);
-            font-size: 16px
+            color: var(--brand-1)
         }
 
-        .marqueebox:hover .marquee {
-            animation-play-state: paused
-        }
-
-        /* sections */
-        .section {
-            padding: 26px 0
-        }
-
-        .section-title {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px
-        }
-
-        .section-title h3 {
-            margin: 0;
-            color: var(--brand-1);
-            font-size: 20px
-        }
-
-        .muted {
-            color: var(--muted)
-        }
-
-        /* CARDS - unified look (use same size) */
+        /* cards */
         .card-wrap {
             display: flex;
-            gap: 12px;
+            gap: var(--card-gap);
             padding: 12px 0;
+            align-items: flex-start
         }
 
         .product-card {
-            width: 320px;
-            min-width: 320px;
             background: linear-gradient(180deg, #fff, #fffef7);
             border-radius: 12px;
-            box-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
+            box-shadow: 0 10px 36px rgba(8, 12, 20, .08);
             overflow: hidden;
             display: flex;
             flex-direction: column;
             transition: transform .16s;
-            flex: 0 0 auto;
+            flex: 0 0 auto
         }
 
         .product-card:hover {
@@ -446,9 +319,9 @@
         .product-card .img {
             width: 100%;
             height: 240px;
-            overflow: hidden;
-            background: #eee;
             position: relative;
+            background: #eee;
+            overflow: hidden
         }
 
         .product-card .img img {
@@ -467,7 +340,7 @@
             border-radius: 12px;
             font-weight: 800;
             color: var(--brand-1);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06)
+            box-shadow: 0 8px 22px rgba(0, 0, 0, .06)
         }
 
         .product-card .body {
@@ -484,12 +357,13 @@
             padding: 6px 10px;
             border-radius: 999px;
             font-weight: 800;
-            font-size: 13px
+            font-size: 13px;
+            width: fit-content;
         }
 
         .product-card h4 {
             margin: 0;
-            font-family: 'Merriweather', serif;
+            font-family: Merriweather, serif;
             font-size: 20px;
             color: var(--brand-1)
         }
@@ -500,41 +374,41 @@
             margin-top: 6px
         }
 
-        .small-card {
+        /* controls */
+        .section-controls {
             display: flex;
             gap: 12px;
             align-items: center;
-            padding: 10px;
+            justify-content: center;
+            margin-top: 10px;
+            margin-bottom: var(--mobile-card-bottom-space)
+        }
+
+        .ctrl-btn {
+            background: #fff;
             border-radius: 10px;
-            background: linear-gradient(180deg, #fff, #fffef7);
-            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06)
+            padding: 8px 10px;
+            border: 0;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, .06);
+            cursor: pointer;
+            font-size: 18px
         }
 
-        .small-card img {
-            width: 88px;
-            height: 88px;
-            object-fit: cover;
-            border-radius: 8px
+        .dots-small {
+            display: flex;
+            gap: 8px;
+            align-items: center
         }
 
-        @media(min-width:1000px) {
-            .card-wrap {
-                flex-wrap: wrap;
-                justify-content: flex-start
-            }
-
-            .product-card {
-                width: 100%;
-                min-width: 0;
-                max-width: 280px;
-                flex: 0 0 calc(25% - 18px)
-            }
-
-            .product-card .img {
-                height: 200px
-            }
+        .dots-small button {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            border: 0;
+            background: rgba(0, 0, 0, .12)
         }
 
+        /* combos grid on desktop */
         .combos-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -547,14 +421,70 @@
             }
         }
 
-        .section-grid {
-            display: grid;
-            gap: 12px
+        /* desktop grid */
+        @media(min-width:1000px) {
+            .card-wrap {
+                flex-wrap: wrap
+            }
+
+            .product-card {
+                width: 100%;
+                min-width: 0;
+                max-width: 280px;
+                flex: 0 0 calc(25% - 18px)
+            }
+
+            .product-card .img {
+                height: 200px
+            }
+
+            .section-controls {
+                display: none
+            }
+
+            .card-wrap {
+                padding: 12px 0
+            }
         }
 
-        @media(min-width:1000px) {
-            .section-grid {
-                grid-template-columns: repeat(4, 1fr)
+        /* MOBILE: single visible card */
+        @media(max-width:999px) {
+
+            /* make carousel full-viewport width horizontally; keep inner spacing via container padding */
+            .conater {
+                padding-left: 14px;
+                padding-right: 14px
+            }
+
+            .card-wrap {
+                overflow: hidden;
+                /* hide the off-screen cards */
+                padding: 12px 0;
+                margin-bottom: var(--mobile-card-bottom-space);
+                will-change: transform;
+            }
+
+            .card-wrap .product-card {
+                min-width: calc(100% - (var(--card-gap)));
+                width: calc(100% - (var(--card-gap)));
+                max-width: calc(100% - (var(--card-gap)));
+                flex: 0 0 calc(100% - (var(--card-gap)));
+                margin-right: 0;
+                /* spacing handled by gap on container */
+                border-radius: 12px;
+            }
+
+            .product-card .img {
+                height: 220px
+            }
+
+            /* ensure visible spacing below on mobile */
+            .product-card {
+                margin-bottom: var(--mobile-card-bottom-space)
+            }
+
+            .dots-small button.active {
+                background: var(--brand-2)
             }
         }
 
@@ -571,22 +501,6 @@
             gap: 18px;
             align-items: flex-start;
             justify-content: space-between;
-            flex-wrap: wrap;
-        }
-
-        .footer-left img {
-            height: 84px;
-            margin-bottom: 8px
-        }
-
-        .footer-bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            margin-top: 14px;
             flex-wrap: wrap
         }
 
@@ -601,23 +515,13 @@
             border-radius: 50%;
             display: grid;
             place-items: center;
-            box-shadow: 0 12px 44px rgba(10, 20, 10, 0.18);
-            cursor: pointer;
-            border: none;
-            font-weight: 800;
-            font-size: 18px;
-            z-index: 1500
-        }
-
-        .to-top:focus {
-            outline: 3px solid rgba(255, 207, 43, 0.22);
-            outline-offset: 3px
+            box-shadow: 0 12px 44px rgba(10, 20, 10, .18);
+            cursor: pointer
         }
     </style>
 </head>
 
 <body>
-
     <!-- PRELOADER -->
     <div id="preloader" class="preloader" aria-hidden="true">
         <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px;">
@@ -628,54 +532,49 @@
     </div>
 
     <!-- HEADER -->
-    <header class="site-header" role="banner" aria-label="Main navigation">
+    <header class="site-header" role="banner">
         <div class="nav-inner conater">
-            <div class="brand-left"><a href="#home" aria-label="Home"><img src="assets/icon-5.png" alt="logo"></a></div>
-            <nav class="nav-center" role="navigation" aria-label="Primary navigation">
-                <ul class="nav-list" role="menubar">
-                    <li><a role="menuitem" href="#best-seller">Bestsellers</a></li>
-                    <li><a role="menuitem" href="#combos">Combos</a></li>
-                    <li><a role="menuitem" href="#products">All Products</a></li>
-                    <li><a role="menuitem" href="#about-us">About</a></li>
-                    <li><a role="menuitem" href="#quality">Production</a></li>
-                    <li><a role="menuitem" href="#contact">Contact</a></li>
+            <div class="brand-left"><a href="#home"><img src="assets/icon-5.png" alt="logo"></a></div>
+            <nav class="nav-center" role="navigation">
+                <ul class="nav-list">
+                    <li><a href="#best-seller">Bestsellers</a></li>
+                    <li><a href="#combos">Combos</a></li>
+                    <li><a href="#products">All Products</a></li>
+                    <li><a href="#about-us">About</a></li>
+                    <li><a href="#quality">Production</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
             <div style="width:64px"></div>
         </div>
     </header>
 
-    <!-- bottom nav mobile -->
-    <nav class="bottom-nav" role="navigation" aria-label="Mobile quick navigation">
-        <a href="#home" title="Home" class="bn-home active"><i class="bi bi-house-door"></i><span>Home</span></a>
-        <a href="#best-seller" title="Bestsellers" class="bn-best"><i class="bi bi-star-fill"></i><span>Bests</span></a>
-        <a href="#combos" title="Combos" class="bn-combos"><i class="bi bi-box-seam"></i><span>Combos</span></a>
-        <a href="#products" title="Products" class="bn-products"><i class="bi bi-basket3"></i><span>Shop</span></a>
-        <a href="#contact" title="Contact" class="bn-contact"><i class="bi bi-envelope"></i><span>Contact</span></a>
+    <!-- bottom nav -->
+    <nav class="bottom-nav" role="navigation">
+        <a href="#home" class="bn-home active"><i class="bi bi-house-door"></i><span>Home</span></a>
+        <a href="#best-seller" class="bn-best"><i class="bi bi-star-fill"></i><span>Bests</span></a>
+        <a href="#combos" class="bn-combos"><i class="bi bi-box-seam"></i><span>Combos</span></a>
+        <a href="#products" class="bn-products"><i class="bi bi-basket3"></i><span>Shop</span></a>
+        <a href="#contact" class="bn-contact"><i class="bi bi-envelope"></i><span>Contact</span></a>
     </nav>
 
     <main id="home">
         <!-- HERO -->
-        <section class="hero" aria-label="Hero">
+        <section class="hero">
             <div class="conater">
-                <div class="slides" id="slides" aria-live="polite" aria-atomic="true">
-                    <div class="slide show" style="background-image:url('assets/hero-1.png');" role="img"
-                        aria-label="Hero 1"></div>
-                    <div class="slide" style="background-image:url('assets/hero-2.png');" role="img"
-                        aria-label="Hero 2"></div>
-                    <div class="slide" style="background-image:url('assets/hero-3.png');" role="img"
-                        aria-label="Hero 3"></div>
-                    <div class="slide" style="background-image:url('assets/hero-4.png');" role="img"
-                        aria-label="Hero 4"></div>
-                    <div class="dots" id="dots" aria-hidden="false"></div>
+                <div class="slides" id="slides">
+                    <div class="slide show" style="background-image:url('assets/hero-1.png')"></div>
+                    <div class="slide" style="background-image:url('assets/hero-2.png')"></div>
+                    <div class="slide" style="background-image:url('assets/hero-3.png')"></div>
+                    <div class="slide" style="background-image:url('assets/hero-4.png')"></div>
+                    <div class="dots" id="dots"></div>
                 </div>
             </div>
         </section>
 
-        <!-- MARQUEE -->
         <div class="marquee-wrap">
             <div class="conater marqueebox">
-                <div class="marquee" id="marquee" aria-hidden="false">
+                <div class="marquee" id="marquee">
                     <div class="marq-item">🌿 &nbsp; 100% Natural</div>
                     <div class="marq-item">⚙️ &nbsp; No Preservatives</div>
                     <div class="marq-item">🍽️ &nbsp; Ready-to-Sprinkle</div>
@@ -683,140 +582,121 @@
             </div>
         </div>
 
-        <!-- BEST SELLERS -->
-        <section id="best-seller" class="section" aria-label="Best sellers">
+        <!-- BESTSELLERS -->
+        <section id="best-seller" class="section">
             <div class="conater">
                 <div class="section-title">
-                    <h3>Bestsellers</h3>
+                    <h3 style="margin:0;color:var(--brand-1)">Bestsellers</h3>
                 </div>
+                <div id="bestTrack" class="card-wrap" role="list" aria-live="polite"></div>
 
-                <!-- carousel container -->
-                <div class="card-wrap-best" aria-live="polite" aria-atomic="true">
-                    <div id="bestTrack" class="card-track" role="list"></div>
-
-                    <!-- controls -->
-                    <div class="best-controls" aria-hidden="false">
-                        <button id="bestPrev" class="best-btn" aria-label="Previous">‹</button>
-                        <div id="bestDots" class="best-dots" aria-hidden="false"></div>
-                        <button id="bestNext" class="best-btn" aria-label="Next">›</button>
-                    </div>
+                <div class="section-controls" id="bestControls">
+                    <button id="bestPrev" class="ctrl-btn" aria-label="Previous">‹</button>
+                    <div id="bestDots" class="dots-small" aria-hidden="false"></div>
+                    <button id="bestNext" class="ctrl-btn" aria-label="Next">›</button>
                 </div>
             </div>
         </section>
 
         <!-- COMBOS -->
-        <section id="combos" class="section" aria-label="Combos">
+        <section id="combos" class="section">
             <div class="conater">
                 <div class="section-title">
-                    <h3>Combos</h3>
+                    <h3 style="margin:0;color:var(--brand-1)">Combos</h3>
                 </div>
-                <div id="combosRow" class="combos-grid"></div>
+                <div id="combosRow" class="card-wrap"></div>
+
+                <div class="section-controls" id="combosControls">
+                    <button id="combosPrev" class="ctrl-btn">‹</button>
+                    <div id="combosDots" class="dots-small" aria-hidden="false"></div>
+                    <button id="combosNext" class="ctrl-btn">›</button>
+                </div>
             </div>
         </section>
 
         <!-- ALL PRODUCTS -->
-        <section id="products" class="section" aria-labelledby="productsTitle">
+        <section id="products" class="section">
             <div class="conater">
                 <div class="section-title">
-                    <h3 id="productsTitle">All Products</h3>
+                    <h3 style="margin:0;color:var(--brand-1)">All Products</h3>
                 </div>
                 <p class="muted">Pure, elevated podis — small-batch roasted, stone-ground and finished for today’s
                     table.</p>
 
-                <div id="productsRow" class="card-wrap" style="padding-bottom:18px;"></div>
+                <div id="productsRow" class="card-wrap"></div>
                 <div id="productsGrid" class="section-grid" style="display:none;margin-top:12px"></div>
+
+                <div class="section-controls" id="productsControls">
+                    <button id="productsPrev" class="ctrl-btn">‹</button>
+                    <div id="productsDots" class="dots-small" aria-hidden="false"></div>
+                    <button id="productsNext" class="ctrl-btn">›</button>
+                </div>
             </div>
         </section>
 
-        <!-- ABOUT -->
+        <!-- About & Production -->
         <section id="about-us" class="section">
             <div class="conater">
                 <div class="section-title">
-                    <h3>About Us</h3>
+                    <h3 style="margin:0;color:var(--brand-1)">About Us</h3>
                 </div>
-                <div style="display:grid;grid-template-columns:1fr;gap:16px">
-                    <div
-                        style="background:linear-gradient(180deg,#fff,#fffef9);padding:18px;border-radius:12px;box-shadow:0 10px 36px rgba(8,12,20,0.08)">
-                        <p><strong>Dosa Toppings</strong> was born with one simple idea — to bring the authentic taste
-                            of home into today’s fast-moving lifestyle.</p>
-                        <p class="muted">From busy moms to working professionals to kids who love tasty food — Dosa
-                            Toppings makes every meal flavourful and nutritious.</p>
-                    </div>
-                    <div
-                        style="background:linear-gradient(180deg,#fff,#fffef9);padding:18px;border-radius:12px;box-shadow:0 10px 36px rgba(8,12,20,0.08)">
-                        <h4>Our Promise</h4>
-                        <p>Freshly roasted, stone-ground, and packed with care — small batches that preserve aroma and
-                            deliver home-style taste every day.</p>
-                    </div>
+                <div
+                    style="background:linear-gradient(180deg,#fff,#fffef9);padding:18px;border-radius:12px;box-shadow:0 10px 36px rgba(8,12,20,.08)">
+                    <p><strong>Dosa Toppings</strong> — traditional flavours, modern packaging.</p>
                 </div>
             </div>
         </section>
-
-        <!-- PRODUCTION & QUALITY -->
         <section id="quality" class="section">
             <div class="conater">
                 <div class="section-title">
-                    <h3>Production & Quality</h3>
+                    <h3 style="margin:0;color:var(--brand-1)">Production & Quality</h3>
                 </div>
                 <div
-                    style="background:linear-gradient(180deg,#fff,#fffef9);padding:18px;border-radius:12px;box-shadow:0 10px 36px rgba(8,12,20,0.08)">
-                    <p>Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
-                        food-safety standards.</p>
+                    style="background:linear-gradient(180deg,#fff,#fffef9);padding:18px;border-radius:12px;box-shadow:0 10px 36px rgba(8,12,20,.08)">
+                    <p>Small-batch roasting, strict hygiene.</p>
                 </div>
             </div>
         </section>
-
     </main>
 
-    <!-- FOOTER -->
     <footer id="contact" role="contentinfo">
         <div class="conater footer-inner">
-            <div class="footer-left">
-                <img src="assets/icon-5.png" alt="logo">
+            <div class="footer-left"><img src="assets/icon-5.png" alt="logo" style="height:84px">
                 <p>Instant Authentic Flavour — From Tradition to Today.</p>
-                <div style="display:flex;gap:12px;margin-top:8px"><a href="https://instagram.com/dosa.toppings"
-                        target="_blank" rel="noopener" style="color:#fff">Instagram</a><a
-                        href="https://wa.me/917200514471" target="_blank" rel="noopener"
-                        style="color:#fff">WhatsApp</a><a href="mailto:kkmhealthyeats4u@gmail.com"
-                        style="color:#fff">Email</a></div>
             </div>
             <div class="footer-center">
                 <h4>Address</h4>
-                <div>KKM FOOD FACTORY<br>2/146/1, Karukkankattupudur,<br>Avinashi, Tiruppur,<br>Tamil Nadu – 641654
-                </div>
-                <div style="margin-top:12px"><strong>FSSAI:</strong> 12425027000407</div>
+                <div>KKM FOOD FACTORY<br>Avinashi, Tiruppur, Tamil Nadu</div>
             </div>
             <div class="footer-right">
                 <h4>Contact & Order</h4>
-                <div class="muted">WhatsApp / Mobile: <a href="tel:+917200514471" style="color:#fff">+91 72005
-                        14471</a><br>Email: <a href="mailto:kkmhealthyeats4u@gmail.com"
-                        style="color:#fff">kkmhealthyeats4u@gmail.com</a></div>
+                <div class="muted">WhatsApp: <a href="tel:+917200514471" style="color:#fff">+91 72005 14471</a></div>
             </div>
         </div>
-        <div class="conater footer-bottom">
+        <div class="conater footer-bottom"
+            style="display:flex;justify-content:space-between;align-items:center;padding-top:18px;margin-top:14px">
             <div>Made with 🌿 in Tamil Nadu</div>
-            <div class="center">©2025 Dosa Toppings — Healthy Twist for Every Dosa</div>
+            <div>©2025 Dosa Toppings — Healthy Twist for Every Dosa</div>
             <div>Dosa Toppings v1.0</div>
         </div>
     </footer>
 
     <button class="to-top" id="toTop" title="Go to top" aria-label="Go to top" style="display:none">↑</button>
 
-    <!-- ========== INLINE DATA: must be before render script ========== -->
+    <!-- DATA -->
     <script>
-        // Inline product + combo + bestsellers data
         window.storeData = {
             products: [
-                { id: "sig-001", title: "Classic Paruppu Podi", price: 100, unit: "50gms", short: "Lentil-forward, nutty & aromatic.", description: "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", image: "assets/signature-1.png" },
-                { id: "sig-002", title: "Curry Leaves Podi", price: 100, unit: "50gms", short: "Fragrant curry leaf & roasted dals.", description: "Aromatic and herbaceous — great with rice and chutney.", image: "assets/signature-2.png" },
-                { id: "sig-003", title: "Moringa Podi", price: 145, unit: "50gms", short: "Nutrient-rich moringa, mild spice.", description: "Vitamin-rich sprinkle — delicious in rice or porridge.", image: "assets/signature-3.png" },
-                { id: "sig-004", title: "Garlic Podi", price: 110, unit: "50gms", short: "Roasted garlic — bold & savory.", description: "Bold garlic flavour that pairs beautifully with ghee dosa.", image: "assets/signature-4.png" },
-                { id: "sig-005", title: "Idli Milagai Podi", price: 95, unit: "50gms", short: "Classic mild & nutty seasoning.", description: "Mild & nutty — perfect for idli and breakfast bowls.", image: "assets/signature-5.png" },
-                { id: "sig-006", title: "Kollu Podi", price: 130, unit: "50gms", short: "Protein-rich horse gram blend.", description: "Earthy & nourishing — great in rice mixes.", image: "assets/signature-6.png" },
-                { id: "sig-007", title: "Peanut Podi", price: 120, unit: "50gms", short: "Crispy peanuts & warm spices.", description: "Crunchy, nutty & satisfying.", image: "assets/signature-7.png" },
-                { id: "sig-008", title: "Sesame Podi", price: 110, unit: "50gms", short: "Toasted sesame & fragrant spices.", description: "Nutty, toasty flavour — great with rice & dosa.", image: "assets/signature-8.png" },
-                { id: "sig-009", title: "Millet Mix Podi", price: 150, unit: "50gms", short: "Wholesome millet + spices.", description: "A modern twist with finger millet for extra fibre and nutty aroma.", image: "assets/signature-9.png" },
-                { id: "sig-010", title: "Tangy Tomato Podi", price: 105, unit: "50gms", short: "Tangy tomato with mild spice.", description: "Bright tangy notes — great as a spread or sprinkle for kids and adults.", image: "assets/signature-10.png" }
+                { id: "sig-001", title: "Classic Paruppu Podi", price: 100, unit: "50gms", short: "Lentil-forward, nutty & aromatic.", image: "assets/signature-1.png" },
+                { id: "sig-002", title: "Curry Leaves Podi", price: 100, unit: "50gms", short: "Fragrant curry leaf & roasted dals.", image: "assets/signature-2.png" },
+                { id: "sig-003", title: "Moringa Podi", price: 145, unit: "50gms", short: "Nutrient-rich moringa, mild spice.", image: "assets/signature-3.png" },
+                { id: "sig-004", title: "Garlic Podi", price: 110, unit: "50gms", short: "Roasted garlic — bold & savory.", image: "assets/signature-4.png" },
+                { id: "sig-005", title: "Idli Milagai Podi", price: 95, unit: "50gms", short: "Classic mild & nutty seasoning.", image: "assets/signature-5.png" },
+                { id: "sig-006", title: "Kollu Podi", price: 130, unit: "50gms", short: "Protein-rich horse gram blend.", image: "assets/signature-6.png" },
+                { id: "sig-007", title: "Peanut Podi", price: 120, unit: "50gms", short: "Crispy peanuts & warm spices.", image: "assets/signature-7.png" },
+                { id: "sig-008", title: "Sesame Podi", price: 110, unit: "50gms", short: "Toasted sesame & fragrant spices.", image: "assets/signature-8.png" },
+                { id: "sig-009", title: "Millet Mix Podi", price: 150, unit: "50gms", short: "Wholesome millet + spices.", image: "assets/signature-9.png" },
+                { id: "sig-010", title: "Tangy Tomato Podi", price: 105, unit: "50gms", short: "Tangy tomato with mild spice.", image: "assets/signature-10.png" }
             ],
             combos: [
                 { id: "combo-001", title: "Breakfast Starter Combo", price: 280, unit: "3 x 50gms", items: ["sig-001", "sig-005", "sig-002"], short: "Classic Paruppu + Idli Milagai + Curry Leaves — morning-ready.", image: "assets/combo-1.png" },
@@ -828,218 +708,239 @@
         };
     </script>
 
-    <!-- ========== MAIN RENDER + UX SCRIPT (uses storeData) ========== -->
+    <!-- MAIN SCRIPT -->
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // safe refs
+        document.addEventListener('DOMContentLoaded', () => {
             const pre = document.getElementById('preloader');
+            (function hidePre() { const start = Date.now(); function h() { pre.classList.add('hidden'); } setTimeout(h, Math.max(0, 3000 - (Date.now() - start))); setTimeout(h, 8000); })();
+
             const bestTrack = document.getElementById('bestTrack');
-            const bestDots = document.getElementById('bestDots');
-            const bestPrev = document.getElementById('bestPrev');
-            const bestNext = document.getElementById('bestNext');
             const combosRow = document.getElementById('combosRow');
             const productsRow = document.getElementById('productsRow');
             const productsGrid = document.getElementById('productsGrid');
-            const toTopBtn = document.getElementById('toTop');
 
-            // hide preloader after minimum 3s
-            (function hidePre() {
-                const MIN_MS = 3000;
-                const started = Date.now();
-                function done() { pre.classList.add('hidden'); }
-                const delta = Date.now() - started;
-                setTimeout(done, Math.max(0, MIN_MS - delta));
-                // fallback hide after 8s
-                setTimeout(done, 8000);
-            })();
+            const data = window.storeData || { products: [], combos: [], bestSellers: [] };
+            const lookup = {}; data.products.forEach(p => lookup[p.id] = p);
 
-            // small DOM helpers
             function esc(s) { if (s === null || s === undefined) return ''; return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
+
             function createProductCard(p) {
-                const card = document.createElement('article');
-                card.className = 'product-card';
-                card.innerHTML = `
-          <div class="img"><img src="${esc(p.image)}" alt="${esc(p.title)}"><div class="price-badge">₹${Number(p.price || 0).toFixed(0)} / ${esc(p.unit || '')}</div></div>
-          <div class="body"><div class="tag-pill">Signature</div><h4>${esc(p.title)}</h4><div class="desc">${esc(p.short || '')}</div></div>
-        `;
-                return card;
+                const a = document.createElement('article'); a.className = 'product-card';
+                a.innerHTML = `<div class="img"><img src="${esc(p.image)}" alt="${esc(p.title)}"><div class="price-badge">₹${Number(p.price || 0).toFixed(0)} / ${esc(p.unit || '')}</div></div><div class="body"><div class="tag-pill">Signature</div><h4>${esc(p.title)}</h4><div class="desc">${esc(p.short || '')}</div></div>`;
+                return a;
             }
-            function createComboCard(c, lookup) {
-                const sample = {
-                    image: c.image || (lookup[c.items && c.items[0]] && lookup[c.items[0]].image) || 'assets/signature-1.png',
-                    title: c.title, price: c.price, unit: c.unit, short: c.short
-                };
+
+            function createComboCard(c) {
+                const sample = { image: c.image || 'assets/signature-1.png', title: c.title, price: c.price, unit: c.unit, short: c.short };
                 return createProductCard(sample);
             }
 
-            // render best sellers into the horizontal track (bestTrack)
-            function renderBest() {
+            // RENDER
+            (function renderBest() {
                 if (!bestTrack) return;
                 bestTrack.innerHTML = '';
-                if (!window.storeData || !window.storeData.products) return;
-                const lookup = {}; window.storeData.products.forEach(p => lookup[p.id] = p);
-                const ids = (window.storeData.bestSellers && window.storeData.bestSellers.length) ? window.storeData.bestSellers.slice() : window.storeData.products.slice(0, 4).map(p => p.id);
+                const ids = (data.bestSellers && data.bestSellers.length) ? data.bestSellers.slice() : data.products.slice(0, 4).map(p => p.id);
                 const items = ids.map(id => lookup[id]).filter(Boolean);
-                items.forEach((p, idx) => {
-                    const card = createProductCard(p);
-                    card.setAttribute('role', 'listitem');
-                    bestTrack.appendChild(card);
-                    if (bestDots) {
-                        const d = document.createElement('button');
-                        d.type = 'button'; d.className = 'best-dot' + (idx === 0 ? ' active' : '');
-                        d.setAttribute('aria-label', 'Go to product ' + (idx + 1));
-                        d.addEventListener('click', () => goToBest(idx));
-                        bestDots.appendChild(d);
-                    }
-                });
+                items.forEach(p => bestTrack.appendChild(createProductCard(p)));
+            })();
 
-                // setup internal carousel behavior (indexing / transform)
-                let index = 0;
-                let timer = null;
-                const interval = 5000;
-
-                function cardWidth() { const c = bestTrack.querySelector('.product-card'); return c ? Math.round(c.getBoundingClientRect().width + 12) : Math.round(bestTrack.clientWidth * 0.9); }
-                function update() { const w = cardWidth(); bestTrack.style.transform = `translateX(-${index * w}px)`; if (bestDots) Array.from(bestDots.children).forEach((d, i) => d.classList.toggle('active', i === index)); }
-
-                function goToBest(i) {
-                    if (!bestTrack) return;
-                    const count = bestTrack.children.length;
-                    if (count === 0) return;
-                    if (i < 0) i = count - 1; if (i >= count) i = 0;
-                    index = i;
-                    update();
-                    restart();
-                }
-                function next() { goToBest(index + 1); }
-                function prev() { goToBest(index - 1); }
-
-                function restart() { stop(); timer = setInterval(next, interval); }
-                function stop() { if (timer) { clearInterval(timer); timer = null; } }
-
-                // pointer swipe (mobile)
-                let dragging = false, startX = 0, baseX = 0;
-                bestTrack.addEventListener('pointerdown', (e) => {
-                    if (window.innerWidth >= 1000) return; // don't interfere with desktop grid
-                    dragging = true; startX = e.clientX; bestTrack.style.transition = 'none'; stop();
-                    try { bestTrack.setPointerCapture(e.pointerId); } catch (e) { }
-                });
-                bestTrack.addEventListener('pointermove', (e) => {
-                    if (!dragging) return;
-                    const dx = e.clientX - startX;
-                    bestTrack.style.transform = `translateX(-${index * cardWidth() - dx}px)`;
-                });
-                bestTrack.addEventListener('pointerup', (e) => {
-                    if (!dragging) return;
-                    dragging = false; bestTrack.style.transition = '';
-                    const dx = e.clientX - startX; const w = cardWidth();
-                    if (Math.abs(dx) > Math.min(40, w * 0.2)) { if (dx < 0) next(); else prev(); } else { update(); restart(); }
-                    try { bestTrack.releasePointerCapture(e.pointerId); } catch (e) { }
-                });
-                bestTrack.addEventListener('pointercancel', () => { dragging = false; bestTrack.style.transition = ''; update(); restart(); });
-
-                // pause on hover/touch
-                bestTrack.addEventListener('mouseenter', () => stop());
-                bestTrack.addEventListener('mouseleave', () => restart());
-                bestTrack.addEventListener('touchstart', () => stop(), { passive: true });
-                bestTrack.addEventListener('touchend', () => restart(), { passive: true });
-
-                // prev/next controls
-                if (bestNext) bestNext.addEventListener('click', () => next());
-                if (bestPrev) bestPrev.addEventListener('click', () => prev());
-
-                // intersection observer to auto-play only when visible
-                const io = new IntersectionObserver(entries => {
-                    entries.forEach(en => { if (en.isIntersecting) restart(); else stop(); })
-                }, { threshold: 0.4 });
-                io.observe(bestTrack);
-
-                // adjust after resize
-                window.addEventListener('resize', debounce(() => { if (window.innerWidth >= 1000) { bestTrack.style.transform = ''; } else { update(); } }, 140));
-
-                // initial start (if mobile)
-                setTimeout(() => { if (window.innerWidth < 1000) { update(); restart(); } }, 80);
-            }
-
-            // render combos
-            function renderCombos() {
+            (function renderCombos() {
                 if (!combosRow) return;
                 combosRow.innerHTML = '';
-                if (!window.storeData || !window.storeData.combos) return;
-                const lookup = {}; window.storeData.products.forEach(p => lookup[p.id] = p);
-                window.storeData.combos.forEach(c => combosRow.appendChild(createComboCard(c, lookup)));
-            }
+                (data.combos || []).forEach(c => combosRow.appendChild(createComboCard(c)));
+            })();
 
-            // render products on horizontal row + grid fallback
-            function renderProducts() {
+            (function renderProducts() {
                 if (!productsRow || !productsGrid) return;
                 productsRow.innerHTML = ''; productsGrid.innerHTML = '';
-                if (!window.storeData || !window.storeData.products) return;
-                window.storeData.products.forEach(p => { const card = createProductCard(p); productsRow.appendChild(card); productsGrid.appendChild(card.cloneNode(true)); });
-                function layout() { if (window.innerWidth >= 1000) { productsGrid.style.display = 'grid'; productsRow.style.display = 'none'; productsGrid.style.gridTemplateColumns = 'repeat(4,1fr)'; } else { productsGrid.style.display = 'none'; productsRow.style.display = 'flex'; } }
-                layout(); window.addEventListener('resize', debounce(layout, 140));
-            }
-
-            // small utility: auto-scroll horizontal containers (for mobile) - generic
-            function setupAutoCarousel(container, intervalMs) {
-                if (!container) return;
-                const items = Array.from(container.children);
-                if (items.length <= 1) return;
-                let step = (container.querySelector('.product-card') ? Math.round(container.querySelector('.product-card').getBoundingClientRect().width + 12) : Math.round(container.clientWidth * 0.9));
-                let timer = null; let paused = false;
-
-                function start() {
-                    stop(); timer = setInterval(() => {
-                        if (paused) return;
-                        const max = container.scrollWidth - container.clientWidth;
-                        if (container.scrollLeft >= max - 2) { container.scrollTo({ left: 0, behavior: 'smooth' }); } else { container.scrollBy({ left: step, behavior: 'smooth' }); }
-                    }, intervalMs);
+                (data.products || []).forEach(p => { const c = createProductCard(p); productsRow.appendChild(c); productsGrid.appendChild(c.cloneNode(true)); });
+                function layout() {
+                    if (window.innerWidth >= 1000) {
+                        productsGrid.style.display = 'grid';
+                        productsRow.style.display = 'none';
+                        productsGrid.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                    } else {
+                        productsGrid.style.display = 'none';
+                        productsRow.style.display = 'flex';
+                    }
                 }
-                function stop() { if (timer) { clearInterval(timer); timer = null; } }
+                layout(); window.addEventListener('resize', debounce(layout, 140));
+            })();
 
-                container.addEventListener('mouseenter', () => paused = true);
-                container.addEventListener('mouseleave', () => paused = false);
-                container.addEventListener('touchstart', () => paused = true, { passive: true });
-                container.addEventListener('touchend', () => paused = false, { passive: true });
+            // Debounce util
+            function debounce(fn, ms) { let t; return (...args) => { clearTimeout(t); t = setTimeout(() => fn.apply(this, args), ms); } }
 
-                const io = new IntersectionObserver(entries => { entries.forEach(en => { if (en.isIntersecting) { paused = false; start(); } else { paused = true; } }); }, { threshold: 0.3 });
+            /* Generic carousel initializer for card-wrap containers
+               - container: DOM element (card-wrap)
+               - controls: { prevBtn, nextBtn, dotsWrap } (elements or null)
+               - intervalMs: autoplay milliseconds
+            */
+            function initCarousel({ container, prevBtn = null, nextBtn = null, dotsWrap = null, intervalMs = 6000 }) {
+                if (!container) return null;
+                const children = Array.from(container.children);
+                if (children.length === 0) return null;
+
+                // read CSS gap value (from --card-gap)
+                const gapPx = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--card-gap')) || 12;
+
+                // compute step (card width + gap)
+                function getStep() {
+                    const card = container.querySelector('.product-card');
+                    if (!card) return Math.round(container.clientWidth * 0.9);
+                    const rect = card.getBoundingClientRect();
+                    return Math.round(rect.width + gapPx);
+                }
+
+                // create dots
+                if (dotsWrap) dotsWrap.innerHTML = '';
+                const count = container.children.length;
+                for (let i = 0; i < count; i++) {
+                    if (dotsWrap) {
+                        const b = document.createElement('button');
+                        b.type = 'button';
+                        b.className = '';
+                        b.addEventListener('click', () => goTo(i));
+                        dotsWrap.appendChild(b);
+                    }
+                }
+
+                let index = 0, timer = null, dragging = false, startX = 0;
+
+                function updateUI() {
+                    const step = getStep();
+                    container.style.transform = `translateX(-${index * step}px)`;
+                    // update dots active
+                    if (dotsWrap) {
+                        Array.from(dotsWrap.children).forEach((d, i) => d.classList.toggle('active', i === index));
+                        // color active
+                        Array.from(dotsWrap.children).forEach((d, i) => d.style.background = i === index ? 'var(--brand-2)' : 'rgba(0,0,0,0.12)');
+                    }
+                }
+
+                function goTo(i) {
+                    if (count === 0) return;
+                    if (i < 0) i = count - 1;
+                    if (i >= count) i = 0;
+                    index = i;
+                    updateUI();
+                    restart();
+                }
+                function next() { goTo(index + 1); }
+                function prev() { goTo(index - 1); }
+
+                // buttons
+                if (nextBtn) nextBtn.addEventListener('click', () => next());
+                if (prevBtn) prevBtn.addEventListener('click', () => prev());
+
+                // pointer swipe (mobile)
+                container.addEventListener('pointerdown', (ev) => {
+                    if (window.innerWidth >= 1000) return; // disable dragging on large screens
+                    dragging = true;
+                    startX = ev.clientX;
+                    container.style.transition = 'none';
+                    stop();
+                    try { container.setPointerCapture(ev.pointerId); } catch (e) { }
+                });
+                container.addEventListener('pointermove', (ev) => {
+                    if (!dragging) return;
+                    const dx = ev.clientX - startX;
+                    const step = getStep();
+                    container.style.transform = `translateX(-${index * step - dx}px)`;
+                });
+                container.addEventListener('pointerup', (ev) => {
+                    if (!dragging) return;
+                    dragging = false;
+                    container.style.transition = '';
+                    const dx = ev.clientX - startX;
+                    const step = getStep();
+                    if (Math.abs(dx) > Math.min(40, step * 0.2)) {
+                        if (dx < 0) next(); else prev();
+                    } else {
+                        updateUI();
+                        restart();
+                    }
+                    try { container.releasePointerCapture(ev.pointerId); } catch (e) { }
+                });
+                container.addEventListener('pointercancel', () => { dragging = false; container.style.transition = ''; updateUI(); restart(); });
+
+                // pause on hover / touch
+                container.addEventListener('mouseenter', stop);
+                container.addEventListener('mouseleave', restart);
+                container.addEventListener('touchstart', stop, { passive: true });
+                container.addEventListener('touchend', restart, { passive: true });
+
+                // intersection observer to pause when not visible
+                const io = new IntersectionObserver(entries => {
+                    entries.forEach(en => {
+                        if (en.isIntersecting) restart();
+                        else stop();
+                    });
+                }, { threshold: 0.35 });
                 io.observe(container);
 
-                window.addEventListener('resize', debounce(() => { step = (container.querySelector('.product-card') ? Math.round(container.querySelector('.product-card').getBoundingClientRect().width + 12) : Math.round(container.clientWidth * 0.9)); }, 160));
+                // auto-play management
+                function start() { stop(); timer = setInterval(() => { next(); }, intervalMs); }
+                function stop() { if (timer) { clearInterval(timer); timer = null; } }
+                function restart() { stop(); start(); }
 
-                // init only for mobile widths or when container overflows
-                setTimeout(() => { step = (container.querySelector('.product-card') ? Math.round(container.querySelector('.product-card').getBoundingClientRect().width + 12) : Math.round(container.clientWidth * 0.9)); start(); }, 120);
+                // on resize recalc transform / clear on desktop
+                window.addEventListener('resize', debounce(() => {
+                    if (window.innerWidth >= 1000) {
+                        container.style.transform = '';
+                    } else {
+                        updateUI();
+                    }
+                }, 140));
+
+                // initialize transform after small delay (allow layout)
+                setTimeout(() => {
+                    container.style.transition = 'transform .45s cubic-bezier(.2,.9,.3,1)';
+                    if (window.innerWidth < 1000) { updateUI(); start(); }
+                }, 80);
+
+                return { goTo, next, prev, start, stop };
             }
+
+            // initialize carousels: all interval 6000ms per your request
+            const bestCarousel = initCarousel({ container: bestTrack, prevBtn: document.getElementById('bestPrev'), nextBtn: document.getElementById('bestNext'), dotsWrap: document.getElementById('bestDots'), intervalMs: 6000 });
+            const combosCarousel = initCarousel({ container: combosRow, prevBtn: document.getElementById('combosPrev'), nextBtn: document.getElementById('combosNext'), dotsWrap: document.getElementById('combosDots'), intervalMs: 6000 });
+            const productsCarousel = initCarousel({ container: productsRow, prevBtn: document.getElementById('productsPrev'), nextBtn: document.getElementById('productsNext'), dotsWrap: document.getElementById('productsDots'), intervalMs: 6000 });
+
+            // hero slider (keeps original behavior)
+            (function heroSlider() {
+                const slides = Array.from(document.querySelectorAll('.slide'));
+                const dotsWrap = document.getElementById('dots');
+                if (!slides.length) return;
+                let idx = 0, timer = null, interval = 5000;
+                slides.forEach((s, i) => {
+                    const b = document.createElement('button'); b.className = 'dot' + (i === 0 ? ' active' : ''); b.setAttribute('aria-label', 'Go to slide ' + (i + 1)); b.addEventListener('click', () => goto(i));
+                    if (dotsWrap) dotsWrap.appendChild(b);
+                });
+                const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+                function show(i) { slides.forEach((s, si) => s.classList.toggle('show', si === i)); dots.forEach((d, di) => d.classList.toggle('active', di === i)); }
+                function next() { idx = (idx + 1) % slides.length; show(idx); }
+                function goto(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); }
+                function restart() { if (timer) clearInterval(timer); timer = setInterval(next, interval); }
+                const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); } });
+                obs.observe(pre, { attributes: true });
+                setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
+                const wrap = document.getElementById('slides');
+                if (wrap) { wrap.addEventListener('mouseenter', () => clearInterval(timer)); wrap.addEventListener('mouseleave', restart); wrap.addEventListener('focusin', () => clearInterval(timer)); wrap.addEventListener('focusout', restart); }
+                document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') goto(idx + 1); if (e.key === 'ArrowLeft') goto(idx - 1); });
+            })();
 
             // bottom nav highlight
-            function bottomNavHighlight() { const items = document.querySelectorAll('.bottom-nav a'); function setActive() { items.forEach(i => i.classList.remove('active')); const h = (location.hash || '#home').replace('#', ''); const map = { home: 'bn-home', 'best-seller': 'bn-best', combos: 'bn-combos', products: 'bn-products', contact: 'bn-contact' }; const cls = map[h] || 'bn-home'; const el = document.querySelector('.' + cls); if (el) el.classList.add('active'); } window.addEventListener('hashchange', setActive); window.addEventListener('load', setActive); setActive(); }
+            (function bottomNav() {
+                const items = document.querySelectorAll('.bottom-nav a');
+                function setActive() { items.forEach(i => i.classList.remove('active')); const h = (location.hash || '#home').replace('#', ''); const map = { home: 'bn-home', 'best-seller': 'bn-best', combos: 'bn-combos', products: 'bn-products', contact: 'bn-contact' }; const cls = map[h] || 'bn-home'; const el = document.querySelector('.' + cls); if (el) el.classList.add('active'); }
+                window.addEventListener('hashchange', setActive); window.addEventListener('load', setActive); setActive();
+            })();
 
-            // to-top behavior
-            (function toTop() { if (!toTopBtn) return; window.addEventListener('scroll', () => { if (window.scrollY > 300) toTopBtn.style.display = 'grid'; else toTopBtn.style.display = 'none'; }, { passive: true }); toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); })();
+            // to-top button
+            (function toTop() { const btn = document.getElementById('toTop'); if (!btn) return; window.addEventListener('scroll', () => { if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none'; }, { passive: true }); btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); })();
 
-            // hero slider (kept simple)
-            (function heroSlider() { const slides = Array.from(document.querySelectorAll('.slide')); const dotsWrap = document.getElementById('dots'); if (!slides.length) return; let idx = 0, timer = null, interval = 5000; slides.forEach((s, i) => { const b = document.createElement('button'); b.className = 'dot' + (i === 0 ? ' active' : ''); b.setAttribute('aria-label', 'Go to slide ' + (i + 1)); b.addEventListener('click', () => goTo(i)); if (dotsWrap) dotsWrap.appendChild(b); }); const dots = dotsWrap ? Array.from(dotsWrap.children) : []; function show(i) { slides.forEach((s, si) => s.classList.toggle('show', si === i)); dots.forEach((d, di) => d.classList.toggle('active', di === i)); } function next() { idx = (idx + 1) % slides.length; show(idx); } function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); } function restart() { if (timer) clearInterval(timer); timer = setInterval(next, interval); } const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); } }); obs.observe(pre, { attributes: true }); setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200); const slideWrap = document.getElementById('slides'); if (slideWrap) { slideWrap.addEventListener('mouseenter', () => clearInterval(timer)); slideWrap.addEventListener('mouseleave', restart); slideWrap.addEventListener('focusin', () => clearInterval(timer)); slideWrap.addEventListener('focusout', restart); } document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') goTo(idx + 1); if (e.key === 'ArrowLeft') goTo(idx - 1); }); })();
-
-            // small debounce
-            function debounce(fn, ms) { let t; return function () { clearTimeout(t); t = setTimeout(() => fn.apply(this, arguments), ms); }; }
-
-            // finally run render + carousels
-            try {
-                renderBest();
-                renderCombos();
-                renderProducts();
-
-                // auto-scroll (for the horizontal containers) - mobile friendly
-                setupAutoCarousel(document.getElementById('bestTrack'), 6000);
-                setupAutoCarousel(productsRow, 6000);
-                setupAutoCarousel(combosRow, 6000);
-
-                bottomNavHighlight();
-            } catch (err) {
-                console.error('Render error', err);
-            }
         });
     </script>
-
 </body>
 
 </html>
