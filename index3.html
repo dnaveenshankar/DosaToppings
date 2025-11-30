@@ -27,6 +27,7 @@
             box-sizing: border-box
         }
 
+
         html,
         body {
             height: 100%;
@@ -216,6 +217,42 @@
         @media(min-width:900px) {
             .bottom-nav {
                 display: none
+            }
+        }
+
+        /* MOBILE: Center the logo inside the header */
+        @media (max-width: 900px) {
+
+            /* hide desktop menu */
+            .nav-center {
+                display: none !important;
+            }
+
+            /* make nav-inner relative so we can center logo inside it */
+            .nav-inner {
+                position: relative;
+                justify-content: center;
+                height: 64px;
+            }
+
+            /* center the logo */
+            .brand-left {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%);
+                margin: 0;
+                padding: 0;
+            }
+
+            .brand-left img {
+                height: 48px;
+                width: auto;
+            }
+
+            /* hide empty right column */
+            .brand-right {
+                display: none !important;
             }
         }
 
@@ -641,7 +678,7 @@
                 <ul class="nav-list" role="menubar">
                     <li><a role="menuitem" href="#best-seller">Bestsellers</a></li>
                     <li><a role="menuitem" href="#combos">Combos</a></li>
-                    <li><a role="menuitem" href="#products">All</a></li> <!-- renamed Shop -> All -->
+                    <li><a role="menuitem" href="#products">All</a></li>
                     <li><a role="menuitem" href="#about-us">About</a></li>
                     <li><a role="menuitem" href="#quality">Production</a></li>
                     <li><a role="menuitem" href="#contact">Contact</a></li>
@@ -724,20 +761,21 @@
             </div>
         </section>
 
-        <!-- PROMISE / ABOUT / WHY / PRODUCTION (complete section) -->
+        <!-- PROMISE / ABOUT / WHY / PRODUCTION (containerized, headings underline, hover quality) -->
         <section id="promise-about"
-            style="--bg:#fff7e6; --card:#fffef7; --accent:#1d7a3a; background:var(--bg); padding:48px 0;">
-            <div
-                style="max-width:1200px; margin:0 auto; padding:0 20px; font-family:Inter,system-ui, -apple-system, 'Segoe UI', Roboto, Arial; color:#222;">
+            style="background:#fff7e6; padding:48px 0; font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;">
+            <div class="conater" style="max-width:1200px; margin:0 auto; padding:0 20px; color:#222;">
 
-                <!-- Our Promise (top) -->
+                <!-- Our Promise (containerized) -->
                 <div style="display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap; margin-bottom:34px;">
                     <!-- Text -->
                     <div style="flex:1 1 420px; min-width:240px;">
                         <h2
-                            style="margin:0 0 8px; color:var(--accent); font-size:30px; font-weight:800; letter-spacing:0.2px;">
-                            Our Promise</h2>
-                        <div style="width:96px; height:6px; border-radius:6px; background:#C24B2E; margin-bottom:18px;">
+                            style="margin:0 0 8px; color:#1d7a3a; font-size:30px; font-weight:800; letter-spacing:0.2px; position:relative;">
+                            Our Promise
+                        </h2>
+                        <!-- red underline -->
+                        <div style="width:96px; height:6px; border-radius:6px; background:#c23b2b; margin:12px 0 18px;">
                         </div>
 
                         <p style="margin:0 0 12px; color:#3b3b3b; font-size:16px; line-height:1.6;">
@@ -782,8 +820,12 @@
                 <div style="display:grid; grid-template-columns: 1fr; gap:26px; margin-bottom:28px;">
                     <!-- About -->
                     <div
-                        style="background:var(--card); border-radius:12px; padding:18px; box-shadow:0 8px 28px rgba(8,12,20,0.06);">
-                        <h3 style="margin:0 0 10px; color:var(--accent); font-size:22px; font-weight:800;">About Us</h3>
+                        style="background:#fffef7; border-radius:12px; padding:18px; box-shadow:0 8px 28px rgba(8,12,20,0.06);">
+                        <h3 style="margin:0 0 10px; color:#1d7a3a; font-size:22px; font-weight:800; position:relative;">
+                            About Us</h3>
+                        <div style="width:64px; height:6px; border-radius:6px; background:#c23b2b; margin:10px 0 12px;">
+                        </div>
+
                         <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
                             Dosa Toppings was born with one simple idea — to bring the authentic taste of home into
                             today’s fast-moving lifestyle.
@@ -814,47 +856,49 @@
 
                     <!-- Why Our Podi Tastes Better (cards grid) -->
                     <div>
-                        <h3 style="margin:0 0 10px; color:var(--accent); font-size:22px; font-weight:800;">Why Our Podi
-                            Tastes Better ?</h3>
+                        <h3 style="margin:0 0 10px; color:#1d7a3a; font-size:22px; font-weight:800; position:relative;">
+                            Why Our Podi Tastes Better ?</h3>
+                        <div style="width:64px; height:6px; border-radius:6px; background:#c23b2b; margin:10px 0 12px;">
+                        </div>
+
                         <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; margin-top:12px;">
-                            <!-- small info card (repeatable) -->
-                            <div
-                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
                                 <strong style="display:block; margin-bottom:6px;">Handpicked ingredients</strong>
                                 <div style="color:#455a52; font-size:14px;">We select the best pulses, herbs and
                                     chillies at source.</div>
                             </div>
 
-                            <div
-                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
                                 <strong style="display:block; margin-bottom:6px;">Slow-roasted for deep flavour</strong>
                                 <div style="color:#455a52; font-size:14px;">Traditional roasting unlocks aroma and
                                     colour.</div>
                             </div>
 
-                            <div
-                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
                                 <strong style="display:block; margin-bottom:6px;">Balanced spice levels</strong>
                                 <div style="color:#455a52; font-size:14px;">Flavour profiles that suit kids and adults
                                     alike.</div>
                             </div>
 
-                            <div
-                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
                                 <strong style="display:block; margin-bottom:6px;">Made fresh in batches</strong>
                                 <div style="color:#455a52; font-size:14px;">Small-batch production preserves aroma and
                                     consistency.</div>
                             </div>
 
-                            <div
-                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
                                 <strong style="display:block; margin-bottom:6px;">Packed in hygienic facility</strong>
                                 <div style="color:#455a52; font-size:14px;">FSSAI-compliant processes and air-tight
                                     packaging.</div>
                             </div>
 
-                            <div
-                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div class="info-card"
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
                                 <strong style="display:block; margin-bottom:6px;">Farm-to-Factory traceability</strong>
                                 <div style="color:#455a52; font-size:14px;">We track each ingredient from source to
                                     final pack.</div>
@@ -863,140 +907,162 @@
                     </div>
                 </div>
 
-                <!-- Production & Quality (grid of features) -->
-                <div
-                    style="background:linear-gradient(180deg,var(--card), #fff); border-radius:12px; padding:18px; box-shadow:0 8px 28px rgba(8,12,20,0.06);">
-                    <h3 style="margin:0 0 12px; color:var(--accent); font-size:22px; font-weight:800;">Production &amp;
-                        Quality</h3>
+                <!-- Production & Quality (linked to #quality) -->
+                <div id="quality"
+                    style="background:linear-gradient(180deg,#fffef7,#fff); border-radius:12px; padding:18px; box-shadow:0 8px 28px rgba(8,12,20,0.06);">
+                    <h3 style="margin:0 0 12px; color:#1d7a3a; font-size:22px; font-weight:800; position:relative;">
+                        Production &amp; Quality</h3>
+                    <div style="width:64px; height:6px; border-radius:6px; background:#c23b2b; margin:10px 0 12px;">
+                    </div>
+
                     <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
                         Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
                         food-safety standards.
                     </p>
 
                     <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:12px;">
-                        <div
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
                             <div style="font-size:20px;">🌶️</div><strong
                                 style="display:block; margin-top:6px;">Hand-Picked Ingredients</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Only the freshest chillies,
                                 dals, and herbs selected by trained staff.</div>
                         </div>
 
-                        <div
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
                             <div style="font-size:20px;">☀️</div><strong
                                 style="display:block; margin-top:6px;">Sun-Dried for Natural Flavour</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Spices are dried under direct
                                 sunlight to lock in aroma naturally.</div>
                         </div>
 
-                        <div
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
                             <div style="font-size:20px;">🍳</div><strong style="display:block; margin-top:6px;">Roasted
                                 on Iron Tawa</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Seasoned iron tawa roasting
                                 gives authentic colour & crispness.</div>
                         </div>
 
-                        <div
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
                             <div style="font-size:20px;">🧤</div><strong style="display:block; margin-top:6px;">Hygienic
                                 Handling</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Gloves, masks & sanitised
                                 workstations for safe food handling.</div>
                         </div>
 
-                        <div
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
                             <div style="font-size:20px;">🥄</div><strong
                                 style="display:block; margin-top:6px;">Air-Tight Batch Processing</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Small batches ensure even
                                 roasting & perfectly balanced flavour.</div>
                         </div>
 
-                        <div
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
                             <div style="font-size:20px;">⚙️</div><strong style="display:block; margin-top:6px;">Modern
                                 Machinery</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Grinding & packing machines
                                 maintain texture without hand contact.</div>
                         </div>
 
-                        <div
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
                             <div style="font-size:20px;">📦</div><strong
                                 style="display:block; margin-top:6px;">Food-Grade Packaging</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Air-tight containers lock in
                                 freshness & prevent moisture.</div>
                         </div>
 
-                        <div
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
                             <div style="font-size:20px;">🧪</div><strong style="display:block; margin-top:6px;">Batch
                                 Testing</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Each lot checked for flavour,
                                 aroma, texture & shelf stability.</div>
                         </div>
 
-                        <div
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
                             <div style="font-size:20px;">✔️</div><strong
                                 style="display:block; margin-top:6px;">FSSAI-Compliant Process</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Strict hygiene & safety
                                 standards followed at every step.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🌾</div><strong
+                                style="display:block; margin-top:6px;">Farm-to-Factory Traceability</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">We track each ingredient from
+                                source to final pack to ensure purity and transparency.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🔥</div><strong
+                                style="display:block; margin-top:6px;">Temperature-Controlled Roasting</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Every batch is roasted at
+                                calibrated heat levels for aroma without burning.</div>
+                        </div>
+
+                        <div class="quality-card"
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            <div style="font-size:20px;">🚚</div><strong style="display:block; margin-top:6px;">Fresh
+                                Stock Dispatch</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">We dispatch only freshly packed
+                                batches — never old stock or returned goods.</div>
                         </div>
                     </div>
                 </div>
 
             </div>
 
-            <!-- Small responsive CSS for hover & stacking -->
+            <!-- Inline small styles for hover + responsiveness -->
             <style>
-                /* cards lift on hover */
-                #promise-about [style*="transition:transform"] {
-                    cursor: default;
+                /* hover effect for quality & info cards */
+                .quality-card:hover,
+                .info-card:hover {
+                    transform: translateY(-8px) !important;
+                    box-shadow: 0 18px 44px rgba(8, 12, 20, 0.12) !important;
                 }
 
-                #promise-about div[style*="transition:transform"]:hover {
-                    transform: translateY(-6px);
-                    box-shadow: 0 14px 36px rgba(8, 12, 20, 0.09);
-                }
-
-                /* responsive columns for small screens */
-                @media (max-width:900px) {
-                    #promise-about div[style*="display:flex; gap:28px"] {
-                        flex-direction: column;
-                    }
-
-                    #promise-about .promise-image {
-                        order: 2;
-                    }
-
-                    #promise-about .promise-text {
-                        order: 1;
-                    }
-
-                    /* make the Why cards single column on very small screens */
-                    #promise-about>div>div>div:nth-last-child(2) .grid,
-                    #promise-about>div>div:nth-child(2) {
+                /* responsive adjustments */
+                @media (max-width:1000px) {
+                    #promise-about .conater>div {
                         grid-template-columns: 1fr !important;
                     }
-                }
 
-                /* Production grid responsive */
-                @media (max-width:1000px) {
-                    #promise-about>div>div:last-child div[style*="grid-template-columns"] {
+                    #promise-about>.conater>div>div {
+                        grid-template-columns: 1fr !important;
+                    }
+
+                    #promise-about .conater {
+                        padding: 0 14px;
+                    }
+
+                    /* collapse the 3-col quality grid to 2 then 1 */
+                    #promise-about [style*="grid-template-columns: repeat(3, 1fr)"] {
                         grid-template-columns: repeat(2, 1fr) !important;
                     }
                 }
 
                 @media (max-width:600px) {
-                    #promise-about>div>div:last-child div[style*="grid-template-columns"] {
+                    #promise-about [style*="grid-template-columns: repeat(2, 1fr)"] {
                         grid-template-columns: 1fr !important;
+                    }
+
+                    #promise-about img {
+                        max-width: 100% !important;
+                        height: auto !important;
                     }
                 }
             </style>
         </section>
+
 
 
     </main>
@@ -1040,7 +1106,7 @@
                            background:#ffffff20; color:#fff; font-weight:600;
                            text-decoration:none; backdrop-filter:blur(4px);
                            box-shadow:0 4px 12px rgba(0,0,0,0.10);">
-                        <i class="bi bi-envelope" style="font-size:18px;"></i> Email
+                        <i class="bi bi-envelope" style="font-size:18px;"></i>
                     </a>
                 </div>
             </div>
