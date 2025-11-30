@@ -486,37 +486,115 @@
         }
 
         /* footer */
-        footer {
-            margin-top: 30px;
-            padding: 36px 0;
+        /* Clean single footer */
+        .footer {
             background: var(--brand-2);
+            /* your yellow */
             color: #fff;
-            border-top: 6px solid var(--brand-1)
+            border-top: 6px solid var(--brand-1);
+            padding: 28px 0 12px 0;
+            overflow: hidden;
+            border-radius: 6px 6px 0 0;
         }
 
-        .footer-inner {
+        .footer .footer-inner {
             display: flex;
-            gap: 18px;
+            gap: 24px;
             align-items: flex-start;
             justify-content: space-between;
-            flex-wrap: wrap
+            flex-wrap: wrap;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--gutter);
         }
 
-        .footer-left img {
-            height: 84px;
-            margin-bottom: 8px
+        .footer .col {
+            flex: 1;
+            min-width: 220px;
         }
 
+        /* titles in green */
+        .footer h4 {
+            margin: 0 0 10px 0;
+            color: var(--brand-1);
+            font-size: 16px;
+        }
+
+        /* socials */
+        .footer-socials {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-top: 8px;
+        }
+
+        .footer-socials a {
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 700;
+            padding: 8px 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.06);
+            transition: transform .12s ease, background .12s;
+        }
+
+        .footer-socials a:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.10);
+        }
+
+        .footer-socials .bi {
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        /* divider above copyright */
+        .footer-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.06);
+            margin: 18px 0 12px 0;
+            max-width: var(--max-width);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* bottom row */
         .footer-bottom {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 8px var(--gutter);
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            margin-top: 14px;
-            flex-wrap: wrap
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: #fff;
         }
+
+        /* mobile: stack columns */
+        @media (max-width:720px) {
+            .footer .footer-inner {
+                padding: 0 14px;
+                gap: 12px;
+            }
+
+            .footer .col {
+                min-width: 100%;
+            }
+
+            .footer-bottom {
+                font-size: 13px;
+                text-align: center;
+                justify-content: center;
+                gap: 8px;
+            }
+        }
+
 
         .to-top {
             position: fixed;
@@ -646,74 +724,376 @@
             </div>
         </section>
 
-        <!-- ABOUT -->
-        <section id="about-us" class="section">
-            <div class="conater">
-                <div class="section-title">
-                    <h3>About Us</h3>
-                </div>
-                <div style="display:grid;grid-template-columns:1fr;gap:16px">
-                    <div
-                        style="background:linear-gradient(180deg,#fff,#fffef9);padding:18px;border-radius:12px;box-shadow:0 10px 36px rgba(8,12,20,0.08)">
-                        <p><strong>Dosa Toppings</strong> was born with one simple idea — to bring the authentic taste
-                            of home into today’s fast-moving lifestyle.</p>
-                        <p class="muted">From busy moms to working professionals to kids who love tasty food — Dosa
-                            Toppings makes every meal flavourful and nutritious.</p>
+        <!-- PROMISE / ABOUT / WHY / PRODUCTION (complete section) -->
+        <section id="promise-about"
+            style="--bg:#fff7e6; --card:#fffef7; --accent:#1d7a3a; background:var(--bg); padding:48px 0;">
+            <div
+                style="max-width:1200px; margin:0 auto; padding:0 20px; font-family:Inter,system-ui, -apple-system, 'Segoe UI', Roboto, Arial; color:#222;">
+
+                <!-- Our Promise (top) -->
+                <div style="display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap; margin-bottom:34px;">
+                    <!-- Text -->
+                    <div style="flex:1 1 420px; min-width:240px;">
+                        <h2
+                            style="margin:0 0 8px; color:var(--accent); font-size:30px; font-weight:800; letter-spacing:0.2px;">
+                            Our Promise</h2>
+                        <div style="width:96px; height:6px; border-radius:6px; background:#C24B2E; margin-bottom:18px;">
+                        </div>
+
+                        <p style="margin:0 0 12px; color:#3b3b3b; font-size:16px; line-height:1.6;">
+                            <strong>Freshly roasted, stone-ground, and packed with care</strong> — small batches that
+                            preserve aroma and deliver home-style taste every day.
+                        </p>
+
+                        <ul
+                            style="list-style:none; padding:0; margin:12px 0 0; display:grid; gap:12px; max-width:720px;">
+                            <li style="display:flex; gap:12px; align-items:flex-start;">
+                                <div style="min-width:28px; font-size:18px; line-height:1;">🌿</div>
+                                <div><strong>Pure ingredients, no shortcuts.</strong> No fillers, no artificial flavours
+                                    — only trusted spices from farms across Tamil Nadu.</div>
+                            </li>
+                            <li style="display:flex; gap:12px; align-items:flex-start;">
+                                <div style="min-width:28px; font-size:18px; line-height:1;">🕰️</div>
+                                <div><strong>Tradition, refined.</strong> Family recipes adapted for consistent quality
+                                    in every pack.</div>
+                            </li>
+                            <li style="display:flex; gap:12px; align-items:flex-start;">
+                                <div style="min-width:28px; font-size:18px; line-height:1;">🧼</div>
+                                <div><strong>Hygiene first.</strong> Strict quality checks throughout roasting and
+                                    packing to ensure purity and freshness.</div>
+                            </li>
+                            <li style="display:flex; gap:12px; align-items:flex-start;">
+                                <div style="min-width:28px; font-size:18px; line-height:1;">🚜</div>
+                                <div><strong>Farm-to-pack freshness.</strong> Spices picked at peak harvest — cleaned,
+                                    sun-dried, roasted and sealed.</div>
+                            </li>
+                        </ul>
                     </div>
+
+                    <!-- Image -->
                     <div
-                        style="background:linear-gradient(180deg,#fff,#fffef9);padding:18px;border-radius:12px;box-shadow:0 10px 36px rgba(8,12,20,0.08)">
-                        <h4>Our Promise</h4>
-                        <p>Freshly roasted, stone-ground, and packed with care — small batches that preserve aroma and
-                            deliver home-style taste every day.</p>
+                        style="flex:0 0 320px; min-width:220px; display:flex; justify-content:center; align-items:flex-start;">
+                        <img src="assets/promise.png" alt="Our Promise"
+                            style="width:100%; max-width:340px; border-radius:14px; box-shadow:0 10px 30px rgba(8,12,20,0.08); object-fit:cover;">
                     </div>
                 </div>
+
+                <!-- About + Why -->
+                <div style="display:grid; grid-template-columns: 1fr; gap:26px; margin-bottom:28px;">
+                    <!-- About -->
+                    <div
+                        style="background:var(--card); border-radius:12px; padding:18px; box-shadow:0 8px 28px rgba(8,12,20,0.06);">
+                        <h3 style="margin:0 0 10px; color:var(--accent); font-size:22px; font-weight:800;">About Us</h3>
+                        <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
+                            Dosa Toppings was born with one simple idea — to bring the authentic taste of home into
+                            today’s fast-moving lifestyle.
+                        </p>
+                        <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
+                            Our recipes come from classic South Indian kitchens, but our packaging is designed for
+                            modern convenience. Every bottle carries the flavour, aroma, and love of home-style podis.
+                        </p>
+
+                        <div style="display:flex; gap:18px; flex-wrap:wrap; margin-top:6px; align-items:flex-start;">
+                            <div style="min-width:220px;">
+                                <strong style="display:block; margin-bottom:8px; color:#26352b;">We believe in:</strong>
+                                <ul style="margin:0; padding-left:18px; color:#374047; line-height:1.6;">
+                                    <li>Honest ingredients</li>
+                                    <li>Clean labels</li>
+                                    <li>Healthy choices</li>
+                                    <li>Simple cooking</li>
+                                    <li>Family-friendly flavours</li>
+                                </ul>
+                            </div>
+
+                            <div style="flex:1; min-width:180px; color:#374047; line-height:1.6;">
+                                From busy moms to working professionals to kids who love tasty food — Dosa Toppings
+                                makes every meal flavourful and nutritious.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Why Our Podi Tastes Better (cards grid) -->
+                    <div>
+                        <h3 style="margin:0 0 10px; color:var(--accent); font-size:22px; font-weight:800;">Why Our Podi
+                            Tastes Better ?</h3>
+                        <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; margin-top:12px;">
+                            <!-- small info card (repeatable) -->
+                            <div
+                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Handpicked ingredients</strong>
+                                <div style="color:#455a52; font-size:14px;">We select the best pulses, herbs and
+                                    chillies at source.</div>
+                            </div>
+
+                            <div
+                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Slow-roasted for deep flavour</strong>
+                                <div style="color:#455a52; font-size:14px;">Traditional roasting unlocks aroma and
+                                    colour.</div>
+                            </div>
+
+                            <div
+                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Balanced spice levels</strong>
+                                <div style="color:#455a52; font-size:14px;">Flavour profiles that suit kids and adults
+                                    alike.</div>
+                            </div>
+
+                            <div
+                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Made fresh in batches</strong>
+                                <div style="color:#455a52; font-size:14px;">Small-batch production preserves aroma and
+                                    consistency.</div>
+                            </div>
+
+                            <div
+                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Packed in hygienic facility</strong>
+                                <div style="color:#455a52; font-size:14px;">FSSAI-compliant processes and air-tight
+                                    packaging.</div>
+                            </div>
+
+                            <div
+                                style="background:var(--card); padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                <strong style="display:block; margin-bottom:6px;">Farm-to-Factory traceability</strong>
+                                <div style="color:#455a52; font-size:14px;">We track each ingredient from source to
+                                    final pack.</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Production & Quality (grid of features) -->
+                <div
+                    style="background:linear-gradient(180deg,var(--card), #fff); border-radius:12px; padding:18px; box-shadow:0 8px 28px rgba(8,12,20,0.06);">
+                    <h3 style="margin:0 0 12px; color:var(--accent); font-size:22px; font-weight:800;">Production &amp;
+                        Quality</h3>
+                    <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
+                        Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
+                        food-safety standards.
+                    </p>
+
+                    <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:12px;">
+                        <div
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                            <div style="font-size:20px;">🌶️</div><strong
+                                style="display:block; margin-top:6px;">Hand-Picked Ingredients</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Only the freshest chillies,
+                                dals, and herbs selected by trained staff.</div>
+                        </div>
+
+                        <div
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                            <div style="font-size:20px;">☀️</div><strong
+                                style="display:block; margin-top:6px;">Sun-Dried for Natural Flavour</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Spices are dried under direct
+                                sunlight to lock in aroma naturally.</div>
+                        </div>
+
+                        <div
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                            <div style="font-size:20px;">🍳</div><strong style="display:block; margin-top:6px;">Roasted
+                                on Iron Tawa</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Seasoned iron tawa roasting
+                                gives authentic colour & crispness.</div>
+                        </div>
+
+                        <div
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                            <div style="font-size:20px;">🧤</div><strong style="display:block; margin-top:6px;">Hygienic
+                                Handling</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Gloves, masks & sanitised
+                                workstations for safe food handling.</div>
+                        </div>
+
+                        <div
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                            <div style="font-size:20px;">🥄</div><strong
+                                style="display:block; margin-top:6px;">Air-Tight Batch Processing</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Small batches ensure even
+                                roasting & perfectly balanced flavour.</div>
+                        </div>
+
+                        <div
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                            <div style="font-size:20px;">⚙️</div><strong style="display:block; margin-top:6px;">Modern
+                                Machinery</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Grinding & packing machines
+                                maintain texture without hand contact.</div>
+                        </div>
+
+                        <div
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                            <div style="font-size:20px;">📦</div><strong
+                                style="display:block; margin-top:6px;">Food-Grade Packaging</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Air-tight containers lock in
+                                freshness & prevent moisture.</div>
+                        </div>
+
+                        <div
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                            <div style="font-size:20px;">🧪</div><strong style="display:block; margin-top:6px;">Batch
+                                Testing</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Each lot checked for flavour,
+                                aroma, texture & shelf stability.</div>
+                        </div>
+
+                        <div
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
+                            <div style="font-size:20px;">✔️</div><strong
+                                style="display:block; margin-top:6px;">FSSAI-Compliant Process</strong>
+                            <div style="color:#55635a; font-size:13px; margin-top:6px;">Strict hygiene & safety
+                                standards followed at every step.</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
+
+            <!-- Small responsive CSS for hover & stacking -->
+            <style>
+                /* cards lift on hover */
+                #promise-about [style*="transition:transform"] {
+                    cursor: default;
+                }
+
+                #promise-about div[style*="transition:transform"]:hover {
+                    transform: translateY(-6px);
+                    box-shadow: 0 14px 36px rgba(8, 12, 20, 0.09);
+                }
+
+                /* responsive columns for small screens */
+                @media (max-width:900px) {
+                    #promise-about div[style*="display:flex; gap:28px"] {
+                        flex-direction: column;
+                    }
+
+                    #promise-about .promise-image {
+                        order: 2;
+                    }
+
+                    #promise-about .promise-text {
+                        order: 1;
+                    }
+
+                    /* make the Why cards single column on very small screens */
+                    #promise-about>div>div>div:nth-last-child(2) .grid,
+                    #promise-about>div>div:nth-child(2) {
+                        grid-template-columns: 1fr !important;
+                    }
+                }
+
+                /* Production grid responsive */
+                @media (max-width:1000px) {
+                    #promise-about>div>div:last-child div[style*="grid-template-columns"] {
+                        grid-template-columns: repeat(2, 1fr) !important;
+                    }
+                }
+
+                @media (max-width:600px) {
+                    #promise-about>div>div:last-child div[style*="grid-template-columns"] {
+                        grid-template-columns: 1fr !important;
+                    }
+                }
+            </style>
         </section>
 
-        <!-- QUALITY -->
-        <section id="quality" class="section">
-            <div class="conater">
-                <div class="section-title">
-                    <h3>Production & Quality</h3>
-                </div>
-                <div
-                    style="background:linear-gradient(180deg,#fff,#fffef9);padding:18px;border-radius:12px;box-shadow:0 10px 36px rgba(8,12,20,0.08)">
-                    <p>Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
-                        food-safety standards.</p>
-                </div>
-            </div>
-        </section>
 
     </main>
 
-    <!-- FOOTER -->
-    <footer id="contact" role="contentinfo">
-        <div class="conater footer-inner">
-            <div class="footer-left">
-                <img src="assets/icon-5.png" alt="logo">
-                <p>Instant Authentic Flavour — From Tradition to Today.</p>
-                <div style="display:flex;gap:12px;margin-top:8px"><a href="https://instagram.com/dosa.toppings"
-                        target="_blank" rel="noopener" style="color:#fff">Instagram</a><a
-                        href="https://wa.me/917200514471" target="_blank" rel="noopener"
-                        style="color:#fff">WhatsApp</a><a href="mailto:kkmhealthyeats4u@gmail.com"
-                        style="color:#fff">Email</a></div>
-            </div>
-            <div class="footer-center">
-                <h4>Address</h4>
-                <div>KKM FOOD FACTORY<br>2/146/1, Karukkankattupudur,<br>Avinashi, Tiruppur,<br>Tamil Nadu – 641654
+    <footer id="contact" role="contentinfo" aria-label="Footer"
+        style="background:#F3C02B; color:#fff; border-top:6px solid #1D7A3A; padding:32px 0 16px 0;">
+
+        <!-- MAIN ROW -->
+        <div style="max-width:1200px; margin:auto; padding:0 18px;
+                display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start;">
+
+            <!-- LEFT -->
+            <div style="flex:1; min-width:240px;">
+                <img src="assets/icon-5.png" alt="Dosa Toppings logo"
+                    style="height:72px; display:block; margin-bottom:12px;">
+
+                <p style="margin:0 0 12px 0; font-size:15px;">
+                    Instant Authentic Flavour — From Tradition to Today.
+                </p>
+
+                <!-- Social buttons -->
+                <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;">
+
+                    <a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px;
+                           padding:8px 14px; border-radius:30px;
+                           background:#ffffff20; color:#fff; font-weight:600;
+                           text-decoration:none; backdrop-filter:blur(4px);
+                           box-shadow:0 4px 12px rgba(0,0,0,0.10);">
+                        <i class="bi bi-instagram" style="font-size:18px;"></i>
+                    </a>
+
+                    <a href="https://wa.me/917200514471" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px;
+                           padding:8px 14px; border-radius:30px;
+                           background:#25D366; color:#fff; font-weight:600;
+                           text-decoration:none; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+                        <i class="bi bi-whatsapp" style="font-size:18px;"></i>
+                    </a>
+
+                    <a href="mailto:kkmhealthyeats4u@gmail.com" style="display:flex; align-items:center; gap:6px;
+                           padding:8px 14px; border-radius:30px;
+                           background:#ffffff20; color:#fff; font-weight:600;
+                           text-decoration:none; backdrop-filter:blur(4px);
+                           box-shadow:0 4px 12px rgba(0,0,0,0.10);">
+                        <i class="bi bi-envelope" style="font-size:18px;"></i> Email
+                    </a>
                 </div>
-                <div style="margin-top:12px"><strong>FSSAI:</strong> 12425027000407</div>
             </div>
-            <div class="footer-right">
-                <h4>Contact & Order</h4>
-                <div class="muted">WhatsApp / Mobile: <a href="tel:+917200514471" style="color:#fff">+91 72005
-                        14471</a><br>Email: <a href="mailto:kkmhealthyeats4u@gmail.com"
-                        style="color:#fff">kkmhealthyeats4u@gmail.com</a></div>
+
+            <!-- ADDRESS -->
+            <div style="flex:1; min-width:240px;">
+                <h4 style="margin:0 0 10px 0; color:#1D7A3A; font-size:17px;">Address</h4>
+
+                <div style="line-height:1.6; font-size:15px;">
+                    KKM FOOD FACTORY<br>
+                    2/146/1, Karukkankattupudur,<br>
+                    Avinashi, Tiruppur,<br>
+                    Tamil Nadu – 641654
+                </div>
+
+                <div style="margin-top:10px; font-size:15px;">
+                    <strong>FSSAI:</strong> 12425027000407
+                </div>
+            </div>
+
+            <!-- CONTACT -->
+            <div style="flex:1; min-width:240px;">
+                <h4 style="margin:0 0 10px 0; color:#1D7A3A; font-size:17px;">Contact & Order</h4>
+
+                <div style="line-height:1.7; font-size:15px;">
+                    WhatsApp / Mobile:
+                    <a href="tel:+917200514471" style="color:#fff; text-decoration:underline;">
+                        +91 72005 14471
+                    </a><br>
+
+                    Email:
+                    <a href="mailto:kkmhealthyeats4u@gmail.com" style="color:#fff; text-decoration:underline;">
+                        kkmhealthyeats4u@gmail.com
+                    </a><br>
+
+                    Instagram:
+                    <a href="https://instagram.com/dosa.toppings" style="color:#fff; text-decoration:underline;">
+                        @dosa.toppings
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="conater footer-bottom">
+
+        <!-- DIVIDER -->
+        <div style="height:1px; background:#ffffff40; margin:22px auto 16px; max-width:1200px;"></div>
+
+        <!-- BOTTOM ROW -->
+        <div style="max-width:1200px; margin:auto; padding:0 18px;
+                display:flex; justify-content:space-between; align-items:center;
+                flex-wrap:wrap; font-size:14px;">
+
             <div>Made with 🌿 in Tamil Nadu</div>
-            <div class="center">©2025 Dosa Toppings — Healthy Twist for Every Dosa</div>
+            <div>©2025 Dosa Toppings — Healthy Twist for Every Dosa</div>
             <div>Dosa Toppings v1.0</div>
         </div>
     </footer>
