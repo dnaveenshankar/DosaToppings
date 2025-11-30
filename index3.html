@@ -599,29 +599,36 @@
     <div class="preloader" id="preloader" aria-hidden="true">
         <div class="logo" aria-hidden="true"><img src="assets/icon-5.png" alt="Dosa Toppings logo"></div>
     </div>
-    <!-- HEADER (responsive + shrink + hamburger) -->
+    <!-- ===== REPLACEMENT HEADER (single, responsive, green hamburger) ===== -->
     <style>
-        /* header container */
-        header {
+        :root {
+            --brand-1: #1d7a3a;
+            --brand-2: #f3c02b;
+            --max-width: 1200px;
+            --gutter: 20px;
+            --easing: cubic-bezier(.2, .9, .3, 1);
+            --shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
+        }
+
+        header.site-header {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            z-index: 1200;
             background: rgba(255, 255, 255, 0.98);
+            box-shadow: var(--shadow);
+            z-index: 1200;
+            transition: padding 220ms var(--easing), box-shadow 220ms var(--easing);
             backdrop-filter: blur(6px);
-            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
-            transition: padding 220ms ease, box-shadow 220ms ease, background 220ms ease;
         }
 
-        /* default (desktop) */
         .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 12px var(--gutter);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 14px 22px;
             gap: 12px;
         }
 
@@ -634,76 +641,92 @@
         .brand-logo {
             height: 64px;
             width: auto;
-            transition: height 220ms ease, transform 220ms ease;
+            transition: height 200ms var(--easing);
         }
 
         .nav-center {
-            flex: 1 1 auto;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1100;
         }
 
         .nav-list {
             display: flex;
-            gap: 36px;
+            gap: 26px;
+            list-style: none;
             margin: 0;
             padding: 0;
-            list-style: none;
             align-items: center;
             white-space: nowrap;
         }
 
         .nav-list a {
             text-decoration: none;
-            color: #f3c02b;
-            /* yellow link color */
-            font-weight: 800;
-            font-size: 18px;
-            padding: 8px 6px;
-            transition: color .18s ease, transform .18s ease;
+            color: var(--brand-2);
+            font-weight: 700;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 15px;
         }
 
-        .nav-list a:hover {
-            color: #1d7a3a;
-            transform: translateY(-2px);
-        }
-
-        /* right area (keeps layout balanced) */
         .brand-right {
-            min-width: 48px;
+            width: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
         }
 
-        /* hamburger (hidden desktop) */
+        /* ---------- Hamburger (three lines) ---------- */
         .hamburger {
             display: none;
-            appearance: none;
-            -webkit-appearance: none;
-            border: 0;
-            background: transparent;
-            padding: 10px;
-            cursor: pointer;
-            align-items: center;
-            justify-content: center;
+            /* visible only on mobile */
             width: 46px;
             height: 46px;
             border-radius: 10px;
+            border: 0;
+            background: transparent;
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
         }
 
         .hamburger .bar {
-            display: block;
             width: 22px;
             height: 2px;
             border-radius: 2px;
-            background: #222;
-            transition: transform .22s ease, opacity .18s ease;
+            background: var(--brand-1);
+            /* green bars */
+            display: block;
+            transition: transform .22s ease, opacity .18s ease, width .22s ease, height .22s ease;
         }
 
         .hamburger .bar+.bar {
             margin-top: 5px;
         }
 
-        /* mobile menu (slide down) */
+        /* transform to X */
+        .hamburger.open .bar:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+        }
+
+        .hamburger.open .bar:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .hamburger.open .bar:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+        }
+
+        /* Mobile menu (slide down) */
         .mobile-menu {
             position: fixed;
             top: 0;
@@ -711,9 +734,9 @@
             right: 0;
             height: 0;
             overflow: hidden;
-            background: linear-gradient(180deg, #ffffff, #fbfff4);
+            background: linear-gradient(180deg, #fff, #fbfff4);
+            transition: height .32s var(--easing);
             z-index: 1190;
-            transition: height .32s cubic-bezier(.2, .9, .3, 1);
             box-shadow: 0 10px 30px rgba(8, 12, 20, 0.06);
         }
 
@@ -723,7 +746,7 @@
         }
 
         .mobile-menu-inner {
-            max-width: 1200px;
+            max-width: var(--max-width);
             margin: 0 auto;
             padding: 22px;
         }
@@ -737,76 +760,52 @@
 
         .mobile-nav a {
             font-weight: 800;
-            color: #1d7a3a;
+            color: var(--brand-1);
             text-decoration: none;
             font-size: 18px;
         }
 
-        /* ===== shrink behavior on scroll or small screen ===== */
-        header.shrink {
-            padding: 8px 16px;
+        /* Shrink header on scroll / mobile */
+        header.site-header.shrink {
+            padding: 6px 12px;
             box-shadow: 0 6px 18px rgba(8, 12, 20, 0.06);
         }
 
-        header.shrink .brand-logo {
+        header.site-header.shrink .brand-logo {
             height: 44px;
         }
 
-        /* ===== responsive breakpoints ===== */
+        /* ===== responsive rules ===== */
         @media (max-width: 900px) {
             .nav-center {
                 display: none;
             }
 
-            /* hide centered nav on mobile */
+            /* hide desktop nav on mobile */
             .hamburger {
-                display: inline-flex;
+                display: flex;
             }
 
             /* show hamburger */
             .brand-right {
-                display: none;
+                display: flex;
             }
 
-            /* hide right filler if present */
-        }
-
-        /* small tweak for very small devices */
-        @media (max-width: 420px) {
-            .nav-inner {
-                padding-left: 12px;
-                padding-right: 12px;
+            /* show control area */
+            .brand-logo {
+                height: 44px;
             }
-
-            .nav-list a {
-                font-size: 16px;
-                gap: 18px;
-            }
-        }
-
-        /* accessible focus states */
-        .hamburger:focus {
-            outline: 3px solid rgba(243, 192, 43, 0.18);
-            outline-offset: 3px;
-        }
-
-        .nav-list a:focus {
-            outline: 3px solid rgba(29, 122, 58, 0.12);
-            outline-offset: 4px;
-            border-radius: 6px;
         }
     </style>
 
-    <header role="banner" aria-label="Main navigation">
-        <div class="nav-inner conater" id="navInner">
+    <header class="site-header" role="banner" aria-label="Main navigation">
+        <div class="nav-inner">
             <div class="brand-left">
-                <a href="#home" aria-label="home">
-                    <img src="assets/icon-5.png" class="brand-logo" alt="logo">
-                </a>
+                <a href="#home" aria-label="Home"><img src="assets/icon-5.png" alt="logo" class="brand-logo"></a>
             </div>
 
             <nav class="nav-center" role="navigation" aria-label="Primary">
-                <ul class="nav-list" role="menubar" id="navList">
+                <ul class="nav-list" role="menubar">
                     <li><a role="menuitem" href="#home">Home</a></li>
                     <li><a role="menuitem" href="#about-us">About Us</a></li>
                     <li><a role="menuitem" href="#products">Products</a></li>
@@ -816,9 +815,8 @@
                 </ul>
             </nav>
 
-            <!-- hamburger placed in header for mobile -->
-            <div class="brand-right" aria-hidden="true" id="brandRight">
-                <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-controls="mobileMenu"
+            <div class="brand-right">
+                <button id="hamburgerBtn" class="hamburger" aria-label="Open menu" aria-controls="mobileMenu"
                     aria-expanded="false">
                     <span class="bar"></span>
                     <span class="bar"></span>
@@ -828,7 +826,7 @@
         </div>
     </header>
 
-    <!-- Mobile slide-down menu (hidden by default) -->
+    <!-- Mobile slide-down menu -->
     <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
         <div class="mobile-menu-inner">
             <div style="display:flex;align-items:center;justify-content:space-between">
@@ -850,93 +848,52 @@
 
     <script>
         (function () {
-            const header = document.querySelector('header');
-            const hamburger = document.getElementById('hamburgerBtn');
+            // Grab elements
+            const header = document.querySelector('header.site-header');
+            const btn = document.getElementById('hamburgerBtn');
             const mobileMenu = document.getElementById('mobileMenu');
             const mobileClose = document.getElementById('mobileClose');
             const mobileLinks = document.querySelectorAll('#mobileNav a');
-            const navInner = document.getElementById('navInner');
 
-            // Toggle mobile menu
+            // Open/close functions
             function openMenu() {
                 mobileMenu.classList.add('open');
-                mobileMenu.style.height = '100vh';
                 mobileMenu.setAttribute('aria-hidden', 'false');
-                hamburger.classList.add('open');
-                hamburger.setAttribute('aria-expanded', 'true');
-                // focus close button
+                btn.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
                 mobileClose && mobileClose.focus();
+                document.body.style.overflow = 'hidden'; // prevent background scroll when menu open
             }
             function closeMenu() {
                 mobileMenu.classList.remove('open');
-                mobileMenu.style.height = '0';
                 mobileMenu.setAttribute('aria-hidden', 'true');
-                hamburger.classList.remove('open');
-                hamburger.setAttribute('aria-expanded', 'false');
-                // return focus to hamburger
-                hamburger.focus();
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                btn.focus();
+                document.body.style.overflow = ''; // restore scrolling
             }
 
-            hamburger.addEventListener('click', () => {
+            // Toggle
+            btn.addEventListener('click', () => {
                 if (mobileMenu.classList.contains('open')) closeMenu(); else openMenu();
             });
 
+            // close handlers
             mobileClose && mobileClose.addEventListener('click', closeMenu);
-
-            // close when clicking any mobile link (good UX)
             mobileLinks.forEach(a => a.addEventListener('click', closeMenu));
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMenu(); });
 
-            // close on Escape
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && mobileMenu.classList.contains('open')) {
-                    closeMenu();
-                }
-            });
-
-            // Shrink header on scroll (only if scrolled down a bit)
-            function onScroll() {
-                if (window.scrollY > 40) header.classList.add('shrink');
+            // shrink header on scroll or small screens
+            function updateHeaderState() {
+                if (window.scrollY > 40 || window.innerWidth <= 900) header.classList.add('shrink');
                 else header.classList.remove('shrink');
             }
-            window.addEventListener('scroll', onScroll, { passive: true });
-
-            // Also make header shrink automatically on small screens (initial state)
-            function onResize() {
-                if (window.innerWidth <= 900) header.classList.add('shrink');
-                else {
-                    // keep shrink state based on scroll for larger screens
-                    if (window.scrollY > 40) header.classList.add('shrink'); else header.classList.remove('shrink');
-                }
-            }
-            window.addEventListener('resize', onResize, { passive: true });
-
-            // initial run
-            onResize();
-            onScroll();
+            window.addEventListener('scroll', updateHeaderState, { passive: true });
+            window.addEventListener('resize', updateHeaderState);
+            updateHeaderState();
         })();
     </script>
 
-    <!-- HEADER -->
-    <header role="banner" aria-label="Main navigation">
-        <div class="nav-inner conater">
-            <div class="brand-left">
-                <a href="#home" aria-label="home"><img src="assets/icon-5.png" class="brand-logo" alt="logo"></a>
-            </div>
-
-            <nav class="nav-center" role="navigation" aria-label="Primary">
-                <ul class="nav-list" role="menubar">
-                    <li><a role="menuitem" href="#home">Home</a></li>
-                    <li><a role="menuitem" href="#about-us">About Us</a></li>
-                    <li><a role="menuitem" href="#products">Products</a></li>
-                    <li><a role="menuitem" href="#quality">Quality</a></li>
-                    <li><a role="menuitem" href="#contact">Contact</a></li>
-                    <li><a role="menuitem" href="#shopall">Shop All</a></li>
-                </ul>
-            </nav>
-
-            <div class="brand-right" aria-hidden="true"></div>
-        </div>
-    </header>
 
     <main id="home">
 
