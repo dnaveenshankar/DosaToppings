@@ -51,7 +51,7 @@
             width: 100%
         }
 
-        /* preloader */
+        /* PRELOADER */
         .preloader {
             position: fixed;
             inset: 0;
@@ -72,15 +72,29 @@
         }
 
         .preloader .logo {
-            width: 300px;
-            height: 300px;
+            width: 140px;
+            height: 140px;
             display: grid;
             place-items: center;
             padding: 8px;
-            background: #fff
+            background: #fff;
+            border-radius: 14px;
+            box-shadow: 0 8px 30px rgba(8, 12, 20, 0.06)
         }
 
-        /* header */
+        .preloader .caption {
+            margin-top: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            color: var(--brand-1);
+            text-align: center;
+            background: rgba(29, 122, 58, 0.06);
+            padding: 6px 10px;
+            border-radius: 999px;
+            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.04)
+        }
+
+        /* HEADER */
         header.site-header {
             position: fixed;
             top: 0;
@@ -123,8 +137,7 @@
             gap: 28px;
             list-style: none;
             margin: 0;
-            padding: 0;
-            white-space: nowrap
+            padding: 0
         }
 
         .nav-list a {
@@ -137,13 +150,6 @@
             display: inline-flex;
             align-items: center;
             gap: 8px
-        }
-
-        .brand-right {
-            width: 64px;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end
         }
 
         header.site-header.shrink {
@@ -164,7 +170,7 @@
             }
         }
 
-        /* hero */
+        /* HERO */
         .hero {
             margin-top: 94px;
             padding: 18px 0;
@@ -197,12 +203,6 @@
         .slide.show {
             opacity: 1;
             transform: translateY(0) scale(1)
-        }
-
-        @media(min-width:769px) {
-            .slide {
-                background-size: cover
-            }
         }
 
         .overlay {
@@ -307,8 +307,7 @@
             }
         }
 
-        .marqueebox:hover .marquee,
-        .marqueebox:active .marquee {
+        .marqueebox:hover .marquee {
             animation-play-state: paused
         }
 
@@ -330,272 +329,7 @@
             font-size: 20px
         }
 
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px
-        }
-
-        .about-card {
-            background: linear-gradient(180deg, #fff, #fffef9);
-            border-radius: 12px;
-            padding: 18px;
-            box-shadow: var(--card-shadow)
-        }
-
-        .about-list {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap
-        }
-
-        /* product cards */
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(1, 1fr);
-            gap: 14px;
-            margin-top: 12px
-        }
-
-        .product-card {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            padding: 12px;
-            border-radius: 12px;
-            background: linear-gradient(180deg, #fff, #fffef7);
-            box-shadow: var(--card-shadow);
-            transition: transform .16s var(--easing)
-        }
-
-        .product-card:hover {
-            transform: translateY(-6px)
-        }
-
-        .product-card img {
-            width: 96px;
-            height: 96px;
-            object-fit: cover;
-            border-radius: 10px;
-            flex-shrink: 0
-        }
-
-        .product-info h4 {
-            margin: 0 0 8px;
-            font-size: 16px
-        }
-
-        .price {
-            font-weight: 800;
-            color: var(--brand-1)
-        }
-
-        .badge {
-            background: #fff7d6;
-            color: #b88600;
-            padding: 6px 8px;
-            border-radius: 999px;
-            font-weight: 700;
-            margin-left: 8px
-        }
-
-        .scroll-x {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-bottom: 10px;
-            margin-top: 10px
-        }
-
-        .products-row {
-            display: flex;
-            gap: 12px;
-            padding: 12px 0
-        }
-
-        .scroll-x .product-card {
-            min-width: 260px;
-            flex: 0 0 auto
-        }
-
-        @media(min-width:720px) {
-            .about-grid {
-                grid-template-columns: 1fr 1fr
-            }
-
-            .products-grid {
-                grid-template-columns: repeat(2, 1fr)
-            }
-
-            .product-card img {
-                width: 120px;
-                height: 120px
-            }
-        }
-
-        @media(min-width:1000px) {
-            .products-grid {
-                grid-template-columns: repeat(4, 1fr)
-            }
-
-            .slides {
-                border-radius: 20px
-            }
-        }
-
-        .quality-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
-            margin-top: 12px
-        }
-
-        .quality-item {
-            background: #fff;
-            border-radius: 10px;
-            padding: 12px;
-            box-shadow: var(--soft-shadow);
-            display: flex;
-            gap: 10px;
-            align-items: flex-start
-        }
-
-        footer {
-            margin-top: 30px;
-            padding: 36px 0;
-            background: var(--brand-2);
-            color: #fff;
-            border-top: 6px solid var(--brand-1)
-        }
-
-        .footer-inner {
-            display: flex;
-            gap: 18px;
-            align-items: flex-start;
-            justify-content: space-between;
-            flex-wrap: wrap
-        }
-
-        .footer-left,
-        .footer-center,
-        .footer-right {
-            flex: 1;
-            min-width: 220px
-        }
-
-        .footer-left img {
-            height: 84px;
-            width: auto;
-            margin-bottom: 8px
-        }
-
-        .socials {
-            display: flex;
-            gap: 12px;
-            margin-top: 8px
-        }
-
-        .notice {
-            background: rgba(0, 0, 0, 0.12);
-            padding: 14px;
-            border-radius: 10px;
-            font-weight: 700;
-            color: #fff;
-            margin-top: 14px
-        }
-
-        .footer-bottom {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
-            margin-top: 14px;
-            flex-wrap: wrap
-        }
-
-        .footer-bottom .center {
-            flex: 1;
-            text-align: center
-        }
-
-        .to-top {
-            position: fixed;
-            right: 18px;
-            bottom: 22px;
-            background: var(--brand-1);
-            color: #fff;
-            width: 52px;
-            height: 52px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            box-shadow: 0 12px 44px rgba(10, 20, 10, 0.18);
-            cursor: pointer;
-            border: none;
-            font-weight: 800;
-            font-size: 18px;
-            z-index: 1500
-        }
-
-        .to-top:focus {
-            outline: 3px solid rgba(255, 207, 43, 0.22);
-            outline-offset: 3px
-        }
-
-        .muted {
-            color: var(--muted)
-        }
-
-        /* bottom nav for mobile */
-        .bottom-nav {
-            position: fixed;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 14px;
-            z-index: 1400;
-            background: linear-gradient(180deg, #ffffff, #fbfff4);
-            border-radius: 14px;
-            padding: 8px 12px;
-            box-shadow: 0 12px 40px rgba(8, 12, 20, 0.12);
-            display: flex;
-            gap: 12px;
-            align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.04)
-        }
-
-        .bottom-nav a {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: #111;
-            font-weight: 700;
-            font-size: 12px;
-            padding: 6px 8px;
-            border-radius: 10px;
-            min-width: 56px
-        }
-
-        .bottom-nav a .bi {
-            font-size: 18px;
-            margin-bottom: 4px
-        }
-
-        .bottom-nav a.active {
-            background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
-            color: #fff;
-            box-shadow: 0 8px 22px rgba(29, 122, 58, 0.12)
-        }
-
-        @media(min-width:900px) {
-            .bottom-nav {
-                display: none
-            }
-        }
-
-        /* Best-seller highlight */
+        /* BEST SELLER highlight layout */
         .best-section {
             display: flex;
             flex-direction: column;
@@ -662,7 +396,51 @@
             }
         }
 
-        /* make combos 2 per row on desktop */
+        /* cards (uniform sizes) */
+        .product-card {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 12px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #fff, #fffef7);
+            box-shadow: var(--card-shadow);
+            transition: transform .16s var(--easing);
+            height: 140px
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px)
+        }
+
+        .product-card img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            flex-shrink: 0
+        }
+
+        .product-info h4 {
+            margin: 0 0 6px;
+            font-size: 16px
+        }
+
+        .price {
+            font-weight: 800;
+            color: var(--brand-1)
+        }
+
+        .badge {
+            background: #fff7d6;
+            color: #b88600;
+            padding: 6px 8px;
+            border-radius: 999px;
+            font-weight: 700;
+            margin-left: 8px
+        }
+
+        /* combos grid (2 per row desktop) */
         .combos-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -675,7 +453,45 @@
             }
         }
 
-        /* helper small card used inside best-other etc */
+        /* products horizontal scroll for mobile, grid for desktop */
+        .scroll-x {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 10px;
+            margin-top: 10px
+        }
+
+        .products-row {
+            display: flex;
+            gap: 12px;
+            padding: 12px 0
+        }
+
+        .scroll-x .product-card {
+            min-width: 320px;
+            flex: 0 0 auto
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 14px;
+            margin-top: 12px
+        }
+
+        @media(min-width:720px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media(min-width:1000px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr)
+            }
+        }
+
+        /* small card for best-other */
         .small-card {
             display: flex;
             gap: 12px;
@@ -683,7 +499,8 @@
             padding: 10px;
             border-radius: 10px;
             background: linear-gradient(180deg, #fff, #fffef7);
-            box-shadow: var(--soft-shadow)
+            box-shadow: var(--soft-shadow);
+            height: 100px
         }
 
         .small-card img {
@@ -693,47 +510,150 @@
             border-radius: 8px;
             flex-shrink: 0
         }
+
+        /* footer / bottom nav */
+        footer {
+            margin-top: 30px;
+            padding: 36px 0;
+            background: var(--brand-2);
+            color: #fff;
+            border-top: 6px solid var(--brand-1)
+        }
+
+        .footer-inner {
+            display: flex;
+            gap: 18px;
+            align-items: flex-start;
+            justify-content: space-between;
+            flex-wrap: wrap
+        }
+
+        .footer-left,
+        .footer-center,
+        .footer-right {
+            flex: 1;
+            min-width: 220px
+        }
+
+        .footer-left img {
+            height: 84px;
+            margin-bottom: 8px
+        }
+
+        .notice {
+            background: rgba(0, 0, 0, 0.12);
+            padding: 14px;
+            border-radius: 10px;
+            font-weight: 700;
+            color: #fff;
+            margin-top: 14px
+        }
+
+        .footer-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding-top: 18px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            margin-top: 14px;
+            flex-wrap: wrap
+        }
+
+        .footer-bottom .center {
+            flex: 1;
+            text-align: center
+        }
+
+        .to-top {
+            position: fixed;
+            right: 18px;
+            bottom: 22px;
+            background: var(--brand-1);
+            color: #fff;
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            box-shadow: 0 12px 44px rgba(10, 20, 10, 0.18);
+            cursor: pointer;
+            border: none;
+            font-weight: 800;
+            font-size: 18px;
+            z-index: 1500
+        }
+
+        .muted {
+            color: var(--muted)
+        }
+
+        /* floating bottom nav for mobile */
+        .bottom-nav {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 14px;
+            z-index: 1400;
+            background: linear-gradient(180deg, #ffffff, #fbfff4);
+            border-radius: 14px;
+            padding: 8px 12px;
+            box-shadow: 0 12px 40px rgba(8, 12, 20, 0.12);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.04)
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #111;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 6px 8px;
+            border-radius: 10px;
+            min-width: 56px
+        }
+
+        .bottom-nav a .bi {
+            font-size: 18px;
+            margin-bottom: 4px
+        }
+
+        .bottom-nav a.active {
+            background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+            color: #fff;
+            box-shadow: 0 8px 22px rgba(29, 122, 58, 0.12)
+        }
+
+        @media(min-width:900px) {
+            .bottom-nav {
+                display: none
+            }
+        }
+
+        /* small error overlay */
+        #js-error-overlay {
+            display: none
+        }
     </style>
 </head>
 
 <body>
-    <div id="preloader" aria-hidden="true" style="
-  position: fixed;
-  inset: 0;
-  background: #ffffff;
-  z-index: 99999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity .45s cubic-bezier(.2,.9,.3,1), visibility .45s cubic-bezier(.2,.9,.3,1);
-  visibility: visible;
-  opacity: 1;
-  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-">
+    <!-- PRELOADER -->
+    <div id="preloader" class="preloader" aria-hidden="true">
         <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px;">
-            <div class="logo" aria-hidden="true"
-                style="width:140px;height:140px;display:grid;place-items:center;padding:8px;background:#fff;border-radius:14px;box-shadow:0 8px 30px rgba(8,12,20,0.06);">
-                <img src="assets/icon-5.png" alt="Dosa Toppings logo" style="width:100%;height:auto;display:block;">
-            </div>
-
-            <!-- caption (inline styles) -->
-            <div style="
-      margin-top:4px;
-      font-weight:700;
-      font-size:14px;
-      color:#1d7a3a;
-      text-align:center;
-      background: rgba(29,122,58,0.06);
-      padding:6px 10px;
-      border-radius:999px;
-      box-shadow: 0 6px 18px rgba(8,12,20,0.04);
-    ">
-                Healthy Twist for every dosa !
-            </div>
+            <div class="logo" aria-hidden="true"><img src="assets/icon-5.png" alt="logo"
+                    style="width:100%;height:auto;display:block;"></div>
+            <div class="caption">Healthy Twist for every dosa !</div>
         </div>
     </div>
 
-
+    <!-- HEADER -->
     <header class="site-header" role="banner" aria-label="Main navigation">
         <div class="nav-inner conater">
             <div class="brand-left"><a href="#home" aria-label="Home"><img src="assets/icon-5.png"
@@ -752,6 +672,7 @@
         </div>
     </header>
 
+    <!-- MOBILE BOTTOM NAV -->
     <nav class="bottom-nav" role="navigation" aria-label="Mobile quick navigation">
         <a href="#home" title="Home" class="bn-home active"><i class="bi bi-house-door"></i><span>Home</span></a>
         <a href="#best-seller" title="Bestsellers" class="bn-best"><i class="bi bi-star-fill"></i><span>Bests</span></a>
@@ -773,6 +694,14 @@
                         aria-label="Hero 3"></div>
                     <div class="slide" style="background-image:url('assets/hero-4.png');" role="img"
                         aria-label="Hero 4"></div>
+
+                    <div class="overlay" aria-hidden="true">
+                        <div class="caption" role="region" aria-label="Hero caption">
+                            <h2>Small-batch podis — big homemade flavour</h2>
+                            <p>Freshly roasted. Stone-ground. Ready-to-sprinkle for instant homely taste.</p>
+                        </div>
+                    </div>
+
                     <div class="dots" id="dots" aria-hidden="false"></div>
                 </div>
             </div>
@@ -789,18 +718,11 @@
             </div>
         </div>
 
-        <!-- BEST SELLERS (highlighted layout) -->
+        <!-- BEST SELLERS (highlight) -->
         <section id="best-seller" class="section">
             <div class="conater best-section">
-                <!-- left: highlight (desktop) -->
-                <div id="bestHighlight" class="best-highlight" aria-live="polite" aria-atomic="true">
-                    <!-- filled by JS -->
-                </div>
-
-                <!-- right / below: other bestsellers -->
-                <div id="bestGridOther" class="best-grid-other" aria-hidden="true">
-                    <!-- filled by JS -->
-                </div>
+                <div id="bestHighlight" class="best-highlight" aria-live="polite" aria-atomic="true"></div>
+                <div id="bestGridOther" class="best-grid-other" aria-hidden="true"></div>
             </div>
         </section>
 
@@ -816,7 +738,7 @@
             </div>
         </section>
 
-        <!-- ALL PRODUCTS -->
+        <!-- PRODUCTS -->
         <section id="products" class="section" aria-labelledby="productsTitle">
             <div class="conater">
                 <div class="section-title">
@@ -824,9 +746,11 @@
                 </div>
                 <p class="muted">Pure, elevated podis — small-batch roasted, stone-ground and finished for today’s
                     table.</p>
-                <div id="products-scroll" class="scroll-x">
+
+                <div id="products-scroll" class="scroll-x" aria-hidden="false">
                     <div id="productsRow" class="products-row"></div>
                 </div>
+
                 <div id="productsGrid" class="products-grid" style="display:none"></div>
                 <div id="productsFallback" style="display:none;color:var(--muted);padding:12px 0">No products found.
                 </div>
@@ -933,15 +857,17 @@
                 </div>
             </div>
         </section>
+
     </main>
 
+    <!-- FOOTER -->
     <footer id="contact" role="contentinfo">
         <div class="conater footer-inner">
             <div class="footer-left"><img src="assets/icon-5.png" alt="logo">
                 <p>Instant Authentic Flavour — From Tradition to Today.</p>
                 <div class="socials"><a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener"
-                        style="color:#fff">Instagram</a><a href="https://wa.me/917200514471" target="_blank"
-                        rel="noopener" style="color:#fff">WhatsApp</a><a href="mailto:kkmhealthyeats4u@gmail.com"
+                        style="color:#fff">Instagram</a> <a href="https://wa.me/917200514471" target="_blank"
+                        rel="noopener" style="color:#fff">WhatsApp</a> <a href="mailto:kkmhealthyeats4u@gmail.com"
                         style="color:#fff">Email</a></div>
             </div>
             <div class="footer-center">
@@ -969,7 +895,6 @@
 
     <button class="to-top" id="toTop" title="Go to top" aria-label="Go to top" style="display:none">↑</button>
 
-    <!-- Inline data -->
     <script>
         const storeData = {
             products: [
@@ -994,177 +919,302 @@
         };
     </script>
 
-    <!-- Main script that renders the new layouts -->
+    <!-- MAIN SCRIPT (no external imports; uses inline data above) -->
     <script>
         (function () {
+            // Elements
             const pre = document.getElementById('preloader');
 
-            /* PRELOADER */
-            (function () {
-                const MIN_MS = 3000; const started = Date.now();
-                function hidePre() { const delta = Date.now() - started; const wait = Math.max(0, MIN_MS - delta); setTimeout(() => pre.classList.add('hidden'), wait); }
-                if (document.readyState === 'complete' || document.readyState === 'interactive') hidePre();
-                else { window.addEventListener('DOMContentLoaded', hidePre); setTimeout(() => pre.classList.add('hidden'), 10000); }
-            })();
+            // Error overlay helper
+            function showErrorOverlay(msg) {
+                let overlay = document.getElementById('js-error-overlay');
+                if (!overlay) {
+                    overlay = document.createElement('div');
+                    overlay.id = 'js-error-overlay';
+                    overlay.style.position = 'fixed';
+                    overlay.style.left = '12px';
+                    overlay.style.right = '12px';
+                    overlay.style.bottom = '90px';
+                    overlay.style.zIndex = 1600;
+                    overlay.style.background = 'rgba(255,255,255,0.98)';
+                    overlay.style.border = '1px solid rgba(0,0,0,0.06)';
+                    overlay.style.padding = '12px';
+                    overlay.style.borderRadius = '10px';
+                    overlay.style.boxShadow = '0 12px 44px rgba(8,12,20,0.08)';
+                    overlay.style.fontFamily = 'Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial';
+                    overlay.style.color = '#111';
+                    overlay.style.maxHeight = '220px';
+                    overlay.style.overflow = 'auto';
+                    overlay.innerHTML = '<strong>App error — see console for details.</strong><pre id="js-error-text" style="white-space:pre-wrap;margin:8px 0 0;font-size:13px;color:#a00"></pre>';
+                    document.body.appendChild(overlay);
+                }
+                document.getElementById('js-error-text').textContent = String(msg).slice(0, 2000);
+                overlay.style.display = 'block';
+                console.error(msg);
+            }
 
+            window.addEventListener('error', function (ev) { showErrorOverlay(ev.message + (ev.filename ? ' — ' + ev.filename + ':' + ev.lineno : '')); hidePreloader(); });
+            window.addEventListener('unhandledrejection', function (ev) { showErrorOverlay('UnhandledPromiseRejection: ' + (ev.reason && ev.reason.message ? ev.reason.message : String(ev.reason))); hidePreloader(); });
+
+            // ensure preloader hides after at most 8s
+            setTimeout(hidePreloader, 8000);
+
+            function hidePreloader() {
+                try { pre.classList.add('hidden'); } catch (e) { console.warn(e); }
+            }
+
+            // small escape
             function esc(s) { if (s === null || s === undefined) return ''; return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
 
+            // render helpers
             function makeProductCard(p) {
-                const art = document.createElement('article'); art.className = 'product-card'; art.innerHTML = `
-        <img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">
-        <div class="product-info">
-          <h4>${esc(p.title)} <span class="badge">${esc(p.unit || '')}</span></h4>
-          <div class="muted">${esc(p.short || '')}</div>
-          <div style="margin-top:8px"><span class="price">₹${Number(p.price || 0).toFixed(0)}</span></div>
-          <div class="muted" style="margin-top:8px">${esc(p.description || '')}</div>
-        </div>`; return art;
+                const art = document.createElement('article');
+                art.className = 'product-card';
+                art.innerHTML = `
+          <img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">
+          <div class="product-info">
+            <h4>${esc(p.title)} <span class="badge">${esc(p.unit || '')}</span></h4>
+            <div class="muted">${esc(p.short || '')}</div>
+            <div style="margin-top:8px"><span class="price">₹${Number(p.price || 0).toFixed(0)}</span></div>
+            <div class="muted" style="margin-top:8px">${esc(p.description || '')}</div>
+          </div>
+        `;
+                return art;
             }
 
-            function makeComboCard(c, productLookup) {
-                const card = document.createElement('article'); card.className = 'product-card'; const firstImage = c.image || (productLookup[c.items && c.items[0]] && productLookup[c.items[0]].image) || 'assets/signature-1.png'; card.innerHTML = `
-        <img src="${esc(firstImage)}" alt="${esc(c.title)}" loading="lazy">
-        <div class="product-info">
-          <h4>${esc(c.title)} <span class="badge">${esc(c.unit || '')}</span></h4>
-          <div class="muted">${esc(c.short || '')}</div>
-          <div style="margin-top:8px"><span class="price">₹${Number(c.price || 0).toFixed(0)}</span></div>
-          <div class="muted" style="margin-top:8px">${(c.items || []).map(id => esc(productLookup[id] ? productLookup[id].title : id)).join(' • ')}</div>
-        </div>`; return card;
+            function makeComboCard(c, lookup) {
+                const card = document.createElement('article');
+                card.className = 'product-card';
+                const firstImage = c.image || (lookup[c.items && c.items[0]] && lookup[c.items[0]].image) || 'assets/signature-1.png';
+                card.innerHTML = `
+          <img src="${esc(firstImage)}" alt="${esc(c.title)}" loading="lazy">
+          <div class="product-info">
+            <h4>${esc(c.title)} <span class="badge">${esc(c.unit || '')}</span></h4>
+            <div class="muted">${esc(c.short || '')}</div>
+            <div style="margin-top:8px"><span class="price">₹${Number(c.price || 0).toFixed(0)}</span></div>
+            <div class="muted" style="margin-top:8px">${(c.items || []).map(id => esc(lookup[id] ? lookup[id].title : id)).join(' • ')}</div>
+          </div>
+        `;
+                return card;
             }
 
-            function makeSmallCard(p) { const el = document.createElement('div'); el.className = 'small-card'; el.innerHTML = `<img src="${esc(p.image)}" alt="${esc(p.title)}"><div><strong>${esc(p.title)}</strong><div class="muted" style="margin-top:6px">₹${Number(p.price || 0).toFixed(0)} • ${esc(p.unit || '')}</div></div>`; return el; }
+            function makeSmallCard(p) {
+                const el = document.createElement('div');
+                el.className = 'small-card';
+                el.innerHTML = `<img src="${esc(p.image)}" alt="${esc(p.title)}"><div><strong>${esc(p.title)}</strong><div class="muted" style="margin-top:6px">₹${Number(p.price || 0).toFixed(0)} • ${esc(p.unit || '')}</div></div>`;
+                return el;
+            }
 
-            /* render all */
-            (function renderAll() {
-                const data = window.storeData || storeData || {};
-                const products = data.products || []; const combos = data.combos || []; const bestSellers = data.bestSellers || [];
+            // main render
+            try {
+                const data = window.storeData || {};
+                const products = data.products || [];
+                const combos = data.combos || [];
+                const bestSellers = data.bestSellers || [];
+
+                // lookup
                 const lookup = {}; products.forEach(p => lookup[p.id] = p);
 
-                /* BEST SELLER - Highlight + others */
+                // BEST SELLER highlight
                 (function renderBest() {
                     const highlight = document.getElementById('bestHighlight');
                     const others = document.getElementById('bestGridOther');
-                    highlight.innerHTML = ''; others.innerHTML = '';
+                    if (!highlight) return;
+                    highlight.innerHTML = ''; if (others) others.innerHTML = '';
 
-                    const list = bestSellers.map(id => lookup[id]).filter(Boolean);
+                    const list = (bestSellers || []).map(id => lookup[id]).filter(Boolean);
                     if (!list.length) {
                         highlight.innerHTML = '<div class="best-highlight"><div class="content"><p class="muted">No bestsellers available right now.</p></div></div>';
                         return;
                     }
 
                     const main = list[0];
-                    // use your supplied image for layout preview if present:
-                    // If you want to use the attached preview image path provided earlier, change the src below.
-                    // e.g. replace imgSrc with '/mnt/data/5656b7d8-364b-4861-9cf2-fa3c255c6d53.png' to mimic the provided screenshot.
                     const imgSrc = main.image || 'assets/signature-1.png';
-                    // If you want the special sample image from the conversation, set:
-                    // const imgSrc = '/mnt/data/5656b7d8-364b-4861-9cf2-fa3c255c6d53.png';
-
-                    // highlight HTML: image top, content card below (matching attached style)
-                    const htm = document.createElement('div');
-                    htm.className = 'inner-highlight';
-                    htm.innerHTML = `
+                    const inner = document.createElement('div');
+                    inner.className = 'inner-highlight';
+                    inner.innerHTML = `
             <div class="img-wrap">
               <img src="${esc(imgSrc)}" alt="${esc(main.title)}">
               <div class="best-price-badge">₹${Number(main.price || 0).toFixed(0)} / ${esc(main.unit || '')}</div>
             </div>
             <div class="content">
-              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-                <div style="background:#eaf6ea;color:var(--brand-1);padding:6px 10px;border-radius:999px;font-weight:800;font-size:13px">Signature</div>
-              </div>
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px"><div style="background:#eaf6ea;color:var(--brand-1);padding:6px 10px;border-radius:999px;font-weight:800;font-size:13px">Signature</div></div>
               <h3 style="margin:0;color:var(--brand-1);font-size:20px">${esc(main.title)}</h3>
               <p class="muted" style="margin-top:8px">${esc(main.short || '')}</p>
               <p class="muted" style="margin-top:8px">${esc(main.description || '')}</p>
-            </div>`;
-                    highlight.appendChild(htm);
+            </div>
+          `;
+                    highlight.appendChild(inner);
 
-                    // render remaining best sellers in small cards
                     const rem = list.slice(1);
-                    if (rem.length) {
-                        rem.forEach(p => {
-                            others.appendChild(makeSmallCard(p));
-                        });
-                    } else {
-                        // if none left, show top 3 products as suggestion
-                        const fallback = products.filter(prod => prod.id !== main.id).slice(0, 3);
-                        fallback.forEach(p => others.appendChild(makeSmallCard(p)));
+                    if (others) {
+                        if (rem.length) rem.forEach(p => others.appendChild(makeSmallCard(p)));
+                        else products.filter(prod => prod.id !== main.id).slice(0, 3).forEach(p => others.appendChild(makeSmallCard(p)));
                     }
+                })();
 
-                    // responsive: set aria-hidden attributes
-                    function adapt() {
-                        if (window.innerWidth >= 900) {
-                            others.setAttribute('aria-hidden', 'false');
+                // COMBOS
+                (function renderCombos() {
+                    const row = document.getElementById('combosRow');
+                    if (!row) return;
+                    row.innerHTML = '';
+                    (combos || []).forEach(c => row.appendChild(makeComboCard(c, lookup)));
+                })();
+
+                // PRODUCTS
+                (function renderProducts() {
+                    const row = document.getElementById('productsRow');
+                    const grid = document.getElementById('productsGrid');
+                    if (row) row.innerHTML = '';
+                    if (grid) grid.innerHTML = '';
+                    (products || []).forEach(p => {
+                        const card = makeProductCard(p);
+                        if (row) row.appendChild(card);
+                        if (grid) grid.appendChild(card.cloneNode(true));
+                    });
+
+                    function layout() {
+                        const ps = document.getElementById('products-scroll');
+                        if (window.innerWidth >= 1000) {
+                            if (grid) grid.style.display = 'grid';
+                            if (ps) ps.style.display = 'none';
                         } else {
-                            // on mobile, stack: highlight first then others below
-                            others.setAttribute('aria-hidden', 'false');
+                            if (grid) grid.style.display = 'none';
+                            if (ps) ps.style.display = 'block';
                         }
                     }
-                    adapt(); window.addEventListener('resize', debounce(adapt, 140));
-                })();
-
-                /* COMBOS */
-                (function renderCombos() {
-                    const ROW = document.getElementById('combosRow');
-                    ROW.innerHTML = '';
-                    if (!combos || combos.length === 0) {
-                        document.getElementById('combosFallback').style.display = 'block';
-                        return;
-                    }
-                    combos.forEach(c => {
-                        const card = makeComboCard(c, lookup);
-                        ROW.appendChild(card);
-                    });
-                })();
-
-                /* PRODUCTS */
-                (function renderProducts() {
-                    const ROW = document.getElementById('productsRow');
-                    const GRID = document.getElementById('productsGrid');
-                    ROW.innerHTML = ''; GRID.innerHTML = '';
-                    if (!products || products.length === 0) { document.getElementById('productsFallback').style.display = 'block'; return; }
-                    products.forEach(p => {
-                        const card = makeProductCard(p);
-                        ROW.appendChild(card);
-                        GRID.appendChild(card.cloneNode(true));
-                    });
-                    function layout() { if (window.innerWidth >= 1000) { GRID.style.display = 'grid'; document.getElementById('products-scroll').style.display = 'none'; } else { GRID.style.display = 'none'; document.getElementById('products-scroll').style.display = 'block'; } }
                     layout(); window.addEventListener('resize', debounce(layout, 140));
                 })();
-            })();
 
-            /* slider, marquee, header, to-top: keep same behavior as before */
-            (function slider() {
-                const slides = Array.from(document.querySelectorAll('.slide'));
-                const dotsWrap = document.getElementById('dots'); const INTERVAL = 5000;
-                if (!slides.length) return; let idx = 0, timer = null;
-                slides.forEach((s, i) => { const b = document.createElement('button'); b.className = 'dot' + (i === 0 ? ' active' : ''); b.setAttribute('aria-label', 'Go to slide ' + (i + 1)); b.addEventListener('click', () => goTo(i)); dotsWrap.appendChild(b); });
-                const dots = Array.from(dotsWrap.children);
-                function show(i) { slides.forEach((s, si) => s.classList.toggle('show', si === i)); dots.forEach((d, di) => d.classList.toggle('active', di === i)); }
-                function next() { idx = (idx + 1) % slides.length; show(idx); }
-                function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); }
-                function restart() { if (timer) clearInterval(timer); timer = setInterval(next, INTERVAL); }
-                const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); } });
-                obs.observe(pre, { attributes: true }); setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
-                const slideWrap = document.getElementById('slides');
-                slideWrap.addEventListener('mouseenter', () => clearInterval(timer)); slideWrap.addEventListener('mouseleave', restart);
-                slideWrap.addEventListener('focusin', () => clearInterval(timer)); slideWrap.addEventListener('focusout', restart);
-                document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') goTo(idx + 1); if (e.key === 'ArrowLeft') goTo(idx - 1); });
-            })();
+                // HERO slider
+                (function slider() {
+                    const slides = Array.from(document.querySelectorAll('.slide'));
+                    const dotsWrap = document.getElementById('dots');
+                    const INTERVAL = 5000;
+                    if (!slides.length) return;
+                    let idx = 0, timer = null;
+                    slides.forEach((s, i) => {
+                        const b = document.createElement('button');
+                        b.className = 'dot' + (i === 0 ? ' active' : '');
+                        b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                        b.addEventListener('click', () => goTo(i));
+                        if (dotsWrap) dotsWrap.appendChild(b);
+                    });
+                    const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
+                    function show(i) { slides.forEach((s, si) => s.classList.toggle('show', si === i)); dots.forEach((d, di) => d.classList.toggle('active', di === i)); }
+                    function next() { idx = (idx + 1) % slides.length; show(idx); }
+                    function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); }
+                    function restart() { if (timer) clearInterval(timer); timer = setInterval(next, INTERVAL); }
+                    const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); } });
+                    obs.observe(pre, { attributes: true });
+                    setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
 
-            (function marquee() {
-                const marquee = document.getElementById('marquee'); if (!marquee) return; const container = marquee.parentElement; const base = Array.from(marquee.children).map(n => n.cloneNode(true));
-                function ensure() { const target = Math.max(container.offsetWidth * 2, 1000); let iter = 0; while (marquee.scrollWidth < target && iter < 20) { base.forEach(b => marquee.appendChild(b.cloneNode(true))); iter++; } }
-                function setDuration() { const pxPerSec = 140; const dur = Math.max(6, Math.round(marquee.scrollWidth / pxPerSec)); marquee.style.animationDuration = dur + 's'; }
-                function init() { ensure(); setDuration(); }
-                window.addEventListener('load', init); let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(() => { marquee.innerHTML = ''; base.forEach(b => marquee.appendChild(b.cloneNode(true))); init(); }, 160); });
-                marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true }); marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true }); setTimeout(init, 50);
-            })();
+                    const slideWrap = document.getElementById('slides');
+                    if (slideWrap) {
+                        slideWrap.addEventListener('mouseenter', () => clearInterval(timer));
+                        slideWrap.addEventListener('mouseleave', restart);
+                        slideWrap.addEventListener('focusin', () => clearInterval(timer));
+                        slideWrap.addEventListener('focusout', restart);
+                    }
+                    document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') goTo(idx + 1); if (e.key === 'ArrowLeft') goTo(idx - 1); });
+                })();
 
-            (function headerShrink() { const header = document.querySelector('header.site-header'); function update() { const w = window.innerWidth, sc = window.scrollY; if (w <= 900) { if (sc > 20) header.classList.add('shrink'); else header.classList.remove('shrink'); } else { if (sc > 40) header.classList.add('shrink'); else header.classList.remove('shrink'); } } window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update); update(); })();
+                // MARQUEE sizing
+                (function marquee() {
+                    const marquee = document.getElementById('marquee'); if (!marquee) return;
+                    const container = marquee.parentElement;
+                    const base = Array.from(marquee.children).map(n => n.cloneNode(true));
+                    function ensure() { const target = Math.max(container.offsetWidth * 2, 1000); let iter = 0; while (marquee.scrollWidth < target && iter < 20) { base.forEach(b => marquee.appendChild(b.cloneNode(true))); iter++; } }
+                    function setDuration() { const pxPerSec = 140; const dur = Math.max(6, Math.round(marquee.scrollWidth / pxPerSec)); marquee.style.animationDuration = dur + 's'; }
+                    function init() { ensure(); setDuration(); }
+                    window.addEventListener('load', init);
+                    let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(() => { marquee.innerHTML = ''; base.forEach(b => marquee.appendChild(b.cloneNode(true))); init(); }, 160); });
+                    marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
+                    marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
+                    setTimeout(init, 50);
+                })();
 
-            (function toTop() { const btn = document.getElementById('toTop'); btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); window.addEventListener('scroll', () => { if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none' }); btn.style.display = 'none'; })();
+                // header shrink
+                (function headerShrink() {
+                    const header = document.querySelector('header.site-header');
+                    function update() { const w = window.innerWidth, sc = window.scrollY; if (w <= 900) { if (sc > 20) header.classList.add('shrink'); else header.classList.remove('shrink'); } else { if (sc > 40) header.classList.add('shrink'); else header.classList.remove('shrink'); } }
+                    window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update); update();
+                })();
 
-            (function bottomNavHighlight() { const items = document.querySelectorAll('.bottom-nav a'); function setActiveByHash() { items.forEach(i => i.classList.remove('active')); const h = (location.hash || '#home').replace('#', ''); const mapping = { home: 'bn-home', 'best-seller': 'bn-best', combos: 'bn-combos', products: 'bn-products', contact: 'bn-contact' }; const cls = mapping[h] || 'bn-home'; const el = document.querySelector('.' + cls); if (el) el.classList.add('active'); } window.addEventListener('hashchange', setActiveByHash); window.addEventListener('load', setActiveByHash); setActiveByHash(); })();
+                // to top
+                (function toTop() {
+                    const btn = document.getElementById('toTop'); if (!btn) return;
+                    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+                    window.addEventListener('scroll', () => { if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none' });
+                    btn.style.display = 'none';
+                })();
 
+                // bottom nav highlight by hash
+                (function bottomNavHighlight() {
+                    const items = document.querySelectorAll('.bottom-nav a');
+                    function setActiveByHash() {
+                        items.forEach(i => i.classList.remove('active'));
+                        const h = (location.hash || '#home').replace('#', '');
+                        const mapping = { home: 'bn-home', 'best-seller': 'bn-best', combos: 'bn-combos', products: 'bn-products', contact: 'bn-contact' };
+                        const cls = mapping[h] || 'bn-home';
+                        const el = document.querySelector('.' + cls);
+                        if (el) el.classList.add('active');
+                    }
+                    window.addEventListener('hashchange', setActiveByHash);
+                    window.addEventListener('load', setActiveByHash);
+                    setActiveByHash();
+                })();
+
+                // Mobile: auto-advance product scroller (every 5s) — only when visible (mobile)
+                (function autoAdvanceProducts() {
+                    const container = document.getElementById('products-scroll');
+                    if (!container) return;
+                    let timer = null;
+                    function start() {
+                        stop();
+                        timer = setInterval(() => {
+                            // only run on small screens
+                            if (window.innerWidth >= 1000) return;
+                            // find first product card in view, scroll to next
+                            const cards = Array.from(container.querySelectorAll('.product-card'));
+                            if (!cards.length) return;
+                            // measure current left scroll and find next card
+                            const currScroll = container.scrollLeft;
+                            // find index of first fully-visible card
+                            let nextIdx = 0;
+                            for (let i = 0; i < cards.length; i++) {
+                                const el = cards[i];
+                                if (el.offsetLeft - container.scrollLeft > 10) { nextIdx = i; break; }
+                                nextIdx = i + 1;
+                            }
+                            if (nextIdx >= cards.length) nextIdx = 0;
+                            const target = cards[nextIdx];
+                            if (target) container.scrollTo({ left: target.offsetLeft, behavior: 'smooth' });
+                        }, 5000);
+                    }
+                    function stop() { if (timer) clearInterval(timer); timer = null; }
+                    // start after preloader hidden
+                    const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { start(); obs.disconnect(); } });
+                    obs.observe(pre, { attributes: true });
+                    // also pause on hover/touch
+                    container.addEventListener('mouseenter', stop);
+                    container.addEventListener('mouseleave', start);
+                    container.addEventListener('touchstart', stop, { passive: true });
+                    container.addEventListener('touchend', start, { passive: true });
+                    // always stop on resize to avoid weird jumps; restart after small delay
+                    let to; window.addEventListener('resize', () => { clearTimeout(to); stop(); to = setTimeout(() => start(), 400); });
+                })();
+
+                // hide preloader after initial app was rendered
+                setTimeout(hidePreloader, 3200);
+
+            } catch (err) {
+                showErrorOverlay(err && err.stack ? err.stack : String(err));
+                hidePreloader();
+                console.error('Render error', err);
+            }
+
+            // debounce
             function debounce(fn, ms) { let t; return function () { clearTimeout(t); t = setTimeout(() => fn.apply(this, arguments), ms); }; }
         })();
     </script>
