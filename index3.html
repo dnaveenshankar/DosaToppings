@@ -8,6 +8,89 @@
     <link rel="icon" href="assets/icon-2.png" type="image/png">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
+        /* Best-seller single-item carousel (mobile) */
+        .card-wrap-best {
+            position: relative;
+            overflow: hidden;
+            padding-bottom: 6px;
+        }
+
+        .card-track {
+            display: flex;
+            gap: 12px;
+            transition: transform .45s cubic-bezier(.2, .9, .3, 1);
+            will-change: transform;
+            padding: 12px 6px;
+        }
+
+        .card-track .product-card {
+            box-sizing: border-box;
+        }
+
+        @media (max-width:999px) {
+            .card-track .product-card {
+                min-width: 100%;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+
+            .best-controls {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                bottom: 8px;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                z-index: 1200;
+            }
+
+            .best-btn {
+                background: rgba(255, 255, 255, 0.95);
+                border: 0;
+                padding: 6px 10px;
+                border-radius: 8px;
+                font-size: 20px;
+                box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+                cursor: pointer;
+            }
+
+            .best-dots {
+                display: flex;
+                gap: 8px;
+                align-items: center;
+            }
+
+            .best-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: rgba(0, 0, 0, 0.12);
+            }
+
+            .best-dot.active {
+                background: var(--brand-2);
+                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+            }
+        }
+
+        @media (min-width:1000px) {
+            .card-track {
+                gap: 18px;
+                padding: 0;
+            }
+
+            .card-track .product-card {
+                min-width: 0;
+                flex: 0 0 calc(25% - 18px);
+                max-width: calc(25% - 18px);
+            }
+
+            .best-controls {
+                display: none;
+            }
+        }
+
         :root {
             --brand-1: #1d7a3a;
             --brand-2: #f3c02b;
@@ -20,7 +103,7 @@
         }
 
         * {
-            box-sizing: border-box
+            box-sizing: border-box;
         }
 
         html,
@@ -30,22 +113,22 @@
             background: var(--bg);
             color: #142026;
             -webkit-font-smoothing: antialiased;
-            line-height: 1.4
+            line-height: 1.4;
         }
 
         img {
             max-width: 100%;
-            display: block
+            display: block;
         }
 
         .conater {
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 var(--gutter);
-            width: 100%
+            width: 100%;
         }
 
-        /* PRELOADER (inline / visible until hidden) */
+        /* PRELOADER */
         .preloader {
             position: fixed;
             inset: 0;
@@ -62,7 +145,7 @@
         .preloader.hidden {
             opacity: 0;
             visibility: hidden;
-            pointer-events: none
+            pointer-events: none;
         }
 
         .preloader .logo {
@@ -73,7 +156,7 @@
             padding: 8px;
             background: #fff;
             border-radius: 14px;
-            box-shadow: 0 8px 30px rgba(8, 12, 20, 0.06)
+            box-shadow: 0 8px 30px rgba(8, 12, 20, 0.06);
         }
 
         .preloader .caption {
@@ -85,7 +168,7 @@
             background: rgba(29, 122, 58, 0.06);
             padding: 6px 10px;
             border-radius: 999px;
-            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.04)
+            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.04);
         }
 
         /* Header */
@@ -99,7 +182,7 @@
             backdrop-filter: blur(6px);
             box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
             transition: padding .22s;
-            padding: 14px 0
+            padding: 14px 0;
         }
 
         .nav-inner {
@@ -110,12 +193,12 @@
             position: relative;
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 var(--gutter)
+            padding: 0 var(--gutter);
         }
 
         .brand-left img {
             height: 64px;
-            transition: height .18s
+            transition: height .18s;
         }
 
         .nav-center {
@@ -123,7 +206,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            z-index: 1100
+            z-index: 1100;
         }
 
         .nav-list {
@@ -132,7 +215,7 @@
             list-style: none;
             margin: 0;
             padding: 0;
-            white-space: nowrap
+            white-space: nowrap;
         }
 
         .nav-list a {
@@ -144,7 +227,7 @@
             font-size: 15px;
             display: inline-flex;
             align-items: center;
-            gap: 8px
+            gap: 8px;
         }
 
         @media(max-width:900px) {
@@ -171,7 +254,7 @@
             display: flex;
             gap: 12px;
             align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.04)
+            border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .bottom-nav a {
@@ -210,7 +293,7 @@
             padding: 16px 0;
             display: flex;
             justify-content: center;
-            background: linear-gradient(180deg, #fff, #fbfdf9)
+            background: linear-gradient(180deg, #fff, #fbfdf9);
         }
 
         .slides {
@@ -219,8 +302,8 @@
             position: relative;
             overflow: hidden;
             border-radius: 18px;
+            aspect-ratio: 16/9;
             background: #eee;
-            aspect-ratio: 16/9
         }
 
         .slide {
@@ -231,41 +314,12 @@
             opacity: 0;
             transform: translateY(12px) scale(1.02);
             transition: opacity .9s, transform .9s;
-            background-size: 100% auto
+            background-size: cover
         }
 
         .slide.show {
             opacity: 1;
             transform: none
-        }
-
-        .overlay {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            align-items: flex-end;
-            padding: 28px;
-            pointer-events: none
-        }
-
-        .caption {
-            max-width: 720px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.78));
-            padding: 14px 16px;
-            border-radius: 12px;
-            box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
-            pointer-events: auto
-        }
-
-        .caption h2 {
-            margin: 0 0 8px;
-            color: var(--brand-1);
-            font-size: 20px
-        }
-
-        .caption p {
-            margin: 0;
-            color: var(--muted)
         }
 
         .dots {
@@ -313,7 +367,7 @@
             align-items: center;
             white-space: nowrap;
             will-change: transform;
-            animation: mar 18s linear infinite
+            animation: mar 18s linear infinite;
         }
 
         @keyframes mar {
@@ -366,11 +420,10 @@
         }
 
         /* CARDS - unified look (use same size) */
-        /* base card width for mobile carousel; desktop will form grid */
         .card-wrap {
             display: flex;
             gap: 12px;
-            padding: 12px 0
+            padding: 12px 0;
         }
 
         .product-card {
@@ -447,7 +500,6 @@
             margin-top: 6px
         }
 
-        /* small-card used in some places */
         .small-card {
             display: flex;
             gap: 12px;
@@ -465,7 +517,6 @@
             border-radius: 8px
         }
 
-        /* layout for desktop: grid */
         @media(min-width:1000px) {
             .card-wrap {
                 flex-wrap: wrap;
@@ -484,7 +535,6 @@
             }
         }
 
-        /* combos grid 2 per row on desktop */
         .combos-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -497,7 +547,6 @@
             }
         }
 
-        /* best sellers area uses same card-wrap; on desktop we'll show four */
         .section-grid {
             display: grid;
             gap: 12px
@@ -509,7 +558,6 @@
             }
         }
 
-        /* footer */
         footer {
             margin-top: 30px;
             padding: 36px 0;
@@ -523,7 +571,7 @@
             gap: 18px;
             align-items: flex-start;
             justify-content: space-between;
-            flex-wrap: wrap
+            flex-wrap: wrap;
         }
 
         .footer-left img {
@@ -582,8 +630,7 @@
     <!-- HEADER -->
     <header class="site-header" role="banner" aria-label="Main navigation">
         <div class="nav-inner conater">
-            <div class="brand-left"><a href="#home" aria-label="Home"><img src="assets/icon-5.png"
-                        alt="Dosa Toppings logo"></a></div>
+            <div class="brand-left"><a href="#home" aria-label="Home"><img src="assets/icon-5.png" alt="logo"></a></div>
             <nav class="nav-center" role="navigation" aria-label="Primary navigation">
                 <ul class="nav-list" role="menubar">
                     <li><a role="menuitem" href="#best-seller">Bestsellers</a></li>
@@ -598,7 +645,7 @@
         </div>
     </header>
 
-    <!-- BOTTOM NAV (mobile) -->
+    <!-- bottom nav mobile -->
     <nav class="bottom-nav" role="navigation" aria-label="Mobile quick navigation">
         <a href="#home" title="Home" class="bn-home active"><i class="bi bi-house-door"></i><span>Home</span></a>
         <a href="#best-seller" title="Bestsellers" class="bn-best"><i class="bi bi-star-fill"></i><span>Bests</span></a>
@@ -620,12 +667,6 @@
                         aria-label="Hero 3"></div>
                     <div class="slide" style="background-image:url('assets/hero-4.png');" role="img"
                         aria-label="Hero 4"></div>
-                    <div class="overlay">
-                        <div class="caption">
-                            <h2>Small-batch podis — big homemade flavour</h2>
-                            <p>Freshly roasted. Stone-ground. Ready-to-sprinkle for instant homely taste.</p>
-                        </div>
-                    </div>
                     <div class="dots" id="dots" aria-hidden="false"></div>
                 </div>
             </div>
@@ -648,8 +689,18 @@
                 <div class="section-title">
                     <h3>Bestsellers</h3>
                 </div>
-                <!-- Use same card-wrap (horiz scroll on mobile) -->
-                <div id="bestRow" class="card-wrap" aria-live="polite" aria-atomic="true"></div>
+
+                <!-- carousel container -->
+                <div class="card-wrap-best" aria-live="polite" aria-atomic="true">
+                    <div id="bestTrack" class="card-track" role="list"></div>
+
+                    <!-- controls -->
+                    <div class="best-controls" aria-hidden="false">
+                        <button id="bestPrev" class="best-btn" aria-label="Previous">‹</button>
+                        <div id="bestDots" class="best-dots" aria-hidden="false"></div>
+                        <button id="bestNext" class="best-btn" aria-label="Next">›</button>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -673,8 +724,6 @@
                     table.</p>
 
                 <div id="productsRow" class="card-wrap" style="padding-bottom:18px;"></div>
-
-                <!-- desktop fallback grid (kept for large screens) -->
                 <div id="productsGrid" class="section-grid" style="display:none;margin-top:12px"></div>
             </div>
         </section>
@@ -716,6 +765,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <!-- FOOTER -->
@@ -752,20 +802,21 @@
 
     <button class="to-top" id="toTop" title="Go to top" aria-label="Go to top" style="display:none">↑</button>
 
-    <!-- INLINE DATA -->
+    <!-- ========== INLINE DATA: must be before render script ========== -->
     <script>
-        const storeData = {
+        // Inline product + combo + bestsellers data
+        window.storeData = {
             products: [
-                { id: "sig-001", title: "Classic Paruppu Podi", price: 100, unit: "50gms", short: "Lentil-forward, nutty & aromatic.", description: "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", image: "assets/signature-1.png", tags: ["HOME_MADE", "HEALTHY"] },
-                { id: "sig-002", title: "Curry Leaves Podi", price: 100, unit: "50gms", short: "Fragrant curry leaf & roasted dals.", description: "Aromatic and herbaceous — great with rice and chutney.", image: "assets/signature-2.png", tags: ["HOME_MADE"] },
-                { id: "sig-003", title: "Moringa Podi", price: 145, unit: "50gms", short: "Nutrient-rich moringa, mild spice.", description: "Vitamin-rich sprinkle — delicious in rice or porridge.", image: "assets/signature-3.png", tags: ["HEALTHY"] },
-                { id: "sig-004", title: "Garlic Podi", price: 110, unit: "50gms", short: "Roasted garlic — bold & savory.", description: "Bold garlic flavour that pairs beautifully with ghee dosa.", image: "assets/signature-4.png", tags: ["HOME_MADE"] },
-                { id: "sig-005", title: "Idli Milagai Podi", price: 95, unit: "50gms", short: "Classic mild & nutty seasoning.", description: "Mild & nutty — perfect for idli and breakfast bowls.", image: "assets/signature-5.png", tags: ["KIDS"] },
-                { id: "sig-006", title: "Kollu Podi", price: 130, unit: "50gms", short: "Protein-rich horse gram blend.", description: "Earthy & nourishing — great in rice mixes.", image: "assets/signature-6.png", tags: ["HEALTHY"] },
-                { id: "sig-007", title: "Peanut Podi", price: 120, unit: "50gms", short: "Crispy peanuts & warm spices.", description: "Crunchy, nutty & satisfying.", image: "assets/signature-7.png", tags: [] },
-                { id: "sig-008", title: "Sesame Podi", price: 110, unit: "50gms", short: "Toasted sesame & fragrant spices.", description: "Nutty, toasty flavour — great with rice & dosa.", image: "assets/signature-8.png", tags: ["HOME_MADE"] },
-                { id: "sig-009", title: "Millet Mix Podi", price: 150, unit: "50gms", short: "Wholesome millet + spices.", description: "A modern twist with finger millet for extra fibre and nutty aroma.", image: "assets/signature-9.png", tags: ["HEALTHY"] },
-                { id: "sig-010", title: "Tangy Tomato Podi", price: 105, unit: "50gms", short: "Tangy tomato with mild spice.", description: "Bright tangy notes — great as a spread or sprinkle for kids and adults.", image: "assets/signature-10.png", tags: ["KIDS"] }
+                { id: "sig-001", title: "Classic Paruppu Podi", price: 100, unit: "50gms", short: "Lentil-forward, nutty & aromatic.", description: "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", image: "assets/signature-1.png" },
+                { id: "sig-002", title: "Curry Leaves Podi", price: 100, unit: "50gms", short: "Fragrant curry leaf & roasted dals.", description: "Aromatic and herbaceous — great with rice and chutney.", image: "assets/signature-2.png" },
+                { id: "sig-003", title: "Moringa Podi", price: 145, unit: "50gms", short: "Nutrient-rich moringa, mild spice.", description: "Vitamin-rich sprinkle — delicious in rice or porridge.", image: "assets/signature-3.png" },
+                { id: "sig-004", title: "Garlic Podi", price: 110, unit: "50gms", short: "Roasted garlic — bold & savory.", description: "Bold garlic flavour that pairs beautifully with ghee dosa.", image: "assets/signature-4.png" },
+                { id: "sig-005", title: "Idli Milagai Podi", price: 95, unit: "50gms", short: "Classic mild & nutty seasoning.", description: "Mild & nutty — perfect for idli and breakfast bowls.", image: "assets/signature-5.png" },
+                { id: "sig-006", title: "Kollu Podi", price: 130, unit: "50gms", short: "Protein-rich horse gram blend.", description: "Earthy & nourishing — great in rice mixes.", image: "assets/signature-6.png" },
+                { id: "sig-007", title: "Peanut Podi", price: 120, unit: "50gms", short: "Crispy peanuts & warm spices.", description: "Crunchy, nutty & satisfying.", image: "assets/signature-7.png" },
+                { id: "sig-008", title: "Sesame Podi", price: 110, unit: "50gms", short: "Toasted sesame & fragrant spices.", description: "Nutty, toasty flavour — great with rice & dosa.", image: "assets/signature-8.png" },
+                { id: "sig-009", title: "Millet Mix Podi", price: 150, unit: "50gms", short: "Wholesome millet + spices.", description: "A modern twist with finger millet for extra fibre and nutty aroma.", image: "assets/signature-9.png" },
+                { id: "sig-010", title: "Tangy Tomato Podi", price: 105, unit: "50gms", short: "Tangy tomato with mild spice.", description: "Bright tangy notes — great as a spread or sprinkle for kids and adults.", image: "assets/signature-10.png" }
             ],
             combos: [
                 { id: "combo-001", title: "Breakfast Starter Combo", price: 280, unit: "3 x 50gms", items: ["sig-001", "sig-005", "sig-002"], short: "Classic Paruppu + Idli Milagai + Curry Leaves — morning-ready.", image: "assets/combo-1.png" },
@@ -777,236 +828,208 @@
         };
     </script>
 
-    <!-- MAIN SCRIPT: renders cards & handles auto-scroll -->
+    <!-- ========== MAIN RENDER + UX SCRIPT (uses storeData) ========== -->
     <script>
-        (function () {
-            // helper escape
-            function esc(s) { if (s === null || s === undefined) return ''; return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
-
-            // DOM refs
+        document.addEventListener('DOMContentLoaded', function () {
+            // safe refs
             const pre = document.getElementById('preloader');
-            const bestRow = document.getElementById('bestRow');
+            const bestTrack = document.getElementById('bestTrack');
+            const bestDots = document.getElementById('bestDots');
+            const bestPrev = document.getElementById('bestPrev');
+            const bestNext = document.getElementById('bestNext');
             const combosRow = document.getElementById('combosRow');
             const productsRow = document.getElementById('productsRow');
             const productsGrid = document.getElementById('productsGrid');
             const toTopBtn = document.getElementById('toTop');
 
-            // hide preloader safely after 3s or when DOM loaded
-            (function handlePreloader() {
-                const MIN = 3000;
+            // hide preloader after minimum 3s
+            (function hidePre() {
+                const MIN_MS = 3000;
                 const started = Date.now();
-                function hideNow() { const elapsed = Date.now() - started; const wait = Math.max(0, MIN - elapsed); setTimeout(() => pre.classList.add('hidden'), wait); }
-                if (document.readyState === 'complete' || document.readyState === 'interactive') hideNow();
-                else { window.addEventListener('DOMContentLoaded', hideNow); setTimeout(() => pre.classList.add('hidden'), 8000); }
+                function done() { pre.classList.add('hidden'); }
+                const delta = Date.now() - started;
+                setTimeout(done, Math.max(0, MIN_MS - delta));
+                // fallback hide after 8s
+                setTimeout(done, 8000);
             })();
 
-            // small UI helpers
-            function el(html) { const d = document.createElement('div'); d.innerHTML = html.trim(); return d.firstElementChild; }
-
-            // create card (shared between best, products, combos)
+            // small DOM helpers
+            function esc(s) { if (s === null || s === undefined) return ''; return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
             function createProductCard(p) {
                 const card = document.createElement('article');
                 card.className = 'product-card';
                 card.innerHTML = `
-          <div class="img">
-            <img src="${esc(p.image)}" alt="${esc(p.title)}">
-            <div class="price-badge">₹${Number(p.price || 0).toFixed(0)} / ${esc(p.unit || '')}</div>
-          </div>
-          <div class="body">
-            <div class="tag-pill">Signature</div>
-            <h4>${esc(p.title)}</h4>
-            <div class="desc">${esc(p.short || '')}</div>
-          </div>
+          <div class="img"><img src="${esc(p.image)}" alt="${esc(p.title)}"><div class="price-badge">₹${Number(p.price || 0).toFixed(0)} / ${esc(p.unit || '')}</div></div>
+          <div class="body"><div class="tag-pill">Signature</div><h4>${esc(p.title)}</h4><div class="desc">${esc(p.short || '')}</div></div>
         `;
                 return card;
             }
-
-            // create combo card (reuse product-card layout but with image & title)
             function createComboCard(c, lookup) {
-                const fake = { image: c.image || (lookup[c.items && c.items[0]] && lookup[c.items[0]].image) || 'assets/signature-1.png', title: c.title, price: c.price, unit: c.unit, short: c.short };
-                return createProductCard(fake);
+                const sample = {
+                    image: c.image || (lookup[c.items && c.items[0]] && lookup[c.items[0]].image) || 'assets/signature-1.png',
+                    title: c.title, price: c.price, unit: c.unit, short: c.short
+                };
+                return createProductCard(sample);
             }
 
-            // render functions
+            // render best sellers into the horizontal track (bestTrack)
             function renderBest() {
-                bestRow.innerHTML = '';
-                const lookup = {};
-                storeData.products.forEach(p => lookup[p.id] = p);
-                const list = (storeData.bestSellers || []).map(id => lookup[id]).filter(Boolean);
-                // if none, pick top 4
-                const showList = list.length ? list : storeData.products.slice(0, 4);
-                showList.forEach(p => {
-                    bestRow.appendChild(createProductCard(p));
-                });
-            }
-
-            function renderCombos() {
-                combosRow.innerHTML = '';
-                const lookup = {}; storeData.products.forEach(p => lookup[p.id] = p);
-                storeData.combos.forEach(c => {
-                    combosRow.appendChild(createComboCard(c, lookup));
-                });
-            }
-
-            function renderProducts() {
-                productsRow.innerHTML = '';
-                productsGrid.innerHTML = '';
-                storeData.products.forEach(p => {
-                    const c = createProductCard(p);
-                    productsRow.appendChild(c);
-                    productsGrid.appendChild(c.cloneNode(true));
-                });
-                // toggle grid vs horiz on resize
-                function layout() {
-                    if (window.innerWidth >= 1000) {
-                        productsGrid.style.display = 'grid';
-                        productsRow.style.display = 'none';
-                        productsGrid.style.gridTemplateColumns = 'repeat(4, 1fr)';
-                    } else {
-                        productsGrid.style.display = 'none';
-                        productsRow.style.display = 'flex';
+                if (!bestTrack) return;
+                bestTrack.innerHTML = '';
+                if (!window.storeData || !window.storeData.products) return;
+                const lookup = {}; window.storeData.products.forEach(p => lookup[p.id] = p);
+                const ids = (window.storeData.bestSellers && window.storeData.bestSellers.length) ? window.storeData.bestSellers.slice() : window.storeData.products.slice(0, 4).map(p => p.id);
+                const items = ids.map(id => lookup[id]).filter(Boolean);
+                items.forEach((p, idx) => {
+                    const card = createProductCard(p);
+                    card.setAttribute('role', 'listitem');
+                    bestTrack.appendChild(card);
+                    if (bestDots) {
+                        const d = document.createElement('button');
+                        d.type = 'button'; d.className = 'best-dot' + (idx === 0 ? ' active' : '');
+                        d.setAttribute('aria-label', 'Go to product ' + (idx + 1));
+                        d.addEventListener('click', () => goToBest(idx));
+                        bestDots.appendChild(d);
                     }
-                }
-                layout();
-                window.addEventListener('resize', debounce(layout, 140));
-            }
+                });
 
-            // debounce helper
-            function debounce(fn, ms) { let t; return function () { clearTimeout(t); t = setTimeout(() => fn.apply(this, arguments), ms); }; }
-
-            // AUTO-SCROLL/CAROUSEL for any horizontal .card-wrap
-            // Advances one card width every intervalMs; loops.
-            function setupAutoCarousel(container, intervalMs) {
-                if (!container) return;
-                // only enable when there are child cards
-                const children = Array.from(container.children);
-                if (children.length <= 1) return;
-
-                // compute scroll step as the first child's outer width (including margin)
-                function getStep() {
-                    const card = container.querySelector('.product-card');
-                    if (!card) return Math.round(container.clientWidth * 0.9);
-                    // width + gap (approx)
-                    const style = window.getComputedStyle(card);
-                    const w = card.getBoundingClientRect().width;
-                    return Math.round(w + 12); // 12 is gap
-                }
-
-                let step = getStep();
+                // setup internal carousel behavior (indexing / transform)
+                let index = 0;
                 let timer = null;
-                let paused = false;
+                const interval = 5000;
 
-                function start() {
-                    if (timer) clearInterval(timer);
-                    timer = setInterval(() => {
-                        if (paused) return;
-                        // advance
-                        const maxScroll = container.scrollWidth - container.clientWidth;
-                        if (container.scrollLeft >= maxScroll - 2) {
-                            // loop to start (smooth)
-                            container.scrollTo({ left: 0, behavior: 'smooth' });
-                        } else {
-                            container.scrollBy({ left: step, behavior: 'smooth' });
-                        }
-                    }, intervalMs);
+                function cardWidth() { const c = bestTrack.querySelector('.product-card'); return c ? Math.round(c.getBoundingClientRect().width + 12) : Math.round(bestTrack.clientWidth * 0.9); }
+                function update() { const w = cardWidth(); bestTrack.style.transform = `translateX(-${index * w}px)`; if (bestDots) Array.from(bestDots.children).forEach((d, i) => d.classList.toggle('active', i === index)); }
+
+                function goToBest(i) {
+                    if (!bestTrack) return;
+                    const count = bestTrack.children.length;
+                    if (count === 0) return;
+                    if (i < 0) i = count - 1; if (i >= count) i = 0;
+                    index = i;
+                    update();
+                    restart();
                 }
+                function next() { goToBest(index + 1); }
+                function prev() { goToBest(index - 1); }
 
+                function restart() { stop(); timer = setInterval(next, interval); }
                 function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
-                // pause on hover / focus / touch
+                // pointer swipe (mobile)
+                let dragging = false, startX = 0, baseX = 0;
+                bestTrack.addEventListener('pointerdown', (e) => {
+                    if (window.innerWidth >= 1000) return; // don't interfere with desktop grid
+                    dragging = true; startX = e.clientX; bestTrack.style.transition = 'none'; stop();
+                    try { bestTrack.setPointerCapture(e.pointerId); } catch (e) { }
+                });
+                bestTrack.addEventListener('pointermove', (e) => {
+                    if (!dragging) return;
+                    const dx = e.clientX - startX;
+                    bestTrack.style.transform = `translateX(-${index * cardWidth() - dx}px)`;
+                });
+                bestTrack.addEventListener('pointerup', (e) => {
+                    if (!dragging) return;
+                    dragging = false; bestTrack.style.transition = '';
+                    const dx = e.clientX - startX; const w = cardWidth();
+                    if (Math.abs(dx) > Math.min(40, w * 0.2)) { if (dx < 0) next(); else prev(); } else { update(); restart(); }
+                    try { bestTrack.releasePointerCapture(e.pointerId); } catch (e) { }
+                });
+                bestTrack.addEventListener('pointercancel', () => { dragging = false; bestTrack.style.transition = ''; update(); restart(); });
+
+                // pause on hover/touch
+                bestTrack.addEventListener('mouseenter', () => stop());
+                bestTrack.addEventListener('mouseleave', () => restart());
+                bestTrack.addEventListener('touchstart', () => stop(), { passive: true });
+                bestTrack.addEventListener('touchend', () => restart(), { passive: true });
+
+                // prev/next controls
+                if (bestNext) bestNext.addEventListener('click', () => next());
+                if (bestPrev) bestPrev.addEventListener('click', () => prev());
+
+                // intersection observer to auto-play only when visible
+                const io = new IntersectionObserver(entries => {
+                    entries.forEach(en => { if (en.isIntersecting) restart(); else stop(); })
+                }, { threshold: 0.4 });
+                io.observe(bestTrack);
+
+                // adjust after resize
+                window.addEventListener('resize', debounce(() => { if (window.innerWidth >= 1000) { bestTrack.style.transform = ''; } else { update(); } }, 140));
+
+                // initial start (if mobile)
+                setTimeout(() => { if (window.innerWidth < 1000) { update(); restart(); } }, 80);
+            }
+
+            // render combos
+            function renderCombos() {
+                if (!combosRow) return;
+                combosRow.innerHTML = '';
+                if (!window.storeData || !window.storeData.combos) return;
+                const lookup = {}; window.storeData.products.forEach(p => lookup[p.id] = p);
+                window.storeData.combos.forEach(c => combosRow.appendChild(createComboCard(c, lookup)));
+            }
+
+            // render products on horizontal row + grid fallback
+            function renderProducts() {
+                if (!productsRow || !productsGrid) return;
+                productsRow.innerHTML = ''; productsGrid.innerHTML = '';
+                if (!window.storeData || !window.storeData.products) return;
+                window.storeData.products.forEach(p => { const card = createProductCard(p); productsRow.appendChild(card); productsGrid.appendChild(card.cloneNode(true)); });
+                function layout() { if (window.innerWidth >= 1000) { productsGrid.style.display = 'grid'; productsRow.style.display = 'none'; productsGrid.style.gridTemplateColumns = 'repeat(4,1fr)'; } else { productsGrid.style.display = 'none'; productsRow.style.display = 'flex'; } }
+                layout(); window.addEventListener('resize', debounce(layout, 140));
+            }
+
+            // small utility: auto-scroll horizontal containers (for mobile) - generic
+            function setupAutoCarousel(container, intervalMs) {
+                if (!container) return;
+                const items = Array.from(container.children);
+                if (items.length <= 1) return;
+                let step = (container.querySelector('.product-card') ? Math.round(container.querySelector('.product-card').getBoundingClientRect().width + 12) : Math.round(container.clientWidth * 0.9));
+                let timer = null; let paused = false;
+
+                function start() {
+                    stop(); timer = setInterval(() => {
+                        if (paused) return;
+                        const max = container.scrollWidth - container.clientWidth;
+                        if (container.scrollLeft >= max - 2) { container.scrollTo({ left: 0, behavior: 'smooth' }); } else { container.scrollBy({ left: step, behavior: 'smooth' }); }
+                    }, intervalMs);
+                }
+                function stop() { if (timer) { clearInterval(timer); timer = null; } }
+
                 container.addEventListener('mouseenter', () => paused = true);
                 container.addEventListener('mouseleave', () => paused = false);
                 container.addEventListener('touchstart', () => paused = true, { passive: true });
                 container.addEventListener('touchend', () => paused = false, { passive: true });
 
-                // pause when not visible (intersection observer)
-                const io = new IntersectionObserver(entries => {
-                    entries.forEach(en => {
-                        if (en.isIntersecting) { paused = false; start(); }
-                        else { paused = true; }
-                    });
-                }, { threshold: 0.3 });
+                const io = new IntersectionObserver(entries => { entries.forEach(en => { if (en.isIntersecting) { paused = false; start(); } else { paused = true; } }); }, { threshold: 0.3 });
                 io.observe(container);
 
-                // recalc on resize
-                window.addEventListener('resize', debounce(() => { step = getStep(); }, 160));
+                window.addEventListener('resize', debounce(() => { step = (container.querySelector('.product-card') ? Math.round(container.querySelector('.product-card').getBoundingClientRect().width + 12) : Math.round(container.clientWidth * 0.9)); }, 160));
 
-                // init
-                step = getStep();
-                start();
+                // init only for mobile widths or when container overflows
+                setTimeout(() => { step = (container.querySelector('.product-card') ? Math.round(container.querySelector('.product-card').getBoundingClientRect().width + 12) : Math.round(container.clientWidth * 0.9)); start(); }, 120);
             }
 
-            // small hash-based selection for bottom nav highlight
-            function bottomNavHighlight() {
-                const items = document.querySelectorAll('.bottom-nav a');
-                function setActive() {
-                    items.forEach(i => i.classList.remove('active'));
-                    const h = (location.hash || '#home').replace('#', '');
-                    const map = { home: 'bn-home', 'best-seller': 'bn-best', combos: 'bn-combos', products: 'bn-products', contact: 'bn-contact' };
-                    const cls = map[h] || 'bn-home';
-                    const el = document.querySelector('.' + cls);
-                    if (el) el.classList.add('active');
-                }
-                window.addEventListener('hashchange', setActive);
-                window.addEventListener('load', setActive);
-                setActive();
-            }
+            // bottom nav highlight
+            function bottomNavHighlight() { const items = document.querySelectorAll('.bottom-nav a'); function setActive() { items.forEach(i => i.classList.remove('active')); const h = (location.hash || '#home').replace('#', ''); const map = { home: 'bn-home', 'best-seller': 'bn-best', combos: 'bn-combos', products: 'bn-products', contact: 'bn-contact' }; const cls = map[h] || 'bn-home'; const el = document.querySelector('.' + cls); if (el) el.classList.add('active'); } window.addEventListener('hashchange', setActive); window.addEventListener('load', setActive); setActive(); }
 
-            // to-top visibility
-            (function toTop() {
-                const btn = toTopBtn;
-                if (!btn) return;
-                window.addEventListener('scroll', () => {
-                    if (window.scrollY > 300) btn.style.display = 'grid';
-                    else btn.style.display = 'none';
-                }, { passive: true });
-                btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            })();
+            // to-top behavior
+            (function toTop() { if (!toTopBtn) return; window.addEventListener('scroll', () => { if (window.scrollY > 300) toTopBtn.style.display = 'grid'; else toTopBtn.style.display = 'none'; }, { passive: true }); toTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); })();
 
-            // slider for hero
-            (function heroSlider() {
-                const slides = Array.from(document.querySelectorAll('.slide'));
-                const dotsWrap = document.getElementById('dots');
-                if (!slides.length) return;
-                let idx = 0, timer = null, interval = 5000;
-                // create dots
-                slides.forEach((s, i) => {
-                    const b = document.createElement('button');
-                    b.className = 'dot' + (i === 0 ? ' active' : '');
-                    b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-                    b.addEventListener('click', () => goTo(i));
-                    if (dotsWrap) dotsWrap.appendChild(b);
-                });
-                const dots = dotsWrap ? Array.from(dotsWrap.children) : [];
-                function show(i) {
-                    slides.forEach((s, si) => s.classList.toggle('show', si === i));
-                    dots.forEach((d, di) => d.classList.toggle('active', di === i));
-                }
-                function next() { idx = (idx + 1) % slides.length; show(idx); }
-                function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); }
-                function restart() { if (timer) clearInterval(timer); timer = setInterval(next, interval); }
-                // start after preloader hidden or fallback
-                const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); } });
-                obs.observe(pre, { attributes: true });
-                setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
-                const slideWrap = document.getElementById('slides');
-                if (slideWrap) {
-                    slideWrap.addEventListener('mouseenter', () => clearInterval(timer));
-                    slideWrap.addEventListener('mouseleave', restart);
-                    slideWrap.addEventListener('focusin', () => clearInterval(timer));
-                    slideWrap.addEventListener('focusout', restart);
-                }
-                document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') goTo(idx + 1); if (e.key === 'ArrowLeft') goTo(idx - 1); });
-            })();
+            // hero slider (kept simple)
+            (function heroSlider() { const slides = Array.from(document.querySelectorAll('.slide')); const dotsWrap = document.getElementById('dots'); if (!slides.length) return; let idx = 0, timer = null, interval = 5000; slides.forEach((s, i) => { const b = document.createElement('button'); b.className = 'dot' + (i === 0 ? ' active' : ''); b.setAttribute('aria-label', 'Go to slide ' + (i + 1)); b.addEventListener('click', () => goTo(i)); if (dotsWrap) dotsWrap.appendChild(b); }); const dots = dotsWrap ? Array.from(dotsWrap.children) : []; function show(i) { slides.forEach((s, si) => s.classList.toggle('show', si === i)); dots.forEach((d, di) => d.classList.toggle('active', di === i)); } function next() { idx = (idx + 1) % slides.length; show(idx); } function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); } function restart() { if (timer) clearInterval(timer); timer = setInterval(next, interval); } const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); } }); obs.observe(pre, { attributes: true }); setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200); const slideWrap = document.getElementById('slides'); if (slideWrap) { slideWrap.addEventListener('mouseenter', () => clearInterval(timer)); slideWrap.addEventListener('mouseleave', restart); slideWrap.addEventListener('focusin', () => clearInterval(timer)); slideWrap.addEventListener('focusout', restart); } document.addEventListener('keydown', e => { if (e.key === 'ArrowRight') goTo(idx + 1); if (e.key === 'ArrowLeft') goTo(idx - 1); }); })();
 
-            // run renderers
+            // small debounce
+            function debounce(fn, ms) { let t; return function () { clearTimeout(t); t = setTimeout(() => fn.apply(this, arguments), ms); }; }
+
+            // finally run render + carousels
             try {
                 renderBest();
                 renderCombos();
                 renderProducts();
 
-                // set up carousels with 6s interval for mobile rows (only relevant when horizontal)
-                setupAutoCarousel(bestRow, 6000);
+                // auto-scroll (for the horizontal containers) - mobile friendly
+                setupAutoCarousel(document.getElementById('bestTrack'), 6000);
                 setupAutoCarousel(productsRow, 6000);
                 setupAutoCarousel(combosRow, 6000);
 
@@ -1014,9 +1037,9 @@
             } catch (err) {
                 console.error('Render error', err);
             }
-
-        })();
+        });
     </script>
+
 </body>
 
 </html>
