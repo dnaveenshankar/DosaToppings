@@ -15,9 +15,7 @@
             --bg: #fff7e6;
             --card-gap: 18px;
             --card-width: 320px;
-            /* consistent card width */
             --card-height: 240px;
-            /* image height */
             --card-bottom-space: 22px;
             --max-width: 1200px;
             font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
@@ -27,7 +25,6 @@
             box-sizing: border-box
         }
 
-
         html,
         body {
             height: 100%;
@@ -35,7 +32,7 @@
             background: var(--bg);
             color: #142026;
             -webkit-font-smoothing: antialiased;
-            line-height: 1.4
+            line-height: 1.4;
         }
 
         img {
@@ -47,7 +44,7 @@
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 18px;
-            width: 100%
+            width: 100%;
         }
 
         /* PRELOADER */
@@ -61,7 +58,7 @@
             justify-content: center;
             transition: opacity .45s, visibility .45s;
             visibility: visible;
-            opacity: 1
+            opacity: 1;
         }
 
         .preloader.hidden {
@@ -78,7 +75,7 @@
             padding: 8px;
             background: #fff;
             border-radius: 14px;
-            box-shadow: 0 8px 30px rgba(8, 12, 20, 0.06)
+            box-shadow: 0 8px 30px rgba(8, 12, 20, 0.06);
         }
 
         .preloader .caption {
@@ -90,7 +87,7 @@
             background: rgba(29, 122, 58, 0.06);
             padding: 6px 10px;
             border-radius: 999px;
-            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.04)
+            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.04);
         }
 
         /* HEADER */
@@ -103,7 +100,7 @@
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(6px);
             box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
-            padding: 14px 0
+            padding: 14px 0;
         }
 
         .nav-inner {
@@ -114,7 +111,7 @@
             position: relative;
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 18px
+            padding: 0 18px;
         }
 
         .brand-left {
@@ -123,18 +120,17 @@
             top: 50%;
             transform: translateY(-50%);
             display: flex;
-            align-items: center
+            align-items: center;
         }
 
         .brand-left img {
             height: 44px
         }
 
-        /* center the nav text & logo kept centered visually */
         .nav-center {
             display: flex;
             gap: 24px;
-            align-items: center
+            align-items: center;
         }
 
         .nav-list {
@@ -143,7 +139,7 @@
             list-style: none;
             margin: 0;
             padding: 0;
-            white-space: nowrap
+            white-space: nowrap;
         }
 
         .nav-list a {
@@ -155,7 +151,7 @@
             font-size: 15px;
             display: inline-flex;
             align-items: center;
-            gap: 8px
+            gap: 8px;
         }
 
         .brand-right {
@@ -164,7 +160,7 @@
             top: 50%;
             transform: translateY(-50%);
             width: 44px;
-            height: 44px
+            height: 44px;
         }
 
         @media(min-width:1000px) {
@@ -187,7 +183,7 @@
             display: flex;
             gap: 12px;
             align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.04)
+            border: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .bottom-nav a {
@@ -200,7 +196,7 @@
             font-size: 12px;
             padding: 6px 8px;
             border-radius: 10px;
-            min-width: 56px
+            min-width: 56px;
         }
 
         .bottom-nav a .bi {
@@ -211,7 +207,7 @@
         .bottom-nav a.active {
             background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
             color: #fff;
-            box-shadow: 0 8px 22px rgba(29, 122, 58, 0.12)
+            box-shadow: 0 8px 22px rgba(29, 122, 58, 0.12);
         }
 
         @media(min-width:900px) {
@@ -220,10 +216,8 @@
             }
         }
 
-        /* MOBILE: Center the logo inside the header */
+        /* mobile header adjustments */
         @media (max-width: 900px) {
-
-            /* hide desktop menu */
             .nav-center {
                 display: none !important;
             }
@@ -234,7 +228,6 @@
                 height: 64px;
             }
 
-            /* center the logo */
             .brand-left {
                 position: absolute;
                 left: 50%;
@@ -249,13 +242,12 @@
                 width: auto;
             }
 
-            /* hide empty right column */
             .brand-right {
                 display: none !important;
             }
         }
 
-        /* HERO - use same bg as page */
+        /* HERO */
         .hero {
             margin-top: 94px;
             padding: 16px 0;
@@ -271,7 +263,7 @@
             overflow: hidden;
             border-radius: 18px;
             background: #eee;
-            aspect-ratio: 16/9
+            aspect-ratio: 16/9;
         }
 
         .slide {
@@ -282,7 +274,7 @@
             opacity: 0;
             transform: translateY(12px) scale(1.02);
             transition: opacity .9s, transform .9s;
-            background-size: 100% auto
+            background-size: 100% auto;
         }
 
         .slide.show {
@@ -300,7 +292,7 @@
             border-radius: 999px;
             background: rgba(255, 255, 255, 0.9);
             box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
-            z-index: 20
+            z-index: 20;
         }
 
         .dot {
@@ -309,7 +301,7 @@
             border-radius: 50%;
             background: rgba(0, 0, 0, 0.12);
             border: 2px solid rgba(255, 255, 255, 0.2);
-            cursor: pointer
+            cursor: pointer;
         }
 
         .dot.active {
@@ -387,7 +379,7 @@
             color: var(--muted)
         }
 
-        /* CARD ROW: SINGLE HORIZONTAL ROW (desktop & mobile) */
+        /* CARD ROW: SINGLE HORIZONTAL ROW */
         .card-wrap {
             display: flex;
             gap: var(--card-gap);
@@ -398,9 +390,10 @@
             align-items: flex-start;
             scroll-behavior: smooth;
             white-space: nowrap;
+            position: relative;
         }
 
-        /* consistent card */
+        /* consistent card base */
         .product-card {
             flex: 0 0 auto;
             scroll-snap-align: center;
@@ -409,11 +402,12 @@
             background: linear-gradient(180deg, #fff, #fffef7);
             border-radius: 12px;
             box-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
+            overflow: visible;
+            display: block;
             transition: transform .16s;
             margin-bottom: var(--card-bottom-space);
+            cursor: pointer;
+            outline: none;
         }
 
         .product-card:hover {
@@ -425,14 +419,14 @@
             height: var(--card-height);
             position: relative;
             overflow: hidden;
-            background: #eee
+            background: #eee;
         }
 
         .product-card .img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block
+            display: block;
         }
 
         .price-badge {
@@ -444,14 +438,14 @@
             border-radius: 12px;
             font-weight: 800;
             color: var(--brand-1);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06)
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
         }
 
         .product-card .body {
             padding: 14px 16px;
             display: flex;
             flex-direction: column;
-            gap: 8px
+            gap: 8px;
         }
 
         .tag-pill {
@@ -461,20 +455,20 @@
             padding: 6px 10px;
             border-radius: 999px;
             font-weight: 800;
-            font-size: 13px
+            font-size: 13px;
         }
 
         .product-card h4 {
             margin: 0;
             font-family: 'Merriweather', serif;
             font-size: 20px;
-            color: var(--brand-1)
+            color: var(--brand-1);
         }
 
         .desc {
             color: var(--muted);
             font-size: 15px;
-            margin-top: 6px
+            margin-top: 6px;
         }
 
         /* small-card for backups */
@@ -495,7 +489,7 @@
             border-radius: 8px
         }
 
-        /* combos grid two per row visually (we still use horizontal row but grid fallback if desired) */
+        /* combos grid */
         .combos-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -508,24 +502,9 @@
             }
         }
 
-        /* when screen big, keep same card width but center track visually */
-        @media(min-width:1000px) {
-            .card-wrap {
-                padding: 16px 0
-            }
-
-            /* leave card width same for consistent appearance */
-            .product-card {
-                width: var(--card-width);
-                min-width: var(--card-width)
-            }
-        }
-
         /* footer */
-        /* Clean single footer */
         .footer {
             background: var(--brand-2);
-            /* your yellow */
             color: #fff;
             border-top: 6px solid var(--brand-1);
             padding: 28px 0 12px 0;
@@ -549,14 +528,12 @@
             min-width: 220px;
         }
 
-        /* titles in green */
         .footer h4 {
             margin: 0 0 10px 0;
             color: var(--brand-1);
             font-size: 16px;
         }
 
-        /* socials */
         .footer-socials {
             display: flex;
             gap: 12px;
@@ -588,7 +565,6 @@
             line-height: 1;
         }
 
-        /* divider above copyright */
         .footer-divider {
             height: 1px;
             background: rgba(255, 255, 255, 0.06);
@@ -598,7 +574,6 @@
             margin-right: auto;
         }
 
-        /* bottom row */
         .footer-bottom {
             max-width: var(--max-width);
             margin: 0 auto;
@@ -612,7 +587,6 @@
             color: #fff;
         }
 
-        /* mobile: stack columns */
         @media (max-width:720px) {
             .footer .footer-inner {
                 padding: 0 14px;
@@ -631,7 +605,6 @@
             }
         }
 
-
         .to-top {
             position: fixed;
             right: 18px;
@@ -648,12 +621,140 @@
             border: none;
             font-weight: 800;
             font-size: 18px;
-            z-index: 1500
+            z-index: 1500;
         }
 
         .to-top:focus {
             outline: 3px solid rgba(255, 207, 43, 0.22);
             outline-offset: 3px
+        }
+
+        /* FLIP CARD styles */
+        .product-card {
+            perspective: 1200px;
+            height: auto;
+        }
+
+        .product-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transition: transform .6s cubic-bezier(.2, .8, .2, 1);
+            min-height: calc(var(--card-height) + 120px);
+            border-radius: 12px;
+        }
+
+        .product-card.is-flipped .product-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .product-card-face {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .product-card-face.front {
+            background: linear-gradient(180deg, #fff, #fffef7);
+        }
+
+        .product-card-face.back {
+            transform: rotateY(180deg);
+            padding: 14px;
+            box-sizing: border-box;
+            background: linear-gradient(180deg, #fffef7, #fff);
+            color: #24332d;
+        }
+
+        .product-back-title {
+            font-weight: 800;
+            color: var(--brand-1);
+            margin-bottom: 6px;
+            font-size: 16px;
+        }
+
+        .product-back-desc {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 8px;
+        }
+
+        .product-back-list {
+            margin: 0;
+            padding-left: 18px;
+            color: #3b4b44;
+            font-size: 14px;
+        }
+
+        .product-card .flip-hint {
+            font-size: 13px;
+            color: var(--muted);
+            margin-top: 8px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .product-card .img {
+            height: var(--card-height);
+        }
+
+        /* INDICATOR (dots in pill) */
+        .carousel-indicators {
+            position: absolute;
+            right: 14px;
+            bottom: 14px;
+            display: inline-flex;
+            gap: 10px;
+            padding: 8px 10px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.06);
+            z-index: 30;
+            align-items: center;
+        }
+
+        .carousel-indicators .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.12);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .carousel-indicators .dot.active {
+            background: var(--brand-2);
+            border-color: rgba(255, 255, 255, 0.35);
+        }
+
+        @media (max-width:480px) {
+            .carousel-indicators {
+                right: 10px;
+                bottom: 10px;
+                padding: 6px 8px;
+            }
+
+            .carousel-indicators .dot {
+                width: 10px;
+                height: 10px;
+            }
+        }
+
+        /* hover effect for quality & info cards */
+        .quality-card:hover,
+        .info-card:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 18px 44px rgba(8, 12, 20, 0.12) !important;
         }
     </style>
 </head>
@@ -662,8 +763,8 @@
     <!-- PRELOADER -->
     <div id="preloader" class="preloader" aria-hidden="true">
         <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px;">
-            <div class="logo"><img src="https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/icon-5.png" alt="Dosa Toppings logo"
-                    style="width:100%;height:auto;display:block"></div>
+            <div class="logo"><img src="https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/icon-5.png"
+                    alt="Dosa Toppings logo" style="width:100%;height:auto;display:block"></div>
             <div class="caption">Healthy Twist for every dosa !</div>
         </div>
     </div>
@@ -671,7 +772,8 @@
     <!-- HEADER -->
     <header class="site-header" role="banner" aria-label="Main navigation">
         <div class="nav-inner conater">
-            <div class="brand-left"><a href="#home" aria-label="Home"><img src="https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/icon-5.png"
+            <div class="brand-left"><a href="#home" aria-label="Home"><img
+                        src="https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/icon-5.png"
                         alt="Dosa Toppings logo"></a></div>
             <nav class="nav-center" role="navigation" aria-label="Primary navigation">
                 <ul class="nav-list" role="menubar">
@@ -701,14 +803,18 @@
         <section class="hero" aria-label="Hero">
             <div class="conater">
                 <div class="slides" id="slides" aria-live="polite" aria-atomic="true">
-                    <div class="slide show" style="background-image:url('https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/hero-1.png');" role="img"
-                        aria-label="Hero 1"></div>
-                    <div class="slide" style="background-image:url('https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/hero-2.png');" role="img"
-                        aria-label="Hero 2"></div>
-                    <div class="slide" style="background-image:url('https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/hero-3.png');" role="img"
-                        aria-label="Hero 3"></div>
-                    <div class="slide" style="background-image:url('https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/hero-4.png');" role="img"
-                        aria-label="Hero 4"></div>
+                    <div class="slide show"
+                        style="background-image:url('https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/hero-1.png');"
+                        role="img" aria-label="Hero 1"></div>
+                    <div class="slide"
+                        style="background-image:url('https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/hero-2.png');"
+                        role="img" aria-label="Hero 2"></div>
+                    <div class="slide"
+                        style="background-image:url('https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/hero-3.png');"
+                        role="img" aria-label="Hero 3"></div>
+                    <div class="slide"
+                        style="background-image:url('https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/hero-4.png');"
+                        role="img" aria-label="Hero 4"></div>
                     <div class="dots" id="dots" aria-hidden="false"></div>
                 </div>
             </div>
@@ -760,28 +866,20 @@
             </div>
         </section>
 
-        <!-- PROMISE / ABOUT / WHY / PRODUCTION (containerized, headings underline, hover quality) -->
+        <!-- PROMISE / ABOUT / WHY / PRODUCTION -->
         <section id="promise-about"
             style="background:#fff7e6; padding:48px 0; font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Arial;">
             <div class="conater" style="max-width:1200px; margin:0 auto; padding:0 20px; color:#222;">
-
-                <!-- Our Promise (containerized) -->
                 <div style="display:flex; gap:28px; align-items:flex-start; flex-wrap:wrap; margin-bottom:34px;">
-                    <!-- Text -->
                     <div style="flex:1 1 420px; min-width:240px;">
                         <h2
                             style="margin:0 0 8px; color:#1d7a3a; font-size:30px; font-weight:800; letter-spacing:0.2px; position:relative;">
-                            Our Promise
-                        </h2>
-                        <!-- red underline -->
+                            Our Promise</h2>
                         <div style="width:96px; height:6px; border-radius:6px; background:#c23b2b; margin:12px 0 18px;">
                         </div>
-
-                        <p style="margin:0 0 12px; color:#3b3b3b; font-size:16px; line-height:1.6;">
-                            <strong>Freshly roasted, stone-ground, and packed with care</strong> — small batches that
-                            preserve aroma and deliver home-style taste every day.
-                        </p>
-
+                        <p style="margin:0 0 12px; color:#3b3b3b; font-size:16px; line-height:1.6;"><strong>Freshly
+                                roasted, stone-ground, and packed with care</strong> — small batches that preserve aroma
+                            and deliver home-style taste every day.</p>
                         <ul
                             style="list-style:none; padding:0; margin:12px 0 0; display:grid; gap:12px; max-width:720px;">
                             <li style="display:flex; gap:12px; align-items:flex-start;">
@@ -807,33 +905,26 @@
                         </ul>
                     </div>
 
-                    <!-- Image -->
                     <div
                         style="flex:0 0 320px; min-width:220px; display:flex; justify-content:center; align-items:flex-start;">
-                        <img src="https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/promise.png" alt="Our Promise"
+                        <img src="https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/promise.png"
+                            alt="Our Promise"
                             style="width:100%; max-width:340px; border-radius:14px; box-shadow:0 10px 30px rgba(8,12,20,0.08); object-fit:cover;">
                     </div>
                 </div>
 
-                <!-- About + Why -->
                 <div style="display:grid; grid-template-columns: 1fr; gap:26px; margin-bottom:28px;">
-                    <!-- About -->
                     <div
                         style="background:#fffef7; border-radius:12px; padding:18px; box-shadow:0 8px 28px rgba(8,12,20,0.06);">
                         <h3 style="margin:0 0 10px; color:#1d7a3a; font-size:22px; font-weight:800; position:relative;">
                             About Us</h3>
                         <div style="width:64px; height:6px; border-radius:6px; background:#c23b2b; margin:10px 0 12px;">
                         </div>
-
-                        <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
-                            Dosa Toppings was born with one simple idea — to bring the authentic taste of home into
-                            today’s fast-moving lifestyle.
-                        </p>
-                        <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
-                            Our recipes come from classic South Indian kitchens, but our packaging is designed for
-                            modern convenience. Every bottle carries the flavour, aroma, and love of home-style podis.
-                        </p>
-
+                        <p style="margin:0 0 12px; color:#374047; line-height:1.6;">Dosa Toppings was born with one
+                            simple idea — to bring the authentic taste of home into today’s fast-moving lifestyle.</p>
+                        <p style="margin:0 0 12px; color:#374047; line-height:1.6;">Our recipes come from classic South
+                            Indian kitchens, but our packaging is designed for modern convenience. Every bottle carries
+                            the flavour, aroma, and love of home-style podis.</p>
                         <div style="display:flex; gap:18px; flex-wrap:wrap; margin-top:6px; align-items:flex-start;">
                             <div style="min-width:220px;">
                                 <strong style="display:block; margin-bottom:8px; color:#26352b;">We believe in:</strong>
@@ -845,59 +936,50 @@
                                     <li>Family-friendly flavours</li>
                                 </ul>
                             </div>
-
-                            <div style="flex:1; min-width:180px; color:#374047; line-height:1.6;">
-                                From busy moms to working professionals to kids who love tasty food — Dosa Toppings
-                                makes every meal flavourful and nutritious.
-                            </div>
+                            <div style="flex:1; min-width:180px; color:#374047; line-height:1.6;">From busy moms to
+                                working professionals to kids who love tasty food — Dosa Toppings makes every meal
+                                flavourful and nutritious.</div>
                         </div>
                     </div>
 
-                    <!-- Why Our Podi Tastes Better (cards grid) -->
                     <div>
                         <h3 style="margin:0 0 10px; color:#1d7a3a; font-size:22px; font-weight:800; position:relative;">
                             Why Our Podi Tastes Better ?</h3>
                         <div style="width:64px; height:6px; border-radius:6px; background:#c23b2b; margin:10px 0 12px;">
                         </div>
-
                         <div style="display:grid; grid-template-columns: repeat(2, 1fr); gap:14px; margin-top:12px;">
                             <div class="info-card"
-                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06);">
                                 <strong style="display:block; margin-bottom:6px;">Handpicked ingredients</strong>
                                 <div style="color:#455a52; font-size:14px;">We select the best pulses, herbs and
                                     chillies at source.</div>
                             </div>
-
                             <div class="info-card"
-                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06);">
                                 <strong style="display:block; margin-bottom:6px;">Slow-roasted for deep flavour</strong>
                                 <div style="color:#455a52; font-size:14px;">Traditional roasting unlocks aroma and
                                     colour.</div>
                             </div>
-
                             <div class="info-card"
-                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06);">
                                 <strong style="display:block; margin-bottom:6px;">Balanced spice levels</strong>
                                 <div style="color:#455a52; font-size:14px;">Flavour profiles that suit kids and adults
                                     alike.</div>
                             </div>
-
                             <div class="info-card"
-                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06);">
                                 <strong style="display:block; margin-bottom:6px;">Made fresh in batches</strong>
                                 <div style="color:#455a52; font-size:14px;">Small-batch production preserves aroma and
                                     consistency.</div>
                             </div>
-
                             <div class="info-card"
-                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06);">
                                 <strong style="display:block; margin-bottom:6px;">Packed in hygienic facility</strong>
                                 <div style="color:#455a52; font-size:14px;">FSSAI-compliant processes and air-tight
                                     packaging.</div>
                             </div>
-
                             <div class="info-card"
-                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06); transition:transform .18s ease, box-shadow .18s ease;">
+                                style="background:#fffef7; padding:14px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.06);">
                                 <strong style="display:block; margin-bottom:6px;">Farm-to-Factory traceability</strong>
                                 <div style="color:#455a52; font-size:14px;">We track each ingredient from source to
                                     final pack.</div>
@@ -906,110 +988,94 @@
                     </div>
                 </div>
 
-                <!-- Production & Quality (linked to #quality) -->
                 <div id="quality"
                     style="background:linear-gradient(180deg,#fffef7,#fff); border-radius:12px; padding:18px; box-shadow:0 8px 28px rgba(8,12,20,0.06);">
                     <h3 style="margin:0 0 12px; color:#1d7a3a; font-size:22px; font-weight:800; position:relative;">
                         Production &amp; Quality</h3>
                     <div style="width:64px; height:6px; border-radius:6px; background:#c23b2b; margin:10px 0 12px;">
                     </div>
-
-                    <p style="margin:0 0 12px; color:#374047; line-height:1.6;">
-                        Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
-                        food-safety standards.
-                    </p>
-
+                    <p style="margin:0 0 12px; color:#374047; line-height:1.6;">Every batch of Dosa Toppings podi is
+                        made with care — where traditional roasting meets modern food-safety standards.</p>
                     <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:12px; margin-top:12px;">
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">🌶️</div><strong
                                 style="display:block; margin-top:6px;">Hand-Picked Ingredients</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Only the freshest chillies,
                                 dals, and herbs selected by trained staff.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">☀️</div><strong
                                 style="display:block; margin-top:6px;">Sun-Dried for Natural Flavour</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Spices are dried under direct
                                 sunlight to lock in aroma naturally.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">🍳</div><strong style="display:block; margin-top:6px;">Roasted
                                 on Iron Tawa</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Seasoned iron tawa roasting
                                 gives authentic colour & crispness.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">🧤</div><strong style="display:block; margin-top:6px;">Hygienic
                                 Handling</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Gloves, masks & sanitised
                                 workstations for safe food handling.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">🥄</div><strong
                                 style="display:block; margin-top:6px;">Air-Tight Batch Processing</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Small batches ensure even
                                 roasting & perfectly balanced flavour.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">⚙️</div><strong style="display:block; margin-top:6px;">Modern
                                 Machinery</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Grinding & packing machines
                                 maintain texture without hand contact.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">📦</div><strong
                                 style="display:block; margin-top:6px;">Food-Grade Packaging</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Air-tight containers lock in
                                 freshness & prevent moisture.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">🧪</div><strong style="display:block; margin-top:6px;">Batch
                                 Testing</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Each lot checked for flavour,
                                 aroma, texture & shelf stability.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">✔️</div><strong
                                 style="display:block; margin-top:6px;">FSSAI-Compliant Process</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Strict hygiene & safety
                                 standards followed at every step.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">🌾</div><strong
                                 style="display:block; margin-top:6px;">Farm-to-Factory Traceability</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">We track each ingredient from
                                 source to final pack to ensure purity and transparency.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">🔥</div><strong
                                 style="display:block; margin-top:6px;">Temperature-Controlled Roasting</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">Every batch is roasted at
                                 calibrated heat levels for aroma without burning.</div>
                         </div>
-
                         <div class="quality-card"
-                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04); transition:transform .18s ease, box-shadow .18s ease;">
+                            style="background:#fff; padding:12px; border-radius:10px; box-shadow:0 6px 18px rgba(8,12,20,0.04);">
                             <div style="font-size:20px;">🚚</div><strong style="display:block; margin-top:6px;">Fresh
                                 Stock Dispatch</strong>
                             <div style="color:#55635a; font-size:13px; margin-top:6px;">We dispatch only freshly packed
@@ -1017,146 +1083,61 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
-            <!-- Inline small styles for hover + responsiveness -->
-            <style>
-                /* hover effect for quality & info cards */
-                .quality-card:hover,
-                .info-card:hover {
-                    transform: translateY(-8px) !important;
-                    box-shadow: 0 18px 44px rgba(8, 12, 20, 0.12) !important;
-                }
-
-                /* responsive adjustments */
-                @media (max-width:1000px) {
-                    #promise-about .conater>div {
-                        grid-template-columns: 1fr !important;
-                    }
-
-                    #promise-about>.conater>div>div {
-                        grid-template-columns: 1fr !important;
-                    }
-
-                    #promise-about .conater {
-                        padding: 0 14px;
-                    }
-
-                    /* collapse the 3-col quality grid to 2 then 1 */
-                    #promise-about [style*="grid-template-columns: repeat(3, 1fr)"] {
-                        grid-template-columns: repeat(2, 1fr) !important;
-                    }
-                }
-
-                @media (max-width:600px) {
-                    #promise-about [style*="grid-template-columns: repeat(2, 1fr)"] {
-                        grid-template-columns: 1fr !important;
-                    }
-
-                    #promise-about img {
-                        max-width: 100% !important;
-                        height: auto !important;
-                    }
-                }
-            </style>
         </section>
-
-
-
     </main>
 
     <footer id="contact" role="contentinfo" aria-label="Footer"
         style="background:#F3C02B; color:#fff; border-top:6px solid #1D7A3A; padding:32px 0 16px 0;">
-
-        <!-- MAIN ROW -->
-        <div style="max-width:1200px; margin:auto; padding:0 18px;
-                display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start;">
-
-            <!-- LEFT -->
+        <div
+            style="max-width:1200px; margin:auto; padding:0 18px; display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start;">
             <div style="flex:1; min-width:240px;">
-                <img src="https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/icon-5.png" alt="Dosa Toppings logo"
-                    style="height:72px; display:block; margin-bottom:12px;">
-
-                <p style="margin:0 0 12px 0; font-size:15px;">
-                    Instant Authentic Flavour — From Tradition to Today.
-                </p>
-
-                <!-- Social buttons -->
+                <img src="https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/icon-5.png"
+                    alt="Dosa Toppings logo" style="height:72px; display:block; margin-bottom:12px;">
+                <p style="margin:0 0 12px 0; font-size:15px;">Instant Authentic Flavour — From Tradition to Today.</p>
                 <div style="display:flex; gap:12px; flex-wrap:wrap; margin-top:10px;">
-
-                    <a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px;
-                           padding:8px 14px; border-radius:30px;
-                           background:#ffffff20; color:#fff; font-weight:600;
-                           text-decoration:none; backdrop-filter:blur(4px);
-                           box-shadow:0 4px 12px rgba(0,0,0,0.10);">
+                    <a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener"
+                        style="display:flex; align-items:center; gap:6px; padding:8px 14px; border-radius:30px; background:#ffffff20; color:#fff; font-weight:600; text-decoration:none; backdrop-filter:blur(4px); box-shadow:0 4px 12px rgba(0,0,0,0.10);">
                         <i class="bi bi-instagram" style="font-size:18px;"></i>
                     </a>
-
-                    <a href="https://wa.me/917200514471" target="_blank" rel="noopener" style="display:flex; align-items:center; gap:6px;
-                           padding:8px 14px; border-radius:30px;
-                           background:#25D366; color:#fff; font-weight:600;
-                           text-decoration:none; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+                    <a href="https://wa.me/917200514471" target="_blank" rel="noopener"
+                        style="display:flex; align-items:center; gap:6px; padding:8px 14px; border-radius:30px; background:#25D366; color:#fff; font-weight:600; text-decoration:none; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
                         <i class="bi bi-whatsapp" style="font-size:18px;"></i>
                     </a>
-
-                    <a href="mailto:kkmhealthyeats4u@gmail.com" style="display:flex; align-items:center; gap:6px;
-                           padding:8px 14px; border-radius:30px;
-                           background:#ffffff20; color:#fff; font-weight:600;
-                           text-decoration:none; backdrop-filter:blur(4px);
-                           box-shadow:0 4px 12px rgba(0,0,0,0.10);">
+                    <a href="mailto:kkmhealthyeats4u@gmail.com"
+                        style="display:flex; align-items:center; gap:6px; padding:8px 14px; border-radius:30px; background:#ffffff20; color:#fff; font-weight:600; text-decoration:none; backdrop-filter:blur(4px); box-shadow:0 4px 12px rgba(0,0,0,0.10);">
                         <i class="bi bi-envelope" style="font-size:18px;"></i>
                     </a>
                 </div>
             </div>
 
-            <!-- ADDRESS -->
             <div style="flex:1; min-width:240px;">
                 <h4 style="margin:0 0 10px 0; color:#1D7A3A; font-size:17px;">Address</h4>
-
                 <div style="line-height:1.6; font-size:15px;">
-                    KKM FOOD FACTORY<br>
-                    2/146/1, Karukkankattupudur,<br>
-                    Avinashi, Tiruppur,<br>
-                    Tamil Nadu – 641654
+                    KKM FOOD FACTORY<br>2/146/1, Karukkankattupudur,<br>Avinashi, Tiruppur,<br>Tamil Nadu – 641654
                 </div>
-
-                <div style="margin-top:10px; font-size:15px;">
-                    <strong>FSSAI:</strong> 12425027000407
-                </div>
+                <div style="margin-top:10px; font-size:15px;"><strong>FSSAI:</strong> 12425027000407</div>
             </div>
 
-            <!-- CONTACT -->
             <div style="flex:1; min-width:240px;">
                 <h4 style="margin:0 0 10px 0; color:#1D7A3A; font-size:17px;">Contact & Order</h4>
-
                 <div style="line-height:1.7; font-size:15px;">
                     WhatsApp / Mobile:
-                    <a href="tel:+917200514471" style="color:#fff; text-decoration:underline;">
-                        +91 72005 14471
-                    </a><br>
-
+                    <a href="tel:+917200514471" style="color:#fff; text-decoration:underline;">+91 72005 14471</a><br>
                     Email:
-                    <a href="mailto:kkmhealthyeats4u@gmail.com" style="color:#fff; text-decoration:underline;">
-                        kkmhealthyeats4u@gmail.com
-                    </a><br>
-
+                    <a href="mailto:kkmhealthyeats4u@gmail.com"
+                        style="color:#fff; text-decoration:underline;">kkmhealthyeats4u@gmail.com</a><br>
                     Instagram:
-                    <a href="https://instagram.com/dosa.toppings" style="color:#fff; text-decoration:underline;">
-                        @dosa.toppings
-                    </a>
+                    <a href="https://instagram.com/dosa.toppings"
+                        style="color:#fff; text-decoration:underline;">@dosa.toppings</a>
                 </div>
             </div>
         </div>
 
-        <!-- DIVIDER -->
         <div style="height:1px; background:#ffffff40; margin:22px auto 16px; max-width:1200px;"></div>
 
-        <!-- BOTTOM ROW -->
-        <div style="max-width:1200px; margin:auto; padding:0 18px;
-                display:flex; justify-content:space-between; align-items:center;
-                flex-wrap:wrap; font-size:14px;">
-
+        <div
+            style="max-width:1200px; margin:auto; padding:0 18px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; font-size:14px;">
             <div>Made with 🌿 in Tamil Nadu</div>
             <div>©2025 Dosa Toppings — Healthy Twist for Every Dosa</div>
             <div>Dosa Toppings v1.0</div>
@@ -1165,20 +1146,154 @@
 
     <button class="to-top" id="toTop" title="Go to top" aria-label="Go to top" style="display:none">↑</button>
 
-    <!-- INLINE DATA -->
+    <!-- INLINE DATA (updated with longDesc & features) -->
     <script>
         const storeData = {
             products: [
-                { id: "sig-001", title: "Classic Paruppu Podi", price: 100, unit: "50gms", short: "Lentil-forward, nutty & aromatic.", description: "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-1.png", tags: ["HOME_MADE", "HEALTHY"] },
-                { id: "sig-002", title: "Curry Leaves Podi", price: 100, unit: "50gms", short: "Fragrant curry leaf & roasted dals.", description: "Aromatic and herbaceous — great with rice and chutney.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-2.png", tags: ["HOME_MADE"] },
-                { id: "sig-003", title: "Moringa Podi", price: 145, unit: "50gms", short: "Nutrient-rich moringa, mild spice.", description: "Vitamin-rich sprinkle — delicious in rice or porridge.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-3.png", tags: ["HEALTHY"] },
-                { id: "sig-004", title: "Garlic Podi", price: 110, unit: "50gms", short: "Roasted garlic — bold & savory.", description: "Bold garlic flavour that pairs beautifully with ghee dosa.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-4.png", tags: ["HOME_MADE"] },
-                { id: "sig-005", title: "Idli Milagai Podi", price: 95, unit: "50gms", short: "Classic mild & nutty seasoning.", description: "Mild & nutty — perfect for idli and breakfast bowls.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-5.png", tags: ["KIDS"] },
-                { id: "sig-006", title: "Kollu Podi", price: 130, unit: "50gms", short: "Protein-rich horse gram blend.", description: "Earthy & nourishing — great in rice mixes.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-6.png", tags: ["HEALTHY"] },
-                { id: "sig-007", title: "Peanut Podi", price: 120, unit: "50gms", short: "Crispy peanuts & warm spices.", description: "Crunchy, nutty & satisfying.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-7.png", tags: [] },
-                { id: "sig-008", title: "Sesame Podi", price: 110, unit: "50gms", short: "Toasted sesame & fragrant spices.", description: "Nutty, toasty flavour — great with rice & dosa.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-8.png", tags: ["HOME_MADE"] },
-                { id: "sig-009", title: "Millet Mix Podi", price: 150, unit: "50gms", short: "Wholesome millet + spices.", description: "A modern twist with finger millet for extra fibre and nutty aroma.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-9.png", tags: ["HEALTHY"] },
-                { id: "sig-010", title: "Tangy Tomato Podi", price: 105, unit: "50gms", short: "Tangy tomato with mild spice.", description: "Bright tangy notes — great as a spread or sprinkle for kids and adults.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-10.png", tags: ["KIDS"] }
+                {
+                    id: "sig-001",
+                    title: "Classic Paruppu Podi",
+                    price: 100,
+                    unit: "50gms",
+                    short: "Lentil-forward, nutty & aromatic.",
+                    description: "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.",
+                    image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-1.png",
+                    tags: ["HOME_MADE", "HEALTHY"],
+                    longDesc: "⭐ 1. Paruppu Podi – Classic Dal Mix\n\nA traditional South Indian protein-rich blend made from roasted dals and mild spices. Adds instant flavour to dosa, idli and rice with pure homemade taste. Perfect everyday podi for the whole family.",
+                    features: [
+                        "AUTHENTIC SOUTH INDIAN TASTE: Traditional dal blend made with roasted toor, chana, and moong for a true homemade flavour.",
+                        "PROTEIN-RICH: Naturally packed with plant protein for everyday energy and nourishment.",
+                        "PERFECT WITH GHEE: Tastes amazing when mixed with ghee and sprinkled over dosa, idli or hot rice.",
+                        "CLEAN INGREDIENTS: No preservatives, no artificial colours, no MSG — only pure roasted ingredients.",
+                        "SMALL-BATCH FRESHNESS: Crafted in small batches to retain aroma, quality and freshness."
+                    ]
+                },
+                {
+                    id: "sig-002",
+                    title: "Curry Leaves Podi",
+                    price: 100,
+                    unit: "50gms",
+                    short: "Fragrant curry leaf & roasted dals.",
+                    description: "Aromatic and herbaceous — great with rice and chutney.",
+                    image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-2.png",
+                    tags: ["HOME_MADE"],
+                    longDesc: "⭐ 2. Curry Leaves Podi – Karuveppilai Blend\n\nMade with sun-dried curry leaves, roasted dals and mild spices. Rich in iron and packed with natural aroma. A nutritious sprinkle that enhances digestion and daily vitality.",
+                    features: [
+                        "RICH IN IRON & NUTRITION: Made with naturally dried curry leaves, known for improving hair and digestion.",
+                        "TRADITIONAL ROASTED BLEND: Roasted dals and mild spices enhance flavour and aroma.",
+                        "DAILY HEALTH SPRINKLE: Perfect addition to dosa, idli, rice and lunchbox meals.",
+                        "NO PRESERVATIVES: 100% natural ingredients with clean label assurance.",
+                        "HOMESTYLE FLAVOUR: Mild, aromatic, kid-friendly and suitable for all ages."
+                    ]
+                },
+                {
+                    id: "sig-003",
+                    title: "Moringa Podi",
+                    price: 145,
+                    unit: "50gms",
+                    short: "Nutrient-rich moringa, mild spice.",
+                    description: "Vitamin-rich sprinkle — delicious in rice or porridge.",
+                    image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-3.png",
+                    tags: ["HEALTHY"],
+                    longDesc: "⭐ 3. Moringa Podi – Murungai Ilai Mix\n\nCrafted from pure dried moringa leaves blended with roasted dals and spices. A naturally nutrient-dense podi that boosts immunity and energy in every meal.",
+                    features: [
+                        "SUPERFOOD PODI: Made from pure moringa leaves, a natural source of vitamins, minerals and iron.",
+                        "IMMUNITY BOOSTER: Supports overall health with antioxidants and high nutrition.",
+                        "LIGHT & TASTY: Blended with roasted dals and mild spices for a gentle flavour.",
+                        "IDEAL FOR EVERY MEAL: Sprinkle on dosa, idli, rice, porridge or curd.",
+                        "NATURAL & FRESH: No chemicals, no preservatives, no artificial colours."
+                    ]
+                },
+                {
+                    id: "sig-004",
+                    title: "Garlic Podi",
+                    price: 110,
+                    unit: "50gms",
+                    short: "Roasted garlic — bold & savory.",
+                    description: "Bold garlic flavour that pairs beautifully with ghee dosa.",
+                    image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-4.png",
+                    tags: ["HOME_MADE"],
+                    longDesc: "⭐ 4. Garlic Podi – Poondu Spice Mix\n\nA bold and aromatic mix of roasted garlic, dals and spices. Adds a flavourful punch to dosa, idli and rice. A favourite for garlic lovers and a great appetite booster.",
+                    features: [
+                        "STRONG AROMATIC FLAVOUR: Freshly roasted garlic gives rich aroma and bold taste.",
+                        "PERFECT FOR DOSA & RICE: Enhances every meal with its spicy, flavourful profile.",
+                        "DIGESTION-FRIENDLY: Garlic naturally supports digestion and immunity.",
+                        "100% NATURAL: No preservatives, no artificial colour, no flavour enhancers.",
+                        "TRADITIONAL STYLE: Small-batch roasting ensures authentic home-style flavour."
+                    ]
+                },
+                {
+                    id: "sig-005",
+                    title: "Idli Milagai Podi",
+                    price: 95,
+                    unit: "50gms",
+                    short: "Classic mild & nutty seasoning.",
+                    description: "Mild & nutty — perfect for idli and breakfast bowls.",
+                    image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-5.png",
+                    tags: ["KIDS"],
+                    longDesc: "⭐ 5. Classic Idli Milagai Podi\n\nAuthentic South Indian chilli–dal blend roasted to perfection. Balanced heat, rich aroma, and a taste that fits every idli and dosa. A timeless podi that belongs in every kitchen.",
+                    features: [
+                        "SIGNATURE SOUTH INDIAN PODI: A balanced blend of roasted dals, red chillies and spices.",
+                        "PERFECT HEAT LEVEL: Medium spice — suitable for all family members.",
+                        "ENHANCES EVERY BREAKFAST: Made to pair perfectly with idli, dosa and uttapam.",
+                        "NO PRESERVATIVES: Crafted with pure ingredients, freshly roasted.",
+                        "SMALL BATCH QUALITY: Ensures consistent flavour and aroma in every bottle."
+                    ]
+                },
+                {
+                    id: "sig-006",
+                    title: "Kollu Podi",
+                    price: 130,
+                    unit: "50gms",
+                    short: "Protein-rich horse gram blend.",
+                    description: "Earthy & nourishing — great in rice mixes.",
+                    image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-6.png",
+                    tags: ["HEALTHY"],
+                    longDesc: "⭐ 6. Horse Gram Podi – Kollu Health Mix\n\nMade with roasted horse gram, pepper and mild spices. A wholesome, fibre-rich podi known for digestion and weight management. Delicious with hot rice, dosa and idli.",
+                    features: [
+                        "HIGH FIBRE & PROTEIN: Powered by roasted kollu, known for weight management benefits.",
+                        "NATURAL DIGESTIVE SUPPORT: Helps improve metabolism and gut health.",
+                        "WARMING SPICE BLEND: Pepper and cumin add a traditional South Indian flavour.",
+                        "BEST WITH RICE & GHEE: Tastes delicious as rice mix or dosa sprinkle.",
+                        "CLEAN & NATURAL: No artificial additives, colours or preservatives."
+                    ]
+                },
+                {
+                    id: "sig-007",
+                    title: "Peanut Podi",
+                    price: 120,
+                    unit: "50gms",
+                    short: "Crispy peanuts & warm spices.",
+                    description: "Crunchy, nutty & satisfying.",
+                    image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-7.png",
+                    tags: [],
+                    longDesc: "⭐ 7. Peanut Podi – Verkadalai Aroma Mix\n\nA rich, nutty blend of roasted peanuts, mild spices and dal. Adds depth and flavour to any dish and doubles as a protein-packed topping for dosa, idli or rice.",
+                    features: [
+                        "RICH NUTTY FLAVOUR: Made from roasted peanuts and dals for deep aroma and taste.",
+                        "PROTEIN BOOSTER: Naturally high in plant protein for everyday nutrition.",
+                        "MULTI-USE PODI: Perfect for dosa, idli, rice, porridge or chutney alternative.",
+                        "PURE & NATURAL: No chemicals, preservatives or artificial flavours.",
+                        "FAMILY-FAVOURITE TASTE: Mild spice suitable for all age groups."
+                    ]
+                },
+                {
+                    id: "sig-008",
+                    title: "Sesame Podi",
+                    price: 110,
+                    unit: "50gms",
+                    short: "Toasted sesame & fragrant spices.",
+                    description: "Nutty, toasty flavour — great with rice & dosa.",
+                    image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-8.png",
+                    tags: ["HOME_MADE"],
+                    longDesc: "⭐ 8. Sesame Podi – Ellu Calcium Mix\n\nA traditional podi made with roasted black sesame, dal and aromatic spices. Naturally rich in calcium and perfect for adding earthy, wholesome flavour to your daily meals.",
+                    features: [
+                        "CALCIUM-RICH PODI: Made with roasted black sesame, naturally high in calcium and minerals.",
+                        "HEARTY TRADITIONAL FLAVOUR: Balanced with dals and mild spices for earthy aroma.",
+                        "GREAT WITH DOSA & IDLI: Adds flavour and nutrition instantly.",
+                        "NO ARTIFICIAL ADDITIVES: 100% natural, clean-label podi.",
+                        "SMALL-BATCH ROASTED: Ensures freshness and premium quality in every pack."
+                    ]
+                }
             ],
             combos: [
                 { id: "combo-001", title: "Breakfast Starter Combo", price: 280, unit: "3 x 50gms", items: ["sig-001", "sig-005", "sig-002"], short: "Classic Paruppu + Idli Milagai + Curry Leaves — morning-ready.", image: "https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/combo-1.png" },
@@ -1190,7 +1305,7 @@
         };
     </script>
 
-    <!-- MAIN SCRIPT -->
+    <!-- MAIN SCRIPT (updated: flip cards, indicators, carousels) -->
     <script>
         (function () {
             /* SAFE preloader hide */
@@ -1212,39 +1327,84 @@
             const productsRow = document.getElementById('productsRow');
             const dotsWrap = document.getElementById('dots');
 
-            /* create product card (shared) */
+            /* CREATE flip product card: front + back */
             function createProductCard(p) {
                 const art = document.createElement('article');
                 art.className = 'product-card';
+                art.tabIndex = 0;
+                art.setAttribute('role', 'group');
+                const featuresHtml = (p.features || []).map(f => `<li>${esc(f)}</li>`).join('');
+                const longHtml = (p.longDesc || p.description || '').split('\n').map(line => `<p style="margin:6px 0">${esc(line)}</p>`).join('');
+
                 art.innerHTML = `
-          <div class="img"><img src="${esc(p.image)}" alt="${esc(p.title)}"><div class="price-badge">₹${Number(p.price || 0).toFixed(0)} / ${esc(p.unit || '')}</div></div>
-          <div class="body"><div class="tag-pill">Signature</div><h4>${esc(p.title)}</h4><div class="desc">${esc(p.short || '')}</div></div>
+          <div class="product-card-inner" aria-hidden="false">
+            <div class="product-card-face front" tabindex="-1">
+              <div class="img"><img src="${esc(p.image)}" alt="${esc(p.title)}"><div class="price-badge">₹${Number(p.price || 0).toFixed(0)} / ${esc(p.unit || '')}</div></div>
+              <div class="body">
+                <div class="tag-pill">Signature</div>
+                <h4>${esc(p.title)}</h4>
+                <div class="desc">${esc(p.short || '')}</div>
+                <div class="flip-hint">Tap to view details ↻</div>
+              </div>
+            </div>
+
+            <div class="product-card-face back" tabindex="-1">
+              <div class="product-back-title">${esc(p.title)}</div>
+              <div class="product-back-desc">${longHtml}</div>
+              ${featuresHtml ? `<ul class="product-back-list">${featuresHtml}</ul>` : ''}
+              <div style="margin-top:12px; display:flex; gap:8px; justify-content:flex-end;">
+                <button class="btn-close" aria-label="Close details" style="background:#f1f1f1;border:0;padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer;">Close</button>
+              </div>
+            </div>
+          </div>
         `;
+
+                // flip handlers: toggle class .is-flipped
+                function flipOn() { art.classList.add('is-flipped'); art.querySelector('.product-card-inner').setAttribute('aria-hidden', 'true'); }
+                function flipOff() { art.classList.remove('is-flipped'); art.querySelector('.product-card-inner').setAttribute('aria-hidden', 'false'); }
+
+                art.addEventListener('click', (e) => {
+                    if (e.target && e.target.classList && e.target.classList.contains('btn-close')) { flipOff(); e.stopPropagation(); return; }
+                    art.classList.toggle('is-flipped');
+                });
+
+                // keyboard: Enter or Space toggles
+                art.addEventListener('keydown', e => {
+                    if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+                        e.preventDefault();
+                        art.classList.toggle('is-flipped');
+                    }
+                    if (e.key === 'Escape') art.classList.remove('is-flipped');
+                });
+
                 return art;
             }
 
-            /* create combo card */
+            /* create combo card - reuse product-card style with summary */
             function createComboCard(c, lookup) {
-                const firstImg = c.image || (lookup[c.items && c.items[0]] && lookup[c.items[0]].image) || 'https://cdn.jsdelivr.net/gh/dnaveenshankar/DosaToppings/assets/signature-1.png';
-                const fake = { image: firstImg, title: c.title, price: c.price, unit: c.unit, short: c.short };
+                const firstImg = c.image || (lookup[c.items && c.items[0]] && lookup[c.items[0]].image) || '';
+                const fake = { image: firstImg, title: c.title, price: c.price, unit: c.unit, short: c.short, longDesc: c.short, features: [] };
                 return createProductCard(fake);
             }
 
-            /* renderers */
+            /* RENDERERS */
             function renderBest() {
                 bestRow.innerHTML = '';
                 const lookup = {}; storeData.products.forEach(p => lookup[p.id] = p);
                 const ids = (storeData.bestSellers && storeData.bestSellers.length) ? storeData.bestSellers.slice() : storeData.products.slice(0, 4).map(p => p.id);
                 ids.map(id => lookup[id]).filter(Boolean).forEach(p => bestRow.appendChild(createProductCard(p)));
+                setupIndicatorsFor(bestRow);
             }
             function renderCombos() {
                 combosRow.innerHTML = '';
                 const lookup = {}; storeData.products.forEach(p => lookup[p.id] = p);
                 storeData.combos.forEach(c => combosRow.appendChild(createComboCard(c, lookup)));
+                setupIndicatorsFor(combosRow);
             }
             function renderProducts() {
                 productsRow.innerHTML = '';
                 storeData.products.forEach(p => productsRow.appendChild(createProductCard(p)));
+                setupIndicatorsFor(productsRow);
             }
 
             /* hero slider (keeps previous behavior) */
@@ -1267,24 +1427,77 @@
                 document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') goTo(idx + 1); if (e.key === 'ArrowLeft') goTo(idx - 1); });
             })();
 
-            /* universal horizontal carousel with looping clones if overflow */
+            /* INDICATORS for a given horizontal container */
+            function setupIndicatorsFor(container) {
+                // remove existing indicator if any
+                const existing = container.parentElement.querySelector('.carousel-indicators[data-for="' + container.id + '"]');
+                if (existing) existing.remove();
+
+                const cards = Array.from(container.querySelectorAll('.product-card'));
+                if (!cards.length) return;
+
+                const style = window.getComputedStyle(container);
+                const gap = parseFloat(style.getPropertyValue('gap')) || 18;
+                const cardRect = cards[0].getBoundingClientRect();
+                const cardW = Math.round(cardRect.width);
+                const visible = Math.max(1, Math.floor((container.clientWidth + gap) / (cardW + gap)));
+                const pages = Math.max(1, Math.ceil(cards.length / visible));
+
+                if (container.scrollWidth <= container.clientWidth + 2 || pages <= 1) return; // no overflow -> no indicators
+
+                const pill = document.createElement('div');
+                pill.className = 'carousel-indicators';
+                pill.dataset.for = container.id || '';
+
+                for (let i = 0; i < pages; i++) {
+                    const d = document.createElement('button');
+                    d.className = 'dot' + (i === 0 ? ' active' : '');
+                    d.type = 'button';
+                    d.setAttribute('aria-label', 'Go to page ' + (i + 1));
+                    d.dataset.page = i;
+                    d.addEventListener('click', () => {
+                        const step = Math.round((cardW + gap) * visible);
+                        container.scrollTo({ left: i * step, behavior: 'smooth' });
+                    });
+                    pill.appendChild(d);
+                }
+
+                let parent = container.parentElement;
+                parent.style.position = parent.style.position || 'relative';
+                parent.appendChild(pill);
+
+                const dots = Array.from(pill.querySelectorAll('.dot'));
+                function updateActive() {
+                    const step = (cardW + gap) * visible;
+                    const index = Math.round(container.scrollLeft / step);
+                    dots.forEach((e, idx) => e.classList.toggle('active', idx === index));
+                }
+                container.addEventListener('scroll', debounce(updateActive, 80), { passive: true });
+
+                window.addEventListener('resize', debounce(() => {
+                    const visibleN = Math.max(1, Math.floor((container.clientWidth + gap) / (cardW + gap)));
+                    const newPages = Math.max(1, Math.ceil(cards.length / visibleN));
+                    if (newPages !== pages) {
+                        pill.remove();
+                        setupIndicatorsFor(container);
+                    }
+                }, 180));
+            }
+
+            /* looping carousel (keeps your previous implementation) */
             function setupLoopingCarousel(container, intervalMs) {
                 if (!container) return null;
                 const cards = Array.from(container.querySelectorAll('.product-card'));
                 if (!cards.length) return null;
 
-                // remove any previous clones marker
-                function removeClones() {
-                    Array.from(container.querySelectorAll('[data-clone="true"]')).forEach(n => n.remove());
-                }
+                function removeClones() { Array.from(container.querySelectorAll('[data-clone="true"]')).forEach(n => n.remove()); }
 
-                // compute card width and visible count
                 function metrics() {
                     const card = container.querySelector('.product-card');
                     if (!card) return { cardW: Math.round(container.clientWidth * 0.9), visible: 1 };
                     const cardRect = card.getBoundingClientRect();
                     const style = window.getComputedStyle(container);
-                    let gap = parseFloat(style.getPropertyValue('gap')) || parseFloat(style.getPropertyValue('column-gap')) || parseFloat(style.getPropertyValue('grid-column-gap')) || 18;
+                    let gap = parseFloat(style.getPropertyValue('gap')) || 18;
                     const cardW = Math.round(cardRect.width);
                     const visible = Math.max(1, Math.floor((container.clientWidth + gap) / (cardW + gap)));
                     return { cardW, gap, visible };
@@ -1292,15 +1505,12 @@
 
                 let { cardW, gap, visible } = metrics();
                 let originalScrollWidth = container.scrollWidth;
-                let timer = null;
-                let paused = false;
+                let timer = null, paused = false;
 
-                // clones only needed when content overflows
                 function ensureClones() {
                     removeClones();
                     originalScrollWidth = container.scrollWidth;
-                    if (container.scrollWidth <= container.clientWidth + 2) return false; // no overflow -> no clones
-                    // append clones of first `visible + 1` items to enable smooth loop
+                    if (container.scrollWidth <= container.clientWidth + 2) return false;
                     const cloneCount = Math.min(Math.max(1, visible + 1), container.querySelectorAll('.product-card').length);
                     const toClone = Array.from(container.querySelectorAll('.product-card')).slice(0, cloneCount);
                     toClone.forEach(n => {
@@ -1308,7 +1518,7 @@
                         clone.setAttribute('data-clone', 'true');
                         container.appendChild(clone);
                     });
-                    originalScrollWidth = container.scrollWidth - cloneCount * (cardW + gap); // approximate original width (used below)
+                    originalScrollWidth = container.scrollWidth - cloneCount * (cardW + gap);
                     return true;
                 }
 
@@ -1318,60 +1528,41 @@
                     stop();
                     timer = setInterval(() => {
                         if (paused) return;
-                        // if no overflow (no clones), just scroll by step until reach end then stop (or optionally bounce)
                         const maxScroll = container.scrollWidth - container.clientWidth;
                         const step = Math.round(cardW + gap);
-                        // if not overflowing, don't auto-scroll
-                        if (container.scrollWidth <= container.clientWidth + 2) {
-                            // nothing to do
-                            stop();
-                            return;
-                        }
-                        // otherwise perform smooth scroll by step
+                        if (container.scrollWidth <= container.clientWidth + 2) { stop(); return; }
                         const nextLeft = Math.min(Math.round(container.scrollLeft + step), maxScroll);
                         container.scrollTo({ left: nextLeft, behavior: 'smooth' });
-                        // after a small delay (allow smooth scroll) check for loop condition
                         setTimeout(() => {
-                            // if we passed original scroll width (i.e., are in clone area), jump back by originalScrollWidth
                             if (container.scrollLeft >= (originalScrollWidth - 2)) {
-                                // jump back to equivalent position (no animation)
                                 container.scrollLeft = container.scrollLeft - originalScrollWidth;
                             }
                         }, 420);
                     }, intervalMs);
                 }
-
                 function stop() { if (timer) { clearInterval(timer); timer = null; } }
-
-                // pause/resume on user interaction
                 container.addEventListener('mouseenter', () => { paused = true; stop(); });
                 container.addEventListener('mouseleave', () => { paused = false; start(); });
                 container.addEventListener('touchstart', () => { paused = true; stop(); }, { passive: true });
                 container.addEventListener('touchend', () => { paused = false; start(); }, { passive: true });
-                // pointer interactions (drag/swipe)
                 container.addEventListener('pointerdown', () => { paused = true; stop(); }, { passive: true });
                 container.addEventListener('pointerup', () => { paused = false; start(); }, { passive: true });
 
-                // visible intersection - only autoplay when visible
                 const io = new IntersectionObserver(entries => {
                     entries.forEach(en => {
-                        if (en.isIntersecting) { start(); }
-                        else { stop(); }
+                        if (en.isIntersecting) start(); else stop();
                     });
                 }, { threshold: 0.4 });
                 io.observe(container);
 
-                // handle resize: recompute metrics and clones
                 window.addEventListener('resize', debounce(() => {
                     ({ cardW, gap, visible } = metrics());
                     hasClones = ensureClones();
                 }, 160));
 
-                // initial small delay to allow layout & start if needed
                 setTimeout(() => {
                     ({ cardW, gap, visible } = metrics());
                     hasClones = ensureClones();
-                    // start only when overflow
                     if (container.scrollWidth > container.clientWidth + 2) start();
                 }, 80);
 
@@ -1385,8 +1576,9 @@
                 renderProducts();
             } catch (e) { console.error('render error', e); }
 
-            /* set up carousels (6s) */
-            const productsController = setupLoopingCarousel(productsRow, 6000);
+            /* set up carousels (6s) for each row */
+            const controllers = [];
+            [bestRow, combosRow, productsRow].forEach(r => { const c = setupLoopingCarousel(r, 6000); if (c) controllers.push(c); });
 
             /* bottom nav highlight */
             (function bottomNavHighlight() {
