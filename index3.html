@@ -7,15 +7,13 @@
     <title>Dosa Toppings — Healthy Twist for Every Dosa</title>
     <meta name="description" content="Dosa Toppings — authentic, small-batch podis & spices." />
     <style>
-        /* ========= root / tokens ========= */
+        /* ===== root tokens ===== */
         :root {
             --nav-yellow: #FFCF2B;
-            --accent-green: #15743a;
-            --accent-green-2: #1d7a3a;
+            --accent-green: #1d7a3a;
             --muted: #59636a;
-            --card-shadow: 0 8px 28px rgba(8, 12, 20, 0.08);
-            --soft-shadow: 0 6px 18px rgba(15, 23, 42, 0.06);
-            --glass: rgba(255, 255, 255, 0.92);
+            --card-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
+            --soft-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
             --max-width: 1200px;
             --radius: 14px;
             --gutter: 20px;
@@ -23,7 +21,7 @@
             font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
         }
 
-        /* ===== reset-ish ===== */
+        /* ===== reset ===== */
         * {
             box-sizing: border-box
         }
@@ -35,12 +33,11 @@
 
         body {
             margin: 0;
-            background: #ffffff;
+            background: #fff;
             color: #162026;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
             line-height: 1.5;
             font-size: 16px;
+            -webkit-font-smoothing: antialiased
         }
 
         img {
@@ -48,29 +45,20 @@
             display: block
         }
 
-        /* alias as requested */
-        .conater {
-            /* user's requested "conater" spelling */
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 var(--gutter);
-            width: 100%;
-        }
-
+        /* alias container as requested */
+        .conater,
         .container {
-            /* canonical */
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 var(--gutter);
             width: 100%;
         }
 
-        /* ===== preloader ===== */
+        /* ===== PRELOADER (white bg, logo only) ===== */
         .preloader {
             position: fixed;
             inset: 0;
-            background: #ffffff;
-            /* white background while preloader going */
+            background: #fff;
             z-index: 99999;
             display: flex;
             align-items: center;
@@ -91,131 +79,176 @@
             height: 120px;
             display: grid;
             place-items: center;
-            border-radius: 20px;
-            transform-origin: center;
+            border-radius: 16px;
+            padding: 10px;
             animation: pre-spin 1.6s linear infinite;
-            box-shadow: 0 12px 44px rgba(20, 40, 20, 0.08);
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(254, 252, 240, 0.9));
-            padding: 12px;
+            background: linear-gradient(180deg, #fff, #fffaf0);
+            box-shadow: 0 12px 44px rgba(20, 40, 20, 0.06);
         }
 
         .preloader .logo img {
             width: 100%;
             height: auto;
             display: block;
-            filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.06));
+            filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.06));
         }
 
         @keyframes pre-spin {
             0% {
-                transform: rotate(0deg) scale(1)
+                transform: rotate(0)
             }
 
             50% {
-                transform: rotate(180deg) scale(1.04)
+                transform: rotate(180deg)
             }
 
             100% {
-                transform: rotate(360deg) scale(1)
+                transform: rotate(360deg)
             }
         }
 
-        /* ===== NAVBAR ===== */
+        /* ===== HEADER / centered nav like image ===== */
         .topbar {
             position: fixed;
+            top: 0;
             left: 0;
             right: 0;
-            top: 0;
             z-index: 1200;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 12px 18px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
-            box-shadow: 0 12px 40px rgba(10, 20, 10, 0.07);
-            backdrop-filter: blur(6px);
+            background: rgba(255, 255, 255, 0.96);
+            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.10);
+            padding: 10px 8px;
             border-bottom: 1px solid rgba(10, 20, 10, 0.03);
+            backdrop-filter: blur(6px);
         }
 
         .nav-inner {
+            position: relative;
             display: flex;
             align-items: center;
-            gap: 20px;
-            width: 100%;
-            max-width: var(--max-width);
-            padding: 0 var(--gutter);
             justify-content: space-between;
+            gap: 16px;
+            max-width: var(--max-width);
+            margin: 0 auto;
+            padding: 0 var(--gutter);
         }
 
-        .brand {
+        /* left logo */
+        .brand-left {
             display: flex;
             align-items: center;
-            gap: 14px
+            gap: 12px
         }
 
-        .brand img {
-            height: 52px;
+        .brand-logo {
+            height: 56px;
             width: auto;
-            border-radius: 10px;
-            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.05)
+            border-radius: 10px
         }
 
-        .brand h1 {
-            margin: 0;
-            font-size: 20px;
-            color: var(--accent-green-2);
-            letter-spacing: 0.3px
+        /* right placeholder to keep center truly centered */
+        .brand-right {
+            width: 64px;
+            height: 1px
         }
 
-        .brand .tag {
-            font-size: 12px;
-            color: var(--muted)
+        /* center nav absolutely centered in nav-inner */
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1250;
+            display: block;
         }
 
-        nav ul {
+        .nav-list {
             display: flex;
-            gap: 20px;
+            gap: 26px;
             list-style: none;
             margin: 0;
             padding: 0;
             align-items: center;
-            justify-content: center;
+            white-space: nowrap
         }
 
-        nav a {
+        .nav-list a {
             text-decoration: none;
             color: var(--nav-yellow);
             font-weight: 700;
-            padding: 8px 14px;
-            border-radius: 10px;
-            transition: all .18s var(--easing);
-            text-transform: capitalize;
-            letter-spacing: 0.2px;
-            box-shadow: 0 6px 18px rgba(255, 207, 43, 0.02) inset;
+            padding: 8px 10px;
+            border-radius: 8px;
+            transition: all .16s var(--easing);
+            font-size: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        nav a:hover,
-        nav a:focus {
-            transform: translateY(-3px) scale(1.01);
-            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
-            color: #2b2b2b;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0.2));
+        .nav-list a:hover,
+        .nav-list a:focus {
+            transform: translateY(-3px);
+            color: #222;
+            background: rgba(255, 255, 255, 0.42);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+        }
+
+        .caret {
+            font-size: 12px;
+            color: rgba(0, 0, 0, 0.55);
+            transform: translateY(-1px)
+        }
+
+        .badge-new {
+            background: #ff6fa4;
+            color: #fff;
+            font-weight: 800;
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 14px;
+            margin-left: 6px;
+            display: inline-flex;
+            align-items: center
+        }
+
+        /* responsive: collapse nav into flow on small screens */
+        @media (max-width:760px) {
+            .nav-center {
+                position: static;
+                transform: none;
+                margin-left: 6px;
+                margin-right: 6px
+            }
+
+            .nav-inner {
+                align-items: flex-start
+            }
+
+            .brand-logo {
+                height: 44px
+            }
+
+            .nav-list {
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center
+            }
+
+            .brand-right {
+                width: 44px
+            }
         }
 
         /* ===== HERO ===== */
         .hero {
-            margin-top: 86px;
+            margin-top: 94px;
             position: relative;
             width: 100%;
             min-height: 60vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
             background: linear-gradient(180deg, #fff, #fbfdf9);
-            border-bottom-left-radius: 28px;
-            border-bottom-right-radius: 28px;
-            box-shadow: 0 20px 60px rgba(8, 12, 8, 0.03);
+            padding: 18px 0
         }
 
         .slides {
@@ -224,7 +257,7 @@
             position: relative;
             border-radius: 20px;
             overflow: hidden;
-            margin: 18px 0;
+            max-width: 1400px
         }
 
         .slide {
@@ -233,9 +266,8 @@
             background-size: cover;
             background-position: center;
             opacity: 0;
-            transform: translateY(10px) scale(1.02);
-            transition: opacity .9s var(--easing), transform .9s var(--easing);
-            will-change: opacity, transform;
+            transform: translateY(12px) scale(1.02);
+            transition: opacity .9s var(--easing), transform .9s var(--easing)
         }
 
         .slide.show {
@@ -243,48 +275,47 @@
             transform: translateY(0) scale(1)
         }
 
-        .hero .overlay {
+        .overlay {
             position: absolute;
             inset: 0;
             display: flex;
             align-items: flex-end;
             justify-content: flex-start;
-            padding: 30px;
-            pointer-events: none;
+            padding: 28px;
+            pointer-events: none
         }
 
-        .hero .caption {
+        .caption {
             max-width: 720px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.76));
-            padding: 20px 22px;
-            border-radius: 14px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.76));
+            padding: 18px 20px;
+            border-radius: 12px;
             box-shadow: var(--soft-shadow);
-            pointer-events: auto;
-            backdrop-filter: blur(2px);
+            pointer-events: auto
         }
 
-        .hero h2 {
+        .caption h2 {
             margin: 0 0 6px;
-            font-size: 22px;
-            color: var(--accent-green-2)
+            color: var(--accent-green);
+            font-size: 20px
         }
 
-        .hero p {
+        .caption p {
             margin: 0;
             color: var(--muted)
         }
 
         .dots {
             position: absolute;
-            right: 20px;
-            bottom: 20px;
+            right: 18px;
+            bottom: 18px;
             display: flex;
             gap: 10px;
-            z-index: 20;
-            background: rgba(255, 255, 255, 0.62);
             padding: 8px;
             border-radius: 999px;
+            background: rgba(255, 255, 255, 0.72);
             box-shadow: var(--soft-shadow);
+            z-index: 20
         }
 
         .dot {
@@ -297,46 +328,39 @@
         }
 
         .dot.active {
-            background: var(--nav-yellow);
-            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08) inset
+            background: var(--nav-yellow)
         }
 
         /* ===== MARQUEE ===== */
         .marquee-wrap {
-            margin: 28px auto 8px;
-            padding: 6px 0;
-            width: 100%
+            margin: 26px 0 12px
+        }
+
+        .marqueebox {
+            border-radius: 12px;
+            padding: 6px;
+            box-shadow: 0 8px 28px rgba(8, 12, 8, 0.03);
         }
 
         .marquee {
             display: flex;
-            gap: 26px;
+            gap: 22px;
             align-items: center;
             white-space: nowrap;
             animation: marquee 14s linear infinite;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 18px;
-            color: var(--accent-green-2);
-            padding: 6px 6px;
+            color: var(--accent-green)
         }
 
         .marq-item {
             display: inline-flex;
             gap: 10px;
             align-items: center;
-            padding: 10px 14px;
+            padding: 8px 12px;
             border-radius: 999px;
             background: linear-gradient(90deg, #fffef7, #f9fff4);
-            box-shadow: 0 10px 28px rgba(8, 12, 10, 0.04);
-            color: var(--accent-green-2)
-        }
-
-        .marqueebox {
-            overflow: hidden;
-            border-radius: 16px;
-            padding: 6px;
-            margin: 0 var(--gutter);
-            box-shadow: 0 6px 24px rgba(16, 26, 16, 0.03)
+            box-shadow: 0 8px 28px rgba(8, 12, 10, 0.04)
         }
 
         @keyframes marquee {
@@ -349,80 +373,76 @@
             }
         }
 
-        /* ===== SECTIONS / CARDS ===== */
+        /* ===== SECTIONS ===== */
         .section {
-            padding: 28px 0;
+            padding: 26px 0
         }
 
         .section-title {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 14px
+            margin-bottom: 12px
         }
 
         .section-title h3 {
             margin: 0;
-            color: var(--accent-green-2);
+            color: var(--accent-green);
             font-size: 18px
         }
 
         .about-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 18px
+            gap: 16px
         }
 
         .about-card {
-            background: linear-gradient(180deg, #ffffff, #fffefb);
-            border-radius: 14px;
+            background: linear-gradient(180deg, #fff, #fffef9);
+            border-radius: 12px;
             padding: 18px;
             box-shadow: var(--card-shadow)
         }
 
         .about-list {
             display: flex;
-            gap: 18px;
+            gap: 14px;
             flex-wrap: wrap
         }
 
         .about-list .item {
             display: flex;
-            gap: 12px;
+            gap: 10px;
             align-items: flex-start;
             min-width: 220px
         }
 
-        /* products */
-        .products {
-            margin-top: 8px
-        }
-
+        /* ===== PRODUCTS ===== */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
-            gap: 16px
+            gap: 14px;
+            margin-top: 12px
         }
 
         .product-card {
-            background: linear-gradient(180deg, #fff, #fffefa);
-            border-radius: 12px;
-            padding: 12px;
-            box-shadow: var(--card-shadow);
             display: flex;
             gap: 12px;
             align-items: center;
-            transition: transform .18s var(--easing), box-shadow .18s var(--easing)
+            padding: 12px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, #fff, #fffef7);
+            box-shadow: var(--card-shadow);
+            transition: transform .16s var(--easing)
         }
 
         .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 22px 60px rgba(12, 24, 12, 0.08)
+            transform: translateY(-6px)
         }
 
         .product-card img {
-            width: 92px;
-            height: 92px;
+            width: 96px;
+            height: 96px;
             object-fit: cover;
             border-radius: 10px;
             flex-shrink: 0
@@ -447,18 +467,18 @@
             margin-left: 8px
         }
 
-        /* horizontal scroll for mobile */
+        /* mobile scroll */
         .scroll-x {
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             padding-bottom: 10px;
-            margin-top: 12px
+            margin-top: 10px
         }
 
         .products-row {
             display: flex;
             gap: 12px;
-            padding: 12px 4px
+            padding: 12px 0
         }
 
         .scroll-x .product-card {
@@ -466,10 +486,10 @@
             flex: 0 0 auto
         }
 
-        /* FOOTER */
+        /* ===== FOOTER ===== */
         footer {
-            margin-top: 36px;
-            padding: 34px 0;
+            margin-top: 30px;
+            padding: 30px 0;
             background: #f7fbf6;
             color: #1e2a24;
             border-top: 1px solid rgba(12, 18, 12, 0.03)
@@ -480,17 +500,16 @@
             gap: 18px;
             align-items: flex-start;
             justify-content: space-between;
-            flex-wrap: wrap;
-            padding: 0 var(--gutter)
+            flex-wrap: wrap
         }
 
-        /* to-top */
+        /* ===== GO TO TOP ===== */
         .to-top {
             position: fixed;
             right: 18px;
             bottom: 22px;
-            background: var(--accent-green-2);
-            color: white;
+            background: var(--accent-green);
+            color: #fff;
             width: 52px;
             height: 52px;
             border-radius: 50%;
@@ -498,10 +517,10 @@
             place-items: center;
             box-shadow: 0 12px 44px rgba(10, 20, 10, 0.18);
             cursor: pointer;
-            z-index: 1500;
             border: none;
             font-weight: 800;
-            font-size: 18px
+            font-size: 18px;
+            z-index: 1500
         }
 
         .to-top:focus {
@@ -509,18 +528,12 @@
             outline-offset: 3px
         }
 
-        /* small polish */
-        a:focus {
-            outline: 2px solid rgba(255, 207, 43, 0.18);
-            outline-offset: 3px
-        }
-
         .muted {
             color: var(--muted)
         }
 
-        /* responsive breakpoints */
-        @media(min-width:720px) {
+        /* ===== responsive rules ===== */
+        @media (min-width:720px) {
             .about-grid {
                 grid-template-columns: 1fr 1fr
             }
@@ -535,34 +548,22 @@
             }
         }
 
-        @media(min-width:1000px) {
-            nav ul {
-                gap: 28px
-            }
-
+        @media (min-width:1000px) {
             .products-grid {
                 grid-template-columns: repeat(4, 1fr)
             }
 
-            .hero .caption {
-                padding: 22px 26px;
-            }
-
             .slides {
-                border-radius: 26px
+                border-radius: 20px
             }
         }
 
-        @media(max-width:520px) {
-            .brand h1 {
-                font-size: 16px
-            }
-
-            .brand img {
+        @media (max-width:520px) {
+            .brand-logo {
                 height: 44px
             }
 
-            .hero h2 {
+            .caption h2 {
                 font-size: 18px
             }
 
@@ -575,55 +576,61 @@
 
 <body>
 
-    <!-- PRELOADER (MANDATORY 3 SECONDS) -->
+    <!-- MANDATORY 3s PRELOADER (white background only logo) -->
     <div class="preloader" id="preloader" aria-hidden="true">
         <div class="logo" aria-hidden="true">
             <img src="assets/icon-5.png" alt="Dosa Toppings logo" />
         </div>
     </div>
 
-    <!-- NAV -->
+    <!-- HEADER with centered nav -->
     <header class="topbar" role="banner" aria-label="Main navigation">
         <div class="nav-inner conater">
-            <div class="brand" aria-hidden="false">
-                <img src="assets/icon-5.png" alt="Dosa Toppings" />
-                <div>
-                    <h1>Dosa Toppings</h1>
-                    <div class="tag muted">Instant Authentic Flavour</div>
-                </div>
+            <!-- left: logo -->
+            <div class="brand-left">
+                <a href="#" aria-label="Dosa Toppings home">
+                    <img src="assets/icon-5.png" alt="Dosa Toppings" class="brand-logo" />
+                </a>
             </div>
 
-            <nav role="navigation" aria-label="Primary">
-                <ul>
-                    <li><a href="#home">home</a></li>
-                    <li><a href="#about-us">about us</a></li>
-                    <li><a href="#products">products</a></li>
-                    <li><a href="#quality">quality</a></li>
-                    <li><a href="#contact">contact</a></li>
+            <!-- center: nav -->
+            <nav class="nav-center" role="navigation" aria-label="Primary">
+                <ul class="nav-list" role="menubar">
+                    <li role="none"><a role="menuitem" href="#home">Home</a></li>
+                    <li role="none"><a role="menuitem" href="#about-us">About Us</a></li>
+                    <li role="none"><a role="menuitem" href="#products">Products <span class="caret">▾</span></a></li>
+                    <li role="none"><a role="menuitem" href="#quality">Quality <span class="caret">▾</span></a></li>
+                    <li role="none"><a role="menuitem" href="#contact">Contact</a></li>
+                    <li role="none"><a role="menuitem" href="#shopall">Shop All <span class="badge-new">New</span></a>
+                    </li>
                 </ul>
             </nav>
+
+            <!-- right placeholder -->
+            <div class="brand-right" aria-hidden="true"></div>
         </div>
     </header>
 
-    <!-- MAIN -->
+    <!-- MAIN CONTENT -->
     <main id="home" style="background:#fff;">
-        <!-- HERO -->
+
+        <!-- HERO: 4 slides (assets/) -->
         <section class="hero" aria-label="Hero slider">
             <div class="conater">
                 <div class="slides" id="slides" aria-live="polite" aria-atomic="true">
                     <div class="slide show" style="background-image:url('assets/hero-1.png');" role="img"
-                        aria-label="Hero slide 1"></div>
+                        aria-label="Hero 1"></div>
                     <div class="slide" style="background-image:url('assets/hero-2.png');" role="img"
-                        aria-label="Hero slide 2"></div>
+                        aria-label="Hero 2"></div>
                     <div class="slide" style="background-image:url('assets/hero-3.png');" role="img"
-                        aria-label="Hero slide 3"></div>
+                        aria-label="Hero 3"></div>
                     <div class="slide" style="background-image:url('assets/hero-4.png');" role="img"
-                        aria-label="Hero slide 4"></div>
+                        aria-label="Hero 4"></div>
 
                     <div class="overlay">
                         <div class="caption" role="note">
                             <h2>Small-batch podis — big homemade flavour</h2>
-                            <p>Freshly roasted. Stone-ground. Designed for today's quick & tasty meals.</p>
+                            <p>Freshly roasted. Stone-ground. Ready-to-sprinkle for instant homely taste.</p>
                         </div>
                     </div>
 
@@ -640,7 +647,7 @@
                     <div class="marq-item">⚙️ &nbsp; No Preservatives</div>
                     <div class="marq-item">🍽️ &nbsp; Ready-to-Sprinkle</div>
 
-                    <!-- duplicate for smooth continuous scroll -->
+                    <!-- duplicate for continuous effect -->
                     <div class="marq-item">🌿 &nbsp; 100% Natural</div>
                     <div class="marq-item">⚙️ &nbsp; No Preservatives</div>
                     <div class="marq-item">🍽️ &nbsp; Ready-to-Sprinkle</div>
@@ -661,7 +668,6 @@
                             of home into today’s fast-moving lifestyle.</p>
                         <p>Our recipes come from classic South Indian kitchens, but our packaging is designed for modern
                             convenience. Every bottle carries the flavour, aroma, and love of home-style podis.</p>
-
                         <p><strong>We believe in:</strong></p>
                         <ul>
                             <li>Honest ingredients</li>
@@ -726,13 +732,13 @@
                 <p class="muted">Pure, elevated podis — small-batch roasted, stone-ground and finished for today’s
                     table. <em>*Images shown are for illustration purposes only.*</em></p>
 
-                <!-- mobile scroll -->
-                <div class="scroll-x" id="products-scroll" aria-hidden="false">
+                <!-- mobile horizontally scrollable -->
+                <div class="scroll-x" id="products-scroll">
                     <div class="products-row" id="productsRow"></div>
                 </div>
 
                 <!-- desktop grid -->
-                <div class="products-grid" id="productsGrid" style="display:none; margin-top:14px;"></div>
+                <div class="products-grid" id="productsGrid" style="display:none"></div>
             </div>
         </section>
 
@@ -746,7 +752,6 @@
                 <div class="about-card">
                     <p>Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
                         food-safety standards.</p>
-
                     <div class="about-list" style="margin-top:12px;">
                         <div class="item">
                             <div>🌶️</div>
@@ -813,7 +818,7 @@
 
         <!-- FOOTER -->
         <footer id="contact" role="contentinfo">
-            <div class="footer-inner conater">
+            <div class="conater footer-inner">
                 <div style="display:flex;gap:12px;align-items:center;">
                     <img src="assets/icon-5.png" alt="logo" style="height:64px;width:auto;border-radius:10px" />
                     <div>
@@ -844,53 +849,45 @@
         </footer>
     </main>
 
-    <!-- GO TO TOP -->
+    <!-- Go to top -->
     <button class="to-top" id="toTop" title="Go to top" aria-label="Go to top">↑</button>
 
-    <!-- SCRIPTS -->
     <script>
         /* ===== PRELOADER: mandatory 3 seconds ===== */
         (function () {
             const pre = document.getElementById('preloader');
-            // keep preloader visible for at least 3 seconds
             const MIN_MS = 3000;
             const started = Date.now();
 
-            // After DOM content is loaded, ensure at least 3s then hide
             function hidePreloader() {
                 const delta = Date.now() - started;
                 const wait = Math.max(0, MIN_MS - delta);
-                setTimeout(() => {
-                    pre.classList.add('hidden');
-                }, wait);
+                setTimeout(() => { pre.classList.add('hidden'); }, wait);
             }
 
-            // If page loads quickly, still wait MIN_MS; otherwise hide after MIN_MS or on load whichever later
             if (document.readyState === 'complete' || document.readyState === 'interactive') {
-                // short defer to allow visible preloader
                 hidePreloader();
             } else {
                 window.addEventListener('DOMContentLoaded', hidePreloader);
-                // also as fallback, ensure it's hidden after a safe max (10s)
                 setTimeout(() => pre.classList.add('hidden'), 10000);
             }
         })();
 
-        /* ===== HERO SLIDER: auto change every 5 seconds ===== */
+        /* ===== HERO SLIDER (auto-change every 5s) ===== */
         (function () {
             const slides = Array.from(document.querySelectorAll('.slide'));
             const dotsWrap = document.getElementById('dots');
             let idx = 0;
             const total = slides.length;
+            const INTERVAL = 5000; // 5 seconds
             let timer = null;
-            const INTERVAL = 5000; // 5 seconds as requested
 
             // create dots
             for (let i = 0; i < total; i++) {
                 const d = document.createElement('button');
                 d.className = 'dot' + (i === 0 ? ' active' : '');
                 d.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-                d.addEventListener('click', () => { goTo(i); });
+                d.addEventListener('click', () => goTo(i));
                 dotsWrap.appendChild(d);
             }
             const dots = Array.from(dotsWrap.children);
@@ -904,73 +901,49 @@
                 show(idx);
                 restart();
             }
-            function next() {
-                idx = (idx + 1) % total;
-                show(idx);
-            }
-            function restart() {
-                if (timer) clearInterval(timer);
-                timer = setInterval(next, INTERVAL);
-            }
+            function next() { idx = (idx + 1) % total; show(idx); }
+            function restart() { if (timer) clearInterval(timer); timer = setInterval(next, INTERVAL); }
 
-            // Start after preloader hides to avoid image flash
+            // start slider after preloader finishes to avoid flash
             const pre = document.getElementById('preloader');
-            const startSlider = () => {
-                // ensure first slide visible
-                show(idx);
-                restart();
-            };
-
-            // observe preloader hidden class
-            const obs = new MutationObserver((m) => {
-                for (const rec of m) {
-                    if (rec.type === 'attributes' && pre.classList.contains('hidden')) {
-                        startSlider();
-                        obs.disconnect();
-                        break;
-                    }
-                }
-            });
+            const startSlider = () => { show(idx); restart(); }
+            const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { startSlider(); obs.disconnect(); } });
             obs.observe(pre, { attributes: true });
 
-            // Fallback: start after 3.2s if observer misses
+            // fallback start
             setTimeout(() => { if (!timer) startSlider(); }, 3200);
 
-            // pause on hover/focus for accessibility
+            // pause on hover/focus
             const slideEl = document.getElementById('slides');
             slideEl.addEventListener('mouseenter', () => clearInterval(timer));
             slideEl.addEventListener('mouseleave', restart);
             slideEl.addEventListener('focusin', () => clearInterval(timer));
             slideEl.addEventListener('focusout', restart);
 
-            // keyboard left/right
+            // keyboard nav
             document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') {
-                    goTo((idx + 1) % total);
-                } else if (e.key === 'ArrowLeft') {
-                    goTo((idx - 1 + total) % total);
-                }
+                if (e.key === 'ArrowRight') goTo((idx + 1) % total);
+                if (e.key === 'ArrowLeft') goTo((idx - 1 + total) % total);
             });
         })();
 
-        /* ===== PRODUCTS rendering & layout toggle ===== */
+        /* ===== PRODUCTS data + render + responsive layout toggle ===== */
         (function () {
             const products = [
-                { "id": "sig-001", "title": "Classic Paruppu Podi", "category": "Signature", "price": 100, "unit": "50gms", "short": "Lentil-forward, nutty & aromatic.", "description": "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", "image": "assets/signature-1.png" },
-                { "id": "sig-002", "title": "Curry Leaves Podi", "category": "Signature", "price": 100, "unit": "50gms", "short": "Fragrant curry leaf & roasted dals.", "description": "Aromatic and herbaceous — great with rice and chutney.", "image": "assets/signature-2.png" },
-                { "id": "sig-003", "title": "Moringa Podi", "category": "Signature", "price": 145, "unit": "50gms", "short": "Nutrient-rich moringa, mild spice.", "description": "Vitamin-rich sprinkle — delicious in rice or porridge.", "image": "assets/signature-3.png" },
-                { "id": "sig-004", "title": "Garlic Podi", "category": "Signature", "price": 110, "unit": "50gms", "short": "Roasted garlic — bold & savory.", "description": "Bold garlic flavour that pairs beautifully with ghee dosa.", "image": "assets/signature-4.png" },
-                { "id": "sig-005", "title": "Idli Milagai Podi", "category": "Signature", "price": 95, "unit": "50gms", "short": "Classic mild & nutty seasoning.", "description": "Mild & nutty — perfect for idli and breakfast bowls.", "image": "assets/signature-5.png" },
-                { "id": "sig-006", "title": "Kollu Podi", "category": "Signature", "price": 130, "unit": "50gms", "short": "Protein-rich horse gram blend.", "description": "Earthy & nourishing — great in rice mixes.", "image": "assets/signature-6.png" },
-                { "id": "sig-007", "title": "Peanut Podi", "category": "Signature", "price": 120, "unit": "50gms", "short": "Crispy peanuts & warm spices.", "description": "Crunchy, nutty & satisfying.", "image": "assets/signature-7.png" },
-                { "id": "sig-008", "title": "Sesame Podi", "category": "Signature", "price": 110, "unit": "50gms", "short": "Toasted sesame & fragrant spices.", "description": "Nutty, toasty flavour — great with rice & dosa.", "image": "assets/signature-8.png" }
+                { "id": "sig-001", "title": "Classic Paruppu Podi", "price": 100, "unit": "50gms", "short": "Lentil-forward, nutty & aromatic.", "description": "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", "image": "assets/signature-1.png" },
+                { "id": "sig-002", "title": "Curry Leaves Podi", "price": 100, "unit": "50gms", "short": "Fragrant curry leaf & roasted dals.", "description": "Aromatic and herbaceous — great with rice and chutney.", "image": "assets/signature-2.png" },
+                { "id": "sig-003", "title": "Moringa Podi", "price": 145, "unit": "50gms", "short": "Nutrient-rich moringa, mild spice.", "description": "Vitamin-rich sprinkle — delicious in rice or porridge.", "image": "assets/signature-3.png" },
+                { "id": "sig-004", "title": "Garlic Podi", "price": 110, "unit": "50gms", "short": "Roasted garlic — bold & savory.", "description": "Bold garlic flavour that pairs beautifully with ghee dosa.", "image": "assets/signature-4.png" },
+                { "id": "sig-005", "title": "Idli Milagai Podi", "price": 95, "unit": "50gms", "short": "Classic mild & nutty seasoning.", "description": "Mild & nutty — perfect for idli and breakfast bowls.", "image": "assets/signature-5.png" },
+                { "id": "sig-006", "title": "Kollu Podi", "price": 130, "unit": "50gms", "short": "Protein-rich horse gram blend.", "description": "Earthy & nourishing — great in rice mixes.", "image": "assets/signature-6.png" },
+                { "id": "sig-007", "title": "Peanut Podi", "price": 120, "unit": "50gms", "short": "Crispy peanuts & warm spices.", "description": "Crunchy, nutty & satisfying.", "image": "assets/signature-7.png" },
+                { "id": "sig-008", "title": "Sesame Podi", "price": 110, "unit": "50gms", "short": "Toasted sesame & fragrant spices.", "description": "Nutty, toasty flavour — great with rice & dosa.", "image": "assets/signature-8.png" }
             ];
 
             const row = document.getElementById('productsRow');
             const grid = document.getElementById('productsGrid');
 
             products.forEach(p => {
-                // mobile scroll card
                 const card = document.createElement('article');
                 card.className = 'product-card';
                 card.innerHTML = `
@@ -979,14 +952,11 @@
             <h4>${p.title} <span class="badge">${p.unit}</span></h4>
             <div class="muted">${p.short}</div>
             <div style="margin-top:8px"><span class="price">₹${p.price}</span></div>
-            <div class="note" style="margin-top:6px">${p.description}</div>
+            <div class="muted" style="margin-top:8px">${p.description}</div>
           </div>
         `;
                 row.appendChild(card);
-
-                // desktop grid card
-                const gcard = card.cloneNode(true);
-                grid.appendChild(gcard);
+                grid.appendChild(card.cloneNode(true));
             });
 
             function layoutToggle() {
@@ -999,7 +969,6 @@
                 }
             }
             window.addEventListener('resize', layoutToggle);
-            // initial after a small delay to allow preloader transition
             setTimeout(layoutToggle, 350);
         })();
 
@@ -1008,20 +977,18 @@
             const btn = document.getElementById('toTop');
             btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
             window.addEventListener('scroll', () => {
-                if (window.scrollY > 300) btn.style.display = 'grid';
-                else btn.style.display = 'none';
+                if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none';
             });
             btn.style.display = 'none';
         })();
 
-        /* ===== optional: pause marquee on hover/touch ===== */
+        /* ===== MARQUEE pause on hover/touch ===== */
         (function () {
             const marquee = document.getElementById('marquee');
-            let isPaused = false;
-            marquee.addEventListener('mouseenter', () => { marquee.style.animationPlayState = 'paused'; });
-            marquee.addEventListener('mouseleave', () => { marquee.style.animationPlayState = 'running'; });
-            marquee.addEventListener('touchstart', () => { marquee.style.animationPlayState = 'paused'; }, { passive: true });
-            marquee.addEventListener('touchend', () => { marquee.style.animationPlayState = 'running'; }, { passive: true });
+            marquee.addEventListener('mouseenter', () => marquee.style.animationPlayState = 'paused');
+            marquee.addEventListener('mouseleave', () => marquee.style.animationPlayState = 'running');
+            marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
+            marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
         })();
     </script>
 </body>
