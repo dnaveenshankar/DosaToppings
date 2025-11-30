@@ -83,23 +83,6 @@ The HTML contains an inline `storeData` JS object used to render cards. A produc
 - The page emphasizes small-batch product storytelling and easy conversion to a storefront design.
 - The `setupLoopingCarousel` helper clones nodes to create an infinite scrolling illusion — be cautious when adding dynamic nodes or event listeners to prevent duplicated handlers on clone nodes.
 - The `createProductCard` function safely escapes text using a small `esc` helper to avoid HTML injection via inline data — keep that when loading dynamic content from untrusted sources.
-
----
-
-## License & Attribution
-
-- This README and the supporting code are provided as-is. Choose an appropriate license for your project before publishing. Example: MIT License.
-
-**Icons & images**: the HTML references images hosted on jsDelivr / GitHub. Make sure you own or have permission to use those assets if you publish publicly.
-
----
-
-## Next steps (help I can do)
-
-- Generate a ZIP of the static site (index.html + local assets) for distribution.  
-- Convert this page into a React component or a small static site generator template (e.g., Eleventy, Hugo).  
-- Add a minimal shopping cart and "Add to cart" interactions (client-side) and a sample checkout flow (mock).
-
 If you'd like any of those, tell me which option and I'll prepare it right away.
 
 ---
