@@ -5,9 +5,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Dosa Toppings — Healthy Twist for Every Dosa</title>
-    <!-- Bootstrap Icons (CDN) -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="icon" href="assets/icon-2.png" type="image/png">
+
+    <!-- Bootstrap Icons (CDN) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
         /* =================== VARIABLES & RESET =================== */
@@ -21,8 +22,8 @@
             --max-width: 1200px;
             --gutter: 20px;
             --easing: cubic-bezier(.2, .9, .3, 1);
-            --card-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
-            --soft-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+            --card-shadow: 0 10px 36px rgba(8, 12, 20, .08);
+            --soft-shadow: 0 6px 20px rgba(15, 23, 42, .06);
             font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
         }
 
@@ -41,7 +42,7 @@
             color: #142026;
             font-size: 16px;
             line-height: 1.5;
-            -webkit-font-smoothing: antialiased
+            -webkit-font-smoothing: antialiased;
         }
 
         img {
@@ -53,7 +54,7 @@
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 var(--gutter);
-            width: 100%
+            width: 100%;
         }
 
         /* =================== PRELOADER (3s) =================== */
@@ -82,7 +83,7 @@
             display: grid;
             place-items: center;
             padding: 8px;
-            background: #fff
+            background: #fff;
         }
 
         .preloader img {
@@ -98,9 +99,9 @@
             left: 0;
             right: 0;
             z-index: 1200;
-            background: rgba(255, 255, 255, 0.98);
+            background: rgba(255, 255, 255, .98);
             backdrop-filter: blur(6px);
-            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
+            box-shadow: 0 10px 30px rgba(8, 12, 20, .08);
             transition: padding .22s var(--easing), box-shadow .22s var(--easing);
             padding: 14px 0;
         }
@@ -113,7 +114,7 @@
             align-items: center;
             justify-content: space-between;
             position: relative;
-            gap: 12px
+            gap: 12px;
         }
 
         .brand-left img {
@@ -126,7 +127,7 @@
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            z-index: 1100
+            z-index: 1100;
         }
 
         .nav-list {
@@ -135,7 +136,7 @@
             list-style: none;
             margin: 0;
             padding: 0;
-            white-space: nowrap
+            white-space: nowrap;
         }
 
         .nav-list a {
@@ -144,23 +145,23 @@
             font-weight: 800;
             padding: 8px 10px;
             border-radius: 6px;
-            font-size: 15px
+            font-size: 15px;
         }
 
         .nav-list a:hover {
             color: #222;
             transform: translateY(-3px);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06)
+            box-shadow: 0 8px 22px rgba(0, 0, 0, .06)
         }
 
         .brand-right {
             width: 64px;
             display: flex;
             align-items: center;
-            justify-content: flex-end
+            justify-content: flex-end;
         }
 
-        /* hamburger (mobile) */
+        /* hamburger (bootstrap icon) */
         .hamburger {
             display: flex;
             align-items: center;
@@ -175,7 +176,7 @@
         }
 
         .hamburger:focus {
-            outline: 3px solid rgba(29, 122, 58, 0.12);
+            outline: 3px solid rgba(29, 122, 58, .12);
             outline-offset: 2px;
         }
 
@@ -198,31 +199,6 @@
             }
         }
 
-        .hamburger .bar {
-            width: 26px !important;
-            height: 3px !important;
-            background: var(--brand-1) !important;
-            border-radius: 2px;
-            display: block;
-            transition: all .22s
-        }
-
-        .hamburger .bar+.bar {
-            margin-top: 7px !important
-        }
-
-        .hamburger.open .bar:nth-child(1) {
-            transform: translateY(8px) rotate(45deg)
-        }
-
-        .hamburger.open .bar:nth-child(2) {
-            opacity: 0
-        }
-
-        .hamburger.open .bar:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg)
-        }
-
         /* mobile menu */
         .mobile-menu {
             position: fixed;
@@ -234,42 +210,49 @@
             background: linear-gradient(180deg, #fff, #fbfff4);
             transition: height .32s var(--easing);
             z-index: 1190;
-            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.06)
+            box-shadow: 0 10px 30px rgba(8, 12, 20, .06);
         }
 
         .mobile-menu.open {
             height: 100vh;
-            overflow: auto
+            overflow: auto;
         }
 
         .mobile-menu-inner {
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 22px
+            padding: 22px;
         }
 
         .mobile-nav {
             display: flex;
             flex-direction: column;
             gap: 18px;
-            padding-top: 20px
+            padding-top: 20px;
         }
 
         .mobile-nav a {
             text-decoration: none;
             font-weight: 800;
             font-size: 20px;
-            color: var(--brand-1)
+            color: var(--brand-1);
         }
 
         /* shrink styles */
         header.site-header.shrink {
             padding: 8px 0;
-            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.06)
+            box-shadow: 0 6px 18px rgba(8, 12, 20, .06)
         }
 
         header.site-header.shrink .brand-left img {
             height: 44px !important
+        }
+
+        /* hide hamburger on desktop, show on mobile */
+        @media(min-width:901px) {
+            .hamburger {
+                display: none !important
+            }
         }
 
         @media(max-width:900px) {
@@ -338,7 +321,7 @@
 
         .caption {
             max-width: 720px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.76));
+            background: linear-gradient(180deg, rgba(255, 255, 255, .95), rgba(255, 255, 255, .76));
             padding: 14px 16px;
             border-radius: 12px;
             box-shadow: var(--soft-shadow);
@@ -364,7 +347,7 @@
             gap: 10px;
             padding: 8px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, .9);
             box-shadow: var(--soft-shadow);
             z-index: 20
         }
@@ -373,9 +356,9 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(0, 0, 0, 0.12);
+            background: rgba(0, 0, 0, .12);
             cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.2)
+            border: 2px solid rgba(255, 255, 255, .2)
         }
 
         .dot.active {
@@ -413,7 +396,7 @@
             padding: 8px 12px;
             border-radius: 999px;
             background: linear-gradient(90deg, #fffef7, #f9fff4);
-            box-shadow: 0 8px 28px rgba(8, 12, 10, 0.04);
+            box-shadow: 0 8px 28px rgba(8, 12, 10, .04);
             font-weight: 800;
             color: var(--brand-1);
             font-size: 18px
@@ -637,7 +620,7 @@
         }
 
         .notice {
-            background: rgba(0, 0, 0, 0.12);
+            background: rgba(0, 0, 0, .12);
             padding: 14px;
             border-radius: 10px;
             font-weight: 700;
@@ -651,7 +634,7 @@
             justify-content: space-between;
             gap: 12px;
             padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-top: 1px solid rgba(255, 255, 255, .06);
             margin-top: 14px;
             flex-wrap: wrap
         }
@@ -672,7 +655,7 @@
             border-radius: 50%;
             display: grid;
             place-items: center;
-            box-shadow: 0 12px 44px rgba(10, 20, 10, 0.18);
+            box-shadow: 0 12px 44px rgba(10, 20, 10, .18);
             cursor: pointer;
             border: none;
             font-weight: 800;
@@ -681,24 +664,12 @@
         }
 
         .to-top:focus {
-            outline: 3px solid rgba(255, 207, 43, 0.22);
+            outline: 3px solid rgba(255, 207, 43, .22);
             outline-offset: 3px
         }
 
         .muted {
             color: var(--muted)
-        }
-
-        @media (min-width: 901px) {
-            .hamburger {
-                display: none !important;
-            }
-        }
-
-        @media (max-width: 900px) {
-            .hamburger {
-                display: flex !important;
-            }
         }
     </style>
 </head>
@@ -712,8 +683,9 @@
 
     <!-- HEADER -->
     <header class="site-header" role="banner" aria-label="Main navigation">
-        <div class="nav-inner">
-            <div class="brand-left"><a href="#home"><img src="assets/icon-5.png" alt="Dosa Toppings logo"></a></div>
+        <div class="nav-inner conater">
+            <div class="brand-left"><a href="#home" aria-label="Home"><img src="assets/icon-5.png"
+                        alt="Dosa Toppings logo"></a></div>
 
             <nav class="nav-center" role="navigation" aria-label="Primary navigation">
                 <ul class="nav-list" role="menubar">
@@ -732,18 +704,19 @@
                     <i id="hamburgerIcon" class="bi bi-list" aria-hidden="true"></i>
                 </button>
             </div>
-
         </div>
     </header>
 
     <!-- MOBILE MENU -->
     <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
-        <div class="mobile-menu-inner">
+        <div class="mobile-menu-inner conater">
             <div style="display:flex;align-items:center;justify-content:space-between;">
-                <a href="#home"><img src="assets/icon-5.png" alt="logo" style="height:56px"></a>
-                <button id="mobileClose" aria-label="Close menu"
-                    style="background:none;border:0;font-size:28px;cursor:pointer">×</button>
+                <a href="#home" aria-label="home"><img src="assets/icon-5.png" alt="logo" style="height:56px"></a>
+                <button id="mobileClose" aria-label="Close menu" class="mobile-close-btn"
+                    style="background:none;border:0;font-size:28px;cursor:pointer;color:var(--brand-1)"><i
+                        class="bi bi-x-lg" aria-hidden="true"></i></button>
             </div>
+
             <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
                 <a href="#home">Home</a>
                 <a href="#about-us">About Us</a>
@@ -799,6 +772,7 @@
                 <div class="section-title">
                     <h3>About Us</h3>
                 </div>
+
                 <div class="about-grid">
                     <div class="about-card">
                         <p><strong>Dosa Toppings</strong> was born with one simple idea — to bring the authentic taste
@@ -880,6 +854,7 @@
                 <div class="scroll-x" id="products-scroll">
                     <div class="products-row" id="productsRow"></div>
                 </div>
+
                 <div class="products-grid" id="productsGrid" style="display:none"></div>
             </div>
         </section>
@@ -893,6 +868,7 @@
                 <div class="about-card">
                     <p>Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
                         food-safety standards.</p>
+
                     <div class="quality-list">
                         <div class="quality-item">
                             <div>🌶️</div>
@@ -955,6 +931,7 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <!-- FOOTER -->
@@ -983,8 +960,8 @@
 
             <div class="footer-right">
                 <h4>Contact & Order</h4>
-                <div class="muted">
-                    WhatsApp / Mobile: <a href="tel:+917200514471" style="color:#fff">+91 72005 14471</a><br>
+                <div class="muted">WhatsApp / Mobile: <a href="tel:+917200514471" style="color:#fff">+91 72005
+                        14471</a><br>
                     Email: <a href="mailto:kkmhealthyeats4u@gmail.com"
                         style="color:#fff">kkmhealthyeats4u@gmail.com</a><br>
                     Instagram: <a href="https://instagram.com/dosa.toppings" style="color:#fff">@dosa.toppings</a>
@@ -1003,28 +980,45 @@
 
     <!-- =================== SCRIPTS =================== -->
     <script>
-        const btn = document.getElementById('hamburgerBtn');
-        const icon = document.getElementById('hamburgerIcon');
-        const menu = document.getElementById('mobileMenu');
+        /* HAMBURGER / MOBILE MENU TOGGLE (changes icon between bi-list and bi-x-lg) */
+        (function () {
+            const btn = document.getElementById('hamburgerBtn');
+            const icon = document.getElementById('hamburgerIcon');
+            const menu = document.getElementById('mobileMenu');
+            const mobileClose = document.getElementById('mobileClose');
+            const mobileLinks = document.querySelectorAll('#mobileNav a');
 
-        function openMenu() {
-            menu.classList.add('open');
-            btn.classList.add('open');
-            btn.setAttribute('aria-expanded', 'true');
-            icon.classList.remove('bi-list');
-            icon.classList.add('bi-x');
-            document.body.style.overflow = 'hidden';
-        }
-        function closeMenu() {
-            menu.classList.remove('open');
-            btn.classList.remove('open');
-            btn.setAttribute('aria-expanded', 'false');
-            icon.classList.remove('bi-x');
-            icon.classList.add('bi-list');
-            document.body.style.overflow = '';
-        }
-        btn.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
+            function setIconToClose() {
+                if (icon) { icon.classList.remove('bi-list'); icon.classList.add('bi-x-lg'); }
+            }
+            function setIconToList() {
+                if (icon) { icon.classList.remove('bi-x-lg'); icon.classList.add('bi-list'); }
+            }
 
+            function openMenu() {
+                menu.classList.add('open');
+                menu.setAttribute('aria-hidden', 'false');
+                btn.classList.add('open');
+                btn.setAttribute('aria-expanded', 'true');
+                setIconToClose();
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMenu() {
+                menu.classList.remove('open');
+                menu.setAttribute('aria-hidden', 'true');
+                btn.classList.remove('open');
+                btn.setAttribute('aria-expanded', 'false');
+                setIconToList();
+                document.body.style.overflow = '';
+            }
+
+            btn && btn.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
+            mobileClose && mobileClose.addEventListener('click', closeMenu);
+            mobileLinks.forEach(a => a.addEventListener('click', closeMenu));
+            document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu(); });
+        })();
+
+        /* PRELOADER (minimum 3 seconds) */
         (function () {
             const pre = document.getElementById('preloader');
             const MIN_MS = 3000;
@@ -1038,13 +1032,12 @@
             else { window.addEventListener('DOMContentLoaded', hidePre); setTimeout(() => pre.classList.add('hidden'), 10000); }
         })();
 
-        /* HERO SLIDER: 5s, start after preloader hidden, pause on hover */
+        /* HERO SLIDER (5s) with dots, start after preloader hidden to avoid flash */
         (function () {
             const slides = Array.from(document.querySelectorAll('.slide'));
             const dotsWrap = document.getElementById('dots');
             const INTERVAL = 5000;
             let idx = 0, timer = null;
-
             if (!slides.length) return;
 
             // create dots
@@ -1065,19 +1058,21 @@
             function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); }
             function restart() { if (timer) clearInterval(timer); timer = setInterval(next, INTERVAL); }
 
-            // start after preloader hidden to avoid visual flash
+            // wait for preloader hide
             const pre = document.getElementById('preloader');
-            const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); } });
+            const obs = new MutationObserver(() => {
+                if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); }
+            });
             obs.observe(pre, { attributes: true });
 
             // fallback start
             setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
 
-            const slideWrap = document.getElementById('slides');
-            slideWrap.addEventListener('mouseenter', () => clearInterval(timer));
-            slideWrap.addEventListener('mouseleave', restart);
-            slideWrap.addEventListener('focusin', () => clearInterval(timer));
-            slideWrap.addEventListener('focusout', restart);
+            const wrap = document.getElementById('slides');
+            wrap.addEventListener('mouseenter', () => clearInterval(timer));
+            wrap.addEventListener('mouseleave', restart);
+            wrap.addEventListener('focusin', () => clearInterval(timer));
+            wrap.addEventListener('focusout', restart);
 
             // keyboard nav
             document.addEventListener('keydown', (e) => {
@@ -1086,7 +1081,7 @@
             });
         })();
 
-        /* MARQUEE: duplicate items to allow smooth -50% loop and set duration */
+        /* MARQUEE: duplicate items and set duration */
         (function () {
             const marquee = document.getElementById('marquee');
             if (!marquee) return;
@@ -1104,13 +1099,14 @@
             }
             function init() { ensure(); setDuration(); }
             window.addEventListener('load', init);
-            let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(() => { marquee.innerHTML = ''; base.forEach(b => marquee.appendChild(b.cloneNode(true))); init(); }, 160); });
+            let to;
+            window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(() => { marquee.innerHTML = ''; base.forEach(b => marquee.appendChild(b.cloneNode(true))); init(); }, 160); });
             marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
             marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
             setTimeout(init, 50);
         })();
 
-        /* PRODUCTS: render and layout toggle */
+        /* PRODUCTS: render + layout toggle */
         (function () {
             const products = [
                 { "id": "sig-001", "title": "Classic Paruppu Podi", "price": 100, "unit": "50gms", "short": "Lentil-forward, nutty & aromatic.", "description": "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", "image": "assets/signature-1.png" },
@@ -1122,9 +1118,9 @@
                 { "id": "sig-007", "title": "Peanut Podi", "price": 120, "unit": "50gms", "short": "Crispy peanuts & warm spices.", "description": "Crunchy, nutty & satisfying.", "image": "assets/signature-7.png" },
                 { "id": "sig-008", "title": "Sesame Podi", "price": 110, "unit": "50gms", "short": "Toasted sesame & fragrant spices.", "description": "Nutty, toasty flavour — great with rice & dosa.", "image": "assets/signature-8.png" }
             ];
+
             const row = document.getElementById('productsRow'), grid = document.getElementById('productsGrid');
             if (!row || !grid) return;
-
             products.forEach(p => {
                 const card = document.createElement('article');
                 card.className = 'product-card';
@@ -1141,42 +1137,19 @@
             setTimeout(layout, 350);
         })();
 
-        /* HEADER: mobile shrink and menu toggle */
+        /* HEADER shrink + go-top */
         (function () {
             const header = document.querySelector('header.site-header');
-            const btn = document.getElementById('hamburgerBtn');
-            const menu = document.getElementById('mobileMenu');
-            const closeBtn = document.getElementById('mobileClose');
-            const links = document.querySelectorAll('#mobileNav a');
+            const toTop = document.getElementById('toTop');
+            window.addEventListener('scroll', () => {
+                const w = window.innerWidth, sc = window.scrollY;
+                if (w <= 900) header.classList.toggle('shrink', sc > 20);
+                else header.classList.toggle('shrink', sc > 40);
 
-            function openMenu() { menu.classList.add('open'); menu.setAttribute('aria-hidden', 'false'); btn.classList.add('open'); btn.setAttribute('aria-expanded', 'true'); document.body.style.overflow = 'hidden'; updateHeader(); }
-            function closeMenu() { menu.classList.remove('open'); menu.setAttribute('aria-hidden', 'true'); btn.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); document.body.style.overflow = ''; updateHeader(); }
+                toTop.style.display = sc > 300 ? 'grid' : 'none';
+            }, { passive: true });
 
-            btn.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
-            closeBtn && closeBtn.addEventListener('click', closeMenu);
-            links.forEach(a => a.addEventListener('click', closeMenu));
-            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu(); });
-
-            function updateHeader() {
-                const w = window.innerWidth;
-                const sc = window.scrollY;
-                if (w <= 900) {
-                    if (sc > 20 || menu.classList.contains('open')) header.classList.add('shrink'); else header.classList.remove('shrink');
-                } else {
-                    if (sc > 40) header.classList.add('shrink'); else header.classList.remove('shrink');
-                }
-            }
-            window.addEventListener('scroll', updateHeader, { passive: true });
-            window.addEventListener('resize', updateHeader);
-            updateHeader();
-        })();
-
-        /* GO TO TOP */
-        (function () {
-            const btn = document.getElementById('toTop');
-            btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-            window.addEventListener('scroll', () => { if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none'; });
-            btn.style.display = 'none';
+            toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
         })();
     </script>
 </body>
