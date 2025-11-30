@@ -1,0 +1,167 @@
+// data.js  (non-module, safe to load from file://)
+window.storeData = {
+  products: [
+    {
+      id: "sig-001",
+      title: "Classic Paruppu Podi",
+      price: 100,
+      unit: "50gms",
+      short: "Lentil-forward, nutty & aromatic.",
+      description: "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.",
+      image: "assets/signature-1.png",
+      category: "TRADITION",
+      tags: ["HOME_MADE", "HEALTHY"]
+    },
+    {
+      id: "sig-002",
+      title: "Curry Leaves Podi",
+      price: 100,
+      unit: "50gms",
+      short: "Fragrant curry leaf & roasted dals.",
+      description: "Aromatic and herbaceous — great with rice and chutney.",
+      image: "assets/signature-2.png",
+      category: "TRADITION",
+      tags: ["HOME_MADE"]
+    },
+    {
+      id: "sig-003",
+      title: "Moringa Podi",
+      price: 145,
+      unit: "50gms",
+      short: "Nutrient-rich moringa, mild spice.",
+      description: "Vitamin-rich sprinkle — delicious in rice or porridge.",
+      image: "assets/signature-3.png",
+      category: "HEALTHY",
+      tags: ["LIKEFUSION", "HEALTHY"]
+    },
+    {
+      id: "sig-004",
+      title: "Garlic Podi",
+      price: 110,
+      unit: "50gms",
+      short: "Roasted garlic — bold & savory.",
+      description: "Bold garlic flavour that pairs beautifully with ghee dosa.",
+      image: "assets/signature-4.png",
+      category: "TRADITION",
+      tags: ["HOME_MADE"]
+    },
+    {
+      id: "sig-005",
+      title: "Idli Milagai Podi",
+      price: 95,
+      unit: "50gms",
+      short: "Classic mild & nutty seasoning.",
+      description: "Mild & nutty — perfect for idli and breakfast bowls.",
+      image: "assets/signature-5.png",
+      category: "KIDS",
+      tags: ["TRADITION", "KIDS"]
+    },
+    {
+      id: "sig-006",
+      title: "Kollu Podi",
+      price: 130,
+      unit: "50gms",
+      short: "Protein-rich horse gram blend.",
+      description: "Earthy & nourishing — great in rice mixes.",
+      image: "assets/signature-6.png",
+      category: "HEALTHY",
+      tags: ["HOME_MADE", "HEALTHY"]
+    },
+    {
+      id: "sig-007",
+      title: "Peanut Podi",
+      price: 120,
+      unit: "50gms",
+      short: "Crispy peanuts & warm spices.",
+      description: "Crunchy, nutty & satisfying.",
+      image: "assets/signature-7.png",
+      category: "LIKEFUSION",
+      tags: ["LIKEFUSION"]
+    },
+    {
+      id: "sig-008",
+      title: "Sesame Podi",
+      price: 110,
+      unit: "50gms",
+      short: "Toasted sesame & fragrant spices.",
+      description: "Nutty, toasty flavour — great with rice & dosa.",
+      image: "assets/signature-8.png",
+      category: "TRADITION",
+      tags: ["HOME_MADE"]
+    },
+    {
+      id: "sig-009",
+      title: "Millet Mix Podi",
+      price: 150,
+      unit: "50gms",
+      short: "Wholesome millet + spices.",
+      description: "A modern twist with finger millet for extra fibre and nutty aroma.",
+      image: "assets/signature-9.png",
+      category: "HEALTHY",
+      tags: ["LIKEFUSION", "HEALTHY"]
+    },
+    {
+      id: "sig-010",
+      title: "Tangy Tomato Podi",
+      price: 105,
+      unit: "50gms",
+      short: "Tangy tomato with mild spice.",
+      description: "Bright tangy notes — great as a spread or sprinkle for kids and adults.",
+      image: "assets/signature-10.png",
+      category: "LIKEFUSION",
+      tags: ["LIKEFUSION", "KIDS"]
+    }
+  ],
+  combos: [
+    {
+      id: "combo-001",
+      title: "Breakfast Starter Combo",
+      price: 280,
+      unit: "3 x 50gms",
+      items: ["sig-001", "sig-005", "sig-002"],
+      short: "Classic Paruppu + Idli Milagai + Curry Leaves — morning-ready.",
+      image: "assets/combo-1.png",
+      category: "COMBOS",
+      tags: ["VALUE"]
+    },
+    {
+      id: "combo-002",
+      title: "Health Pack Combo",
+      price: 360,
+      unit: "3 x 50gms",
+      items: ["sig-003", "sig-006", "sig-009"],
+      short: "Moringa + Kollu + Millet mix for a nourishing boost.",
+      image: "assets/combo-2.png",
+      category: "COMBOS",
+      tags: ["HEALTHY"]
+    },
+    {
+      id: "combo-003",
+      title: "Family Favourite Combo",
+      price: 340,
+      unit: "3 x 50gms",
+      items: ["sig-004", "sig-007", "sig-008"],
+      short: "Garlic + Peanut + Sesame — balanced family flavours.",
+      image: "assets/combo-3.png",
+      category: "COMBOS",
+      tags: ["FAMILY"]
+    },
+    {
+      id: "combo-004",
+      title: "Kids Lunchbox Combo",
+      price: 295,
+      unit: "3 x 50gms",
+      items: ["sig-005", "sig-010", "sig-001"],
+      short: "Mild & tasty trio kids will love — safe spice levels.",
+      image: "assets/combo-4.png",
+      category: "COMBOS",
+      tags: ["KIDS"]
+    }
+  ],
+  bestSellers: [
+    "sig-003",
+    "sig-004",
+    "sig-001",
+    "sig-007"
+  ]
+};

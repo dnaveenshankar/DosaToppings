@@ -6,16 +6,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Dosa Toppings — Healthy Twist for Every Dosa</title>
     <link rel="icon" href="assets/icon-2.png" type="image/png">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
-
     <style>
-        /* =================== THEME & RESET =================== */
         :root {
             --brand-1: #1d7a3a;
-            /* green */
             --brand-2: #f3c02b;
-            /* yellow (accent) */
             --muted: #5b6b6b;
             --bg: #ffffff;
             --max-width: 1200px;
@@ -41,7 +36,7 @@
             color: #142026;
             -webkit-font-smoothing: antialiased;
             line-height: 1.5;
-            font-size: 16px;
+            font-size: 16px
         }
 
         img {
@@ -56,7 +51,7 @@
             width: 100%
         }
 
-        /* =================== PRELOADER (3s) =================== */
+        /* preloader */
         .preloader {
             position: fixed;
             inset: 0;
@@ -67,7 +62,7 @@
             justify-content: center;
             transition: opacity .45s var(--easing), visibility .45s var(--easing);
             visibility: visible;
-            opacity: 1;
+            opacity: 1
         }
 
         .preloader.hidden {
@@ -77,21 +72,15 @@
         }
 
         .preloader .logo {
-            width: 140px;
-            height: 140px;
+            width: 300px;
+            height: 300px;
             display: grid;
             place-items: center;
             padding: 8px;
             background: #fff
         }
 
-        .preloader img {
-            width: 100%;
-            height: auto;
-            display: block
-        }
-
-        /* =================== HEADER / NAV =================== */
+        /* header */
         header.site-header {
             position: fixed;
             top: 0;
@@ -102,7 +91,7 @@
             backdrop-filter: blur(6px);
             box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
             transition: padding .22s var(--easing), box-shadow .22s var(--easing);
-            padding: 14px 0;
+            padding: 14px 0
         }
 
         .nav-inner {
@@ -121,7 +110,6 @@
             transition: height .22s
         }
 
-        /* center nav (desktop) */
         .nav-center {
             position: absolute;
             left: 50%;
@@ -139,33 +127,16 @@
             white-space: nowrap
         }
 
-        /* =================== FORCED NAV STYLE: BLACK + TEXT FORMAT =================== */
         .nav-list a {
             text-decoration: none;
             color: #000 !important;
-            /* FORCE black color */
             font-weight: 800;
-            /* bold */
-            font-family: inherit;
-            /* same font stack */
             padding: 8px 10px;
             border-radius: 6px;
             font-size: 16px;
-            /* slightly larger for readability */
-            text-transform: none !important;
-            /* normal case (no uppercase) */
-            letter-spacing: 0.3px;
-            /* subtle letter spacing */
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-        }
-
-        .nav-list a:hover {
-            color: #000;
-            /* keep black on hover */
-            transform: translateY(-2px);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
+            gap: 8px
         }
 
         .brand-right {
@@ -175,77 +146,8 @@
             justify-content: flex-end
         }
 
-        /* hamburger - uses bootstrap icon (green) */
-        .hamburger {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 48px;
-            height: 40px;
-            padding: 6px;
-            border: 0;
-            background: transparent;
-            cursor: pointer;
-            border-radius: 8px;
-        }
-
-        .hamburger .bi {
-            font-size: 24px;
-            color: var(--brand-1);
-            transition: transform .18s, color .18s
-        }
-
-        .hamburger:focus {
-            outline: 3px solid rgba(29, 122, 58, 0.12);
-            outline-offset: 2px
-        }
-
-        /* mobile menu */
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 0;
-            overflow: hidden;
-            background: linear-gradient(180deg, #fff, #fbfff4);
-            transition: height .32s var(--easing);
-            z-index: 1190;
-            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.06)
-        }
-
-        .mobile-menu.open {
-            height: 100vh;
-            overflow: auto
-        }
-
-        .mobile-menu-inner {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 22px
-        }
-
-        .mobile-nav {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-            padding-top: 20px
-        }
-
-        /* force mobile nav text black + same format */
-        .mobile-nav a {
-            text-decoration: none !important;
-            color: #000 !important;
-            /* force black */
-            font-weight: 800 !important;
-            font-size: 20px !important;
-            text-transform: none !important;
-            letter-spacing: 0.3px !important;
-        }
-
         header.site-header.shrink {
-            padding: 8px 0;
-            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.06)
+            padding: 8px 0
         }
 
         header.site-header.shrink .brand-left img {
@@ -257,22 +159,12 @@
                 display: none !important
             }
 
-            .hamburger {
-                display: flex !important
-            }
-
             .brand-left img {
                 height: 44px
             }
         }
 
-        @media(min-width:901px) {
-            .hamburger {
-                display: none
-            }
-        }
-
-        /* =================== HERO SLIDER (16:9 ratio) =================== */
+        /* hero */
         .hero {
             margin-top: 94px;
             padding: 18px 0;
@@ -368,7 +260,7 @@
             background: var(--brand-2)
         }
 
-        /* =================== MARQUEE =================== */
+        /* marquee */
         .marquee-wrap {
             margin: 22px 0
         }
@@ -420,7 +312,7 @@
             animation-play-state: paused
         }
 
-        /* =================== SECTIONS / PRODUCTS / FOOTER =================== */
+        /* sections */
         .section {
             padding: 26px 0
         }
@@ -457,6 +349,7 @@
             flex-wrap: wrap
         }
 
+        /* product cards */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
@@ -546,20 +439,6 @@
 
             .slides {
                 border-radius: 20px
-            }
-        }
-
-        @media(max-width:520px) {
-            .brand-left img {
-                height: 44px
-            }
-
-            .caption h2 {
-                font-size: 18px
-            }
-
-            .marquee {
-                font-size: 15px
             }
         }
 
@@ -664,65 +543,222 @@
             outline-offset: 3px
         }
 
-        /* small utilities */
         .muted {
             color: var(--muted)
+        }
+
+        /* bottom nav for mobile */
+        .bottom-nav {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            bottom: 14px;
+            z-index: 1400;
+            background: linear-gradient(180deg, #ffffff, #fbfff4);
+            border-radius: 14px;
+            padding: 8px 12px;
+            box-shadow: 0 12px 40px rgba(8, 12, 20, 0.12);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.04)
+        }
+
+        .bottom-nav a {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #111;
+            font-weight: 700;
+            font-size: 12px;
+            padding: 6px 8px;
+            border-radius: 10px;
+            min-width: 56px
+        }
+
+        .bottom-nav a .bi {
+            font-size: 18px;
+            margin-bottom: 4px
+        }
+
+        .bottom-nav a.active {
+            background: linear-gradient(90deg, var(--brand-1), var(--brand-2));
+            color: #fff;
+            box-shadow: 0 8px 22px rgba(29, 122, 58, 0.12)
+        }
+
+        @media(min-width:900px) {
+            .bottom-nav {
+                display: none
+            }
+        }
+
+        /* Best-seller highlight */
+        .best-section {
+            display: flex;
+            flex-direction: column;
+            gap: 18px
+        }
+
+        .best-highlight {
+            border-radius: 16px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            flex-direction: column
+        }
+
+        .best-highlight .img-wrap {
+            position: relative
+        }
+
+        .best-highlight img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover
+        }
+
+        .best-price-badge {
+            position: absolute;
+            right: 16px;
+            bottom: 16px;
+            background: #fff;
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 800;
+            color: var(--brand-1);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08)
+        }
+
+        .best-highlight .content {
+            padding: 18px
+        }
+
+        .best-grid-other {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px
+        }
+
+        @media(min-width:900px) {
+            .best-section {
+                flex-direction: row;
+                gap: 20px
+            }
+
+            .best-highlight {
+                flex: 0 0 60%
+            }
+
+            .best-grid-other {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 12px
+            }
+        }
+
+        /* make combos 2 per row on desktop */
+        .combos-grid {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 12px
+        }
+
+        @media(min-width:720px) {
+            .combos-grid {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        /* helper small card used inside best-other etc */
+        .small-card {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 10px;
+            border-radius: 10px;
+            background: linear-gradient(180deg, #fff, #fffef7);
+            box-shadow: var(--soft-shadow)
+        }
+
+        .small-card img {
+            width: 88px;
+            height: 88px;
+            object-fit: cover;
+            border-radius: 8px;
+            flex-shrink: 0
         }
     </style>
 </head>
 
 <body>
-
-    <!-- PRELOADER -->
-    <div class="preloader" id="preloader" aria-hidden="true">
-        <div class="logo" aria-hidden="true"><img src="assets/icon-5.png" alt="logo"></div>
-    </div>
-
-    <!-- HEADER -->
-    <header class="site-header" role="banner" aria-label="Main navigation">
-        <div class="nav-inner conater">
-            <div class="brand-left">
-                <a href="#home" aria-label="Home"><img src="assets/icon-5.png" alt="Dosa Toppings logo"></a>
+    <div id="preloader" aria-hidden="true" style="
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .45s cubic-bezier(.2,.9,.3,1), visibility .45s cubic-bezier(.2,.9,.3,1);
+  visibility: visible;
+  opacity: 1;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:10px;padding:8px;">
+            <div class="logo" aria-hidden="true"
+                style="width:140px;height:140px;display:grid;place-items:center;padding:8px;background:#fff;border-radius:14px;box-shadow:0 8px 30px rgba(8,12,20,0.06);">
+                <img src="assets/icon-5.png" alt="Dosa Toppings logo" style="width:100%;height:auto;display:block;">
             </div>
 
-            <!-- CENTER NAV (desktop) -->
+            <!-- caption (inline styles) -->
+            <div style="
+      margin-top:4px;
+      font-weight:700;
+      font-size:14px;
+      color:#1d7a3a;
+      text-align:center;
+      background: rgba(29,122,58,0.06);
+      padding:6px 10px;
+      border-radius:999px;
+      box-shadow: 0 6px 18px rgba(8,12,20,0.04);
+    ">
+                Healthy Twist for every dosa !
+            </div>
+        </div>
+    </div>
+
+
+    <header class="site-header" role="banner" aria-label="Main navigation">
+        <div class="nav-inner conater">
+            <div class="brand-left"><a href="#home" aria-label="Home"><img src="assets/icon-5.png"
+                        alt="Dosa Toppings logo"></a></div>
             <nav class="nav-center" role="navigation" aria-label="Primary navigation">
                 <ul class="nav-list" role="menubar">
                     <li><a role="menuitem" href="#best-seller">Bestsellers</a></li>
                     <li><a role="menuitem" href="#combos">Combos</a></li>
                     <li><a role="menuitem" href="#products">All Products</a></li>
                     <li><a role="menuitem" href="#about-us">About</a></li>
+                    <li><a role="menuitem" href="#quality">Production & Quality</a></li>
                     <li><a role="menuitem" href="#contact">Contact</a></li>
                 </ul>
             </nav>
-
-            <!-- RIGHT SIDE (mobile hamburger) -->
-            <div class="brand-right">
-                <button id="hamburgerBtn" class="hamburger" aria-label="Open menu" aria-expanded="false"
-                    aria-controls="mobileMenu" type="button">
-                    <i id="hamburgerIcon" class="bi bi-list" aria-hidden="true"></i>
-                </button>
-            </div>
+            <div class="brand-right" aria-hidden="true"></div>
         </div>
     </header>
 
-    <!-- MOBILE MENU -->
-    <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
-        <div class="mobile-menu-inner conater">
-            <div style="display:flex;align-items:center;justify-content:space-between">
-                <a href="#home"><img src="assets/icon-5.png" alt="logo" style="height:56px"></a>
-                <button id="mobileClose" aria-label="Close menu"
-                    style="background:none;border:0;font-size:32px;cursor:pointer">×</button>
-            </div>
-            <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
-                <a href="#best-seller">Bestsellers</a>
-                <a href="#combos">Combos</a>
-                <a href="#products">All Products</a>
-                <a href="#about-us">About</a>
-                <a href="#contact">Contact</a>
-            </nav>
-        </div>
-    </div>
+    <nav class="bottom-nav" role="navigation" aria-label="Mobile quick navigation">
+        <a href="#home" title="Home" class="bn-home active"><i class="bi bi-house-door"></i><span>Home</span></a>
+        <a href="#best-seller" title="Bestsellers" class="bn-best"><i class="bi bi-star-fill"></i><span>Bests</span></a>
+        <a href="#combos" title="Combos" class="bn-combos"><i class="bi bi-box-seam"></i><span>Combos</span></a>
+        <a href="#products" title="Products" class="bn-products"><i class="bi bi-basket3"></i><span>Shop</span></a>
+        <a href="#contact" title="Contact" class="bn-contact"><i class="bi bi-envelope"></i><span>Contact</span></a>
+    </nav>
 
     <main id="home">
         <!-- HERO -->
@@ -737,14 +773,6 @@
                         aria-label="Hero 3"></div>
                     <div class="slide" style="background-image:url('assets/hero-4.png');" role="img"
                         aria-label="Hero 4"></div>
-
-                    <div class="overlay">
-                        <div class="caption">
-                            <h2>Small-batch podis — big homemade flavour</h2>
-                            <p>Freshly roasted. Stone-ground. Ready-to-sprinkle for instant homely taste.</p>
-                        </div>
-                    </div>
-
                     <div class="dots" id="dots" aria-hidden="false"></div>
                 </div>
             </div>
@@ -761,128 +789,41 @@
             </div>
         </div>
 
-        <!-- ==================== BEST SELLERS SECTION (standalone) ==================== -->
-        <section id="best-seller" class="best-sellers" aria-label="Best sellers">
-            <div class="best-inner conater">
-                <div class="best-title" style="display:flex;align-items:center;justify-content:space-between">
-                    <h3 style="margin:0;color:#000;font-weight:800;font-size:20px">Best Sellers</h3>
-                    <div class="best-cta"><a href="#products" aria-label="See all products"
-                            style="text-decoration:none;color:var(--brand-1);font-weight:700">See all products →</a>
-                    </div>
+        <!-- BEST SELLERS (highlighted layout) -->
+        <section id="best-seller" class="section">
+            <div class="conater best-section">
+                <!-- left: highlight (desktop) -->
+                <div id="bestHighlight" class="best-highlight" aria-live="polite" aria-atomic="true">
+                    <!-- filled by JS -->
                 </div>
 
-                <!-- Mobile row -->
-                <div id="bestRow" class="best-row" aria-live="polite" aria-atomic="true"
-                    style="display:flex;gap:12px;overflow-x:auto;padding:12px 0"></div>
-
-                <!-- Desktop grid -->
-                <div id="bestGrid" class="best-grid" aria-hidden="true"
-                    style="display:none;gap:12px;grid-template-columns:repeat(3,1fr)"></div>
-
-                <div id="bestFallback" class="best-fallback" style="display:none;color:var(--muted);padding:10px 0">No
-                    bestsellers available right now.</div>
+                <!-- right / below: other bestsellers -->
+                <div id="bestGridOther" class="best-grid-other" aria-hidden="true">
+                    <!-- filled by JS -->
+                </div>
             </div>
         </section>
 
-        <!-- ==================== COMBOS SECTION ==================== -->
+        <!-- COMBOS -->
         <section id="combos" class="section" aria-label="Combos">
             <div class="conater">
                 <div class="section-title">
                     <h3>Combos</h3>
                 </div>
-
-                <div id="combosRow" class="scroll-x" style="display:flex;gap:12px;padding:12px 0"></div>
-                <div id="combosGrid" style="display:none;gap:12px"></div>
+                <div id="combosRow" class="combos-grid"></div>
                 <div id="combosFallback" style="display:none;color:var(--muted);padding:10px 0">No combos available.
                 </div>
             </div>
         </section>
 
-        <!-- ABOUT US -->
-        <section id="about-us" class="section">
-            <div class="conater">
-                <div class="section-title">
-                    <h3>About Us</h3>
-                </div>
-
-                <div class="about-grid">
-                    <div class="about-card">
-                        <p><strong>Dosa Toppings</strong> was born with one simple idea — to bring the authentic taste
-                            of home into today’s fast-moving lifestyle.</p>
-                        <p>Our recipes come from classic South Indian kitchens, but our packaging is designed for modern
-                            convenience. Every bottle carries the flavour, aroma, and love of home-style podis.</p>
-                        <p><strong>We believe in:</strong></p>
-                        <ul>
-                            <li>Honest ingredients</li>
-                            <li>Clean labels</li>
-                            <li>Healthy choices</li>
-                            <li>Simple cooking</li>
-                            <li>Family-friendly flavours</li>
-                        </ul>
-                        <p class="muted">From busy moms to working professionals to kids who love tasty food — Dosa
-                            Toppings makes every meal flavourful and nutritious.</p>
-                    </div>
-
-                    <div class="about-card">
-                        <h4>Our Promise</h4>
-                        <p>Freshly roasted, stone-ground, and packed with care — small batches that preserve aroma and
-                            deliver home-style taste every day.</p>
-                        <p><strong>Pure ingredients, no shortcuts.</strong> No fillers, no artificial flavours — only
-                            trusted spices from farms across Tamil Nadu.</p>
-                        <p><strong>Tradition, refined.</strong> Family recipes adapted for consistent quality in every
-                            pack.</p>
-                        <p><strong>Hygiene first.</strong> Strict quality checks throughout roasting and packing to
-                            ensure purity and freshness.</p>
-                    </div>
-                </div>
-
-                <div style="margin-top:18px" class="about-card">
-                    <h4>Why Our Podi Tastes Better?</h4>
-                    <div class="about-list" style="margin-top:12px;">
-                        <div class="item">
-                            <div>🌶️</div>
-                            <div><strong>Handpicked ingredients</strong>
-                                <div class="muted">We select the best pulses, herbs and chillies at source.</div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div>☀️</div>
-                            <div><strong>Slow-roasted for deep flavour</strong>
-                                <div class="muted">Traditional roasting unlocks aroma and colour.</div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div>🎚️</div>
-                            <div><strong>Balanced spice levels</strong>
-                                <div class="muted">Flavour profiles that suit kids and adults alike.</div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div>🧪</div>
-                            <div><strong>Made fresh in batches</strong>
-                                <div class="muted">Small-batch production preserves aroma and consistency.</div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div>📦</div>
-                            <div><strong>Packed in hygienic facility</strong>
-                                <div class="muted">FSSAI-compliant processes and air-tight packaging.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- PRODUCTS -->
+        <!-- ALL PRODUCTS -->
         <section id="products" class="section" aria-labelledby="productsTitle">
             <div class="conater">
                 <div class="section-title">
-                    <h3 id="productsTitle">Signature Ranges</h3>
+                    <h3 id="productsTitle">All Products</h3>
                 </div>
                 <p class="muted">Pure, elevated podis — small-batch roasted, stone-ground and finished for today’s
-                    table. <em>*Images shown are for illustration purposes only.*</em></p>
-
+                    table.</p>
                 <div id="products-scroll" class="scroll-x">
                     <div id="productsRow" class="products-row"></div>
                 </div>
@@ -892,7 +833,35 @@
             </div>
         </section>
 
-        <!-- QUALITY -->
+        <!-- ABOUT -->
+        <section id="about-us" class="section">
+            <div class="conater">
+                <div class="section-title">
+                    <h3>About Us</h3>
+                </div>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <p><strong>Dosa Toppings</strong> was born with one simple idea — to bring the authentic taste
+                            of home into today’s fast-moving lifestyle.</p>
+                        <p>Our recipes come from classic South Indian kitchens, but our packaging is designed for modern
+                            convenience. Every bottle carries the flavour, aroma, and love of home-style podis.</p>
+                        <p class="muted">From busy moms to working professionals to kids who love tasty food — Dosa
+                            Toppings makes every meal flavourful and nutritious.</p>
+                    </div>
+                    <div class="about-card">
+                        <h4>Our Promise</h4>
+                        <p>Freshly roasted, stone-ground, and packed with care — small batches that preserve aroma and
+                            deliver home-style taste every day.</p>
+                        <p><strong>Pure ingredients, no shortcuts.</strong> No fillers, no artificial flavours — only
+                            trusted spices from farms across Tamil Nadu.</p>
+                        <p><strong>Hygiene first.</strong> Strict quality checks throughout roasting and packing to
+                            ensure purity and freshness.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRODUCTION & QUALITY -->
         <section id="quality" class="section">
             <div class="conater">
                 <div class="section-title">
@@ -966,41 +935,31 @@
         </section>
     </main>
 
-    <!-- FOOTER -->
     <footer id="contact" role="contentinfo">
         <div class="conater footer-inner">
-            <div class="footer-left">
-                <img src="assets/icon-5.png" alt="logo">
+            <div class="footer-left"><img src="assets/icon-5.png" alt="logo">
                 <p>Instant Authentic Flavour — From Tradition to Today.</p>
-                <div class="socials">
-                    <a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener"
-                        style="color:#fff">Instagram</a>
-                    <a href="https://wa.me/917200514471" target="_blank" rel="noopener" style="color:#fff">WhatsApp</a>
-                    <a href="mailto:kkmhealthyeats4u@gmail.com" style="color:#fff">Email</a>
-                </div>
+                <div class="socials"><a href="https://instagram.com/dosa.toppings" target="_blank" rel="noopener"
+                        style="color:#fff">Instagram</a><a href="https://wa.me/917200514471" target="_blank"
+                        rel="noopener" style="color:#fff">WhatsApp</a><a href="mailto:kkmhealthyeats4u@gmail.com"
+                        style="color:#fff">Email</a></div>
             </div>
-
             <div class="footer-center">
                 <h4>Address</h4>
                 <div>KKM FOOD FACTORY<br>2/146/1, Karukkankattupudur,<br>Avinashi, Tiruppur,<br>Tamil Nadu – 641654
                 </div>
                 <div style="margin-top:12px"><strong>FSSAI:</strong> 12425027000407</div>
                 <div class="notice">As of now, we do not accept orders through this website. This website is for display
-                    & informational purposes only. Please use WhatsApp or Instagram for placing orders. We apologise for
-                    the inconvenience.</div>
+                    & informational purposes only. Please use WhatsApp or Instagram for placing orders.</div>
             </div>
-
             <div class="footer-right">
                 <h4>Contact & Order</h4>
-                <div class="muted">
-                    WhatsApp / Mobile: <a href="tel:+917200514471" style="color:#fff">+91 72005 14471</a><br>
-                    Email: <a href="mailto:kkmhealthyeats4u@gmail.com"
-                        style="color:#fff">kkmhealthyeats4u@gmail.com</a><br>
-                    Instagram: <a href="https://instagram.com/dosa.toppings" style="color:#fff">@dosa.toppings</a>
-                </div>
+                <div class="muted">WhatsApp / Mobile: <a href="tel:+917200514471" style="color:#fff">+91 72005
+                        14471</a><br>Email: <a href="mailto:kkmhealthyeats4u@gmail.com"
+                        style="color:#fff">kkmhealthyeats4u@gmail.com</a><br>Instagram: <a
+                        href="https://instagram.com/dosa.toppings" style="color:#fff">@dosa.toppings</a></div>
             </div>
         </div>
-
         <div class="conater footer-bottom">
             <div>Made with 🌿 in Tamil Nadu</div>
             <div class="center">©2025 Dosa Toppings — Healthy Twist for Every Dosa</div>
@@ -1010,328 +969,202 @@
 
     <button class="to-top" id="toTop" title="Go to top" aria-label="Go to top" style="display:none">↑</button>
 
-    <!-- =================== SCRIPTS =================== -->
+    <!-- Inline data -->
+    <script>
+        const storeData = {
+            products: [
+                { id: "sig-001", title: "Classic Paruppu Podi", price: 100, unit: "50gms", short: "Lentil-forward, nutty & aromatic.", description: "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", image: "assets/signature-1.png", category: "TRADITION", tags: ["HOME_MADE", "HEALTHY"] },
+                { id: "sig-002", title: "Curry Leaves Podi", price: 100, unit: "50gms", short: "Fragrant curry leaf & roasted dals.", description: "Aromatic and herbaceous — great with rice and chutney.", image: "assets/signature-2.png", category: "TRADITION", tags: ["HOME_MADE"] },
+                { id: "sig-003", title: "Moringa Podi", price: 145, unit: "50gms", short: "Nutrient-rich moringa, mild spice.", description: "Vitamin-rich sprinkle — delicious in rice or porridge.", image: "assets/signature-3.png", category: "HEALTHY", tags: ["LIKEFUSION", "HEALTHY"] },
+                { id: "sig-004", title: "Garlic Podi", price: 110, unit: "50gms", short: "Roasted garlic — bold & savory.", description: "Bold garlic flavour that pairs beautifully with ghee dosa.", image: "assets/signature-4.png", category: "TRADITION", tags: ["HOME_MADE"] },
+                { id: "sig-005", title: "Idli Milagai Podi", price: 95, unit: "50gms", short: "Classic mild & nutty seasoning.", description: "Mild & nutty — perfect for idli and breakfast bowls.", image: "assets/signature-5.png", category: "KIDS", tags: ["TRADITION", "KIDS"] },
+                { id: "sig-006", title: "Kollu Podi", price: 130, unit: "50gms", short: "Protein-rich horse gram blend.", description: "Earthy & nourishing — great in rice mixes.", image: "assets/signature-6.png", category: "HEALTHY", tags: ["HOME_MADE", "HEALTHY"] },
+                { id: "sig-007", title: "Peanut Podi", price: 120, unit: "50gms", short: "Crispy peanuts & warm spices.", description: "Crunchy, nutty & satisfying.", image: "assets/signature-7.png", category: "LIKEFUSION", tags: ["LIKEFUSION"] },
+                { id: "sig-008", title: "Sesame Podi", price: 110, unit: "50gms", short: "Toasted sesame & fragrant spices.", description: "Nutty, toasty flavour — great with rice & dosa.", image: "assets/signature-8.png", category: "TRADITION", tags: ["HOME_MADE"] },
+                { id: "sig-009", title: "Millet Mix Podi", price: 150, unit: "50gms", short: "Wholesome millet + spices.", description: "A modern twist with finger millet for extra fibre and nutty aroma.", image: "assets/signature-9.png", category: "HEALTHY", tags: ["LIKEFUSION", "HEALTHY"] },
+                { id: "sig-010", title: "Tangy Tomato Podi", price: 105, unit: "50gms", short: "Tangy tomato with mild spice.", description: "Bright tangy notes — great as a spread or sprinkle for kids and adults.", image: "assets/signature-10.png", category: "LIKEFUSION", tags: ["LIKEFUSION", "KIDS"] }
+            ],
+            combos: [
+                { id: "combo-001", title: "Breakfast Starter Combo", price: 280, unit: "3 x 50gms", items: ["sig-001", "sig-005", "sig-002"], short: "Classic Paruppu + Idli Milagai + Curry Leaves — morning-ready.", image: "assets/combo-1.png", category: "COMBOS", tags: ["VALUE"] },
+                { id: "combo-002", title: "Health Pack Combo", price: 360, unit: "3 x 50gms", items: ["sig-003", "sig-006", "sig-009"], short: "Moringa + Kollu + Millet mix for a nourishing boost.", image: "assets/combo-2.png", category: "COMBOS", tags: ["HEALTHY"] },
+                { id: "combo-003", title: "Family Favourite Combo", price: 340, unit: "3 x 50gms", items: ["sig-004", "sig-007", "sig-008"], short: "Garlic + Peanut + Sesame — balanced family flavours.", image: "assets/combo-3.png", category: "COMBOS", tags: ["FAMILY"] },
+                { id: "combo-004", title: "Kids Lunchbox Combo", price: 295, unit: "3 x 50gms", items: ["sig-005", "sig-010", "sig-001"], short: "Mild & tasty trio kids will love — safe spice levels.", image: "assets/combo-4.png", category: "COMBOS", tags: ["KIDS"] }
+            ],
+            bestSellers: ["sig-003", "sig-004", "sig-001", "sig-007"]
+        };
+    </script>
+
+    <!-- Main script that renders the new layouts -->
     <script>
         (function () {
-            /* CONFIG */
-            const DATA_URL = 'data.json'; // update if your JSON path is different
             const pre = document.getElementById('preloader');
 
-            /* PRELOADER: mandatory 3 seconds */
+            /* PRELOADER */
             (function () {
-                const MIN_MS = 3000;
-                const started = Date.now();
-                function hidePre() {
-                    const delta = Date.now() - started;
-                    const wait = Math.max(0, MIN_MS - delta);
-                    setTimeout(() => pre.classList.add('hidden'), wait);
-                }
+                const MIN_MS = 3000; const started = Date.now();
+                function hidePre() { const delta = Date.now() - started; const wait = Math.max(0, MIN_MS - delta); setTimeout(() => pre.classList.add('hidden'), wait); }
                 if (document.readyState === 'complete' || document.readyState === 'interactive') hidePre();
-                else {
-                    window.addEventListener('DOMContentLoaded', hidePre);
-                    setTimeout(() => pre.classList.add('hidden'), 10000);
-                }
+                else { window.addEventListener('DOMContentLoaded', hidePre); setTimeout(() => pre.classList.add('hidden'), 10000); }
             })();
 
-            /* small escape helper */
-            function esc(s) {
-                if (s === null || s === undefined) return '';
-                return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
-            }
+            function esc(s) { if (s === null || s === undefined) return ''; return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m])); }
 
-            /* RENDER HELPERS */
             function makeProductCard(p) {
-                const art = document.createElement('article');
-                art.className = 'product-card';
-                art.innerHTML = `
-          <img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">
-          <div class="product-info">
-            <h4>${esc(p.title)} <span class="badge">${esc(p.unit || '')}</span></h4>
-            <div class="muted">${esc(p.short || '')}</div>
-            <div style="margin-top:8px"><span class="price">₹${Number(p.price || 0).toFixed(0)}</span></div>
-            <div class="muted" style="margin-top:8px">${esc(p.description || '')}</div>
-          </div>
-        `;
-                return art;
+                const art = document.createElement('article'); art.className = 'product-card'; art.innerHTML = `
+        <img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">
+        <div class="product-info">
+          <h4>${esc(p.title)} <span class="badge">${esc(p.unit || '')}</span></h4>
+          <div class="muted">${esc(p.short || '')}</div>
+          <div style="margin-top:8px"><span class="price">₹${Number(p.price || 0).toFixed(0)}</span></div>
+          <div class="muted" style="margin-top:8px">${esc(p.description || '')}</div>
+        </div>`; return art;
             }
 
             function makeComboCard(c, productLookup) {
-                const card = document.createElement('article');
-                card.className = 'product-card';
-                // show first item image if exists
-                const firstImage = c.image || (productLookup[c.items && c.items[0]] && productLookup[c.items[0]].image) || 'assets/signature-1.png';
-                card.innerHTML = `
-          <img src="${esc(firstImage)}" alt="${esc(c.title)}" loading="lazy">
-          <div class="product-info">
-            <h4>${esc(c.title)} <span class="badge">${esc(c.unit || '')}</span></h4>
-            <div class="muted">${esc(c.short || '')}</div>
-            <div style="margin-top:8px"><span class="price">₹${Number(c.price || 0).toFixed(0)}</span></div>
-            <div class="muted" style="margin-top:8px">${(c.items || []).map(id => esc(productLookup[id] ? productLookup[id].title : id)).join(' • ')}</div>
-          </div>
-        `;
-                return card;
+                const card = document.createElement('article'); card.className = 'product-card'; const firstImage = c.image || (productLookup[c.items && c.items[0]] && productLookup[c.items[0]].image) || 'assets/signature-1.png'; card.innerHTML = `
+        <img src="${esc(firstImage)}" alt="${esc(c.title)}" loading="lazy">
+        <div class="product-info">
+          <h4>${esc(c.title)} <span class="badge">${esc(c.unit || '')}</span></h4>
+          <div class="muted">${esc(c.short || '')}</div>
+          <div style="margin-top:8px"><span class="price">₹${Number(c.price || 0).toFixed(0)}</span></div>
+          <div class="muted" style="margin-top:8px">${(c.items || []).map(id => esc(productLookup[id] ? productLookup[id].title : id)).join(' • ')}</div>
+        </div>`; return card;
             }
 
-            function makeBestCard(p) {
-                // Slightly different format: use best-card styles (reuse product-card with minimal changes)
-                const card = document.createElement('article');
-                card.className = 'best-card';
-                card.innerHTML = `
-          <img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">
-          <div class="best-info">
-            <h4>${esc(p.title)} <small style="font-weight:700;color:#777;margin-left:6px">${esc(p.unit || '')}</small></h4>
-            <div class="muted">${esc(p.short || '')}</div>
-            <div style="margin-top:8px"><span class="price">₹${Number(p.price || 0).toFixed(0)}</span></div>
-          </div>
-        `;
-                return card;
-            }
+            function makeSmallCard(p) { const el = document.createElement('div'); el.className = 'small-card'; el.innerHTML = `<img src="${esc(p.image)}" alt="${esc(p.title)}"><div><strong>${esc(p.title)}</strong><div class="muted" style="margin-top:6px">₹${Number(p.price || 0).toFixed(0)} • ${esc(p.unit || '')}</div></div>`; return el; }
 
-            /* FETCH DATA ONCE and RENDER sections */
-            fetch(DATA_URL, { cache: 'no-cache' }).then(resp => {
-                if (!resp.ok) throw new Error('Failed to fetch ' + DATA_URL + ' (' + resp.status + ')');
-                return resp.json();
-            }).then(data => {
-                // expected shape: { products: [...], combos: [...], bestSellers: [...] }
-                const products = data.products || data; // allow either top-level array or named
-                const combos = data.combos || [];
-                const bestSellers = data.bestSellers || [];
+            /* render all */
+            (function renderAll() {
+                const data = window.storeData || storeData || {};
+                const products = data.products || []; const combos = data.combos || []; const bestSellers = data.bestSellers || [];
+                const lookup = {}; products.forEach(p => lookup[p.id] = p);
 
-                // build lookup by id
-                const lookup = {};
-                (products || []).forEach(p => { lookup[p.id] = p; });
-
-                /* --- Best Sellers --- */
+                /* BEST SELLER - Highlight + others */
                 (function renderBest() {
-                    const ROW = document.getElementById('bestRow');
-                    const GRID = document.getElementById('bestGrid');
-                    const FALLBACK = document.getElementById('bestFallback');
-                    ROW.innerHTML = ''; GRID.innerHTML = '';
+                    const highlight = document.getElementById('bestHighlight');
+                    const others = document.getElementById('bestGridOther');
+                    highlight.innerHTML = ''; others.innerHTML = '';
 
-                    // if bestSellers is IDs array, map to product objects
-                    const list = bestSellers.length ? bestSellers.map(id => lookup[id]).filter(Boolean) : (products || []).slice(0, 4);
-
+                    const list = bestSellers.map(id => lookup[id]).filter(Boolean);
                     if (!list.length) {
-                        FALLBACK.style.display = 'block';
+                        highlight.innerHTML = '<div class="best-highlight"><div class="content"><p class="muted">No bestsellers available right now.</p></div></div>';
                         return;
                     }
-                    FALLBACK.style.display = 'none';
 
-                    list.forEach(item => {
-                        const c = makeBestCard(item);
-                        ROW.appendChild(c);
-                        GRID.appendChild(c.cloneNode(true));
-                    });
+                    const main = list[0];
+                    // use your supplied image for layout preview if present:
+                    // If you want to use the attached preview image path provided earlier, change the src below.
+                    // e.g. replace imgSrc with '/mnt/data/5656b7d8-364b-4861-9cf2-fa3c255c6d53.png' to mimic the provided screenshot.
+                    const imgSrc = main.image || 'assets/signature-1.png';
+                    // If you want the special sample image from the conversation, set:
+                    // const imgSrc = '/mnt/data/5656b7d8-364b-4861-9cf2-fa3c255c6d53.png';
 
-                    function toggleLayout() {
+                    // highlight HTML: image top, content card below (matching attached style)
+                    const htm = document.createElement('div');
+                    htm.className = 'inner-highlight';
+                    htm.innerHTML = `
+            <div class="img-wrap">
+              <img src="${esc(imgSrc)}" alt="${esc(main.title)}">
+              <div class="best-price-badge">₹${Number(main.price || 0).toFixed(0)} / ${esc(main.unit || '')}</div>
+            </div>
+            <div class="content">
+              <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                <div style="background:#eaf6ea;color:var(--brand-1);padding:6px 10px;border-radius:999px;font-weight:800;font-size:13px">Signature</div>
+              </div>
+              <h3 style="margin:0;color:var(--brand-1);font-size:20px">${esc(main.title)}</h3>
+              <p class="muted" style="margin-top:8px">${esc(main.short || '')}</p>
+              <p class="muted" style="margin-top:8px">${esc(main.description || '')}</p>
+            </div>`;
+                    highlight.appendChild(htm);
+
+                    // render remaining best sellers in small cards
+                    const rem = list.slice(1);
+                    if (rem.length) {
+                        rem.forEach(p => {
+                            others.appendChild(makeSmallCard(p));
+                        });
+                    } else {
+                        // if none left, show top 3 products as suggestion
+                        const fallback = products.filter(prod => prod.id !== main.id).slice(0, 3);
+                        fallback.forEach(p => others.appendChild(makeSmallCard(p)));
+                    }
+
+                    // responsive: set aria-hidden attributes
+                    function adapt() {
                         if (window.innerWidth >= 900) {
-                            GRID.style.display = 'grid';
-                            ROW.style.display = 'none';
-                            GRID.setAttribute('aria-hidden', 'false');
+                            others.setAttribute('aria-hidden', 'false');
                         } else {
-                            GRID.style.display = 'none';
-                            ROW.style.display = 'flex';
-                            GRID.setAttribute('aria-hidden', 'true');
+                            // on mobile, stack: highlight first then others below
+                            others.setAttribute('aria-hidden', 'false');
                         }
                     }
-                    toggleLayout();
-                    window.addEventListener('resize', debounce(toggleLayout, 140));
+                    adapt(); window.addEventListener('resize', debounce(adapt, 140));
                 })();
 
-                /* --- Combos --- */
+                /* COMBOS */
                 (function renderCombos() {
                     const ROW = document.getElementById('combosRow');
-                    const GRID = document.getElementById('combosGrid');
-                    const FALLBACK = document.getElementById('combosFallback');
-                    ROW.innerHTML = ''; GRID.innerHTML = '';
-
+                    ROW.innerHTML = '';
                     if (!combos || combos.length === 0) {
-                        FALLBACK.style.display = 'block';
+                        document.getElementById('combosFallback').style.display = 'block';
                         return;
                     }
-                    FALLBACK.style.display = 'none';
-
                     combos.forEach(c => {
                         const card = makeComboCard(c, lookup);
-                        card.style.minWidth = '260px';
-                        card.style.flex = '0 0 auto';
                         ROW.appendChild(card);
-                        GRID.appendChild(card.cloneNode(true));
                     });
-
-                    function toggleLayout() {
-                        if (window.innerWidth >= 1000) {
-                            GRID.style.display = 'grid';
-                            GRID.style.gridTemplateColumns = 'repeat(4, 1fr)';
-                            document.getElementById('combosRow').style.display = 'none';
-                            document.getElementById('combosGrid').style.display = 'grid';
-                        } else {
-                            document.getElementById('combosRow').style.display = 'flex';
-                            document.getElementById('combosGrid').style.display = 'none';
-                        }
-                    }
-                    toggleLayout();
-                    window.addEventListener('resize', debounce(toggleLayout, 140));
                 })();
 
-                /* --- All Products --- */
+                /* PRODUCTS */
                 (function renderProducts() {
                     const ROW = document.getElementById('productsRow');
                     const GRID = document.getElementById('productsGrid');
-                    const FALLBACK = document.getElementById('productsFallback');
                     ROW.innerHTML = ''; GRID.innerHTML = '';
-
-                    if (!products || products.length === 0) {
-                        FALLBACK.style.display = 'block';
-                        return;
-                    }
-                    FALLBACK.style.display = 'none';
-
+                    if (!products || products.length === 0) { document.getElementById('productsFallback').style.display = 'block'; return; }
                     products.forEach(p => {
                         const card = makeProductCard(p);
                         ROW.appendChild(card);
                         GRID.appendChild(card.cloneNode(true));
                     });
-
-                    function layout() {
-                        if (window.innerWidth >= 1000) {
-                            GRID.style.display = 'grid';
-                            document.getElementById('products-scroll').style.display = 'none';
-                        } else {
-                            GRID.style.display = 'none';
-                            document.getElementById('products-scroll').style.display = 'block';
-                        }
-                    }
-                    layout();
-                    window.addEventListener('resize', debounce(layout, 140));
+                    function layout() { if (window.innerWidth >= 1000) { GRID.style.display = 'grid'; document.getElementById('products-scroll').style.display = 'none'; } else { GRID.style.display = 'none'; document.getElementById('products-scroll').style.display = 'block'; } }
+                    layout(); window.addEventListener('resize', debounce(layout, 140));
                 })();
+            })();
 
-            }).catch(err => {
-                console.error('Data load error:', err);
-                // show fallbacks
-                const bs = document.getElementById('bestFallback'); if (bs) { bs.style.display = 'block'; bs.textContent = 'Failed to load Best Sellers — check data.json and server.'; }
-                const cb = document.getElementById('combosFallback'); if (cb) cb.style.display = 'block';
-                const pf = document.getElementById('productsFallback'); if (pf) { pf.style.display = 'block'; pf.textContent = 'Failed to load products — check data.json and server.'; }
-            });
-
-            /* HERO SLIDER: 5s with dots, paused on hover, starts after preloader */
-            (function () {
+            /* slider, marquee, header, to-top: keep same behavior as before */
+            (function slider() {
                 const slides = Array.from(document.querySelectorAll('.slide'));
-                const dotsWrap = document.getElementById('dots');
-                const INTERVAL = 5000;
-                if (!slides.length) return;
-                let idx = 0, timer = null;
-
-                // build dots
-                slides.forEach((s, i) => {
-                    const b = document.createElement('button');
-                    b.className = 'dot' + (i === 0 ? ' active' : '');
-                    b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-                    b.addEventListener('click', () => goTo(i));
-                    dotsWrap.appendChild(b);
-                });
+                const dotsWrap = document.getElementById('dots'); const INTERVAL = 5000;
+                if (!slides.length) return; let idx = 0, timer = null;
+                slides.forEach((s, i) => { const b = document.createElement('button'); b.className = 'dot' + (i === 0 ? ' active' : ''); b.setAttribute('aria-label', 'Go to slide ' + (i + 1)); b.addEventListener('click', () => goTo(i)); dotsWrap.appendChild(b); });
                 const dots = Array.from(dotsWrap.children);
-
-                function show(i) {
-                    slides.forEach((s, si) => s.classList.toggle('show', si === i));
-                    dots.forEach((d, di) => d.classList.toggle('active', di === i));
-                }
+                function show(i) { slides.forEach((s, si) => s.classList.toggle('show', si === i)); dots.forEach((d, di) => d.classList.toggle('active', di === i)); }
                 function next() { idx = (idx + 1) % slides.length; show(idx); }
                 function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); }
                 function restart() { if (timer) clearInterval(timer); timer = setInterval(next, INTERVAL); }
-
-                // start slider after preloader hidden
-                const obs = new MutationObserver(() => {
-                    if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); }
-                });
-                obs.observe(pre, { attributes: true });
-                setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
-
+                const obs = new MutationObserver(() => { if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); } });
+                obs.observe(pre, { attributes: true }); setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
                 const slideWrap = document.getElementById('slides');
-                slideWrap.addEventListener('mouseenter', () => clearInterval(timer));
-                slideWrap.addEventListener('mouseleave', restart);
-                slideWrap.addEventListener('focusin', () => clearInterval(timer));
-                slideWrap.addEventListener('focusout', restart);
-
-                // keyboard nav
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'ArrowRight') goTo(idx + 1);
-                    if (e.key === 'ArrowLeft') goTo(idx - 1);
-                });
+                slideWrap.addEventListener('mouseenter', () => clearInterval(timer)); slideWrap.addEventListener('mouseleave', restart);
+                slideWrap.addEventListener('focusin', () => clearInterval(timer)); slideWrap.addEventListener('focusout', restart);
+                document.addEventListener('keydown', (e) => { if (e.key === 'ArrowRight') goTo(idx + 1); if (e.key === 'ArrowLeft') goTo(idx - 1); });
             })();
 
-            /* MARQUEE: duplicate content to ensure smooth -50% loop; set duration */
-            (function () {
-                const marquee = document.getElementById('marquee');
-                if (!marquee) return;
-                const container = marquee.parentElement;
-                const base = Array.from(marquee.children).map(n => n.cloneNode(true));
-                function ensure() {
-                    const target = Math.max(container.offsetWidth * 2, 1000);
-                    let iter = 0;
-                    while (marquee.scrollWidth < target && iter < 20) { base.forEach(b => marquee.appendChild(b.cloneNode(true))); iter++; }
-                }
-                function setDuration() {
-                    const pxPerSec = 140;
-                    const dur = Math.max(6, Math.round(marquee.scrollWidth / pxPerSec));
-                    marquee.style.animationDuration = dur + 's';
-                }
+            (function marquee() {
+                const marquee = document.getElementById('marquee'); if (!marquee) return; const container = marquee.parentElement; const base = Array.from(marquee.children).map(n => n.cloneNode(true));
+                function ensure() { const target = Math.max(container.offsetWidth * 2, 1000); let iter = 0; while (marquee.scrollWidth < target && iter < 20) { base.forEach(b => marquee.appendChild(b.cloneNode(true))); iter++; } }
+                function setDuration() { const pxPerSec = 140; const dur = Math.max(6, Math.round(marquee.scrollWidth / pxPerSec)); marquee.style.animationDuration = dur + 's'; }
                 function init() { ensure(); setDuration(); }
-                window.addEventListener('load', init);
-                let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(() => { marquee.innerHTML = ''; base.forEach(b => marquee.appendChild(b.cloneNode(true))); init(); }, 160); });
-                marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
-                marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
-                setTimeout(init, 50);
+                window.addEventListener('load', init); let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(() => { marquee.innerHTML = ''; base.forEach(b => marquee.appendChild(b.cloneNode(true))); init(); }, 160); });
+                marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true }); marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true }); setTimeout(init, 50);
             })();
 
-            /* HEADER: hamburger/menu toggle + shrink behavior */
-            (function () {
-                const header = document.querySelector('header.site-header');
-                const btn = document.getElementById('hamburgerBtn');
-                const icon = document.getElementById('hamburgerIcon');
-                const menu = document.getElementById('mobileMenu');
-                const closeBtn = document.getElementById('mobileClose');
-                const links = document.querySelectorAll('#mobileNav a');
+            (function headerShrink() { const header = document.querySelector('header.site-header'); function update() { const w = window.innerWidth, sc = window.scrollY; if (w <= 900) { if (sc > 20) header.classList.add('shrink'); else header.classList.remove('shrink'); } else { if (sc > 40) header.classList.add('shrink'); else header.classList.remove('shrink'); } } window.addEventListener('scroll', update, { passive: true }); window.addEventListener('resize', update); update(); })();
 
-                function openMenu() {
-                    menu.classList.add('open'); menu.setAttribute('aria-hidden', 'false');
-                    btn.setAttribute('aria-expanded', 'true'); icon.classList.remove('bi-list'); icon.classList.add('bi-x');
-                    document.body.style.overflow = 'hidden';
-                    updateHeader();
-                }
-                function closeMenu() {
-                    menu.classList.remove('open'); menu.setAttribute('aria-hidden', 'true');
-                    btn.setAttribute('aria-expanded', 'false'); icon.classList.remove('bi-x'); icon.classList.add('bi-list');
-                    document.body.style.overflow = '';
-                    updateHeader();
-                }
-                btn.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
-                closeBtn && closeBtn.addEventListener('click', closeMenu);
-                links.forEach(a => a.addEventListener('click', closeMenu));
-                document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu(); });
+            (function toTop() { const btn = document.getElementById('toTop'); btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); window.addEventListener('scroll', () => { if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none' }); btn.style.display = 'none'; })();
 
-                function updateHeader() {
-                    const w = window.innerWidth, sc = window.scrollY;
-                    if (w <= 900) {
-                        if (sc > 20 || menu.classList.contains('open')) header.classList.add('shrink'); else header.classList.remove('shrink');
-                    } else {
-                        if (sc > 40) header.classList.add('shrink'); else header.classList.remove('shrink');
-                    }
-                }
-                window.addEventListener('scroll', updateHeader, { passive: true });
-                window.addEventListener('resize', updateHeader);
-                updateHeader();
-            })();
+            (function bottomNavHighlight() { const items = document.querySelectorAll('.bottom-nav a'); function setActiveByHash() { items.forEach(i => i.classList.remove('active')); const h = (location.hash || '#home').replace('#', ''); const mapping = { home: 'bn-home', 'best-seller': 'bn-best', combos: 'bn-combos', products: 'bn-products', contact: 'bn-contact' }; const cls = mapping[h] || 'bn-home'; const el = document.querySelector('.' + cls); if (el) el.classList.add('active'); } window.addEventListener('hashchange', setActiveByHash); window.addEventListener('load', setActiveByHash); setActiveByHash(); })();
 
-            /* GO TO TOP */
-            (function () {
-                const btn = document.getElementById('toTop');
-                btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
-                window.addEventListener('scroll', () => { if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none' });
-                btn.style.display = 'none';
-            })();
-
-            /* small debounce */
             function debounce(fn, ms) { let t; return function () { clearTimeout(t); t = setTimeout(() => fn.apply(this, arguments), ms); }; }
         })();
     </script>
