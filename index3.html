@@ -6,25 +6,24 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Dosa Toppings — Healthy Twist for Every Dosa</title>
     <link rel="icon" href="assets/icon-2.png" type="image/png">
-
-    <!-- Bootstrap Icons (CDN) -->
+    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
     <style>
-        /* =================== VARIABLES & RESET =================== */
+        /* =================== THEME & RESET =================== */
         :root {
             --brand-1: #1d7a3a;
             /* green */
             --brand-2: #f3c02b;
-            /* yellow */
+            /* yellow (accent) */
             --muted: #5b6b6b;
             --bg: #ffffff;
             --max-width: 1200px;
             --gutter: 20px;
             --easing: cubic-bezier(.2, .9, .3, 1);
-            --card-shadow: 0 10px 36px rgba(8, 12, 20, .08);
-            --soft-shadow: 0 6px 20px rgba(15, 23, 42, .06);
-            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+            --card-shadow: 0 10px 36px rgba(8, 12, 20, 0.08);
+            --soft-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+            font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
         }
 
         * {
@@ -40,9 +39,9 @@
             margin: 0;
             background: var(--bg);
             color: #142026;
-            font-size: 16px;
-            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
+            line-height: 1.5;
+            font-size: 16px;
         }
 
         img {
@@ -54,7 +53,7 @@
             max-width: var(--max-width);
             margin: 0 auto;
             padding: 0 var(--gutter);
-            width: 100%;
+            width: 100%
         }
 
         /* =================== PRELOADER (3s) =================== */
@@ -83,7 +82,7 @@
             display: grid;
             place-items: center;
             padding: 8px;
-            background: #fff;
+            background: #fff
         }
 
         .preloader img {
@@ -99,9 +98,9 @@
             left: 0;
             right: 0;
             z-index: 1200;
-            background: rgba(255, 255, 255, .98);
+            background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(6px);
-            box-shadow: 0 10px 30px rgba(8, 12, 20, .08);
+            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.08);
             transition: padding .22s var(--easing), box-shadow .22s var(--easing);
             padding: 14px 0;
         }
@@ -114,7 +113,7 @@
             align-items: center;
             justify-content: space-between;
             position: relative;
-            gap: 12px;
+            gap: 12px
         }
 
         .brand-left img {
@@ -122,12 +121,13 @@
             transition: height .22s
         }
 
+        /* center nav (desktop) */
         .nav-center {
             position: absolute;
             left: 50%;
             top: 50%;
             transform: translate(-50%, -50%);
-            z-index: 1100;
+            z-index: 1100
         }
 
         .nav-list {
@@ -136,32 +136,46 @@
             list-style: none;
             margin: 0;
             padding: 0;
-            white-space: nowrap;
+            white-space: nowrap
         }
 
+        /* =================== FORCED NAV STYLE: BLACK + TEXT FORMAT =================== */
         .nav-list a {
             text-decoration: none;
-            color: var(--brand-2);
+            color: #000 !important;
+            /* FORCE black color */
             font-weight: 800;
+            /* bold */
+            font-family: inherit;
+            /* same font stack */
             padding: 8px 10px;
             border-radius: 6px;
-            font-size: 15px;
+            font-size: 16px;
+            /* slightly larger for readability */
+            text-transform: none !important;
+            /* normal case (no uppercase) */
+            letter-spacing: 0.3px;
+            /* subtle letter spacing */
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .nav-list a:hover {
-            color: #222;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 22px rgba(0, 0, 0, .06)
+            color: #000;
+            /* keep black on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.06);
         }
 
         .brand-right {
             width: 64px;
             display: flex;
             align-items: center;
-            justify-content: flex-end;
+            justify-content: flex-end
         }
 
-        /* hamburger (bootstrap icon) */
+        /* hamburger - uses bootstrap icon (green) */
         .hamburger {
             display: flex;
             align-items: center;
@@ -175,28 +189,15 @@
             border-radius: 8px;
         }
 
-        .hamburger:focus {
-            outline: 3px solid rgba(29, 122, 58, .12);
-            outline-offset: 2px;
-        }
-
         .hamburger .bi {
             font-size: 24px;
-            line-height: 1;
             color: var(--brand-1);
-            transition: transform .18s, color .18s;
+            transition: transform .18s, color .18s
         }
 
-        @media(max-width:520px) {
-            .hamburger {
-                width: 56px;
-                height: 44px;
-                padding: 8px;
-            }
-
-            .hamburger .bi {
-                font-size: 28px;
-            }
+        .hamburger:focus {
+            outline: 3px solid rgba(29, 122, 58, 0.12);
+            outline-offset: 2px
         }
 
         /* mobile menu */
@@ -210,49 +211,45 @@
             background: linear-gradient(180deg, #fff, #fbfff4);
             transition: height .32s var(--easing);
             z-index: 1190;
-            box-shadow: 0 10px 30px rgba(8, 12, 20, .06);
+            box-shadow: 0 10px 30px rgba(8, 12, 20, 0.06)
         }
 
         .mobile-menu.open {
             height: 100vh;
-            overflow: auto;
+            overflow: auto
         }
 
         .mobile-menu-inner {
             max-width: var(--max-width);
             margin: 0 auto;
-            padding: 22px;
+            padding: 22px
         }
 
         .mobile-nav {
             display: flex;
             flex-direction: column;
             gap: 18px;
-            padding-top: 20px;
+            padding-top: 20px
         }
 
+        /* force mobile nav text black + same format */
         .mobile-nav a {
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 20px;
-            color: var(--brand-1);
+            text-decoration: none !important;
+            color: #000 !important;
+            /* force black */
+            font-weight: 800 !important;
+            font-size: 20px !important;
+            text-transform: none !important;
+            letter-spacing: 0.3px !important;
         }
 
-        /* shrink styles */
         header.site-header.shrink {
             padding: 8px 0;
-            box-shadow: 0 6px 18px rgba(8, 12, 20, .06)
+            box-shadow: 0 6px 18px rgba(8, 12, 20, 0.06)
         }
 
         header.site-header.shrink .brand-left img {
             height: 44px !important
-        }
-
-        /* hide hamburger on desktop, show on mobile */
-        @media(min-width:901px) {
-            .hamburger {
-                display: none !important
-            }
         }
 
         @media(max-width:900px) {
@@ -266,6 +263,12 @@
 
             .brand-left img {
                 height: 44px
+            }
+        }
+
+        @media(min-width:901px) {
+            .hamburger {
+                display: none
             }
         }
 
@@ -321,7 +324,7 @@
 
         .caption {
             max-width: 720px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, .95), rgba(255, 255, 255, .76));
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.76));
             padding: 14px 16px;
             border-radius: 12px;
             box-shadow: var(--soft-shadow);
@@ -347,7 +350,7 @@
             gap: 10px;
             padding: 8px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, .9);
+            background: rgba(255, 255, 255, 0.9);
             box-shadow: var(--soft-shadow);
             z-index: 20
         }
@@ -356,9 +359,9 @@
             width: 12px;
             height: 12px;
             border-radius: 50%;
-            background: rgba(0, 0, 0, .12);
+            background: rgba(0, 0, 0, 0.12);
             cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, .2)
+            border: 2px solid rgba(255, 255, 255, 0.2)
         }
 
         .dot.active {
@@ -396,7 +399,7 @@
             padding: 8px 12px;
             border-radius: 999px;
             background: linear-gradient(90deg, #fffef7, #f9fff4);
-            box-shadow: 0 8px 28px rgba(8, 12, 10, .04);
+            box-shadow: 0 8px 28px rgba(8, 12, 10, 0.04);
             font-weight: 800;
             color: var(--brand-1);
             font-size: 18px
@@ -452,13 +455,6 @@
             display: flex;
             gap: 14px;
             flex-wrap: wrap
-        }
-
-        .about-list .item {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            min-width: 220px
         }
 
         .products-grid {
@@ -620,7 +616,7 @@
         }
 
         .notice {
-            background: rgba(0, 0, 0, .12);
+            background: rgba(0, 0, 0, 0.12);
             padding: 14px;
             border-radius: 10px;
             font-weight: 700;
@@ -634,7 +630,7 @@
             justify-content: space-between;
             gap: 12px;
             padding-top: 18px;
-            border-top: 1px solid rgba(255, 255, 255, .06);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
             margin-top: 14px;
             flex-wrap: wrap
         }
@@ -655,7 +651,7 @@
             border-radius: 50%;
             display: grid;
             place-items: center;
-            box-shadow: 0 12px 44px rgba(10, 20, 10, .18);
+            box-shadow: 0 12px 44px rgba(10, 20, 10, 0.18);
             cursor: pointer;
             border: none;
             font-weight: 800;
@@ -664,10 +660,11 @@
         }
 
         .to-top:focus {
-            outline: 3px solid rgba(255, 207, 43, .22);
+            outline: 3px solid rgba(255, 207, 43, 0.22);
             outline-offset: 3px
         }
 
+        /* small utilities */
         .muted {
             color: var(--muted)
         }
@@ -684,20 +681,22 @@
     <!-- HEADER -->
     <header class="site-header" role="banner" aria-label="Main navigation">
         <div class="nav-inner conater">
-            <div class="brand-left"><a href="#home" aria-label="Home"><img src="assets/icon-5.png"
-                        alt="Dosa Toppings logo"></a></div>
+            <div class="brand-left">
+                <a href="#home" aria-label="Home"><img src="assets/icon-5.png" alt="Dosa Toppings logo"></a>
+            </div>
 
+            <!-- CENTER NAV (desktop) -->
             <nav class="nav-center" role="navigation" aria-label="Primary navigation">
                 <ul class="nav-list" role="menubar">
-                    <li><a role="menuitem" href="#home">Home</a></li>
-                    <li><a role="menuitem" href="#about-us">About Us</a></li>
-                    <li><a role="menuitem" href="#products">Products</a></li>
-                    <li><a role="menuitem" href="#quality">Quality</a></li>
+                    <li><a role="menuitem" href="#best-seller">Bestsellers</a></li>
+                    <li><a role="menuitem" href="#combos">Combos</a></li>
+                    <li><a role="menuitem" href="#products">All Products</a></li>
+                    <li><a role="menuitem" href="#about-us">About</a></li>
                     <li><a role="menuitem" href="#contact">Contact</a></li>
-                    <li><a role="menuitem" href="#shopall">Shop All</a></li>
                 </ul>
             </nav>
 
+            <!-- RIGHT SIDE (mobile hamburger) -->
             <div class="brand-right">
                 <button id="hamburgerBtn" class="hamburger" aria-label="Open menu" aria-expanded="false"
                     aria-controls="mobileMenu" type="button">
@@ -710,26 +709,22 @@
     <!-- MOBILE MENU -->
     <div id="mobileMenu" class="mobile-menu" aria-hidden="true">
         <div class="mobile-menu-inner conater">
-            <div style="display:flex;align-items:center;justify-content:space-between;">
-                <a href="#home" aria-label="home"><img src="assets/icon-5.png" alt="logo" style="height:56px"></a>
-                <button id="mobileClose" aria-label="Close menu" class="mobile-close-btn"
-                    style="background:none;border:0;font-size:28px;cursor:pointer;color:var(--brand-1)"><i
-                        class="bi bi-x-lg" aria-hidden="true"></i></button>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+                <a href="#home"><img src="assets/icon-5.png" alt="logo" style="height:56px"></a>
+                <button id="mobileClose" aria-label="Close menu"
+                    style="background:none;border:0;font-size:32px;cursor:pointer">×</button>
             </div>
-
             <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
-                <a href="#home">Home</a>
-                <a href="#about-us">About Us</a>
-                <a href="#products">Products</a>
-                <a href="#quality">Quality</a>
+                <a href="#best-seller">Bestsellers</a>
+                <a href="#combos">Combos</a>
+                <a href="#products">All Products</a>
+                <a href="#about-us">About</a>
                 <a href="#contact">Contact</a>
-                <a href="#shopall">Shop All</a>
             </nav>
         </div>
     </div>
 
     <main id="home">
-
         <!-- HERO -->
         <section class="hero" aria-label="Hero">
             <div class="conater">
@@ -742,6 +737,13 @@
                         aria-label="Hero 3"></div>
                     <div class="slide" style="background-image:url('assets/hero-4.png');" role="img"
                         aria-label="Hero 4"></div>
+
+                    <div class="overlay">
+                        <div class="caption">
+                            <h2>Small-batch podis — big homemade flavour</h2>
+                            <p>Freshly roasted. Stone-ground. Ready-to-sprinkle for instant homely taste.</p>
+                        </div>
+                    </div>
 
                     <div class="dots" id="dots" aria-hidden="false"></div>
                 </div>
@@ -758,6 +760,43 @@
                 </div>
             </div>
         </div>
+
+        <!-- ==================== BEST SELLERS SECTION (standalone) ==================== -->
+        <section id="best-seller" class="best-sellers" aria-label="Best sellers">
+            <div class="best-inner conater">
+                <div class="best-title" style="display:flex;align-items:center;justify-content:space-between">
+                    <h3 style="margin:0;color:#000;font-weight:800;font-size:20px">Best Sellers</h3>
+                    <div class="best-cta"><a href="#products" aria-label="See all products"
+                            style="text-decoration:none;color:var(--brand-1);font-weight:700">See all products →</a>
+                    </div>
+                </div>
+
+                <!-- Mobile row -->
+                <div id="bestRow" class="best-row" aria-live="polite" aria-atomic="true"
+                    style="display:flex;gap:12px;overflow-x:auto;padding:12px 0"></div>
+
+                <!-- Desktop grid -->
+                <div id="bestGrid" class="best-grid" aria-hidden="true"
+                    style="display:none;gap:12px;grid-template-columns:repeat(3,1fr)"></div>
+
+                <div id="bestFallback" class="best-fallback" style="display:none;color:var(--muted);padding:10px 0">No
+                    bestsellers available right now.</div>
+            </div>
+        </section>
+
+        <!-- ==================== COMBOS SECTION ==================== -->
+        <section id="combos" class="section" aria-label="Combos">
+            <div class="conater">
+                <div class="section-title">
+                    <h3>Combos</h3>
+                </div>
+
+                <div id="combosRow" class="scroll-x" style="display:flex;gap:12px;padding:12px 0"></div>
+                <div id="combosGrid" style="display:none;gap:12px"></div>
+                <div id="combosFallback" style="display:none;color:var(--muted);padding:10px 0">No combos available.
+                </div>
+            </div>
+        </section>
 
         <!-- ABOUT US -->
         <section id="about-us" class="section">
@@ -844,11 +883,12 @@
                 <p class="muted">Pure, elevated podis — small-batch roasted, stone-ground and finished for today’s
                     table. <em>*Images shown are for illustration purposes only.*</em></p>
 
-                <div class="scroll-x" id="products-scroll">
-                    <div class="products-row" id="productsRow"></div>
+                <div id="products-scroll" class="scroll-x">
+                    <div id="productsRow" class="products-row"></div>
                 </div>
-
-                <div class="products-grid" id="productsGrid" style="display:none"></div>
+                <div id="productsGrid" class="products-grid" style="display:none"></div>
+                <div id="productsFallback" style="display:none;color:var(--muted);padding:12px 0">No products found.
+                </div>
             </div>
         </section>
 
@@ -861,7 +901,6 @@
                 <div class="about-card">
                     <p>Every batch of Dosa Toppings podi is made with care — where traditional roasting meets modern
                         food-safety standards.</p>
-
                     <div class="quality-list">
                         <div class="quality-item">
                             <div>🌶️</div>
@@ -892,7 +931,8 @@
                         <div class="quality-item">
                             <div>🥄</div>
                             <div><strong>Air-Tight Batch Processing</strong>
-                                <div class="muted">Small batches ensure even roasting & balanced flavour.</div>
+                                <div class="muted">Small batches ensure even roasting & perfectly balanced flavour.
+                                </div>
                             </div>
                         </div>
                         <div class="quality-item">
@@ -924,7 +964,6 @@
                 </div>
             </div>
         </section>
-
     </main>
 
     <!-- FOOTER -->
@@ -953,8 +992,8 @@
 
             <div class="footer-right">
                 <h4>Contact & Order</h4>
-                <div class="muted">WhatsApp / Mobile: <a href="tel:+917200514471" style="color:#fff">+91 72005
-                        14471</a><br>
+                <div class="muted">
+                    WhatsApp / Mobile: <a href="tel:+917200514471" style="color:#fff">+91 72005 14471</a><br>
                     Email: <a href="mailto:kkmhealthyeats4u@gmail.com"
                         style="color:#fff">kkmhealthyeats4u@gmail.com</a><br>
                     Instagram: <a href="https://instagram.com/dosa.toppings" style="color:#fff">@dosa.toppings</a>
@@ -973,176 +1012,327 @@
 
     <!-- =================== SCRIPTS =================== -->
     <script>
-        /* HAMBURGER / MOBILE MENU TOGGLE (changes icon between bi-list and bi-x-lg) */
         (function () {
-            const btn = document.getElementById('hamburgerBtn');
-            const icon = document.getElementById('hamburgerIcon');
-            const menu = document.getElementById('mobileMenu');
-            const mobileClose = document.getElementById('mobileClose');
-            const mobileLinks = document.querySelectorAll('#mobileNav a');
-
-            function setIconToClose() {
-                if (icon) { icon.classList.remove('bi-list'); icon.classList.add('bi-x-lg'); }
-            }
-            function setIconToList() {
-                if (icon) { icon.classList.remove('bi-x-lg'); icon.classList.add('bi-list'); }
-            }
-
-            function openMenu() {
-                menu.classList.add('open');
-                menu.setAttribute('aria-hidden', 'false');
-                btn.classList.add('open');
-                btn.setAttribute('aria-expanded', 'true');
-                setIconToClose();
-                document.body.style.overflow = 'hidden';
-            }
-            function closeMenu() {
-                menu.classList.remove('open');
-                menu.setAttribute('aria-hidden', 'true');
-                btn.classList.remove('open');
-                btn.setAttribute('aria-expanded', 'false');
-                setIconToList();
-                document.body.style.overflow = '';
-            }
-
-            btn && btn.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
-            mobileClose && mobileClose.addEventListener('click', closeMenu);
-            mobileLinks.forEach(a => a.addEventListener('click', closeMenu));
-            document.addEventListener('keydown', e => { if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu(); });
-        })();
-
-        /* PRELOADER (minimum 3 seconds) */
-        (function () {
+            /* CONFIG */
+            const DATA_URL = 'data.json'; // update if your JSON path is different
             const pre = document.getElementById('preloader');
-            const MIN_MS = 3000;
-            const started = Date.now();
-            function hidePre() {
-                const delta = Date.now() - started;
-                const wait = Math.max(0, MIN_MS - delta);
-                setTimeout(() => pre.classList.add('hidden'), wait);
+
+            /* PRELOADER: mandatory 3 seconds */
+            (function () {
+                const MIN_MS = 3000;
+                const started = Date.now();
+                function hidePre() {
+                    const delta = Date.now() - started;
+                    const wait = Math.max(0, MIN_MS - delta);
+                    setTimeout(() => pre.classList.add('hidden'), wait);
+                }
+                if (document.readyState === 'complete' || document.readyState === 'interactive') hidePre();
+                else {
+                    window.addEventListener('DOMContentLoaded', hidePre);
+                    setTimeout(() => pre.classList.add('hidden'), 10000);
+                }
+            })();
+
+            /* small escape helper */
+            function esc(s) {
+                if (s === null || s === undefined) return '';
+                return String(s).replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
             }
-            if (document.readyState === 'complete' || document.readyState === 'interactive') hidePre();
-            else { window.addEventListener('DOMContentLoaded', hidePre); setTimeout(() => pre.classList.add('hidden'), 10000); }
-        })();
 
-        /* HERO SLIDER (5s) with dots, start after preloader hidden to avoid flash */
-        (function () {
-            const slides = Array.from(document.querySelectorAll('.slide'));
-            const dotsWrap = document.getElementById('dots');
-            const INTERVAL = 5000;
-            let idx = 0, timer = null;
-            if (!slides.length) return;
-
-            // create dots
-            slides.forEach((s, i) => {
-                const b = document.createElement('button');
-                b.className = 'dot' + (i === 0 ? ' active' : '');
-                b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
-                b.addEventListener('click', () => goTo(i));
-                dotsWrap.appendChild(b);
-            });
-            const dots = Array.from(dotsWrap.children);
-
-            function show(i) {
-                slides.forEach((s, si) => s.classList.toggle('show', si === i));
-                dots.forEach((d, di) => d.classList.toggle('active', di === i));
+            /* RENDER HELPERS */
+            function makeProductCard(p) {
+                const art = document.createElement('article');
+                art.className = 'product-card';
+                art.innerHTML = `
+          <img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">
+          <div class="product-info">
+            <h4>${esc(p.title)} <span class="badge">${esc(p.unit || '')}</span></h4>
+            <div class="muted">${esc(p.short || '')}</div>
+            <div style="margin-top:8px"><span class="price">₹${Number(p.price || 0).toFixed(0)}</span></div>
+            <div class="muted" style="margin-top:8px">${esc(p.description || '')}</div>
+          </div>
+        `;
+                return art;
             }
-            function next() { idx = (idx + 1) % slides.length; show(idx); }
-            function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); }
-            function restart() { if (timer) clearInterval(timer); timer = setInterval(next, INTERVAL); }
 
-            // wait for preloader hide
-            const pre = document.getElementById('preloader');
-            const obs = new MutationObserver(() => {
-                if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); }
-            });
-            obs.observe(pre, { attributes: true });
-
-            // fallback start
-            setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
-
-            const wrap = document.getElementById('slides');
-            wrap.addEventListener('mouseenter', () => clearInterval(timer));
-            wrap.addEventListener('mouseleave', restart);
-            wrap.addEventListener('focusin', () => clearInterval(timer));
-            wrap.addEventListener('focusout', restart);
-
-            // keyboard nav
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'ArrowRight') goTo(idx + 1);
-                if (e.key === 'ArrowLeft') goTo(idx - 1);
-            });
-        })();
-
-        /* MARQUEE: duplicate items and set duration */
-        (function () {
-            const marquee = document.getElementById('marquee');
-            if (!marquee) return;
-            const container = marquee.parentElement;
-            const base = Array.from(marquee.children).map(n => n.cloneNode(true));
-            function ensure() {
-                const target = Math.max(container.offsetWidth * 2, 1000);
-                let iter = 0;
-                while (marquee.scrollWidth < target && iter < 20) { base.forEach(b => marquee.appendChild(b.cloneNode(true))); iter++; }
-            }
-            function setDuration() {
-                const pxPerSec = 140;
-                const dur = Math.max(6, Math.round(marquee.scrollWidth / pxPerSec));
-                marquee.style.animationDuration = dur + 's';
-            }
-            function init() { ensure(); setDuration(); }
-            window.addEventListener('load', init);
-            let to;
-            window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(() => { marquee.innerHTML = ''; base.forEach(b => marquee.appendChild(b.cloneNode(true))); init(); }, 160); });
-            marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
-            marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
-            setTimeout(init, 50);
-        })();
-
-        /* PRODUCTS: render + layout toggle */
-        (function () {
-            const products = [
-                { "id": "sig-001", "title": "Classic Paruppu Podi", "price": 100, "unit": "50gms", "short": "Lentil-forward, nutty & aromatic.", "description": "Best as rice mix or with dosa/idli. Mild heat, rich dal aroma.", "image": "assets/signature-1.png" },
-                { "id": "sig-002", "title": "Curry Leaves Podi", "price": 100, "unit": "50gms", "short": "Fragrant curry leaf & roasted dals.", "description": "Aromatic and herbaceous — great with rice and chutney.", "image": "assets/signature-2.png" },
-                { "id": "sig-003", "title": "Moringa Podi", "price": 145, "unit": "50gms", "short": "Nutrient-rich moringa, mild spice.", "description": "Vitamin-rich sprinkle — delicious in rice or porridge.", "image": "assets/signature-3.png" },
-                { "id": "sig-004", "title": "Garlic Podi", "price": 110, "unit": "50gms", "short": "Roasted garlic — bold & savory.", "description": "Bold garlic flavour that pairs beautifully with ghee dosa.", "image": "assets/signature-4.png" },
-                { "id": "sig-005", "title": "Idli Milagai Podi", "price": 95, "unit": "50gms", "short": "Classic mild & nutty seasoning.", "description": "Mild & nutty — perfect for idli and breakfast bowls.", "image": "assets/signature-5.png" },
-                { "id": "sig-006", "title": "Kollu Podi", "price": 130, "unit": "50gms", "short": "Protein-rich horse gram blend.", "description": "Earthy & nourishing — great in rice mixes.", "image": "assets/signature-6.png" },
-                { "id": "sig-007", "title": "Peanut Podi", "price": 120, "unit": "50gms", "short": "Crispy peanuts & warm spices.", "description": "Crunchy, nutty & satisfying.", "image": "assets/signature-7.png" },
-                { "id": "sig-008", "title": "Sesame Podi", "price": 110, "unit": "50gms", "short": "Toasted sesame & fragrant spices.", "description": "Nutty, toasty flavour — great with rice & dosa.", "image": "assets/signature-8.png" }
-            ];
-
-            const row = document.getElementById('productsRow'), grid = document.getElementById('productsGrid');
-            if (!row || !grid) return;
-            products.forEach(p => {
+            function makeComboCard(c, productLookup) {
                 const card = document.createElement('article');
                 card.className = 'product-card';
-                card.innerHTML = `<img src="${p.image}" alt="${p.title}" loading="lazy"><div class="product-info"><h4>${p.title} <span class="badge">${p.unit}</span></h4><div class="muted">${p.short}</div><div style="margin-top:8px"><span class="price">₹${p.price}</span></div><div class="muted" style="margin-top:8px">${p.description}</div></div>`;
-                row.appendChild(card);
-                grid.appendChild(card.cloneNode(true));
+                // show first item image if exists
+                const firstImage = c.image || (productLookup[c.items && c.items[0]] && productLookup[c.items[0]].image) || 'assets/signature-1.png';
+                card.innerHTML = `
+          <img src="${esc(firstImage)}" alt="${esc(c.title)}" loading="lazy">
+          <div class="product-info">
+            <h4>${esc(c.title)} <span class="badge">${esc(c.unit || '')}</span></h4>
+            <div class="muted">${esc(c.short || '')}</div>
+            <div style="margin-top:8px"><span class="price">₹${Number(c.price || 0).toFixed(0)}</span></div>
+            <div class="muted" style="margin-top:8px">${(c.items || []).map(id => esc(productLookup[id] ? productLookup[id].title : id)).join(' • ')}</div>
+          </div>
+        `;
+                return card;
+            }
+
+            function makeBestCard(p) {
+                // Slightly different format: use best-card styles (reuse product-card with minimal changes)
+                const card = document.createElement('article');
+                card.className = 'best-card';
+                card.innerHTML = `
+          <img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy">
+          <div class="best-info">
+            <h4>${esc(p.title)} <small style="font-weight:700;color:#777;margin-left:6px">${esc(p.unit || '')}</small></h4>
+            <div class="muted">${esc(p.short || '')}</div>
+            <div style="margin-top:8px"><span class="price">₹${Number(p.price || 0).toFixed(0)}</span></div>
+          </div>
+        `;
+                return card;
+            }
+
+            /* FETCH DATA ONCE and RENDER sections */
+            fetch(DATA_URL, { cache: 'no-cache' }).then(resp => {
+                if (!resp.ok) throw new Error('Failed to fetch ' + DATA_URL + ' (' + resp.status + ')');
+                return resp.json();
+            }).then(data => {
+                // expected shape: { products: [...], combos: [...], bestSellers: [...] }
+                const products = data.products || data; // allow either top-level array or named
+                const combos = data.combos || [];
+                const bestSellers = data.bestSellers || [];
+
+                // build lookup by id
+                const lookup = {};
+                (products || []).forEach(p => { lookup[p.id] = p; });
+
+                /* --- Best Sellers --- */
+                (function renderBest() {
+                    const ROW = document.getElementById('bestRow');
+                    const GRID = document.getElementById('bestGrid');
+                    const FALLBACK = document.getElementById('bestFallback');
+                    ROW.innerHTML = ''; GRID.innerHTML = '';
+
+                    // if bestSellers is IDs array, map to product objects
+                    const list = bestSellers.length ? bestSellers.map(id => lookup[id]).filter(Boolean) : (products || []).slice(0, 4);
+
+                    if (!list.length) {
+                        FALLBACK.style.display = 'block';
+                        return;
+                    }
+                    FALLBACK.style.display = 'none';
+
+                    list.forEach(item => {
+                        const c = makeBestCard(item);
+                        ROW.appendChild(c);
+                        GRID.appendChild(c.cloneNode(true));
+                    });
+
+                    function toggleLayout() {
+                        if (window.innerWidth >= 900) {
+                            GRID.style.display = 'grid';
+                            ROW.style.display = 'none';
+                            GRID.setAttribute('aria-hidden', 'false');
+                        } else {
+                            GRID.style.display = 'none';
+                            ROW.style.display = 'flex';
+                            GRID.setAttribute('aria-hidden', 'true');
+                        }
+                    }
+                    toggleLayout();
+                    window.addEventListener('resize', debounce(toggleLayout, 140));
+                })();
+
+                /* --- Combos --- */
+                (function renderCombos() {
+                    const ROW = document.getElementById('combosRow');
+                    const GRID = document.getElementById('combosGrid');
+                    const FALLBACK = document.getElementById('combosFallback');
+                    ROW.innerHTML = ''; GRID.innerHTML = '';
+
+                    if (!combos || combos.length === 0) {
+                        FALLBACK.style.display = 'block';
+                        return;
+                    }
+                    FALLBACK.style.display = 'none';
+
+                    combos.forEach(c => {
+                        const card = makeComboCard(c, lookup);
+                        card.style.minWidth = '260px';
+                        card.style.flex = '0 0 auto';
+                        ROW.appendChild(card);
+                        GRID.appendChild(card.cloneNode(true));
+                    });
+
+                    function toggleLayout() {
+                        if (window.innerWidth >= 1000) {
+                            GRID.style.display = 'grid';
+                            GRID.style.gridTemplateColumns = 'repeat(4, 1fr)';
+                            document.getElementById('combosRow').style.display = 'none';
+                            document.getElementById('combosGrid').style.display = 'grid';
+                        } else {
+                            document.getElementById('combosRow').style.display = 'flex';
+                            document.getElementById('combosGrid').style.display = 'none';
+                        }
+                    }
+                    toggleLayout();
+                    window.addEventListener('resize', debounce(toggleLayout, 140));
+                })();
+
+                /* --- All Products --- */
+                (function renderProducts() {
+                    const ROW = document.getElementById('productsRow');
+                    const GRID = document.getElementById('productsGrid');
+                    const FALLBACK = document.getElementById('productsFallback');
+                    ROW.innerHTML = ''; GRID.innerHTML = '';
+
+                    if (!products || products.length === 0) {
+                        FALLBACK.style.display = 'block';
+                        return;
+                    }
+                    FALLBACK.style.display = 'none';
+
+                    products.forEach(p => {
+                        const card = makeProductCard(p);
+                        ROW.appendChild(card);
+                        GRID.appendChild(card.cloneNode(true));
+                    });
+
+                    function layout() {
+                        if (window.innerWidth >= 1000) {
+                            GRID.style.display = 'grid';
+                            document.getElementById('products-scroll').style.display = 'none';
+                        } else {
+                            GRID.style.display = 'none';
+                            document.getElementById('products-scroll').style.display = 'block';
+                        }
+                    }
+                    layout();
+                    window.addEventListener('resize', debounce(layout, 140));
+                })();
+
+            }).catch(err => {
+                console.error('Data load error:', err);
+                // show fallbacks
+                const bs = document.getElementById('bestFallback'); if (bs) { bs.style.display = 'block'; bs.textContent = 'Failed to load Best Sellers — check data.json and server.'; }
+                const cb = document.getElementById('combosFallback'); if (cb) cb.style.display = 'block';
+                const pf = document.getElementById('productsFallback'); if (pf) { pf.style.display = 'block'; pf.textContent = 'Failed to load products — check data.json and server.'; }
             });
 
-            function layout() {
-                if (window.innerWidth >= 1000) { grid.style.display = 'grid'; document.getElementById('products-scroll').style.display = 'none'; }
-                else { grid.style.display = 'none'; document.getElementById('products-scroll').style.display = 'block'; }
-            }
-            window.addEventListener('resize', layout);
-            setTimeout(layout, 350);
-        })();
+            /* HERO SLIDER: 5s with dots, paused on hover, starts after preloader */
+            (function () {
+                const slides = Array.from(document.querySelectorAll('.slide'));
+                const dotsWrap = document.getElementById('dots');
+                const INTERVAL = 5000;
+                if (!slides.length) return;
+                let idx = 0, timer = null;
 
-        /* HEADER shrink + go-top */
-        (function () {
-            const header = document.querySelector('header.site-header');
-            const toTop = document.getElementById('toTop');
-            window.addEventListener('scroll', () => {
-                const w = window.innerWidth, sc = window.scrollY;
-                if (w <= 900) header.classList.toggle('shrink', sc > 20);
-                else header.classList.toggle('shrink', sc > 40);
+                // build dots
+                slides.forEach((s, i) => {
+                    const b = document.createElement('button');
+                    b.className = 'dot' + (i === 0 ? ' active' : '');
+                    b.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+                    b.addEventListener('click', () => goTo(i));
+                    dotsWrap.appendChild(b);
+                });
+                const dots = Array.from(dotsWrap.children);
 
-                toTop.style.display = sc > 300 ? 'grid' : 'none';
-            }, { passive: true });
+                function show(i) {
+                    slides.forEach((s, si) => s.classList.toggle('show', si === i));
+                    dots.forEach((d, di) => d.classList.toggle('active', di === i));
+                }
+                function next() { idx = (idx + 1) % slides.length; show(idx); }
+                function goTo(i) { idx = (i + slides.length) % slides.length; show(idx); restart(); }
+                function restart() { if (timer) clearInterval(timer); timer = setInterval(next, INTERVAL); }
 
-            toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+                // start slider after preloader hidden
+                const obs = new MutationObserver(() => {
+                    if (pre.classList.contains('hidden')) { show(idx); restart(); obs.disconnect(); }
+                });
+                obs.observe(pre, { attributes: true });
+                setTimeout(() => { if (!timer) { show(idx); restart(); } }, 3200);
+
+                const slideWrap = document.getElementById('slides');
+                slideWrap.addEventListener('mouseenter', () => clearInterval(timer));
+                slideWrap.addEventListener('mouseleave', restart);
+                slideWrap.addEventListener('focusin', () => clearInterval(timer));
+                slideWrap.addEventListener('focusout', restart);
+
+                // keyboard nav
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'ArrowRight') goTo(idx + 1);
+                    if (e.key === 'ArrowLeft') goTo(idx - 1);
+                });
+            })();
+
+            /* MARQUEE: duplicate content to ensure smooth -50% loop; set duration */
+            (function () {
+                const marquee = document.getElementById('marquee');
+                if (!marquee) return;
+                const container = marquee.parentElement;
+                const base = Array.from(marquee.children).map(n => n.cloneNode(true));
+                function ensure() {
+                    const target = Math.max(container.offsetWidth * 2, 1000);
+                    let iter = 0;
+                    while (marquee.scrollWidth < target && iter < 20) { base.forEach(b => marquee.appendChild(b.cloneNode(true))); iter++; }
+                }
+                function setDuration() {
+                    const pxPerSec = 140;
+                    const dur = Math.max(6, Math.round(marquee.scrollWidth / pxPerSec));
+                    marquee.style.animationDuration = dur + 's';
+                }
+                function init() { ensure(); setDuration(); }
+                window.addEventListener('load', init);
+                let to; window.addEventListener('resize', () => { clearTimeout(to); to = setTimeout(() => { marquee.innerHTML = ''; base.forEach(b => marquee.appendChild(b.cloneNode(true))); init(); }, 160); });
+                marquee.addEventListener('touchstart', () => marquee.style.animationPlayState = 'paused', { passive: true });
+                marquee.addEventListener('touchend', () => marquee.style.animationPlayState = 'running', { passive: true });
+                setTimeout(init, 50);
+            })();
+
+            /* HEADER: hamburger/menu toggle + shrink behavior */
+            (function () {
+                const header = document.querySelector('header.site-header');
+                const btn = document.getElementById('hamburgerBtn');
+                const icon = document.getElementById('hamburgerIcon');
+                const menu = document.getElementById('mobileMenu');
+                const closeBtn = document.getElementById('mobileClose');
+                const links = document.querySelectorAll('#mobileNav a');
+
+                function openMenu() {
+                    menu.classList.add('open'); menu.setAttribute('aria-hidden', 'false');
+                    btn.setAttribute('aria-expanded', 'true'); icon.classList.remove('bi-list'); icon.classList.add('bi-x');
+                    document.body.style.overflow = 'hidden';
+                    updateHeader();
+                }
+                function closeMenu() {
+                    menu.classList.remove('open'); menu.setAttribute('aria-hidden', 'true');
+                    btn.setAttribute('aria-expanded', 'false'); icon.classList.remove('bi-x'); icon.classList.add('bi-list');
+                    document.body.style.overflow = '';
+                    updateHeader();
+                }
+                btn.addEventListener('click', () => menu.classList.contains('open') ? closeMenu() : openMenu());
+                closeBtn && closeBtn.addEventListener('click', closeMenu);
+                links.forEach(a => a.addEventListener('click', closeMenu));
+                document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && menu.classList.contains('open')) closeMenu(); });
+
+                function updateHeader() {
+                    const w = window.innerWidth, sc = window.scrollY;
+                    if (w <= 900) {
+                        if (sc > 20 || menu.classList.contains('open')) header.classList.add('shrink'); else header.classList.remove('shrink');
+                    } else {
+                        if (sc > 40) header.classList.add('shrink'); else header.classList.remove('shrink');
+                    }
+                }
+                window.addEventListener('scroll', updateHeader, { passive: true });
+                window.addEventListener('resize', updateHeader);
+                updateHeader();
+            })();
+
+            /* GO TO TOP */
+            (function () {
+                const btn = document.getElementById('toTop');
+                btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+                window.addEventListener('scroll', () => { if (window.scrollY > 300) btn.style.display = 'grid'; else btn.style.display = 'none' });
+                btn.style.display = 'none';
+            })();
+
+            /* small debounce */
+            function debounce(fn, ms) { let t; return function () { clearTimeout(t); t = setTimeout(() => fn.apply(this, arguments), ms); }; }
         })();
     </script>
 </body>
