@@ -17,8 +17,10 @@ function safeSlug(value: string): string {
 
 export async function publicCatalog(env: Env, filters: CatalogFilters) {
   const limit = Math.min(Math.max(filters.limit || 24, 1), 60);
+  const category = filters.category ? safeSlug(filters.category) : '';
+  const categorySelect = category ? 'categories!inner(id,name,slug)' : 'categories(id,name,slug)';
   const params = new URLSearchParams();
-  params.set('select', 'id,name,slug,short_description,description,image_url,sku,is_bestseller,is_featured,category_id,categories(id,name,slug),product_variants(id,name,sku,price_paise,compare_at_price_paise,is_active)');
+  params.set('select', `id,name,slug,short_description,description,image_url,sku,is_bestseller,is_featured,category_id,${categorySelect},product_variants(id,name,sku,price_paise,compare_at_price_paise,is_active)`);
   params.set('is_published', 'eq.true');
   params.set('product_variants.is_active', 'eq.true');
   params.set('order', 'created_at.asc');
@@ -26,8 +28,6 @@ export async function publicCatalog(env: Env, filters: CatalogFilters) {
 
   const search = filters.search ? safeSearch(filters.search) : '';
   if (search) params.set('or', `(name.ilike.*${search}*,short_description.ilike.*${search}*)`);
-
-  const category = filters.category ? safeSlug(filters.category) : '';
   if (category) params.set('categories.slug', `eq.${category}`);
 
   const products = await supabaseAdminRest<any[]>(env, `products?${params.toString()}`);
