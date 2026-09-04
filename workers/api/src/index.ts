@@ -51,9 +51,6 @@ export default {
         const idempotencyKey = requireIdempotencyKey(request);
         const body = parseJsonBody<CheckoutInput>(await request.json());
         const requestHash = await sha256Hex(JSON.stringify(body));
-
-        // The SQL function re-reads prices and stock under transaction/advisory locks;
-        // the browser-supplied quote or totals are never accepted as authoritative.
         const result = await supabaseRpc<Record<string, unknown>>(env, 'create_order_atomic', {
           p_actor_id: ctx.userId,
           p_idempotency_key: idempotencyKey,
@@ -70,14 +67,23 @@ export default {
       if (request.method === 'POST' && url.pathname === '/v1/payments/webhook/razorpay') {
         if (!env.RAZORPAY_WEBHOOK_SECRET) throw new Error('RAZORPAY_WEBHOOK_SECRET is not configured');
         const signature = request.headers.get('X-Razorpay-Signature') || '';
+        const eventId = request.headers.get('x-razorpay-event-id') || '';
         const rawBody = await request.text();
         if (!signature || !(await verifyRazorpaySignature(rawBody, signature, env.RAZORPAY_WEBHOOK_SECRET))) {
           return json({ error: 'invalid_signature' }, 401, origin);
         }
-        // Webhook parsing/reconciliation is the next payment integration step. Keeping
-        // signature verification at the edge means untrusted webhook bodies never reach
-        // the payment state machine without authentication.
-        return json({ ok: true, accepted: true }, 202, origin);
+        if (!eventId) return json({ error: 'event_id_required' }, 400, origin);
+        const payload = parseJsonBody<Record<string, unknown>>(JSON.parse(rawBody));
+        const eventType = typeof payload.event === 'string' ? payload.event : '';
+        if (!eventType) return json({ error: 'event_type_required' }, 400, origin);
+        const payloadHash = await sha256Hex(rawBody);
+        const result = await supabaseRpc<Record<string, unknown>>(env, 'process_razorpay_event_atomic', {
+          p_event_id: eventId,
+          p_event_type: eventType,
+          p_payload: payload,
+          p_payload_hash: payloadHash,
+        });
+        return json(result, 200, origin);
       }
 
       if (request.method === 'GET' && url.pathname === '/v1/me') {
