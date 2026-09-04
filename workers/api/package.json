@@ -1,0 +1,13 @@
+{
+  "name": "dosatoppings-api",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260904.0",
+    "typescript": "^5.9.2"
+  }
+}
