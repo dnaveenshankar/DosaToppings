@@ -15,11 +15,7 @@ export async function customerAddressSnapshot(env: Env, customerId: string, addr
   const rows = await supabaseAdminRest<any[]>(env, `addresses?select=id,label,recipient_name,phone,line1,line2,locality,city,state,postal_code,country,is_default&id=eq.${encodeURIComponent(addressId)}&customer_id=eq.${encodeURIComponent(customerId)}&limit=1`);
   if (!rows.length) throw new Response('Address not found', { status: 400 });
   const a = rows[0];
-  return {
-    id: a.id, label: a.label, recipient_name: a.recipient_name, phone: a.phone,
-    line1: a.line1, line2: a.line2, locality: a.locality, city: a.city,
-    state: a.state, postal_code: a.postal_code, country: a.country,
-  };
+  return { id:a.id,label:a.label,recipient_name:a.recipient_name,phone:a.phone,line1:a.line1,line2:a.line2,locality:a.locality,city:a.city,state:a.state,postal_code:a.postal_code,country:a.country };
 }
 
 export async function customerOrders(env: Env, customerId: string) {
@@ -32,6 +28,10 @@ export async function customerOrder(env: Env, customerId: string, orderId: strin
   return rows[0];
 }
 
+export async function cancelCustomerOrder(env: Env, customerId: string, orderId: string, reason?: string) {
+  return supabaseRpc(env, 'cancel_customer_order', { p_customer_id: customerId, p_order_id: orderId, p_reason: reason?.trim() || 'Customer requested cancellation' });
+}
+
 export async function cartSetItem(env: Env, customerId: string, variantId: string, quantity: number) {
   return supabaseRpc(env, 'upsert_cart_item', { p_customer_id: customerId, p_variant_id: variantId, p_quantity: quantity });
 }
@@ -41,19 +41,5 @@ export async function cartRemoveItem(env: Env, customerId: string, variantId: st
 }
 
 export async function saveAddress(env: Env, customerId: string, input: Record<string, unknown>) {
-  return supabaseRpc(env, 'save_customer_address', {
-    p_customer_id: customerId,
-    p_address_id: input.id ?? null,
-    p_label: input.label ?? null,
-    p_recipient_name: input.recipient_name,
-    p_phone: input.phone ?? null,
-    p_line1: input.line1,
-    p_line2: input.line2 ?? null,
-    p_locality: input.locality ?? null,
-    p_city: input.city,
-    p_state: input.state,
-    p_postal_code: input.postal_code,
-    p_country: input.country ?? 'India',
-    p_is_default: input.is_default === true,
-  });
+  return supabaseRpc(env, 'save_customer_address', { p_customer_id:customerId,p_address_id:input.id??null,p_label:input.label??null,p_recipient_name:input.recipient_name,p_phone:input.phone??null,p_line1:input.line1,p_line2:input.line2??null,p_locality:input.locality??null,p_city:input.city,p_state:input.state,p_postal_code:input.postal_code,p_country:input.country??'India',p_is_default:input.is_default===true });
 }
