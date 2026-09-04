@@ -1,9 +1,11 @@
 import type { AuthContext } from './authz';
-import { requireIdempotencyKey, json, handleOptions } from './http';
+import { requirePermission, requireSuperAdminEmail } from './authz';
+import { requireIdempotencyKey, json, handleOptions, rejectMethod } from './http';
 import { getSupabaseUser, supabaseAdminRest, supabaseRpc } from './supabase';
 import { calculateQuote } from './pricing';
 import { resolveAuthContext } from './authorization';
 import { sha256Hex, normalizeEmail, verifyRazorpaySignature } from './security';
+import { customerCart, customerAddresses, customerOrders, cartSetItem, cartRemoveItem, saveAddress } from './customer';
 import type { CheckoutInput, Env } from './types';
 
 interface OrderRow { id: string; order_number: string; customer_id: string | null; total_paise: number; status: string; }
@@ -18,7 +20,7 @@ async function authContext(request: Request, env: Env): Promise<AuthContext> {
   return resolveAuthContext(env, user.id, user.email);
 }
 
-function requireActiveCustomer(ctx: AuthContext): void {
+function requireActive(ctx: AuthContext): void {
   if (!ctx.isActive) throw new Response('Account disabled', { status: 403 });
 }
 
@@ -43,6 +45,10 @@ async function createRazorpayOrder(env: Env, order: OrderRow, payment: PaymentRo
   return response.json() as Promise<Record<string, unknown>>;
 }
 
+async function staffOrAdmin(request: Request, env: Env, permission: Parameters<typeof requirePermission>[1]): Promise<AuthContext> {
+  const ctx = await authContext(request, env); requireActive(ctx); requirePermission(ctx, permission); requireSuperAdminEmail(ctx); return ctx;
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const origin = request.headers.get('Origin');
@@ -52,15 +58,53 @@ export default {
       const url = new URL(request.url);
       if (request.method === 'GET' && url.pathname === '/health') return json({ ok: true, service: 'dosatoppings-api' }, 200, origin);
 
+      if (request.method === 'GET' && url.pathname === '/v1/me') {
+        const ctx = await authContext(request, env);
+        return json({ user_id: ctx.userId, email: ctx.email ? normalizeEmail(ctx.email) : null, role: ctx.role ?? null, is_active: ctx.isActive }, 200, origin);
+      }
+
+      if (request.method === 'GET' && url.pathname === '/v1/customer/cart') {
+        const ctx = await authContext(request, env); requireActive(ctx);
+        return json({ ok: true, cart: await customerCart(env, ctx.userId) }, 200, origin);
+      }
+
+      if (request.method === 'POST' && url.pathname === '/v1/customer/cart/items') {
+        const ctx = await authContext(request, env); requireActive(ctx);
+        const body = parseJsonBody<{ variant_id: string; quantity: number }>(await request.json());
+        requireUuid(body.variant_id, 'variant_id');
+        return json(await cartSetItem(env, ctx.userId, body.variant_id, body.quantity), 200, origin);
+      }
+
+      if (request.method === 'DELETE' && url.pathname === '/v1/customer/cart/items') {
+        const ctx = await authContext(request, env); requireActive(ctx);
+        const variantId = requireUuid(url.searchParams.get('variant_id'), 'variant_id');
+        return json(await cartRemoveItem(env, ctx.userId, variantId), 200, origin);
+      }
+
+      if (request.method === 'GET' && url.pathname === '/v1/customer/addresses') {
+        const ctx = await authContext(request, env); requireActive(ctx);
+        return json({ ok: true, addresses: await customerAddresses(env, ctx.userId) }, 200, origin);
+      }
+
+      if (request.method === 'POST' && url.pathname === '/v1/customer/addresses') {
+        const ctx = await authContext(request, env); requireActive(ctx);
+        return json({ ok: true, address: await saveAddress(env, ctx.userId, parseJsonBody<Record<string, unknown>>(await request.json())) }, 200, origin);
+      }
+
+      if (request.method === 'GET' && url.pathname === '/v1/customer/orders') {
+        const ctx = await authContext(request, env); requireActive(ctx);
+        return json({ ok: true, orders: await customerOrders(env, ctx.userId) }, 200, origin);
+      }
+
       if (request.method === 'POST' && url.pathname === '/v1/checkout/quote') {
-        const ctx = await authContext(request, env); requireActiveCustomer(ctx);
+        const ctx = await authContext(request, env); requireActive(ctx);
         const body = parseJsonBody<CheckoutInput>(await request.json());
         const quote = await calculateQuote(env, body);
         return json({ ok: true, quote, customer_id: ctx.userId }, 200, origin);
       }
 
       if (request.method === 'POST' && url.pathname === '/v1/orders') {
-        const ctx = await authContext(request, env); requireActiveCustomer(ctx);
+        const ctx = await authContext(request, env); requireActive(ctx);
         const idempotencyKey = requireIdempotencyKey(request);
         const body = parseJsonBody<CheckoutInput>(await request.json());
         const requestHash = await sha256Hex(JSON.stringify(body));
@@ -73,7 +117,7 @@ export default {
       }
 
       if (request.method === 'POST' && url.pathname === '/v1/payments/razorpay/order') {
-        const ctx = await authContext(request, env); requireActiveCustomer(ctx);
+        const ctx = await authContext(request, env); requireActive(ctx);
         const body = parseJsonBody<{ order_id: string }>(await request.json());
         const orderId = requireUuid(body.order_id, 'order_id');
         const orders = await supabaseAdminRest<OrderRow[]>(env, `orders?select=id,order_number,customer_id,total_paise,status&id=eq.${orderId}&limit=1`);
@@ -88,10 +132,7 @@ export default {
         const razorpayOrder = await createRazorpayOrder(env, order, payment);
         const providerOrderId = typeof razorpayOrder.id === 'string' ? razorpayOrder.id : '';
         if (!providerOrderId) throw new Error('Razorpay did not return an order id');
-        await supabaseAdminRest(env, `payments?id=eq.${payment.id}`, {
-          method: 'PATCH', headers: { Prefer: 'return=minimal' },
-          body: JSON.stringify({ provider_order_id: providerOrderId, status: 'pending', updated_at: new Date().toISOString() }),
-        });
+        await supabaseAdminRest(env, `payments?id=eq.${payment.id}`, { method: 'PATCH', headers: { Prefer: 'return=minimal' }, body: JSON.stringify({ provider_order_id: providerOrderId, status: 'pending', updated_at: new Date().toISOString() }) });
         return json({ ok: true, razorpay_order_id: providerOrderId, amount_paise: payment.amount_paise, currency: 'INR', key_id: env.RAZORPAY_KEY_ID }, 200, origin);
       }
 
@@ -106,19 +147,44 @@ export default {
         try { payload = parseJsonBody<Record<string, unknown>>(JSON.parse(rawBody)); } catch { return json({ error: 'invalid_json' }, 400, origin); }
         const eventType = typeof payload.event === 'string' ? payload.event : '';
         if (!eventType) return json({ error: 'event_type_required' }, 400, origin);
-        const payloadHash = await sha256Hex(rawBody);
-        const result = await supabaseRpc<Record<string, unknown>>(env, 'process_razorpay_event_atomic', {
-          p_event_id: eventId, p_event_type: eventType, p_payload: payload, p_payload_hash: payloadHash,
-        });
+        const result = await supabaseRpc<Record<string, unknown>>(env, 'process_razorpay_event_atomic', { p_event_id: eventId, p_event_type: eventType, p_payload: payload, p_payload_hash: await sha256Hex(rawBody) });
         return json(result, 200, origin);
       }
 
-      if (request.method === 'GET' && url.pathname === '/v1/me') {
-        const ctx = await authContext(request, env);
-        return json({ user_id: ctx.userId, email: ctx.email ? normalizeEmail(ctx.email) : null, role: ctx.role ?? null, is_active: ctx.isActive }, 200, origin);
+      if (request.method === 'GET' && url.pathname === '/v1/admin/orders') {
+        const ctx = await staffOrAdmin(request, env, 'orders.read');
+        const limit = Math.min(Math.max(Number(url.searchParams.get('limit') || 50), 1), 100);
+        const status = url.searchParams.get('status');
+        const filter = status ? `&status=eq.${encodeURIComponent(status)}` : '';
+        const orders = await supabaseAdminRest<any[]>(env, `orders?select=id,order_number,customer_id,status,currency,subtotal_paise,discount_paise,shipping_paise,tax_paise,total_paise,created_at,updated_at&order=created_at.desc&limit=${limit}${filter}`);
+        return json({ ok: true, orders, actor_role: ctx.role }, 200, origin);
       }
 
-      return json({ error: 'not_found' }, 404, origin);
+      if (request.method === 'PATCH' && url.pathname.startsWith('/v1/admin/orders/')) {
+        const ctx = await staffOrAdmin(request, env, 'orders.update');
+        const orderId = requireUuid(url.pathname.split('/').pop(), 'order_id');
+        const body = parseJsonBody<{ status: string; reason?: string }>(await request.json());
+        const allowed = ['processing','packed','shipped','delivered','cancelled'];
+        if (!allowed.includes(body.status)) throw new Response('Invalid order status transition', { status: 400 });
+        const result = await supabaseRpc<any>(env, 'admin_update_order_status', { p_order_id: orderId, p_to_status: body.status, p_actor: ctx.userId, p_reason: body.reason ?? null });
+        return json({ ok: true, order: result }, 200, origin);
+      }
+
+      if (request.method === 'POST' && url.pathname === '/v1/admin/inventory/adjust') {
+        const ctx = await staffOrAdmin(request, env, 'inventory.adjust');
+        const body = parseJsonBody<{ variant_id: string; quantity: number; reason: string }>(await request.json());
+        requireUuid(body.variant_id, 'variant_id');
+        const result = await supabaseRpc<any>(env, 'admin_adjust_inventory', { p_variant_id: body.variant_id, p_quantity: body.quantity, p_actor: ctx.userId, p_reason: body.reason });
+        return json(result, 200, origin);
+      }
+
+      if (request.method === 'GET' && url.pathname === '/v1/admin/inventory') {
+        await staffOrAdmin(request, env, 'inventory.read');
+        const rows = await supabaseAdminRest<any[]>(env, `product_variants?select=id,name,sku,price_paise,stock_threshold,is_active,products(name)&is_active=eq.true&order=created_at.asc`);
+        return json({ ok: true, variants: rows }, 200, origin);
+      }
+
+      return rejectMethod(origin);
     } catch (error) {
       if (error instanceof Response) return error;
       console.error(error);
