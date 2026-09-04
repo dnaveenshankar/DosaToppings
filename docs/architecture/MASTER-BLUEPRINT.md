@@ -37,6 +37,17 @@ Subdomains are an organizational and UX boundary, not a security boundary. Autho
 
 The customer store will support Firebase Authentication with email/password and the selected future sign-in providers. Account verification and password recovery are handled through secure Firebase Auth flows. Sensitive account operations require recent authentication where appropriate.
 
+### Super Admin identity requirement
+
+The `super_admin` account is a special high-privilege staff identity and must **always have a valid email address**. Super Admin login is email-based; a username-only Super Admin login is not permitted.
+
+- The Super Admin email is the canonical login identity for the account.
+- The email must be verified before production access is granted.
+- The system must not allow a Super Admin account to be created, promoted or activated without an email address.
+- Password recovery, security notifications and high-risk account alerts use the registered Super Admin email.
+- If the Super Admin email changes, the change must be authenticated, permission-checked and audited.
+- The Super Admin email must never be hard-coded into frontend source code; configurable recipient settings belong in protected backend/admin configuration.
+
 ### Admin Control Center authentication
 
 `admin.dosatoppings.in` is a protected staff application:
@@ -126,6 +137,48 @@ Permissions will be granular, for example:
 The UI will hide unavailable functions, but **backend authorization remains mandatory**. A staff member must not gain access simply by knowing another subdomain or manually calling an API endpoint.
 
 High-risk permissions such as changing roles, issuing refunds, modifying rewards, changing pricing rules, deleting records or changing security/settings will be restricted and audited.
+
+## Email architecture and new-order alerts
+
+Email delivery is a first-class operational subsystem rather than a collection of ad-hoc frontend messages. Resend will be used through the backend/server only; no email API secret will ever be shipped to the browser or committed to public Git.
+
+### Configurable operational recipients
+
+The system will maintain a protected configuration for operational email recipients. It must support:
+
+- The primary **Super Admin email**, which is mandatory and automatically included for new-order operational alerts.
+- One or more additional **configured recipient email IDs** for new-order and other operational alerts.
+- Recipient enable/disable state without changing application code.
+- Validation of recipient email addresses before activation.
+- Audit logging for changes to recipient configuration.
+- Deduplication so the same email address does not receive duplicate copies merely because it appears in multiple recipient settings.
+
+### New-order notification
+
+Whenever a customer order reaches the authoritative paid/confirmed state, the backend must send a **new-order email** to the Super Admin email and every enabled configured operational recipient.
+
+The notification should contain enough information for immediate action without exposing unnecessary sensitive data, including:
+
+- Order number
+- Order date/time
+- Customer name and contact information as appropriate
+- Billing/shipping address as appropriate for fulfilment
+- Ordered items, quantities and variants
+- Discounts/coupons where relevant
+- Payment method and payment status
+- Order total
+- Current order status
+- Link to the authorized Admin/POS order view where appropriate
+
+The notification must be generated from server-authoritative order/payment data, not from an untrusted browser payload.
+
+New-order email processing must be idempotent. Payment/webhook retries or duplicate events must not result in duplicate order creation or uncontrolled duplicate operational alerts. Email delivery status/failure should be recorded for operational visibility and safe retry handling.
+
+### Broader transactional email events
+
+The email subsystem should support templates and event handling for welcome/verification support, order confirmation, payment confirmation, shipping/delivery updates, cancellation/refund notifications, review requests, low-stock/operational alerts and other approved admin notifications.
+
+Email templates should be mobile-friendly, professional, printable where useful, and include the discreet **Developed by Naveen — naveenshankar.in** attribution where appropriate.
 
 ## Core stack
 
@@ -239,6 +292,9 @@ Primary collections to refine during implementation:
 15. Every production staff action is attributable to an individual staff identity; shared credentials are prohibited.
 16. Staff disablement/revocation must invalidate or reject subsequent privileged operations even if a stale client remains open.
 17. High-risk financial and security actions require explicit permissions and appropriate audit/step-up controls.
+18. The Super Admin production account always has a verified email identity.
+19. Every authoritative paid/confirmed new order generates one operational notification event addressed to the Super Admin and all enabled configured recipients.
+20. Operational recipient changes are protected, validated, deduplicated and audited.
 
 ## Order lifecycle
 
@@ -272,7 +328,7 @@ Bills/invoices, order confirmations, packing slips and customer address informat
 
 ## Email events
 
-Resend will be used for transactional messages such as welcome/verification support, order confirmation, payment confirmation, shipping/delivery updates, cancellation/refund notifications, review requests and operational/admin alerts. Email sending is backend-controlled.
+Resend will be used for backend-controlled transactional messages. New paid/confirmed orders must notify the mandatory Super Admin email plus every enabled configured operational recipient. The email system will also support welcome/verification support, order confirmation, payment confirmation, shipping/delivery updates, cancellation/refund notifications, review requests, low-stock alerts and approved operational/admin alerts.
 
 ## Google Drive policy
 
@@ -284,6 +340,7 @@ Drive is for documents and business files, not high-frequency commerce state. Fi
 - Mandatory authentication for `admin` and `bill` applications
 - No public/self-service staff registration
 - Individual staff accounts; no shared production credentials
+- Super Admin requires a verified email identity
 - Least-privilege RBAC and granular permissions
 - Server-side authorization on every privileged endpoint and mutation
 - Resource/store-scope checks where applicable
@@ -295,8 +352,9 @@ Drive is for documents and business files, not high-frequency commerce state. Fi
 - Strict input validation
 - Rate limiting/abuse controls for public endpoints
 - Secret isolation
-- Idempotency for payment/webhook/order operations
+- Idempotency for payment/webhook/order/email operations
 - Audit logs for sensitive mutations and POS/financial activity
+- Configurable operational email recipients protected by authorization and audit logging
 - No client-side authority over money or inventory
 - Production/development environment separation
 - Backups/export and recovery plan before production launch
@@ -317,7 +375,7 @@ Dynamic storefront, product details, account, addresses, wishlist, cart and chec
 
 ### Phase D — Payments and fulfillment
 
-Razorpay, webhook verification, orders, invoices, inventory deduction, refunds and Resend notifications.
+Razorpay, webhook verification, orders, invoices, inventory deduction, refunds and Resend notifications including new-order operational alerts.
 
 ### Phase E — Growth engine
 
