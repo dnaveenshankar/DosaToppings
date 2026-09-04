@@ -2,22 +2,21 @@
 
 ## Foundation
 
-- [ ] Firebase project and environment separation
-- [ ] Firebase Authentication configuration
-- [ ] Staff/customer identity model
+- [ ] Supabase project and environment separation
+- [ ] Supabase Authentication configuration
+- [x] Staff/customer identity model
 - [ ] Super Admin verified email identity and email-based login
-- [ ] Firestore collections and indexes
-- [ ] Deny-by-default Firestore rules
-- [ ] App Check
-- [ ] Server/backend skeleton
-- [ ] Server-side authorization middleware
-- [ ] Audit logging
+- [x] PostgreSQL relational schema and indexes
+- [x] Deny-by-default database RLS baseline
+- [x] Server/backend skeleton
+- [x] Server-side authorization middleware and active-role resolution
+- [ ] Audit logging enforcement on privileged mutations
 - [ ] Rate limiting and abuse controls
 - [ ] Secret management
 
 ## Customer store
 
-- [ ] Mobile-first storefront migration
+- [x] Mobile-first storefront foundation
 - [ ] Catalog/categories/search/filtering
 - [ ] Product details and variants
 - [ ] Customer registration/login/recovery
@@ -25,6 +24,7 @@
 - [ ] Wishlist/save for later
 - [ ] Cart
 - [ ] Checkout
+- [x] Authoritative order creation + inventory reservation
 - [ ] Orders/tracking/cancellation
 - [ ] Reviews
 - [ ] Coupons/promos
@@ -33,7 +33,7 @@
 
 ## Admin
 
-- [ ] `admin.dosatoppings.in` staff login
+- [x] `admin.dosatoppings.in` staff login shell
 - [ ] Staff management
 - [ ] Roles and granular permissions
 - [ ] Dashboard
@@ -51,7 +51,7 @@
 
 ## Billing / POS
 
-- [ ] `bill.dosatoppings.in` staff login
+- [x] `bill.dosatoppings.in` staff login shell
 - [ ] Permission-aware POS
 - [ ] Product/customer lookup
 - [ ] Cart and pricing validation
@@ -67,13 +67,13 @@
 
 ## Payments/email
 
-- [ ] Razorpay test integration
-- [ ] Server-side payment order creation
-- [ ] Signature verification
-- [ ] Webhook verification
-- [ ] Idempotency and reconciliation
+- [x] Razorpay server integration skeleton
+- [x] Server-side Razorpay payment order creation
+- [x] Signature verification
+- [x] Webhook event verification + idempotent ingestion
+- [x] Payment reconciliation state machine
 - [ ] Refund handling
-- [ ] Resend backend integration
+- [x] Resend backend integration skeleton
 - [ ] Protected Super Admin operational email configuration
 - [ ] Configurable additional operational recipient email IDs
 - [ ] New paid/confirmed order email to Super Admin + enabled configured recipients
