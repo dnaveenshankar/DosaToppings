@@ -1,5 +1,5 @@
 import type { AuthContext } from './authz';
-import { requirePermission, requireSuperAdminEmail } from './authz';
+import { requirePermission } from './authz';
 import { requireIdempotencyKey, json, handleOptions, rejectMethod } from './http';
 import { getSupabaseUser, supabaseAdminRest, supabaseRpc } from './supabase';
 import { calculateQuote } from './pricing';
@@ -18,7 +18,7 @@ function requireActive(ctx: AuthContext): void { if(!ctx.isActive)throw new Resp
 function parseJsonBody<T>(value: unknown): T { if(!value||typeof value!=='object')throw new Response('Invalid JSON body',{status:400}); return value as T; }
 function requireUuid(value: unknown,field:string):string { if(typeof value!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value))throw new Response(`Invalid ${field}`,{status:400}); return value; }
 async function createRazorpayOrder(env:Env,order:OrderRow,payment:PaymentRow):Promise<Record<string,unknown>> { if(!env.RAZORPAY_KEY_ID||!env.RAZORPAY_KEY_SECRET)throw new Error('Razorpay credentials are not configured'); const credentials=btoa(`${env.RAZORPAY_KEY_ID}:${env.RAZORPAY_KEY_SECRET}`); const response=await fetch('https://api.razorpay.com/v1/orders',{method:'POST',headers:{Authorization:`Basic ${credentials}`,'Content-Type':'application/json'},body:JSON.stringify({amount:payment.amount_paise,currency:'INR',receipt:order.order_number,notes:{dosatoppings_order_id:order.id,dosatoppings_payment_id:payment.id}})}); if(!response.ok){const detail=await response.text();throw new Error(`Razorpay order creation failed (${response.status}): ${detail.slice(0,500)}`);} return response.json() as Promise<Record<string,unknown>>; }
-async function staffOrAdmin(request:Request,env:Env,permission:Parameters<typeof requirePermission>[1]):Promise<AuthContext>{const ctx=await authContext(request,env);requireActive(ctx);requirePermission(ctx,permission);requireSuperAdminEmail(ctx);return ctx;}
+async function staffOrAdmin(request:Request,env:Env,permission:Parameters<typeof requirePermission>[1]):Promise<AuthContext>{const ctx=await authContext(request,env);requireActive(ctx);requirePermission(ctx,permission);return ctx;}
 export default {async fetch(request:Request,env:Env):Promise<Response>{const origin=request.headers.get('Origin');const options=handleOptions(request);if(options)return options;try{const url=new URL(request.url);
 if(request.method==='GET'&&url.pathname==='/health')return json({ok:true,service:'dosatoppings-api'},200,origin);
 if(request.method==='GET'&&url.pathname==='/v1/catalog'){const limit=Math.min(Math.max(Number(url.searchParams.get('limit')||24),1),60);return json({ok:true,products:await publicCatalog(env,{search:url.searchParams.get('search')||undefined,category:url.searchParams.get('category')||undefined,limit})},200,origin);}
