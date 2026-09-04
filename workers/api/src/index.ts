@@ -8,6 +8,7 @@ import { sha256Hex, normalizeEmail, verifyRazorpaySignature } from './security';
 import { customerCart, customerAddresses, customerOrders, cartSetItem, cartRemoveItem, saveAddress } from './customer';
 import { dashboardSummary, listStaff } from './ops';
 import { createPosSale } from './billing';
+import { publicCatalog, publicCategories } from './catalog';
 import type { CheckoutInput, Env } from './types';
 
 interface OrderRow { id: string; order_number: string; customer_id: string | null; total_paise: number; status: string; }
@@ -20,6 +21,8 @@ async function createRazorpayOrder(env:Env,order:OrderRow,payment:PaymentRow):Pr
 async function staffOrAdmin(request:Request,env:Env,permission:Parameters<typeof requirePermission>[1]):Promise<AuthContext>{const ctx=await authContext(request,env);requireActive(ctx);requirePermission(ctx,permission);requireSuperAdminEmail(ctx);return ctx;}
 export default {async fetch(request:Request,env:Env):Promise<Response>{const origin=request.headers.get('Origin');const options=handleOptions(request);if(options)return options;try{const url=new URL(request.url);
 if(request.method==='GET'&&url.pathname==='/health')return json({ok:true,service:'dosatoppings-api'},200,origin);
+if(request.method==='GET'&&url.pathname==='/v1/catalog'){const limit=Math.min(Math.max(Number(url.searchParams.get('limit')||24),1),60);return json({ok:true,products:await publicCatalog(env,{search:url.searchParams.get('search')||undefined,category:url.searchParams.get('category')||undefined,limit})},200,origin);}
+if(request.method==='GET'&&url.pathname==='/v1/catalog/categories')return json({ok:true,categories:await publicCategories(env)},200,origin);
 if(request.method==='GET'&&url.pathname==='/v1/me'){const ctx=await authContext(request,env);return json({user_id:ctx.userId,email:ctx.email?normalizeEmail(ctx.email):null,role:ctx.role??null,is_active:ctx.isActive},200,origin);}
 if(request.method==='GET'&&url.pathname==='/v1/customer/cart'){const ctx=await authContext(request,env);requireActive(ctx);return json({ok:true,cart:await customerCart(env,ctx.userId)},200,origin);}
 if(request.method==='POST'&&url.pathname==='/v1/customer/cart/items'){const ctx=await authContext(request,env);requireActive(ctx);const body=parseJsonBody<{variant_id:string;quantity:number}>(await request.json());requireUuid(body.variant_id,'variant_id');return json(await cartSetItem(env,ctx.userId,body.variant_id,body.quantity),200,origin);}
