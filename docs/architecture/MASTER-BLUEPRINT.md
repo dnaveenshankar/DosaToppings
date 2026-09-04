@@ -19,7 +19,55 @@ The platform will use clear subdomains so each operational area has a focused pu
 
 The short `bill` hostname is intentional: it is easy for store staff to remember and clearly separates billing from administration.
 
-Subdomains are an organizational and UX boundary, not a security boundary by themselves. Authorization must still be enforced server-side for every privileged operation.
+**Authentication is mandatory for both privileged applications.** `admin.dosatoppings.in` and `bill.dosatoppings.in` must never expose an operational dashboard, POS data, customer records, inventory controls or other privileged functions before successful authentication and authorization.
+
+Subdomains are an organizational and UX boundary, not a security boundary. Authorization must still be enforced server-side for every privileged operation.
+
+## Authentication and session-security requirements
+
+### Customer authentication
+
+The customer store will support Firebase Authentication with email/password and the selected future sign-in providers. Account verification and password recovery are handled through secure Firebase Auth flows. Sensitive account operations require recent authentication where appropriate.
+
+### Admin Control Center authentication
+
+`admin.dosatoppings.in` is a protected staff application:
+
+- No public/self-service staff registration.
+- Staff accounts are created or invited only by an authorized administrator.
+- Firebase Authentication is the identity provider; Firestore/backend records provide staff profile, role and permission state.
+- A successful login is **not** sufficient by itself: the backend must verify that the authenticated account is an active staff member and has the required permission for each operation.
+- Disabled/suspended staff accounts must be rejected even if an old browser session exists.
+- Privileged actions such as role changes, refunds, pricing changes, reward adjustments, deletions and security/settings changes require explicit permissions and audit logging.
+- Session persistence, logout and token revocation/re-authentication behavior will be designed so account disablement and high-risk security changes take effect promptly.
+- MFA/stronger authentication will be required for high-privilege roles before production launch where supported by the selected Firebase Auth configuration.
+- Admin routes must fail closed: unauthenticated users are sent to the staff login screen, while unauthorized authenticated users receive an access-denied state rather than a partially rendered admin area.
+
+### Store Billing / POS authentication
+
+`bill.dosatoppings.in` is also a **fully authenticated staff application**:
+
+- No anonymous billing/POS access.
+- No shared generic staff login in production; every operator gets an individual staff identity so actions are attributable.
+- Staff sign in through the same central identity foundation but receive only billing/POS permissions assigned to their account.
+- A `billing_staff` user may create bills, search permitted products/customers and print invoices/orders, but cannot automatically access admin settings, role management or unrelated sensitive functions.
+- Returns, refunds, discounts above configured limits, manual price overrides and other high-risk financial operations require the corresponding permission and may require manager approval.
+- Each bill, payment, refund, void, price override and sensitive POS action records the authenticated staff identity, timestamp and relevant audit metadata.
+- Idle-session handling and explicit logout will be implemented for shared store devices, with secure re-authentication for sensitive actions.
+- POS access must continue to work only when the backend authorization check succeeds; hiding admin links in the UI is never considered sufficient protection.
+
+### Authorization architecture
+
+Authentication answers **who is this?** Authorization answers **what may this person do?** The platform will enforce both layers.
+
+1. Firebase Auth establishes the user identity.
+2. Backend/server authorization resolves the active staff/customer state.
+3. Staff role/permission assignments are evaluated for the requested operation.
+4. Resource-level checks verify ownership, store/location scope and other business constraints where applicable.
+5. High-risk operations create audit records and may require step-up authentication or manager approval.
+6. Firestore Security Rules and backend checks fail closed when identity, role, permission or resource state is missing/invalid.
+
+The frontend may hide unavailable functions for usability, but it is never a security control.
 
 ## Staff and access-control model
 
@@ -116,11 +164,11 @@ Ratings, verified-purchase reviews, moderation, reporting and optional media.
 
 ### Admin
 
-Dashboard, products, categories, inventory, orders, customers, coupons, promotions, referrals, rewards, reviews, reports, settings, staff and audit logs.
+Dashboard, products, categories, inventory, orders, customers, coupons, promotions, referrals, rewards, reviews, reports, settings, staff and audit logs. All admin routes require authenticated, authorized staff access.
 
 ### Billing / POS
 
-Product search, customer selection, cart/bill creation, discounts, coupons where permitted, cash/UPI/card/online payment recording, invoice generation, returns/refunds and inventory synchronization with online commerce.
+Product search, customer selection, cart/bill creation, discounts, coupons where permitted, cash/UPI/card/online payment recording, invoice generation, returns/refunds and inventory synchronization with online commerce. All POS routes require authenticated, authorized staff access.
 
 ## Firestore collections
 
@@ -179,6 +227,10 @@ Primary collections to refine during implementation:
 11. Firestore rules default to deny and grant only required access.
 12. Sensitive administrative mutations produce audit records.
 13. Subdomains never substitute for authorization; every backend operation checks the authenticated user's role and permission.
+14. `admin.dosatoppings.in` and `bill.dosatoppings.in` require authentication before privileged UI/data access.
+15. Every production staff action is attributable to an individual staff identity; shared credentials are prohibited.
+16. Staff disablement/revocation must invalidate or reject subsequent privileged operations even if a stale client remains open.
+17. High-risk financial and security actions require explicit permissions and appropriate audit/step-up controls.
 
 ## Order lifecycle
 
@@ -215,15 +267,22 @@ Drive is for documents and business files, not high-frequency commerce state. Fi
 ## Security baseline
 
 - Firebase Authentication with verified identity where required
+- Mandatory authentication for `admin` and `bill` applications
+- No public/self-service staff registration
+- Individual staff accounts; no shared production credentials
+- Least-privilege RBAC and granular permissions
+- Server-side authorization on every privileged endpoint and mutation
+- Resource/store-scope checks where applicable
+- Step-up authentication/MFA for high-risk staff operations where supported
+- Prompt rejection of disabled/revoked staff accounts
+- Secure logout/session handling and re-authentication for sensitive actions
 - App Check
 - Firestore Security Rules
-- Server-side authorization for privileged operations
 - Strict input validation
 - Rate limiting/abuse controls for public endpoints
 - Secret isolation
 - Idempotency for payment/webhook/order operations
-- Audit logs for sensitive mutations
-- Least-privilege staff roles
+- Audit logs for sensitive mutations and POS/financial activity
 - No client-side authority over money or inventory
 - Production/development environment separation
 - Backups/export and recovery plan before production launch
