@@ -5,6 +5,7 @@
 - [ ] Firebase project and environment separation
 - [ ] Firebase Authentication configuration
 - [ ] Staff/customer identity model
+- [ ] Super Admin verified email identity and email-based login
 - [ ] Firestore collections and indexes
 - [ ] Deny-by-default Firestore rules
 - [ ] App Check
@@ -44,6 +45,8 @@
 - [ ] Reviews
 - [ ] Reports
 - [ ] Settings
+- [ ] Protected configurable operational email recipients
+- [ ] New-order email recipient management and validation
 - [ ] Audit logs
 
 ## Billing / POS
@@ -71,6 +74,11 @@
 - [ ] Idempotency and reconciliation
 - [ ] Refund handling
 - [ ] Resend backend integration
+- [ ] Protected Super Admin operational email configuration
+- [ ] Configurable additional operational recipient email IDs
+- [ ] New paid/confirmed order email to Super Admin + enabled configured recipients
+- [ ] New-order notification deduplication/idempotency
+- [ ] Email delivery status/failure logging and safe retry handling
 - [ ] Transactional email templates
 
 ## Launch gate
@@ -80,6 +88,8 @@
 - [ ] Print QA (A4 + thermal)
 - [ ] Authentication/authorization tests
 - [ ] Permission escalation tests
+- [ ] Super Admin email-required login tests
+- [ ] New-order notification recipient/deduplication tests
 - [ ] Payment failure/duplicate/webhook tests
 - [ ] Inventory race/rollback tests
 - [ ] Refund/reward reversal tests
