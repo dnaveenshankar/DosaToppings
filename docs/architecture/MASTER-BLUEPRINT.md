@@ -8,6 +8,14 @@ Architecture baseline for the new dynamic DosaToppings platform. The existing pr
 
 DosaToppings will evolve from the current static storefront into a secure, mobile-first commerce platform while preserving its existing visual identity: fresh, warm, food-first, green/yellow, premium but approachable, and distinctly Indian.
 
+## Brand / developer attribution
+
+Where appropriate and where it does not reduce usability, the finished customer storefront, admin/POS applications, printable documents, invoices, order slips, emails and other customer-facing/operational surfaces should include a discreet attribution such as:
+
+**Developed by Naveen — naveenshankar.in**
+
+Attribution must never expose secrets, internal endpoints, staff information or security-sensitive implementation details. It should be presented professionally and should not interfere with checkout, printing, accessibility or mobile layouts.
+
 ## Application surfaces and subdomains
 
 The platform will use clear subdomains so each operational area has a focused purpose:
@@ -255,6 +263,12 @@ Fraud, self-referral, duplicate-account and refund reversal controls will be par
 `POS cart -> pricing validation -> payment recorded -> invoice -> inventory movement -> daily reconciliation`
 
 POS and online orders use the same catalog, customer, pricing and inventory foundations.
+
+## Printable documents and mobile requirements
+
+The platform must be designed mobile-first, with touch-friendly controls, readable typography, responsive tables/cards and no desktop-only workflows for customer, admin or POS use.
+
+Bills/invoices, order confirmations, packing slips and customer address information must have clean print layouts. Printing must be usable from the POS/admin workflow and suitable for normal paper formats; a thermal-printer-friendly layout should be supported for POS where practical. Printable output must omit navigation, interactive controls and other screen-only elements while retaining order number, date/time, customer details, billing/shipping address where applicable, line items, quantities, prices, discounts, taxes/charges where applicable, payment method/status and totals.
 
 ## Email events
 
