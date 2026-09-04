@@ -1,11 +1,10 @@
 import type { Env } from './types';
 import type { AuthContext, Permission } from './authz';
-import { requirePermission, requireSuperAdminEmail } from './authz';
+import { requirePermission } from './authz';
 import { supabaseAdminRest, supabaseRpc } from './supabase';
 
-export async function staffGuard(ctx: AuthContext, permission: Permission): Promise<void> {
+export function staffGuard(ctx: AuthContext, permission: Permission): void {
   requirePermission(ctx, permission);
-  requireSuperAdminEmail(ctx);
 }
 
 export async function dashboardSummary(env: Env) {
@@ -34,11 +33,11 @@ export async function listStaff(env: Env) {
 }
 
 export async function setOrderStatus(env: Env, ctx: AuthContext, orderId: string, status: string, reason?: string) {
-  await staffGuard(ctx, 'orders.update');
+  staffGuard(ctx, 'orders.update');
   return supabaseRpc(env, 'admin_update_order_status', { p_order_id: orderId, p_to_status: status, p_actor: ctx.userId, p_reason: reason ?? null });
 }
 
 export async function adjustInventory(env: Env, ctx: AuthContext, variantId: string, quantity: number, reason: string) {
-  await staffGuard(ctx, 'inventory.adjust');
+  staffGuard(ctx, 'inventory.adjust');
   return supabaseRpc(env, 'admin_adjust_inventory', { p_variant_id: variantId, p_quantity: quantity, p_actor: ctx.userId, p_reason: reason });
 }
