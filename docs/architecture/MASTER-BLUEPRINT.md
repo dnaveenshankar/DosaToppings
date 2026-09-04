@@ -8,12 +8,68 @@ Architecture baseline for the new dynamic DosaToppings platform. The existing pr
 
 DosaToppings will evolve from the current static storefront into a secure, mobile-first commerce platform while preserving its existing visual identity: fresh, warm, food-first, green/yellow, premium but approachable, and distinctly Indian.
 
-## Applications
+## Application surfaces and subdomains
+
+The platform will use clear subdomains so each operational area has a focused purpose:
 
 - Customer Store: `www.dosatoppings.in`
-- Admin: `admin.dosatoppings.in`
-- Billing / POS: `billing.dosatoppings.in`
+- Admin Control Center: `admin.dosatoppings.in`
+- Store Billing / POS: `bill.dosatoppings.in`
 - Secure backend/API: `api.dosatoppings.in`
+
+The short `bill` hostname is intentional: it is easy for store staff to remember and clearly separates billing from administration.
+
+Subdomains are an organizational and UX boundary, not a security boundary by themselves. Authorization must still be enforced server-side for every privileged operation.
+
+## Staff and access-control model
+
+The Admin Control Center will include a **Staff Management** area where authorized administrators can create, disable, invite and manage staff accounts without giving every employee full administrator privileges.
+
+Access will use least-privilege role/permission control rather than a single admin flag.
+
+Example roles:
+
+- `super_admin` — complete platform control
+- `admin_manager` — manage users/staff and operational configuration permitted by policy
+- `store_manager` — catalog, inventory, orders and operational management
+- `billing_staff` — billing/POS, customer lookup, invoice printing and permitted order actions
+- `order_staff` — view/process/print orders and update permitted fulfillment statuses
+- `inventory_staff` — stock counts, adjustments and inventory movements
+- `content_manager` — products, categories, banners and merchandising
+- `support_staff` — customer/order support with no financial or configuration authority
+- `review_moderator` — review moderation/report handling
+- `report_viewer` — read-only reports
+
+Permissions will be granular, for example:
+
+- `users.read`
+- `users.create`
+- `users.update`
+- `users.disable`
+- `products.read`
+- `products.write`
+- `orders.read`
+- `orders.update`
+- `orders.print`
+- `orders.cancel`
+- `inventory.read`
+- `inventory.adjust`
+- `inventory.transfer`
+- `billing.create`
+- `billing.refund`
+- `coupons.read`
+- `coupons.write`
+- `promotions.write`
+- `referrals.read`
+- `rewards.adjust`
+- `reviews.moderate`
+- `reports.read`
+- `settings.write`
+- `audit_logs.read`
+
+The UI will hide unavailable functions, but **backend authorization remains mandatory**. A staff member must not gain access simply by knowing another subdomain or manually calling an API endpoint.
+
+High-risk permissions such as changing roles, issuing refunds, modifying rewards, changing pricing rules, deleting records or changing security/settings will be restricted and audited.
 
 ## Core stack
 
@@ -23,7 +79,7 @@ DosaToppings will evolve from the current static storefront into a secure, mobil
 - Firestore: transactional application database
 - Firebase Storage: controlled application media/files when appropriate
 - Firebase App Check: abuse protection
-- Server-side backend: authoritative pricing, orders, payments, rewards, email orchestration
+- Server-side backend: authoritative pricing, orders, payments, rewards, email orchestration and authorization
 - Razorpay: online payments
 - Resend: transactional email
 - Google Drive: operational documents, exports, reports and selected business files; not the primary database
@@ -122,6 +178,7 @@ Primary collections to refine during implementation:
 10. Secrets (Razorpay, Resend and backend credentials) never ship to client JavaScript or public Git history.
 11. Firestore rules default to deny and grant only required access.
 12. Sensitive administrative mutations produce audit records.
+13. Subdomains never substitute for authorization; every backend operation checks the authenticated user's role and permission.
 
 ## Order lifecycle
 
@@ -179,7 +236,7 @@ Architecture, Firebase project, environments, authentication, Firestore model, i
 
 ### Phase B — Back office
 
-Admin authentication/roles, catalog, categories, product management and inventory.
+Admin authentication/roles, staff management, granular permissions, catalog, categories, product management and inventory.
 
 ### Phase C — Customer commerce
 
