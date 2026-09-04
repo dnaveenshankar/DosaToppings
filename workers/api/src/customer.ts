@@ -10,8 +10,26 @@ export async function customerAddresses(env: Env, customerId: string) {
   return supabaseAdminRest<any[]>(env, `addresses?select=id,label,recipient_name,phone,line1,line2,locality,city,state,postal_code,country,is_default,created_at,updated_at&customer_id=eq.${encodeURIComponent(customerId)}&order=is_default.desc,created_at.desc`);
 }
 
+export async function customerAddressSnapshot(env: Env, customerId: string, addressId: string | undefined) {
+  if (!addressId) return null;
+  const rows = await supabaseAdminRest<any[]>(env, `addresses?select=id,label,recipient_name,phone,line1,line2,locality,city,state,postal_code,country,is_default&id=eq.${encodeURIComponent(addressId)}&customer_id=eq.${encodeURIComponent(customerId)}&limit=1`);
+  if (!rows.length) throw new Response('Address not found', { status: 400 });
+  const a = rows[0];
+  return {
+    id: a.id, label: a.label, recipient_name: a.recipient_name, phone: a.phone,
+    line1: a.line1, line2: a.line2, locality: a.locality, city: a.city,
+    state: a.state, postal_code: a.postal_code, country: a.country,
+  };
+}
+
 export async function customerOrders(env: Env, customerId: string) {
-  return supabaseAdminRest<any[]>(env, `orders?select=id,order_number,status,currency,subtotal_paise,discount_paise,shipping_paise,tax_paise,total_paise,created_at,updated_at,order_items(id,variant_id,product_name,variant_name,sku,quantity,unit_price_paise,discount_paise,line_total_paise),payments(id,status,method,amount_paise,provider_order_id,created_at)&customer_id=eq.${encodeURIComponent(customerId)}&order=created_at.desc`);
+  return supabaseAdminRest<any[]>(env, `orders?select=id,order_number,status,currency,subtotal_paise,discount_paise,shipping_paise,tax_paise,total_paise,billing_address,shipping_address,referral_code,created_at,updated_at,order_items(id,variant_id,product_name,variant_name,sku,quantity,unit_price_paise,discount_paise,line_total_paise),payments(id,status,method,amount_paise,provider_order_id,created_at)&customer_id=eq.${encodeURIComponent(customerId)}&order=created_at.desc`);
+}
+
+export async function customerOrder(env: Env, customerId: string, orderId: string) {
+  const rows = await supabaseAdminRest<any[]>(env, `orders?select=id,order_number,status,currency,subtotal_paise,discount_paise,shipping_paise,tax_paise,total_paise,billing_address,shipping_address,referral_code,created_at,updated_at,order_items(id,variant_id,product_name,variant_name,sku,quantity,unit_price_paise,discount_paise,line_total_paise),payments(id,status,method,amount_paise,provider_order_id,created_at),order_status_history(id,from_status,to_status,reason,created_at)&id=eq.${encodeURIComponent(orderId)}&customer_id=eq.${encodeURIComponent(customerId)}&limit=1`);
+  if (!rows.length) throw new Response('Order not found', { status: 404 });
+  return rows[0];
 }
 
 export async function cartSetItem(env: Env, customerId: string, variantId: string, quantity: number) {
