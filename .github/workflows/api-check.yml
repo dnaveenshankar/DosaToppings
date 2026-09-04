@@ -17,5 +17,9 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-      - run: npm install
-      - run: npm run check
+          cache: npm
+          cache-dependency-path: workers/api/package-lock.json
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund --prefer-offline
+      - name: Typecheck
+        run: npm run check
