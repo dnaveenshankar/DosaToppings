@@ -9,6 +9,15 @@ export function supabaseHeaders(env: Env, accessToken?: string): HeadersInit {
   return headers;
 }
 
+export function supabaseAdminHeaders(env: Env): HeadersInit {
+  if (!env.SUPABASE_SERVICE_ROLE_KEY) throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured');
+  return {
+    apikey: env.SUPABASE_SERVICE_ROLE_KEY,
+    Authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+    'Content-Type': 'application/json',
+  };
+}
+
 export async function supabaseRest<T>(
   env: Env,
   path: string,
@@ -24,6 +33,36 @@ export async function supabaseRest<T>(
     throw new Error(`Supabase request failed (${response.status}): ${detail.slice(0, 500)}`);
   }
   if (response.status === 204) return undefined as T;
+  return response.json() as Promise<T>;
+}
+
+export async function supabaseAdminRest<T>(
+  env: Env,
+  path: string,
+  init: RequestInit = {},
+): Promise<T> {
+  const response = await fetch(`${env.SUPABASE_URL}/rest/v1/${path}`, {
+    ...init,
+    headers: { ...supabaseAdminHeaders(env), ...(init.headers || {}) },
+  });
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Supabase admin request failed (${response.status}): ${detail.slice(0, 500)}`);
+  }
+  if (response.status === 204) return undefined as T;
+  return response.json() as Promise<T>;
+}
+
+export async function supabaseRpc<T>(env: Env, functionName: string, body: unknown): Promise<T> {
+  const response = await fetch(`${env.SUPABASE_URL}/rest/v1/rpc/${functionName}`, {
+    method: 'POST',
+    headers: supabaseAdminHeaders(env),
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    const detail = await response.text();
+    throw new Error(`Supabase RPC failed (${response.status}): ${detail.slice(0, 500)}`);
+  }
   return response.json() as Promise<T>;
 }
 
