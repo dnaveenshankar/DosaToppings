@@ -4,6 +4,7 @@ import { deliverNotificationBatch } from './notifications';
 import { getSupabaseUser, supabaseAdminRest, supabaseRpc } from './supabase';
 import { requirePermission } from './authz';
 import { resolveAuthContext } from './authorization';
+import { adminCatalogRoute } from './adminCatalog';
 import type { AuthContext } from './authz';
 import type { Env } from './types';
 
@@ -30,9 +31,11 @@ async function staffContext(request: Request, env: Env): Promise<AuthContext> {
 
 async function adminRoute(request: Request, env: Env): Promise<Response | null> {
   const url = new URL(request.url);
-  if (!url.pathname.startsWith('/v1/admin/refunds')) return null;
+  if (!url.pathname.startsWith('/v1/admin/')) return null;
   try {
     const ctx = await staffContext(request, env);
+    if (url.pathname.startsWith('/v1/admin/catalog')) return await adminCatalogRoute(request, env, ctx);
+    if (!url.pathname.startsWith('/v1/admin/refunds')) return null;
     requirePermission(ctx, 'billing.refund');
 
     if (request.method === 'GET' && url.pathname === '/v1/admin/refunds') {
@@ -88,11 +91,8 @@ async function processRefunds(env: Env) {
       const payload = await response.json().catch(() => ({}));
       if (!response.ok) {
         const message = `Razorpay refund failed (${response.status}): ${JSON.stringify(payload).slice(0, 800)}`;
-        if (isRetryableProviderFailure(response.status)) {
-          await supabaseRpc(env, 'defer_refund_atomic', { p_refund_id: row.id, p_error: message }).catch(() => undefined);
-        } else {
-          await supabaseRpc(env, 'finish_refund_atomic', { p_refund_id: row.id, p_success: false, p_error: message }).catch(() => undefined);
-        }
+        if (isRetryableProviderFailure(response.status)) await supabaseRpc(env, 'defer_refund_atomic', { p_refund_id: row.id, p_error: message }).catch(() => undefined);
+        else await supabaseRpc(env, 'finish_refund_atomic', { p_refund_id: row.id, p_success: false, p_error: message }).catch(() => undefined);
         continue;
       }
       await supabaseRpc(env, 'finish_refund_atomic', { p_refund_id: row.id, p_success: true, p_provider_refund_id: payload.id || null, p_provider_payload: payload });
