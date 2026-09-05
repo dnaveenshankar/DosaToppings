@@ -30,7 +30,9 @@ async function supabaseAuth(env: Env, body: Record<string, unknown>, grantType: 
   });
   if (!response.ok) {
     const detail = await response.text();
-    if (response.status === 400 || response.status === 401) throw new Response('Invalid email or password', { status: 401 });
+    if (response.status === 400 || response.status === 401) {
+      throw new Response(grantType === 'password' ? 'Invalid email or password' : 'Invalid or expired session', { status: 401 });
+    }
     throw new Error(`Supabase auth failed (${response.status}): ${detail.slice(0, 300)}`);
   }
   return response.json() as Promise<AuthResponse>;
@@ -55,7 +57,9 @@ export default {
         if (!body || typeof body !== 'object' || typeof (body as Record<string, unknown>).refresh_token !== 'string') {
           throw new Response('Invalid refresh token', { status: 400 });
         }
-        const session = await supabaseAuth(env, { refresh_token: (body as Record<string, string>).refresh_token }, 'refresh_token');
+        const refreshToken = (body as Record<string, string>).refresh_token.trim();
+        if (!refreshToken || refreshToken.length > 4096) throw new Response('Invalid refresh token', { status: 400 });
+        const session = await supabaseAuth(env, { refresh_token: refreshToken }, 'refresh_token');
         return json({ ok: true, ...session }, 200, origin);
       }
 
