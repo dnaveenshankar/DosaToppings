@@ -40,7 +40,7 @@ export async function adminStaffRoute(request: Request, env: Env, ctx: AuthConte
 
   if (request.method === 'POST' && /^\/v1\/admin\/staff\/[^/]+\/active$/.test(url.pathname)) {
     requirePermission(ctx, 'users.disable');
-    const target = uuid(url.pathname.split('/')[4], 'user_id');
+    const target = uuid(url.pathname.split('/').filter(Boolean)[3], 'user_id');
     const body = await request.json() as { is_active?: unknown };
     if (typeof body.is_active !== 'boolean') throw new Response('is_active must be boolean', { status: 400 });
     const profile = await supabaseRpc<any>(env, 'set_staff_active', { p_target_user: target, p_active: body.is_active, p_actor: ctx.userId });
