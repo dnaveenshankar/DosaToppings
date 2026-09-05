@@ -49,6 +49,12 @@ async function handleJsonRoute(fn: () => Promise<Response>, origin: string, fall
   }
 }
 
+function contextResponse(ctx: AuthContext): Response {
+  return new Response(JSON.stringify({ ok: true, user_id: ctx.userId, email: ctx.email ?? null, role: ctx.role ?? null, is_active: ctx.isActive, permissions: ctx.permissions ?? [] }), {
+    status: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
+  });
+}
+
 export default {
   async fetch(request: Request, env: Env, ctx: WorkerExecutionContext): Promise<Response> {
     const url = new URL(request.url);
@@ -56,6 +62,10 @@ export default {
 
     if (url.pathname === '/v1/site/content' && request.method === 'GET') {
       return handleJsonRoute(() => publicSiteContent(env, url.searchParams.get('key') || undefined), origin, 'Content request failed');
+    }
+
+    if (url.pathname === '/v1/admin/context' && request.method === 'GET') {
+      return handleJsonRoute(async () => contextResponse(await staffContext(request, env)), 'https://admin.dosatoppings.in', 'Context request failed');
     }
 
     if (url.pathname.startsWith('/v1/admin/content')) {
