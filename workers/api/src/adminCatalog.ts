@@ -34,7 +34,13 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
     const inserted = await supabaseAdminRest<any[]>(env, 'products', {
       method: 'POST',
       headers: { Prefer: 'return=representation' },
-      body: { category_id: body.category_id ? uuid(body.category_id, 'category_id') : null, name: body.name.trim().slice(0, 200), slug: typeof body.slug === 'string' ? body.slug.trim().toLowerCase().slice(0, 200) : null, description: typeof body.description === 'string' ? body.description.slice(0, 5000) : null, is_active: body.is_active !== false }
+      body: JSON.stringify({
+        category_id: body.category_id ? uuid(body.category_id, 'category_id') : null,
+        name: body.name.trim().slice(0, 200),
+        slug: typeof body.slug === 'string' ? body.slug.trim().toLowerCase().slice(0, 200) : null,
+        description: typeof body.description === 'string' ? body.description.slice(0, 5000) : null,
+        is_active: body.is_active !== false,
+      }),
     });
     return json({ ok: true, product: inserted[0] ?? null }, 201);
   }
@@ -47,7 +53,11 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
     for (const key of ['name','slug','description','is_active','category_id']) {
       if (key in body) patch[key] = key === 'category_id' && body[key] !== null ? uuid(body[key], 'category_id') : body[key];
     }
-    const rows = await supabaseAdminRest<any[]>(env, `products?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', headers: { Prefer: 'return=representation' }, body: patch });
+    const rows = await supabaseAdminRest<any[]>(env, `products?id=eq.${encodeURIComponent(id)}`, {
+      method: 'PATCH',
+      headers: { Prefer: 'return=representation' },
+      body: JSON.stringify(patch),
+    });
     return json({ ok: true, product: rows[0] ?? null });
   }
 
