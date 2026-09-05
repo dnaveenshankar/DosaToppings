@@ -22,6 +22,8 @@ jobs:
           node-version: 22
       - run: npm install --no-audit --no-fund
       - run: npm run check
+      - name: Check customer scripts
+        run: node --check ../../apps/site/store-v2.js && node --check ../../apps/site/checkout-v1.js
       - name: Deploy to Cloudflare
         run: npx wrangler deploy
         env:
