@@ -20,7 +20,7 @@ export async function publicCatalog(env: Env, filters: CatalogFilters) {
   const category = filters.category ? safeSlug(filters.category) : '';
   const categorySelect = category ? 'categories!inner(id,name,slug)' : 'categories(id,name,slug)';
   const params = new URLSearchParams();
-  params.set('select', `id,name,slug,short_description,description,image_url,sku,is_bestseller,is_featured,category_id,${categorySelect},product_variants(id,name,sku,price_paise,compare_at_price_paise,is_active)`);
+  params.set('select', `id,name,slug,short_description,description,image_url,sku,is_bestseller,is_featured,category_id,${categorySelect},product_variants(id,name,sku,price_paise,compare_at_price_paise,pack_size_value,pack_size_unit,is_active)`);
   params.set('is_published', 'eq.true');
   params.set('product_variants.is_active', 'eq.true');
   params.set('order', 'created_at.asc');
