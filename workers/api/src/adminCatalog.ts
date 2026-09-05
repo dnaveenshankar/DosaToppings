@@ -31,17 +31,7 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
     requirePermission(ctx, 'products.write');
     const body = await request.json() as Record<string, unknown>;
     if (typeof body.name !== 'string' || !body.name.trim()) throw new Response('Product name is required', { status: 400 });
-    const inserted = await supabaseAdminRest<any[]>(env, 'products', {
-      method: 'POST',
-      headers: { Prefer: 'return=representation' },
-      body: JSON.stringify({
-        category_id: body.category_id ? uuid(body.category_id, 'category_id') : null,
-        name: body.name.trim().slice(0, 200),
-        slug: typeof body.slug === 'string' ? body.slug.trim().toLowerCase().slice(0, 200) : null,
-        description: typeof body.description === 'string' ? body.description.slice(0, 5000) : null,
-        is_active: body.is_active !== false,
-      }),
-    });
+    const inserted = await supabaseAdminRest<any[]>(env, 'products', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ category_id: body.category_id ? uuid(body.category_id, 'category_id') : null, name: body.name.trim().slice(0, 200), slug: typeof body.slug === 'string' ? body.slug.trim().toLowerCase().slice(0, 200) : null, description: typeof body.description === 'string' ? body.description.slice(0, 5000) : null, is_active: body.is_active !== false }) });
     return json({ ok: true, product: inserted[0] ?? null }, 201);
   }
 
@@ -50,14 +40,8 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
     const id = uuid(url.pathname.split('/')[5], 'product_id');
     const body = await request.json() as Record<string, unknown>;
     const patch: Record<string, unknown> = {};
-    for (const key of ['name','slug','description','is_active','category_id']) {
-      if (key in body) patch[key] = key === 'category_id' && body[key] !== null ? uuid(body[key], 'category_id') : body[key];
-    }
-    const rows = await supabaseAdminRest<any[]>(env, `products?id=eq.${encodeURIComponent(id)}`, {
-      method: 'PATCH',
-      headers: { Prefer: 'return=representation' },
-      body: JSON.stringify(patch),
-    });
+    for (const key of ['name','slug','description','is_active','category_id']) if (key in body) patch[key] = key === 'category_id' && body[key] !== null ? uuid(body[key], 'category_id') : body[key];
+    const rows = await supabaseAdminRest<any[]>(env, `products?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', headers: { Prefer: 'return=representation' }, body: JSON.stringify(patch) });
     return json({ ok: true, product: rows[0] ?? null });
   }
 
@@ -72,11 +56,7 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
     const allowedUnits = new Set(['g','kg','ml','l','pcs']);
     const packUnit = body.pack_size_unit == null || body.pack_size_unit === '' ? null : String(body.pack_size_unit);
     if (packUnit !== null && !allowedUnits.has(packUnit)) throw new Response('Invalid pack_size_unit', { status: 400 });
-    const inserted = await supabaseAdminRest<any[]>(env, 'product_variants', {
-      method: 'POST',
-      headers: { Prefer: 'return=representation' },
-      body: JSON.stringify({ product_id: productId, name: body.name.trim().slice(0, 200), sku: typeof body.sku === 'string' && body.sku.trim() ? body.sku.trim().slice(0, 100) : null, price_paise: Number(body.price_paise), compare_at_price_paise: body.compare_at_price_paise == null || body.compare_at_price_paise === '' ? null : Number(body.compare_at_price_paise), stock_threshold: Number.isInteger(body.stock_threshold) && Number(body.stock_threshold) >= 0 ? Number(body.stock_threshold) : 0, pack_size_value: packValue, pack_size_unit: packUnit, is_active: body.is_active !== false }),
-    });
+    const inserted = await supabaseAdminRest<any[]>(env, 'product_variants', { method: 'POST', headers: { Prefer: 'return=representation' }, body: JSON.stringify({ product_id: productId, name: body.name.trim().slice(0, 200), sku: typeof body.sku === 'string' && body.sku.trim() ? body.sku.trim().slice(0, 100) : null, price_paise: Number(body.price_paise), compare_at_price_paise: body.compare_at_price_paise == null || body.compare_at_price_paise === '' ? null : Number(body.compare_at_price_paise), stock_threshold: Number.isInteger(body.stock_threshold) && Number(body.stock_threshold) >= 0 ? Number(body.stock_threshold) : 0, pack_size_value: packValue, pack_size_unit: packUnit, is_active: body.is_active !== false }) });
     return json({ ok: true, variant: inserted[0] ?? null }, 201);
   }
 
@@ -92,12 +72,9 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
 
   if (request.method === 'GET' && url.pathname === '/v1/admin/catalog/inventory') {
     requirePermission(ctx, 'inventory.read');
-    const variants = await supabaseAdminRest<any[]>(env, 'product_variants?select=id,product_id,name,sku,price_paise,stock_threshold,pack_size_value,pack_size_unit,is_active,products(id,name)&order=created_at.asc&limit=1000');
-    const movements = await supabaseAdminRest<any[]>(env, 'inventory_movements?select=id,variant_id,movement_type,quantity,reference_type,reference_id,notes,performed_by,created_at&order=created_at.desc&limit=10000');
-    const balances = new Map<string, number>();
-    for (const movement of movements) balances.set(movement.variant_id, (balances.get(movement.variant_id) || 0) + Number(movement.quantity || 0));
-    const rows = variants.map((v) => ({ ...v, current_stock: balances.get(v.id) || 0, low_stock: (balances.get(v.id) || 0) <= Number(v.stock_threshold || 0) }));
-    return json({ ok: true, variants: rows, movements: movements.slice(0, 500) });
+    const variants = await supabaseRpc<any[]>(env, 'admin_inventory_snapshot', {});
+    const movements = await supabaseAdminRest<any[]>(env, 'inventory_movements?select=id,variant_id,movement_type,quantity,reference_type,reference_id,notes,performed_by,created_at&order=created_at.desc&limit=500');
+    return json({ ok: true, variants, movements });
   }
 
   if (request.method === 'POST' && url.pathname === '/v1/admin/catalog/inventory/movement') {
