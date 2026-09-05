@@ -31,38 +31,48 @@ async function staffContext(request: Request, env: Env): Promise<AuthContext> {
 async function adminRoute(request: Request, env: Env): Promise<Response | null> {
   const url = new URL(request.url);
   if (!url.pathname.startsWith('/v1/admin/refunds')) return null;
-  const ctx = await staffContext(request, env);
-  requirePermission(ctx, 'billing.refund');
+  try {
+    const ctx = await staffContext(request, env);
+    requirePermission(ctx, 'billing.refund');
 
-  if (request.method === 'GET' && url.pathname === '/v1/admin/refunds') {
-    const limit = Math.min(Math.max(Number(url.searchParams.get('limit') || 50), 1), 100);
-    const status = url.searchParams.get('status');
-    const filter = status ? `&status=eq.${encodeURIComponent(status)}` : '';
-    const rows = await supabaseAdminRest<any[]>(env, `refund_requests?select=id,order_id,payment_id,amount_paise,reason,status,requested_by,approved_by,provider_refund_id,last_error,created_at,updated_at&order=created_at.desc&limit=${limit}${filter}`);
-    return json({ ok: true, refunds: rows });
-  }
+    if (request.method === 'GET' && url.pathname === '/v1/admin/refunds') {
+      const limit = Math.min(Math.max(Number(url.searchParams.get('limit') || 50), 1), 100);
+      const status = url.searchParams.get('status');
+      const filter = status ? `&status=eq.${encodeURIComponent(status)}` : '';
+      const rows = await supabaseAdminRest<any[]>(env, `refund_requests?select=id,order_id,payment_id,amount_paise,reason,status,requested_by,approved_by,provider_refund_id,last_error,attempt_count,next_attempt_at,created_at,updated_at&order=created_at.desc&limit=${limit}${filter}`);
+      return json({ ok: true, refunds: rows });
+    }
 
-  if (request.method === 'POST' && url.pathname === '/v1/admin/refunds') {
-    const body = await request.json() as { order_id?: unknown; amount_paise?: unknown; reason?: unknown };
-    const key = request.headers.get('Idempotency-Key');
-    if (!key || key.length < 16 || key.length > 128) throw new Response('Valid Idempotency-Key is required', { status: 400 });
-    if (!Number.isInteger(body.amount_paise) || Number(body.amount_paise) < 100) throw new Response('Refund must be at least ₹1', { status: 400 });
-    return json(await supabaseRpc(env, 'request_refund_atomic', {
-      p_order_id: uuid(body.order_id, 'order_id'), p_actor: ctx.userId, p_amount_paise: Number(body.amount_paise),
-      p_reason: typeof body.reason === 'string' ? body.reason.slice(0, 1000) : null, p_idempotency_key: key
-    }), 201);
-  }
+    if (request.method === 'POST' && url.pathname === '/v1/admin/refunds') {
+      const body = await request.json() as { order_id?: unknown; amount_paise?: unknown; reason?: unknown };
+      const key = request.headers.get('Idempotency-Key');
+      if (!key || key.length < 16 || key.length > 128) throw new Response('Valid Idempotency-Key is required', { status: 400 });
+      if (!Number.isInteger(body.amount_paise) || Number(body.amount_paise) < 100) throw new Response('Refund must be at least ₹1', { status: 400 });
+      return json(await supabaseRpc(env, 'request_refund_atomic', {
+        p_order_id: uuid(body.order_id, 'order_id'), p_actor: ctx.userId, p_amount_paise: Number(body.amount_paise),
+        p_reason: typeof body.reason === 'string' ? body.reason.slice(0, 1000) : null, p_idempotency_key: key
+      }), 201);
+    }
 
-  const parts = url.pathname.split('/').filter(Boolean);
-  if (parts.length === 5 && parts[0] === 'v1' && parts[1] === 'admin' && parts[2] === 'refunds' && parts[4] === 'approve' && request.method === 'POST') {
-    return json(await supabaseRpc(env, 'approve_refund_atomic', { p_refund_id: uuid(parts[3], 'refund_id'), p_actor: ctx.userId }));
+    const parts = url.pathname.split('/').filter(Boolean);
+    if (parts.length === 5 && parts[0] === 'v1' && parts[1] === 'admin' && parts[2] === 'refunds' && parts[4] === 'approve' && request.method === 'POST') {
+      return json(await supabaseRpc(env, 'approve_refund_atomic', { p_refund_id: uuid(parts[3], 'refund_id'), p_actor: ctx.userId }));
+    }
+    return null;
+  } catch (error) {
+    if (error instanceof Response) return error;
+    const message = error instanceof Error ? error.message : 'Admin request failed';
+    return json({ ok: false, error: message.slice(0, 300) }, 400);
   }
-  return null;
+}
+
+function isRetryableProviderFailure(status: number): boolean {
+  return status === 408 || status === 409 || status === 425 || status === 429 || status >= 500;
 }
 
 async function processRefunds(env: Env) {
   if (!env.SUPABASE_SERVICE_ROLE_KEY || !env.RAZORPAY_KEY_ID || !env.RAZORPAY_KEY_SECRET) return;
-  const rows = await supabaseAdminRest<Array<{ id: string; payment_id: string; amount_paise: number }>>(env, 'refund_requests?select=id,payment_id,amount_paise&status=in.(approved,processing)&order=created_at.asc&limit=10');
+  const rows = await supabaseAdminRest<Array<{ id: string; payment_id: string; amount_paise: number; status: string }>>(env, 'refund_requests?select=id,payment_id,amount_paise,status&status=in.(approved,processing)&order=created_at.asc&limit=10');
   const credentials = btoa(`${env.RAZORPAY_KEY_ID}:${env.RAZORPAY_KEY_SECRET}`);
   for (const row of rows) {
     try {
@@ -76,10 +86,19 @@ async function processRefunds(env: Env) {
         body: JSON.stringify({ amount: row.amount_paise, receipt: `DT-${refund.id}` })
       });
       const payload = await response.json().catch(() => ({}));
-      if (!response.ok) throw new Error(`Razorpay refund failed (${response.status}): ${JSON.stringify(payload).slice(0, 800)}`);
+      if (!response.ok) {
+        const message = `Razorpay refund failed (${response.status}): ${JSON.stringify(payload).slice(0, 800)}`;
+        if (isRetryableProviderFailure(response.status)) {
+          await supabaseRpc(env, 'defer_refund_atomic', { p_refund_id: row.id, p_error: message }).catch(() => undefined);
+        } else {
+          await supabaseRpc(env, 'finish_refund_atomic', { p_refund_id: row.id, p_success: false, p_error: message }).catch(() => undefined);
+        }
+        continue;
+      }
       await supabaseRpc(env, 'finish_refund_atomic', { p_refund_id: row.id, p_success: true, p_provider_refund_id: payload.id || null, p_provider_payload: payload });
     } catch (error) {
-      await supabaseRpc(env, 'finish_refund_atomic', { p_refund_id: row.id, p_success: false, p_error: error instanceof Error ? error.message : String(error) }).catch(() => undefined);
+      const message = error instanceof Error ? error.message : String(error);
+      await supabaseRpc(env, 'defer_refund_atomic', { p_refund_id: row.id, p_error: message }).catch(() => undefined);
     }
   }
 }
