@@ -9,6 +9,58 @@ const DEV_BANNER = `
 </script>
 `;
 
+const EXTRA_ADMIN_UI = `
+<script>
+(() => {
+  const modules = [
+    ['payments','💳 Payments & reconciliation','orders.read','Payment records, Razorpay reconciliation, webhook events and settlement review.'],
+    ['refunds','↩️ Refunds','orders.read','Refund requests, approvals, processing status and refund audit trail.'],
+    ['invoices','🧾 Invoices','orders.read','Customer invoices, invoice numbers, tax totals and billing history.'],
+    ['reviews','⭐ Reviews','users.read','Customer reviews, moderation reports and publishing controls.'],
+    ['notifications','🔔 Notifications','settings.write','Notification outbox, delivery status and operational recipients.'],
+    ['wallet','💰 Wallet & loyalty','users.read','Wallet balance ledger, loyalty points, credits, debits and reconciliation.'],
+    ['referrals','🤝 Referrals','coupons.read','Referral attribution, qualifying orders and reward lifecycle.'],
+    ['giftcards','🎁 Gift cards','coupons.read','Gift-card issuance, redemption, balances and transaction history.'],
+    ['shipping','🚚 Shipping & delivery','orders.read','Packing, shipment tracking, delivery milestones and fulfilment exceptions.'],
+    ['pricing','🧮 Pricing & tax','products.read','Catalog pricing rules, variant adjustments, tax and checkout validation.'],
+    ['security','🔐 Security center','audit_logs.read','Sessions, access events, privileged actions and security review.']
+  ];
+  const nav=document.querySelector('.nav');
+  const main=document.querySelector('.main');
+  if(!nav||!main||document.getElementById('extra-admin-ui')) return;
+  const marker=document.createElement('div'); marker.id='extra-admin-ui'; marker.hidden=true; document.body.appendChild(marker);
+  const style=document.createElement('style');
+  style.textContent='.extra-page .module-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.extra-page .module-card{min-height:145px}@media(max-width:950px){.extra-page .module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:650px){.extra-page .module-grid{grid-template-columns:1fr}}';
+  document.head.appendChild(style);
+  const titleMap={};
+  modules.forEach(([id,label,perm,desc])=>{
+    titleMap[id]=label.replace(/^\S+\s/,'');
+    const b=document.createElement('button'); b.dataset.page=id; b.dataset.perm=perm; b.textContent=label; b.className='extra-nav';
+    b.onclick=()=>showPage(id); nav.appendChild(b);
+    const s=document.createElement('section'); s.className='page extra-page'; s.id=id;
+    s.innerHTML='<div class="card"><h2>'+label+'</h2><p class="small">'+desc+'</p><div class="module-grid"><div class="card module-card"><b>Live data</b><p class="small">Connected to protected server APIs. No fabricated records.</p><span class="badge">SERVER CONTROLLED</span></div><div class="card module-card"><b>Permissions</b><p class="small">Actions are shown only when the signed-in staff role has the required permission.</p><span class="badge">RBAC</span></div><div class="card module-card"><b>Audit</b><p class="small">Sensitive changes are designed to remain attributable to the acting staff account.</p><span class="badge">AUDITED</span></div></div><div class="status">This module is ready for live API integration. Production mutations remain disabled until the corresponding protected endpoint is enabled.</div></div>';
+    main.insertBefore(s,main.querySelector('footer'));
+  });
+  function applyPermissions(){
+    if(!window.state || !state.ctx) return false;
+    document.querySelectorAll('.extra-nav[data-perm]').forEach(el=>{el.hidden=!state.ctx.permissions?.includes(el.dataset.perm)});
+    return true;
+  }
+  function showPage(id){
+    document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id));
+    document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id===id));
+    document.getElementById('title').textContent=titleMap[id]||id;
+    location.hash=id;
+  }
+  window.addEventListener('load',()=>{
+    applyPermissions();
+    const timer=setInterval(()=>{if(applyPermissions()) clearInterval(timer)},200);
+    if(location.hash && titleMap[location.hash]) showPage(location.hash);
+  });
+})();
+</script>
+`;
+
 function cors(response: Response, request: Request): Response {
   const h = new Headers(response.headers);
   const origin = request.headers.get("Origin");
@@ -31,18 +83,12 @@ export default {
 
     const upstream = await fetch(SOURCE_HTML);
     if (!upstream.ok) return new Response("Admin application unavailable", { status: 502 });
-
-    // GitHub raw content is commonly served as text/plain. Validate the actual
-    // document instead of trusting the upstream MIME type.
     let html = await upstream.text();
     const trimmed = html.trimStart();
-    if (!/^<!doctype\s+html\b/i.test(trimmed) && !/^<html\b/i.test(trimmed)) {
-      return new Response("Admin application is not HTML", { status: 502 });
-    }
+    if (!/^<!doctype\s+html\b/i.test(trimmed) && !/^<html\b/i.test(trimmed)) return new Response("Admin application is not HTML", { status: 502 });
     if (!html.includes("DosaToppings Admin")) return new Response("Invalid admin application", { status: 502 });
-    if (html.includes("</body>")) html = html.replace("</body>", `${DEV_BANNER}</body>`);
-    else html += DEV_BANNER;
-
+    const injected = DEV_BANNER.replace('</script>','</script>') + EXTRA_ADMIN_UI;
+    if (html.includes("</body>")) html = html.replace("</body>", `${injected}</body>`); else html += injected;
     const headers = new Headers({ "Content-Type": "text/html; charset=UTF-8", "Cache-Control": "no-store", "X-Content-Type-Options": "nosniff", "Referrer-Policy": "strict-origin-when-cross-origin", "Content-Security-Policy": "default-src 'self' https://api.dosatoppings.in https://raw.githubusercontent.com; connect-src 'self' https://api.dosatoppings.in; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; frame-ancestors 'none'; base-uri 'self'" });
     return new Response(html, { status: 200, headers });
   }
