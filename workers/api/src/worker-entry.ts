@@ -1,5 +1,6 @@
 import base from './worker';
 import { adminStaffRoute } from './adminStaff';
+import { adminReviewsRoute } from './adminReviews';
 import { reviewRoute } from './reviews';
 import { getSupabaseUser } from './supabase';
 import { resolveAuthContext } from './authorization';
@@ -60,6 +61,18 @@ export default {
       } catch (error) {
         if (error instanceof Response) return withCors(error, 'https://admin.dosatoppings.in');
         return withCors(new Response(JSON.stringify({ ok: false, error: error instanceof Error ? error.message : 'Staff request failed' }), {
+          status: 400, headers: { 'Content-Type': 'application/json' }
+        }), 'https://admin.dosatoppings.in');
+      }
+    }
+
+    if (url.pathname.startsWith('/v1/admin/reviews') && request.method !== 'OPTIONS') {
+      try {
+        const result = await adminReviewsRoute(request, env, await staffContext(request, env));
+        if (result) return withCors(result, 'https://admin.dosatoppings.in');
+      } catch (error) {
+        if (error instanceof Response) return withCors(error, 'https://admin.dosatoppings.in');
+        return withCors(new Response(JSON.stringify({ ok: false, error: error instanceof Error ? error.message : 'Review admin request failed' }), {
           status: 400, headers: { 'Content-Type': 'application/json' }
         }), 'https://admin.dosatoppings.in');
       }
