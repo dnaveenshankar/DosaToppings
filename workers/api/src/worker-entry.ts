@@ -1,4 +1,5 @@
 import base from './worker';
+import { authRoute } from './auth';
 import { adminStaffRoute } from './adminStaff';
 import { adminReviewsRoute } from './adminReviews';
 import { reviewRoute } from './reviews';
@@ -39,6 +40,19 @@ export default {
   async fetch(request: Request, env: Env, ctx: WorkerExecutionContext): Promise<Response> {
     const url = new URL(request.url);
     const origin = corsOrigin(request);
+
+    if (url.pathname.startsWith('/v1/auth/')) {
+      if (request.method === 'OPTIONS') return base.fetch(request, env, ctx);
+      try {
+        const result = await authRoute(request, env);
+        if (result) return withCors(result, origin);
+      } catch (error) {
+        if (error instanceof Response) return withCors(error, origin);
+        return withCors(new Response(JSON.stringify({ ok: false, error: error instanceof Error ? error.message : 'Authentication failed' }), {
+          status: 400, headers: { 'Content-Type': 'application/json' }
+        }), origin);
+      }
+    }
 
     if (url.pathname.startsWith('/v1/customer/reviews') || /^\/v1\/products\/[^/]+\/reviews$/.test(url.pathname)) {
       if (request.method === 'OPTIONS') return base.fetch(request, env, ctx);
