@@ -1,0 +1,12 @@
+{
+  "name": "dosatoppings-admin-worker",
+  "private": true,
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260905.0",
+    "typescript": "^5.9.2",
+    "wrangler": "^4.33.0"
+  }
+}
