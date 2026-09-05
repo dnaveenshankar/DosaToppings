@@ -1,0 +1,21 @@
+name: Development Preview
+
+on:
+  push:
+    branches: [development]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  preview-info:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate development storefront
+        run: |
+          test -f apps/store/index.html
+          test -f apps/admin/index.html
+          test -f apps/bill/index.html
+          echo "Development storefront files are present."
