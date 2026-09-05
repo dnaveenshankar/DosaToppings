@@ -1,4 +1,5 @@
 import app from './index';
+import { authRoute } from './auth';
 import { deliverNotificationBatch } from './notifications';
 import type { Env } from './types';
 
@@ -14,13 +15,18 @@ interface WorkerExecutionContext {
 }
 
 export default {
-  fetch: app.fetch,
-  async scheduled(controller: ScheduledController, env: Env, ctx: WorkerExecutionContext) {
+  async fetch(request: Request, env: Env, ctx: WorkerExecutionContext): Promise<Response> {
+    const auth = await authRoute(request, env);
+    if (auth) return auth;
+    return app.fetch(request, env, ctx);
+  },
+
+  async scheduled(controller: ScheduledController, env: Env, _ctx: WorkerExecutionContext) {
     if (controller.cron !== '*/5 * * * *') return;
     const serviceRole = env.SUPABASE_SERVICE_ROLE_KEY;
     if (!serviceRole) throw new Error('SUPABASE_SERVICE_ROLE_KEY is not configured');
-
     const authHeaders = { apikey: serviceRole, Authorization: `Bearer ${serviceRole}` };
+
     const superAdminRows = await fetch(`${env.SUPABASE_URL}/rest/v1/staff_roles?select=user_id&role=eq.super_admin`, { headers: authHeaders }).then(async response => {
       if (!response.ok) throw new Error(`Unable to load super admin roles (${response.status})`);
       return response.json() as Promise<Array<{ user_id: string }>>;
