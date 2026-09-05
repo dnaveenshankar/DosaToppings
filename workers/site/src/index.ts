@@ -26,9 +26,9 @@ export default {
     const redirect = redirectRoot(request);
     if (redirect) return redirect;
     const upstream = await fetch(env.SITE_ORIGIN, { headers: { 'User-Agent': 'DosaToppings-Site-Worker' } });
-    const contentType = upstream.headers.get('content-type') || '';
-    if (!contentType.includes('text/html')) return upstream;
-    const html = await upstream.text();
+    let html = await upstream.text();
+    const trimmed = html.trimStart();
+    if (!upstream.ok || (!/^<!doctype\s+html\b/i.test(trimmed) && !/^<html\b/i.test(trimmed))) return new Response('Site application unavailable', { status: 502 });
     const injected = html.replace('</body>', `${script(env.API_BASE_URL)}</body>`);
     const headers = new Headers(upstream.headers);
     headers.set('content-type', 'text/html; charset=UTF-8');
