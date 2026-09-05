@@ -8,6 +8,15 @@ import type { Env } from './types';
 interface ScheduledController { cron: string; scheduledTime: number; noRetry(): void; }
 interface WorkerExecutionContext { waitUntil(promise: Promise<unknown>): void; passThroughOnException(): void; }
 
+function withCors(response: Response): Response {
+  const headers = new Headers(response.headers);
+  headers.set('Access-Control-Allow-Origin', 'https://admin.dosatoppings.in');
+  headers.set('Access-Control-Allow-Headers', 'Authorization, Content-Type, Idempotency-Key, X-Requested-With');
+  headers.set('Access-Control-Allow-Methods', 'GET,POST,PATCH,DELETE,OPTIONS');
+  headers.set('Cache-Control', 'no-store');
+  return new Response(response.body, { status: response.status, statusText: response.statusText, headers });
+}
+
 async function staffContext(request: Request, env: Env): Promise<AuthContext> {
   const header = request.headers.get('Authorization') || '';
   if (!header.startsWith('Bearer ')) throw new Response('Unauthenticated', { status: 401 });
@@ -20,15 +29,15 @@ async function staffContext(request: Request, env: Env): Promise<AuthContext> {
 export default {
   async fetch(request: Request, env: Env, ctx: WorkerExecutionContext): Promise<Response> {
     const url = new URL(request.url);
-    if (url.pathname.startsWith('/v1/admin/staff')) {
+    if (url.pathname.startsWith('/v1/admin/staff') && request.method !== 'OPTIONS') {
       try {
         const result = await adminStaffRoute(request, env, await staffContext(request, env));
-        if (result) return result;
+        if (result) return withCors(result);
       } catch (error) {
-        if (error instanceof Response) return error;
-        return new Response(JSON.stringify({ ok: false, error: error instanceof Error ? error.message : 'Staff request failed' }), {
-          status: 400, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' }
-        });
+        if (error instanceof Response) return withCors(error);
+        return withCors(new Response(JSON.stringify({ ok: false, error: error instanceof Error ? error.message : 'Staff request failed' }), {
+          status: 400, headers: { 'Content-Type': 'application/json' }
+        }));
       }
     }
     return base.fetch(request, env, ctx);
