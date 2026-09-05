@@ -7,6 +7,9 @@ workers_dev = false
 APP_BASE_URL = "https://www.dosatoppings.in"
 SUPABASE_URL = "https://sqjjyjnbunoemwokwrrm.supabase.co"
 
+[secrets]
+required = ["SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY"]
+
 [[routes]]
 pattern = "api.dosatoppings.in"
 custom_domain = true
@@ -15,6 +18,5 @@ custom_domain = true
 crons = ["*/5 * * * *"]
 
 # Production secrets are intentionally not stored in Git.
-# Configure SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY,
-# RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET,
-# and RESEND_API_KEY as encrypted Worker secrets before deployment.
+# Optional integrations use encrypted Worker secrets when enabled:
+# RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET, RAZORPAY_WEBHOOK_SECRET, RESEND_API_KEY.
