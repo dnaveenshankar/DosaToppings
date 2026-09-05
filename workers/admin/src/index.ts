@@ -31,10 +31,14 @@ export default {
 
     const upstream = await fetch(SOURCE_HTML);
     if (!upstream.ok) return new Response("Admin application unavailable", { status: 502 });
-    const contentType = upstream.headers.get("content-type") || "";
-    if (!contentType.includes("text/html")) return new Response("Admin application is not HTML", { status: 502 });
 
+    // GitHub raw content is commonly served as text/plain. Validate the actual
+    // document instead of trusting the upstream MIME type.
     let html = await upstream.text();
+    const trimmed = html.trimStart();
+    if (!/^<!doctype\s+html\b/i.test(trimmed) && !/^<html\b/i.test(trimmed)) {
+      return new Response("Admin application is not HTML", { status: 502 });
+    }
     if (!html.includes("DosaToppings Admin")) return new Response("Invalid admin application", { status: 502 });
     if (html.includes("</body>")) html = html.replace("</body>", `${DEV_BANNER}</body>`);
     else html += DEV_BANNER;
