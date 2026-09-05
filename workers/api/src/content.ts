@@ -26,6 +26,14 @@ function validKey(value: string): boolean {
   return /^[a-z0-9][a-z0-9._-]{0,99}$/.test(value);
 }
 
+async function audit(env: Env, ctx: AuthContext, action: string, key: string, metadata: Record<string, unknown>): Promise<void> {
+  await supabaseAdminRest(env, 'audit_logs', {
+    method: 'POST',
+    headers: { Prefer: 'return=minimal' },
+    body: JSON.stringify({ actor_id: ctx.userId, action, resource_type: 'site_content', resource_id: key, metadata }),
+  });
+}
+
 export async function publicSiteContent(env: Env, key?: string): Promise<Response> {
   const filter = key ? `&key=eq.${encodeURIComponent(key)}` : '';
   const rows = await supabaseAdminRest<SiteContentRow[]>(
@@ -35,11 +43,7 @@ export async function publicSiteContent(env: Env, key?: string): Promise<Respons
   return json({ ok: true, content: rows });
 }
 
-export async function adminSiteContent(
-  request: Request,
-  env: Env,
-  ctx: AuthContext,
-): Promise<Response> {
+export async function adminSiteContent(request: Request, env: Env, ctx: AuthContext): Promise<Response> {
   const methodPermission: Permission = request.method === 'GET' ? 'content.read' : 'content.write';
   requirePermission(ctx, methodPermission);
 
@@ -51,9 +55,7 @@ export async function adminSiteContent(
     return json({ ok: true, content: rows });
   }
 
-  if (request.method !== 'PATCH' && request.method !== 'POST') {
-    return json({ ok: false, error: 'Method not allowed' }, 405);
-  }
+  if (request.method !== 'PATCH' && request.method !== 'POST') return json({ ok: false, error: 'Method not allowed' }, 405);
 
   const body = await request.json().catch(() => null) as Record<string, unknown> | null;
   if (!body || typeof body !== 'object') return json({ ok: false, error: 'Invalid JSON body' }, 400);
@@ -62,39 +64,26 @@ export async function adminSiteContent(
   const content = body.content_json;
   const isPublished = typeof body.is_published === 'boolean' ? body.is_published : true;
   if (!validKey(key)) return json({ ok: false, error: 'Invalid content key' }, 400);
-  if (!content || typeof content !== 'object' || Array.isArray(content)) {
-    return json({ ok: false, error: 'content_json must be an object' }, 400);
-  }
+  if (!content || typeof content !== 'object' || Array.isArray(content)) return json({ ok: false, error: 'content_json must be an object' }, 400);
 
-  const result = await supabaseAdminRest<SiteContentRow[]>(
-    env,
-    `site_content?key=eq.${encodeURIComponent(key)}`,
-    {
-      method: 'PATCH',
-      headers: { Prefer: 'return=representation' },
-      body: JSON.stringify({
-        title,
-        content_json: content,
-        is_published: isPublished,
-        updated_by: ctx.userId,
-      }),
-    },
-  );
+  const result = await supabaseAdminRest<SiteContentRow[]>(env, `site_content?key=eq.${encodeURIComponent(key)}`, {
+    method: 'PATCH',
+    headers: { Prefer: 'return=representation' },
+    body: JSON.stringify({ title, content_json: content, is_published: isPublished, updated_by: ctx.userId }),
+  });
 
   if (!result.length) {
     const created = await supabaseAdminRest<SiteContentRow[]>(env, 'site_content', {
       method: 'POST',
       headers: { Prefer: 'return=representation' },
-      body: JSON.stringify({
-        key,
-        title,
-        content_json: content,
-        is_published: isPublished,
-        updated_by: ctx.userId,
-      }),
+      body: JSON.stringify({ key, title, content_json: content, is_published: isPublished, updated_by: ctx.userId }),
     });
-    return json({ ok: true, content: created[0] ?? null }, 201);
+    const row = created[0] ?? null;
+    await audit(env, ctx, 'site_content.created', key, { version: row?.version ?? 1, published: isPublished });
+    return json({ ok: true, content: row }, 201);
   }
 
-  return json({ ok: true, content: result[0] });
+  const row = result[0];
+  await audit(env, ctx, 'site_content.updated', key, { version: row.version, published: isPublished });
+  return json({ ok: true, content: row });
 }
