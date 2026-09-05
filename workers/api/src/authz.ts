@@ -10,7 +10,8 @@ export type Permission =
   | 'inventory.read' | 'inventory.adjust' | 'inventory.transfer'
   | 'billing.create' | 'billing.refund' | 'coupons.read' | 'coupons.write'
   | 'promotions.write' | 'referrals.read' | 'rewards.adjust' | 'reviews.moderate'
-  | 'reports.read' | 'settings.write' | 'audit_logs.read';
+  | 'reports.read' | 'settings.write' | 'audit_logs.read'
+  | 'content.read' | 'content.write';
 
 export interface AuthContext {
   userId: string;
