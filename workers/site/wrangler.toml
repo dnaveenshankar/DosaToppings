@@ -1,0 +1,8 @@
+name = "dosatoppings-site"
+main = "src/index.ts"
+compatibility_date = "2026-09-05"
+workers_dev = true
+
+[vars]
+SITE_ORIGIN = "https://raw.githubusercontent.com/dnaveenshankar/DosaToppings/main/index.html"
+API_BASE_URL = "https://dosatoppings.dnaveenshankar2003.workers.dev"
