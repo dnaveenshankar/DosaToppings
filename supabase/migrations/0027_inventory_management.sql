@@ -22,6 +22,46 @@ alter table public.product_variants
 create index if not exists product_variants_pack_size_idx
   on public.product_variants(product_id, pack_size_value, pack_size_unit);
 
+create or replace function public.admin_inventory_snapshot()
+returns table (
+  id uuid,
+  product_id uuid,
+  product_name text,
+  name text,
+  sku text,
+  price_paise bigint,
+  stock_threshold integer,
+  pack_size_value numeric,
+  pack_size_unit text,
+  is_active boolean,
+  current_stock bigint,
+  low_stock boolean
+)
+language sql
+security definer
+set search_path=public
+as $$
+  select
+    pv.id,
+    pv.product_id,
+    p.name,
+    pv.name,
+    pv.sku,
+    pv.price_paise,
+    pv.stock_threshold,
+    pv.pack_size_value,
+    pv.pack_size_unit,
+    pv.is_active,
+    coalesce(sum(im.quantity),0)::bigint as current_stock,
+    (coalesce(sum(im.quantity),0) <= pv.stock_threshold) as low_stock
+  from public.product_variants pv
+  join public.products p on p.id=pv.product_id
+  left join public.inventory_movements im on im.variant_id=pv.id
+  where pv.is_active=true
+  group by pv.id,pv.product_id,p.name,pv.name,pv.sku,pv.price_paise,pv.stock_threshold,pv.pack_size_value,pv.pack_size_unit,pv.is_active
+  order by p.name asc, pv.pack_size_value nulls last, pv.name asc;
+$$;
+
 create or replace function public.admin_record_inventory_movement(
   p_variant_id uuid,
   p_movement_type public.inventory_movement_type,
@@ -38,54 +78,28 @@ declare
   v_balance bigint;
   v_movement_id uuid;
 begin
-  if p_actor is null then
-    raise exception using errcode='28000', message='actor_required';
-  end if;
-  if not exists(select 1 from public.product_variants where id=p_variant_id) then
-    raise exception using errcode='P0002', message='variant_not_found';
-  end if;
-  if p_quantity = 0 then
-    raise exception using errcode='22023', message='quantity_cannot_be_zero';
-  end if;
-  if length(trim(coalesce(p_reason,''))) < 3 then
-    raise exception using errcode='22023', message='reason_required';
-  end if;
-  if p_movement_type in ('opening','purchase','return') and p_quantity < 1 then
-    raise exception using errcode='22023', message='movement_quantity_must_be_positive';
-  end if;
-  if p_movement_type = 'damage' and p_quantity > -1 then
-    raise exception using errcode='22023', message='damage_quantity_must_be_negative';
-  end if;
-  if p_movement_type in ('sale','reservation','release','transfer_in','transfer_out') then
-    raise exception using errcode='22023', message='movement_type_is_system_managed';
-  end if;
+  if p_actor is null then raise exception using errcode='28000', message='actor_required'; end if;
+  if not exists(select 1 from public.product_variants where id=p_variant_id) then raise exception using errcode='P0002', message='variant_not_found'; end if;
+  if p_quantity = 0 then raise exception using errcode='22023', message='quantity_cannot_be_zero'; end if;
+  if length(trim(coalesce(p_reason,''))) < 3 then raise exception using errcode='22023', message='reason_required'; end if;
+  if p_movement_type in ('opening','purchase','return') and p_quantity < 1 then raise exception using errcode='22023', message='movement_quantity_must_be_positive'; end if;
+  if p_movement_type = 'damage' and p_quantity > -1 then raise exception using errcode='22023', message='damage_quantity_must_be_negative'; end if;
+  if p_movement_type in ('sale','reservation','release','transfer_in','transfer_out') then raise exception using errcode='22023', message='movement_type_is_system_managed'; end if;
 
   perform pg_advisory_xact_lock(hashtextextended(p_variant_id::text,20260905));
-  select coalesce(sum(quantity),0) into v_balance
-  from public.inventory_movements
-  where variant_id=p_variant_id;
+  select coalesce(sum(quantity),0) into v_balance from public.inventory_movements where variant_id=p_variant_id;
+  if v_balance + p_quantity < 0 then raise exception using errcode='P0001', message='stock_cannot_be_negative'; end if;
 
-  if v_balance + p_quantity < 0 then
-    raise exception using errcode='P0001', message='stock_cannot_be_negative';
-  end if;
-
-  insert into public.inventory_movements(
-    variant_id,movement_type,quantity,reference_type,notes,performed_by
-  ) values (
-    p_variant_id,p_movement_type,p_quantity,'admin',trim(p_reason),p_actor
-  ) returning id into v_movement_id;
+  insert into public.inventory_movements(variant_id,movement_type,quantity,reference_type,notes,performed_by)
+  values(p_variant_id,p_movement_type,p_quantity,'admin',trim(p_reason),p_actor)
+  returning id into v_movement_id;
 
   v_balance := v_balance + p_quantity;
-  return jsonb_build_object(
-    'ok',true,
-    'movement_id',v_movement_id,
-    'variant_id',p_variant_id,
-    'movement_type',p_movement_type,
-    'quantity',p_quantity,
-    'balance',v_balance
-  );
+  return jsonb_build_object('ok',true,'movement_id',v_movement_id,'variant_id',p_variant_id,'movement_type',p_movement_type,'quantity',p_quantity,'balance',v_balance);
 end;
 $$;
 
+revoke all on function public.admin_inventory_snapshot() from public,anon,authenticated;
+grant execute on function public.admin_inventory_snapshot() to service_role;
 revoke all on function public.admin_record_inventory_movement(uuid,public.inventory_movement_type,integer,uuid,text) from public,anon,authenticated;
 grant execute on function public.admin_record_inventory_movement(uuid,public.inventory_movement_type,integer,uuid,text) to service_role;
