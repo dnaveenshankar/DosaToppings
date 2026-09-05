@@ -1,6 +1,13 @@
 const SOURCE_HTML = "https://raw.githubusercontent.com/dnaveenshankar/DosaToppings/main/apps/admin/index.html";
 const ADMIN_ORIGIN = "https://admin.dosatoppings.in";
-const DEV_BANNER = `\n<script>\n(() => {\n  const show = () => alert("⚠️ Dosa Toppings Admin is currently under development. Please do not perform production order, payment, refund, pricing or account actions unless explicitly authorized.");\n  if (document.readyState === "complete") show(); else window.addEventListener("load", show, { once: true });\n})();\n</script>\n`;
+const DEV_BANNER = `
+<script>
+(() => {
+  const show = () => alert("⚠️ Dosa Toppings Admin is currently under development. Please do not perform production order, payment, refund, pricing or account actions unless explicitly authorized.");
+  if (document.readyState === "complete") show(); else window.addEventListener("load", show, { once: true });
+})();
+</script>
+`;
 
 function cors(response: Response, request: Request): Response {
   const h = new Headers(response.headers);
@@ -22,7 +29,7 @@ export default {
     if (request.method === "OPTIONS") return cors(new Response(null, { status: 204 }), request);
     if (request.method !== "GET") return cors(new Response("Method Not Allowed", { status: 405 }), request);
 
-    const upstream = await fetch(SOURCE_HTML, { cf: { cacheTtl: 0, cacheEverything: false } });
+    const upstream = await fetch(SOURCE_HTML);
     if (!upstream.ok) return new Response("Admin application unavailable", { status: 502 });
     const contentType = upstream.headers.get("content-type") || "";
     if (!contentType.includes("text/html")) return new Response("Admin application is not HTML", { status: 502 });
