@@ -1,0 +1,13 @@
+name = "dosatoppings-admin"
+main = "src/index.ts"
+compatibility_date = "2026-09-05"
+workers_dev = false
+
+[vars]
+ADMIN_ORIGIN = "https://admin.dosatoppings.in"
+API_BASE_URL = "https://api.dosatoppings.in"
+SOURCE_HTML = "https://raw.githubusercontent.com/dnaveenshankar/DosaToppings/main/apps/admin/index.html"
+
+[[routes]]
+pattern = "admin.dosatoppings.in"
+custom_domain = true
