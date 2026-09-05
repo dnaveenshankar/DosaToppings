@@ -5,7 +5,8 @@
     "moduleResolution": "Bundler",
     "strict": true,
     "noEmit": true,
-    "lib": ["ES2022", "WebWorker"]
+    "lib": ["ES2022", "WebWorker"],
+    "types": ["./src/cloudflare.d.ts"]
   },
   "include": ["src/**/*.ts"]
 }
