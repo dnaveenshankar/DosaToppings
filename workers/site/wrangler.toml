@@ -8,10 +8,11 @@ SITE_ORIGIN = "https://raw.githubusercontent.com/dnaveenshankar/DosaToppings/mai
 API_BASE_URL = "https://api.dosatoppings.in"
 SITE_DOMAIN = "https://www.dosatoppings.in"
 
-# Keep the existing www DNS record and let the Worker route intercept
-# requests at the Cloudflare edge. This avoids a custom-domain/CNAME conflict.
+# Existing DNS stays in place; the Worker runs in front of the proxied site.
 [[routes]]
 pattern = "www.dosatoppings.in/*"
+zone_name = "dosatoppings.in"
 
 [[routes]]
 pattern = "dosatoppings.in/*"
+zone_name = "dosatoppings.in"
