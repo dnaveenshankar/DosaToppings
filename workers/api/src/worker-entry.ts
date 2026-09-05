@@ -60,7 +60,7 @@ export default {
 
     if (url.pathname.startsWith('/v1/admin/content')) {
       if (request.method === 'OPTIONS') return base.fetch(request, env, ctx);
-      return handleJsonRoute(() => adminSiteContent(request, env, await staffContext(request, env)), 'https://admin.dosatoppings.in', 'Content management failed');
+      return handleJsonRoute(async () => adminSiteContent(request, env, await staffContext(request, env)), 'https://admin.dosatoppings.in', 'Content management failed');
     }
 
     if (url.pathname.startsWith('/v1/auth/')) {
