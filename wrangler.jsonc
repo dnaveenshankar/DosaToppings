@@ -1,0 +1,8 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "dosatoppings",
+  "compatibility_date": "2026-09-05",
+  "assets": {
+    "directory": "apps/store"
+  }
+}
