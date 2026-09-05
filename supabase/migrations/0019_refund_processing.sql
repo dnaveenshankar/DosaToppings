@@ -24,7 +24,9 @@ begin
   select * into v from public.refund_requests where id=p_refund_id for update;
   if not found then raise exception using errcode='P0002',message='refund_not_found'; end if;
   if v.status='succeeded' or v.status='failed' then return jsonb_build_object('ok',true,'duplicate',true,'status',v.status,'refund_id',v.id); end if;
+  if v.status<>'processing' then raise exception using errcode='P0001',message='refund_not_processing'; end if;
   if p_success then
+    if p_provider_refund_id is null or p_provider_refund_id='' then raise exception using errcode='22023',message='provider_refund_id_required'; end if;
     update public.refund_requests set status='succeeded',provider_refund_id=p_provider_refund_id,provider_payload=p_provider_payload,last_error=null,updated_at=now() where id=v.id;
     select coalesce(sum(amount_paise),0) into v_refunded from public.refund_requests where payment_id=v.payment_id and status='succeeded';
     update public.payments set status=case when v_refunded >= amount_paise then 'refunded'::public.payment_status else 'partially_refunded'::public.payment_status end,updated_at=now() where id=v.payment_id;
