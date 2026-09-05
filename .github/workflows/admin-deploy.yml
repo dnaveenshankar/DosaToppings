@@ -6,6 +6,7 @@ on:
     paths:
       - 'apps/admin/**'
       - 'workers/admin/**'
+      - '.github/workflows/admin-deploy.yml'
   workflow_dispatch:
 
 jobs:
@@ -21,6 +22,8 @@ jobs:
           node-version: 22
       - run: npm install --no-audit --no-fund
       - run: npm run check
+      - name: Check admin scripts
+        run: node --check ../../apps/admin/products.js && node --check ../../apps/admin/inventory.js
       - name: Deploy to Cloudflare
         run: npx wrangler deploy
         env:
