@@ -1,5 +1,5 @@
 import type { Env } from './types';
-import { supabaseAdminRest } from './supabase';
+import { supabaseAdminRest, supabaseRpc } from './supabase';
 
 export interface CatalogFilters {
   search?: string;
@@ -30,11 +30,20 @@ export async function publicCatalog(env: Env, filters: CatalogFilters) {
   if (search) params.set('or', `(name.ilike.*${search}*,short_description.ilike.*${search}*)`);
   if (category) params.set('categories.slug', `eq.${category}`);
 
-  const products = await supabaseAdminRest<any[]>(env, `products?${params.toString()}`);
+  const [products, inventory] = await Promise.all([
+    supabaseAdminRest<any[]>(env, `products?${params.toString()}`),
+    supabaseRpc<any[]>(env, 'admin_inventory_snapshot', {}),
+  ]);
+  const stockByVariant = new Map<string, number>(inventory.map((row: any) => [String(row.id), Number(row.current_stock || 0)]));
+
   return products
     .map((product) => ({
       ...product,
-      product_variants: Array.isArray(product.product_variants) ? product.product_variants.filter((v: any) => v.is_active) : [],
+      product_variants: Array.isArray(product.product_variants)
+        ? product.product_variants
+            .filter((v: any) => v.is_active)
+            .map((v: any) => ({ ...v, current_stock: stockByVariant.get(String(v.id)) ?? 0 }))
+        : [],
     }))
     .filter((product) => product.product_variants.length > 0);
 }
