@@ -18,6 +18,19 @@ function cleanSlug(value: unknown): string {
     .replace(/^-+|-+$/g, '')
     .slice(0, 200);
 }
+async function uniqueSlug(env: Env, requested: string, excludeId?: string): Promise<string> {
+  const base = cleanSlug(requested);
+  if (!base) throw new Response('A valid product name or slug is required', { status: 400 });
+  const rows = await supabaseAdminRest<{id:string;slug:string}[]>(env, `products?select=id,slug&slug=eq.${encodeURIComponent(base)}&limit=1`);
+  if (!rows.length || (excludeId && rows[0].id === excludeId)) return base;
+  for (let n = 2; n <= 999; n += 1) {
+    const suffix = `-${n}`;
+    const candidate = `${base.slice(0, 200 - suffix.length)}${suffix}`;
+    const found = await supabaseAdminRest<{id:string}[]>(env, `products?select=id&slug=eq.${encodeURIComponent(candidate)}&limit=1`);
+    if (!found.length || (excludeId && found[0].id === excludeId)) return candidate;
+  }
+  throw new Response('Unable to generate a unique product slug', { status: 409 });
+}
 function optionalMoney(value: unknown, field: string): number | null {
   if (value == null || value === '') return null;
   const n = Number(value);
@@ -42,8 +55,6 @@ async function loadProducts(env: Env): Promise<any[]> {
   try {
     return await supabaseAdminRest<any[]>(env, 'products?select=id,category_id,name,slug,short_description,description,image_url,is_published,created_at,updated_at,product_variants(id,name,sku,price_paise,compare_at_price_paise,stock_threshold,pack_size_value,pack_size_unit,is_active,created_at,updated_at)&order=created_at.desc&limit=500');
   } catch (error) {
-    // 0027 adds pack-size columns. Keep the product console usable while an older
-    // database is waiting for that migration; the variant pack fields simply stay null.
     return await supabaseAdminRest<any[]>(env, 'products?select=id,category_id,name,slug,short_description,description,image_url,is_published,created_at,updated_at,product_variants(id,name,sku,price_paise,compare_at_price_paise,stock_threshold,is_active,created_at,updated_at)&order=created_at.desc&limit=500');
   }
 }
@@ -68,8 +79,7 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
     requirePermission(ctx, 'products.write');
     const body = await request.json() as Record<string, unknown>;
     if (typeof body.name !== 'string' || !body.name.trim()) throw new Response('Product name is required', { status: 400 });
-    const slug = cleanSlug(body.slug || body.name);
-    if (!slug) throw new Response('A valid product name or slug is required', { status: 400 });
+    const slug = await uniqueSlug(env, String(body.slug || body.name));
     const inserted = await supabaseAdminRest<any[]>(env, 'products', {
       method: 'POST',
       headers: { Prefer: 'return=representation' },
@@ -92,7 +102,7 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
     const body = await request.json() as Record<string, unknown>;
     const patch: Record<string, unknown> = {};
     for (const key of ['name','short_description','description','is_published']) if (key in body) patch[key] = body[key];
-    if ('slug' in body) patch.slug = cleanSlug(body.slug);
+    if ('slug' in body) patch.slug = await uniqueSlug(env, String(body.slug), id);
     if ('category_id' in body) patch.category_id = body.category_id === null || body.category_id === '' ? null : uuid(body.category_id, 'category_id');
     if ('image_url' in body) patch.image_url = optionalUrl(body.image_url);
     if ('name' in patch && (typeof patch.name !== 'string' || !String(patch.name).trim())) throw new Response('Product name is required', { status: 400 });
