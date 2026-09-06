@@ -25,7 +25,7 @@
 <script>
 const $=id=>document.getElementById(id);const money=p=>'₹'+(Number(p||0)/100).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
 function render(){const rows=$('items').value.split(/\n+/).map(x=>x.split('|').map(y=>y.trim())).filter(x=>x.length>=3&&x[0]);$('pnumber').textContent=$('number').value||'—';$('pcustomer').textContent=$('customer').value||'Walk-in customer';$('pdate').textContent=new Date().toLocaleString('en-IN');$('ppayment').textContent=$('payment').value||'Cash';$('ptotal').textContent=money($('total').value);$('pitems').innerHTML=rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${money(r[2])}</td></tr>`).join('');}
-function esc(v){return String(v??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\\':'&#92;','"':'&quot;'}[c]));}
+function esc(v){return String(v??'').replace(/[&<>\\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\\':'&#92;','"':'&quot;'}[c]));}
 $('preview').onclick=()=>{render();window.print()};$('clear').onclick=()=>{['number','customer','items','payment','total'].forEach(id=>$(id).value=id==='payment'?'Cash':'');};
-const params=new URLSearchParams(location.search);if(params.get('order'))$('number').value=params.get('order');if(params.get('customer'))$('customer').value=params.get('customer');if(params.get('payment'))$('payment').value=params.get('payment');if(params.get('total'))$('total').value=params.get('total');
+const params=new URLSearchParams(location.search);if(params.get('order'))$('number').value=params.get('order');if(params.get('customer'))$('customer').value=params.get('customer');if(params.get('items'))$('items').value=params.get('items');if(params.get('payment'))$('payment').value=params.get('payment');if(params.get('total'))$('total').value=params.get('total');
 </script></body></html>
