@@ -25,13 +25,23 @@ function optionalMoney(value: unknown, field: string): number | null {
   return n;
 }
 
+async function loadProducts(env: Env): Promise<any[]> {
+  try {
+    return await supabaseAdminRest<any[]>(env, 'products?select=id,category_id,name,slug,description,is_published,created_at,updated_at,product_variants(id,name,sku,price_paise,compare_at_price_paise,stock_threshold,pack_size_value,pack_size_unit,is_active,created_at,updated_at)&order=created_at.desc&limit=500');
+  } catch (error) {
+    // 0027 adds pack-size columns. Keep the product console usable while an older
+    // database is waiting for that migration; the variant pack fields simply stay null.
+    return await supabaseAdminRest<any[]>(env, 'products?select=id,category_id,name,slug,description,is_published,created_at,updated_at,product_variants(id,name,sku,price_paise,compare_at_price_paise,stock_threshold,is_active,created_at,updated_at)&order=created_at.desc&limit=500');
+  }
+}
+
 export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthContext): Promise<Response | null> {
   const url = new URL(request.url);
   if (!url.pathname.startsWith('/v1/admin/catalog')) return null;
 
   if (request.method === 'GET' && url.pathname === '/v1/admin/catalog/products') {
     requirePermission(ctx, 'products.read');
-    const rows = await supabaseAdminRest<any[]>(env, 'products?select=id,category_id,name,slug,description,is_published,created_at,updated_at,product_variants(id,name,sku,price_paise,compare_at_price_paise,stock_threshold,pack_size_value,pack_size_unit,is_active,created_at,updated_at)&order=created_at.desc&limit=500');
+    const rows = await loadProducts(env);
     return json({ ok: true, products: rows });
   }
 
