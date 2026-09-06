@@ -7,6 +7,7 @@ import { publicSiteContent, adminSiteContent } from './content';
 import { adminCatalogRoute } from './adminCatalog';
 import { adminDataRoute } from './adminData';
 import { adminRefundsRoute } from './adminRefunds';
+import { adminGrowthRoute } from './adminGrowth';
 import { dashboardSummary, setOrderStatus, adjustInventory } from './ops';
 import { getSupabaseUser, supabaseAdminRest } from './supabase';
 import { resolveAuthContext } from './authorization';
@@ -51,6 +52,7 @@ export default {
     if (url.pathname.startsWith('/v1/admin/reviews')) return handleJsonRoute(async () => (await adminReviewsRoute(request, env, await staffContext(request, env))) ?? new Response('Not found', { status: 404 }), 'https://admin.dosatoppings.in', 'Review admin request failed');
     if (url.pathname.startsWith('/v1/admin/catalog')) return handleJsonRoute(async () => (await adminCatalogRoute(request, env, await staffContext(request, env))) ?? new Response('Not found', { status: 404 }), 'https://admin.dosatoppings.in', 'Catalog request failed');
     if (url.pathname.startsWith('/v1/admin/refunds')) return handleJsonRoute(async () => (await adminRefundsRoute(request, env, await staffContext(request, env))) ?? new Response('Not found', { status: 404 }), 'https://admin.dosatoppings.in', 'Refund request failed');
+    if (url.pathname.startsWith('/v1/admin/growth/') || url.pathname.startsWith('/v1/admin/settings')) return handleJsonRoute(async () => (await adminGrowthRoute(request, env, await staffContext(request, env))) ?? new Response('Not found', { status: 404 }), 'https://admin.dosatoppings.in', 'Growth/settings request failed');
     if (url.pathname.startsWith('/v1/admin/')) return handleJsonRoute(async () => (await adminOperationsRoute(request, env, await staffContext(request, env))) ?? new Response('Not found', { status: 404 }), 'https://admin.dosatoppings.in', 'Admin operation failed');
     return base.fetch(request, env, ctx);
   },
