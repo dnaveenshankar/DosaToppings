@@ -9,6 +9,7 @@ import { dashboardSummary, setOrderStatus, adjustInventory } from './ops';
 import { getSupabaseUser, supabaseAdminRest } from './supabase';
 import { resolveAuthContext } from './authorization';
 import { requirePermission } from './authz';
+import { customerFeaturesRoute, adminCustomerFeaturesRoute } from './customerFeatures';
 import type { AuthContext } from './authz';
 import type { Env } from './types';
 
@@ -20,6 +21,7 @@ function withCors(response: Response, origin: string): Response {
 }
 function corsOrigin(request: Request): string { const origin = request.headers.get('Origin') || ''; return origin === 'https://www.dosatoppings.in' || origin === 'https://admin.dosatoppings.in' || origin === 'https://bill.dosatoppings.in' ? origin : 'https://www.dosatoppings.in'; }
 async function staffContext(request: Request, env: Env): Promise<AuthContext> { const header = request.headers.get('Authorization') || ''; if (!header.startsWith('Bearer ')) throw new Response('Unauthenticated', { status: 401 }); const token = header.slice(7).trim(); if (!token) throw new Response('Unauthenticated', { status: 401 }); const user = await getSupabaseUser(env, token); const ctx = await resolveAuthContext(env, user.id, user.email); if (!ctx.isActive) throw new Response('Account disabled', { status: 403 }); return ctx; }
+async function customerContext(request: Request, env: Env): Promise<AuthContext> { return staffContext(request, env); }
 async function handleJsonRoute(fn: () => Promise<Response>, origin: string, fallback: string): Promise<Response> { try { return withCors(await fn(), origin); } catch (error) { if (error instanceof Response) return withCors(error, origin); return withCors(new Response(JSON.stringify({ ok: false, error: error instanceof Error ? error.message : fallback }), { status: 400, headers: { 'Content-Type': 'application/json' } }), origin); } }
 function contextResponse(ctx: AuthContext): Response { return new Response(JSON.stringify({ ok: true, user_id: ctx.userId, email: ctx.email ?? null, role: ctx.role ?? null, is_active: ctx.isActive, permissions: ctx.permissions ?? [] }), { status: 200, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } }); }
 
@@ -42,6 +44,8 @@ export default {
     if (url.pathname.startsWith('/v1/admin/content')) return handleJsonRoute(async () => adminSiteContent(request, env, await staffContext(request, env)), 'https://admin.dosatoppings.in', 'Content management failed');
     if (url.pathname.startsWith('/v1/auth/')) return handleJsonRoute(async () => (await authRoute(request, env)) ?? new Response('Not found', { status: 404 }), origin, 'Authentication failed');
     if (url.pathname.startsWith('/v1/customer/reviews') || /^\/v1\/products\/[^/]+\/reviews$/.test(url.pathname)) return handleJsonRoute(async () => (await reviewRoute(request, env, request.method === 'POST' ? await staffContext(request, env) : undefined)) ?? new Response('Not found', { status: 404 }), origin, 'Review request failed');
+    if (url.pathname.startsWith('/v1/customer/')) return handleJsonRoute(async () => (await customerFeaturesRoute(request, env, await customerContext(request, env))) ?? new Response('Not found', { status: 404 }), origin, 'Customer feature request failed');
+    if (url.pathname.startsWith('/v1/admin/features') || /^\/v1\/admin\/users\/[^/]+\/activity$/.test(url.pathname)) return handleJsonRoute(async () => (await adminCustomerFeaturesRoute(request, env, await staffContext(request, env))) ?? new Response('Not found', { status: 404 }), 'https://admin.dosatoppings.in', 'Admin feature request failed');
     if (url.pathname.startsWith('/v1/admin/staff')) return handleJsonRoute(async () => (await adminStaffRoute(request, env, await staffContext(request, env))) ?? new Response('Not found', { status: 404 }), 'https://admin.dosatoppings.in', 'Staff request failed');
     if (url.pathname.startsWith('/v1/admin/reviews')) return handleJsonRoute(async () => (await adminReviewsRoute(request, env, await staffContext(request, env))) ?? new Response('Not found', { status: 404 }), 'https://admin.dosatoppings.in', 'Review admin request failed');
     if (url.pathname.startsWith('/v1/admin/catalog')) return handleJsonRoute(async () => (await adminCatalogRoute(request, env, await staffContext(request, env))) ?? new Response('Not found', { status: 404 }), 'https://admin.dosatoppings.in', 'Catalog request failed');
