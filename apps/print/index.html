@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DosaToppings Print</title>
+<link rel="stylesheet" href="print.css">
+<style>body{font-family:Arial,sans-serif;margin:0;background:#f5f7f5;color:#17251c}.screen-only{max-width:760px;margin:40px auto;padding:24px;background:#fff;border:1px solid #dfe7e0;border-radius:16px}label{display:block;font-weight:700;margin:12px 0 6px}input,textarea,button{font:inherit;width:100%;box-sizing:border-box;padding:10px;border:1px solid #cfd9d1;border-radius:8px}textarea{min-height:180px}.actions{display:flex;gap:10px;margin-top:14px}.actions button{width:auto;flex:1}.primary{background:#1d7a3a;color:#fff;border:0}.print-sheet{display:none}.print-header h1{margin:0}.print-row{display:flex;justify-content:space-between}.print-total{font-weight:900}.print-table th,.print-table td{text-align:left}.hint{font-size:.85rem;color:#68756f}</style>
+</head><body>
+<section class="screen-only">
+<h1>🧾 DosaToppings Receipt Printer</h1>
+<p class="hint">Create a clean customer receipt from an order payload. This page is designed for browser printing and POS thermal printers.</p>
+<label>Order / Bill number</label><input id="number" placeholder="DT-10001">
+<label>Customer</label><input id="customer" placeholder="Walk-in customer">
+<label>Items</label><textarea id="items" placeholder="Masala Dosa | 2 | 12000\nIdli Vada | 1 | 8000"></textarea>
+<label>Payment method</label><input id="payment" value="Cash">
+<label>Total (paise)</label><input id="total" type="number" placeholder="32000">
+<div class="actions"><button class="primary" id="preview">Preview & Print</button><button id="clear">Clear</button></div>
+</section>
+<section class="print-sheet" id="sheet">
+<header class="print-header"><div class="print-row"><div><h1>DosaToppings</h1><div>Fresh South Indian food</div></div><div><strong>Receipt</strong><br><span id="pnumber"></span><br><span id="pdate"></span></div></div></header>
+<div class="print-address"><strong>Customer</strong><br><span id="pcustomer"></span></div>
+<table class="print-table"><thead><tr><th>Item</th><th>Qty</th><th>Amount</th></tr></thead><tbody id="pitems"></tbody></table>
+<div class="print-total"><div class="print-row"><span>Total</span><span id="ptotal"></span></div><div class="print-row"><span>Payment</span><span id="ppayment"></span></div></div>
+<div class="dev-print">Thank you for ordering from DosaToppings.</div>
+</section>
+<script>
+const $=id=>document.getElementById(id);const money=p=>'₹'+(Number(p||0)/100).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
+function render(){const rows=$('items').value.split(/\n+/).map(x=>x.split('|').map(y=>y.trim())).filter(x=>x.length>=3&&x[0]);$('pnumber').textContent=$('number').value||'—';$('pcustomer').textContent=$('customer').value||'Walk-in customer';$('pdate').textContent=new Date().toLocaleString('en-IN');$('ppayment').textContent=$('payment').value||'Cash';$('ptotal').textContent=money($('total').value);$('pitems').innerHTML=rows.map(r=>`<tr><td>${esc(r[0])}</td><td>${esc(r[1])}</td><td>${money(r[2])}</td></tr>`).join('');}
+function esc(v){return String(v??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\\':'&#92;','"':'&quot;'}[c]));}
+$('preview').onclick=()=>{render();window.print()};$('clear').onclick=()=>{['number','customer','items','payment','total'].forEach(id=>$(id).value=id==='payment'?'Cash':'');};
+const params=new URLSearchParams(location.search);if(params.get('order'))$('number').value=params.get('order');if(params.get('customer'))$('customer').value=params.get('customer');if(params.get('payment'))$('payment').value=params.get('payment');if(params.get('total'))$('total').value=params.get('total');
+</script></body></html>
