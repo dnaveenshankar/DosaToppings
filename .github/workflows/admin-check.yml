@@ -1,0 +1,26 @@
+name: Admin Worker Check
+
+on:
+  push:
+    branches: [main, development]
+    paths:
+      - 'workers/admin/**'
+  pull_request:
+    paths:
+      - 'workers/admin/**'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: workers/admin
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: workers/admin/package.json
+      - run: npm install --no-audit --no-fund
+      - run: npm run check

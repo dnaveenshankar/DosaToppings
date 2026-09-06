@@ -1,9 +1,18 @@
 name = "dosatoppings-site"
 main = "src/index.ts"
 compatibility_date = "2026-09-05"
-workers_dev = true
+workers_dev = false
 
 [vars]
 SITE_ORIGIN = "https://raw.githubusercontent.com/dnaveenshankar/DosaToppings/main/index.html"
-API_BASE_URL = "https://dosatoppings.dnaveenshankar2003.workers.dev"
-MAINTENANCE_MODE = "true"
+API_BASE_URL = "https://api.dosatoppings.in"
+SITE_DOMAIN = "https://www.dosatoppings.in"
+
+# Existing DNS stays in place; the Worker runs in front of the proxied site.
+[[routes]]
+pattern = "www.dosatoppings.in/*"
+zone_name = "dosatoppings.in"
+
+[[routes]]
+pattern = "dosatoppings.in/*"
+zone_name = "dosatoppings.in"
