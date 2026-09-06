@@ -3,10 +3,8 @@
   const esc=v=>String(v??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
   const msg=(id,t,e=false)=>{const x=document.getElementById(id);if(x){x.textContent=t;x.className='status'+(e?' error':'')}};
   const table=(heads,rows)=>`<div class="table-wrap"><table class="table"><thead><tr>${heads.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${rows||'<tr><td colspan="20" class="small">No records found.</td></tr>'}</tbody></table></div>`;
-  const money=p=>'₹'+(Number(p||0)/100).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
-  const fmt=v=>v?new Date(v).toLocaleString('en-IN'):'—';
 
-  // Category management: the product editor can now select real DB categories and manage them without leaving Admin.
+  // Category management is backed by the production database and exposed from the Products screen.
   const products=document.getElementById('products');
   const catButton=[...document.querySelectorAll('#products button')].find(b=>/Manage categories/i.test(b.textContent||''));
   if(products&&catButton){
@@ -20,7 +18,7 @@
     document.getElementById('categoryAdd').onclick=async()=>{const name=prompt('Category name');if(!name)return;const description=prompt('Description','');const sort=prompt('Sort order','0');if(description===null||sort===null)return;try{await api('/v1/admin/catalog/categories',{method:'POST',body:JSON.stringify({name,description,sort_order:Number(sort),is_published:true})});await loadCategories()}catch(e){alert(e.message||'Category creation failed')}};
   }
 
-  // Replace the security placeholder with a real security/RBAC view sourced from the API database.
+  // Replace the remaining security placeholder with a real DB/API-backed RBAC view.
   const security=document.getElementById('security');
   if(security){
     security.innerHTML=`<div class="card"><div class="toolbar"><div><h2>🔐 Security center</h2><p class="small">Live RBAC context and privileged-action telemetry from production.</p></div><button class="ghost" id="securityRefresh">↻ Refresh</button></div><div id="securityStatus" class="status">Loading…</div><div id="securityBody"></div></div>`;
@@ -28,13 +26,5 @@
     document.getElementById('securityRefresh').onclick=loadSecurity;
     window.__DTDBSecurity={load:loadSecurity};
     setTimeout(loadSecurity,800);
-  }
-
-  // Give the Customers module a real per-customer activity drill-down when the account has the activity permission.
-  const customers=document.getElementById('customers');
-  if(customers){
-    const oldLoad=window.__DTLiveOps?.loaders?.customers;
-    const loadCustomers=async()=>{if(typeof oldLoad==='function')await oldLoad();const body=document.getElementById('customersLiveBody');if(!body)return;const can=state.ctx?.permissions?.includes('users.activity.read');if(!can)return;body.querySelectorAll('tbody tr').forEach((tr,i)=>{const email=tr.children?.[1]?.textContent?.trim();const source=tr.querySelector('td:first-child')?.textContent?.trim();const action=tr.lastElementChild;if(action&&!action.querySelector('.activity-btn')){const button=document.createElement('button');button.className='ghost activity-btn';button.textContent='Activity';button.onclick=async()=>{const customerRows=body.querySelectorAll('tbody tr');const row=customerRows[i];if(!row)return;alert('Open activity from the customer account ID shown by the API.');};action.appendChild(button)}})};
-    window.__DTDBCustomers={load:loadCustomers};
   }
 })();
