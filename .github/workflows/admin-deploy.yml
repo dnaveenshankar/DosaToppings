@@ -42,15 +42,16 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: |
           set -u
+          ACCOUNT_ID="97cdf1f40048d1dff18ff8bbe12e4916"
           echo "Wrangler identity:"
           cd workers/admin
           npx wrangler whoami || true
           cd ../..
-          echo "Cloudflare account discovery:"
+          echo "Access applications for the production account:"
           curl --silent --show-error --fail-with-body \
             -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
-            "https://api.cloudflare.com/client/v4/accounts" \
-            | python -m json.tool | grep -E '"id"|"name"' || true
+            "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/access/apps" \
+            | python -m json.tool | grep -E '"name"|"domain"|"type"|"worker_id"|"uri"|"decision"' || true
       - name: Smoke test production admin
         working-directory: .
         run: |
