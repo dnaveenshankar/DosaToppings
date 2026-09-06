@@ -35,6 +35,19 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Diagnose Cloudflare Access for admin Worker
+        working-directory: .
+        continue-on-error: true
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: |
+          set -u
+          ACCOUNT_ID="97cdf140048d1dff18f8bbe12e4916"
+          echo "Checking Access applications that can protect dosatoppings-admin..."
+          curl --silent --show-error --fail-with-body \
+            -H "Authorization: Bearer ${CLOUDFLARE_API_TOKEN}" \
+            "https://api.cloudflare.com/client/v4/accounts/${ACCOUNT_ID}/access/apps" \
+            | python -m json.tool | grep -E '"name"|"domain"|"type"|"worker_id"|"uri"' || true
       - name: Smoke test production admin
         working-directory: .
         run: |
