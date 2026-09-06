@@ -1,0 +1,12 @@
+name = "dosatoppings-bill"
+main = "src/index.ts"
+compatibility_date = "2026-09-05"
+workers_dev = false
+
+[vars]
+BILL_ORIGIN = "https://bill.dosatoppings.in"
+SOURCE_HTML = "https://raw.githubusercontent.com/dnaveenshankar/DosaToppings/main/apps/bill/index.html"
+
+[[routes]]
+pattern = "bill.dosatoppings.in"
+custom_domain = true
