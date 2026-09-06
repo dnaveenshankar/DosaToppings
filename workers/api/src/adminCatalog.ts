@@ -24,14 +24,27 @@ function optionalMoney(value: unknown, field: string): number | null {
   if (!Number.isInteger(n) || n < 0) throw new Response(`Invalid ${field}`, { status: 400 });
   return n;
 }
+function optionalUrl(value: unknown, field = 'image_url'): string | null {
+  if (value == null || value === '') return null;
+  if (typeof value !== 'string') throw new Response(`Invalid ${field}`, { status: 400 });
+  const raw = value.trim();
+  if (!raw) return null;
+  try {
+    const url = new URL(raw);
+    if (!['http:', 'https:'].includes(url.protocol)) throw new Error('protocol');
+    return url.toString().slice(0, 2000);
+  } catch {
+    throw new Response(`Invalid ${field}`, { status: 400 });
+  }
+}
 
 async function loadProducts(env: Env): Promise<any[]> {
   try {
-    return await supabaseAdminRest<any[]>(env, 'products?select=id,category_id,name,slug,description,is_published,created_at,updated_at,product_variants(id,name,sku,price_paise,compare_at_price_paise,stock_threshold,pack_size_value,pack_size_unit,is_active,created_at,updated_at)&order=created_at.desc&limit=500');
+    return await supabaseAdminRest<any[]>(env, 'products?select=id,category_id,name,slug,short_description,description,image_url,is_published,created_at,updated_at,product_variants(id,name,sku,price_paise,compare_at_price_paise,stock_threshold,pack_size_value,pack_size_unit,is_active,created_at,updated_at)&order=created_at.desc&limit=500');
   } catch (error) {
     // 0027 adds pack-size columns. Keep the product console usable while an older
     // database is waiting for that migration; the variant pack fields simply stay null.
-    return await supabaseAdminRest<any[]>(env, 'products?select=id,category_id,name,slug,description,is_published,created_at,updated_at,product_variants(id,name,sku,price_paise,compare_at_price_paise,stock_threshold,is_active,created_at,updated_at)&order=created_at.desc&limit=500');
+    return await supabaseAdminRest<any[]>(env, 'products?select=id,category_id,name,slug,short_description,description,image_url,is_published,created_at,updated_at,product_variants(id,name,sku,price_paise,compare_at_price_paise,stock_threshold,is_active,created_at,updated_at)&order=created_at.desc&limit=500');
   }
 }
 
@@ -64,7 +77,9 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
         category_id: body.category_id ? uuid(body.category_id, 'category_id') : null,
         name: body.name.trim().slice(0, 200),
         slug,
+        short_description: typeof body.short_description === 'string' ? body.short_description.slice(0, 500) : null,
         description: typeof body.description === 'string' ? body.description.slice(0, 5000) : null,
+        image_url: optionalUrl(body.image_url),
         is_published: body.is_published === true,
       }),
     });
@@ -76,9 +91,10 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
     const id = uuid(url.pathname.split('/')[5], 'product_id');
     const body = await request.json() as Record<string, unknown>;
     const patch: Record<string, unknown> = {};
-    for (const key of ['name','description','is_published']) if (key in body) patch[key] = body[key];
+    for (const key of ['name','short_description','description','is_published']) if (key in body) patch[key] = body[key];
     if ('slug' in body) patch.slug = cleanSlug(body.slug);
     if ('category_id' in body) patch.category_id = body.category_id === null || body.category_id === '' ? null : uuid(body.category_id, 'category_id');
+    if ('image_url' in body) patch.image_url = optionalUrl(body.image_url);
     if ('name' in patch && (typeof patch.name !== 'string' || !String(patch.name).trim())) throw new Response('Product name is required', { status: 400 });
     if ('slug' in patch && !String(patch.slug)) throw new Response('Product slug is required', { status: 400 });
     const rows = await supabaseAdminRest<any[]>(env, `products?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', headers: { Prefer: 'return=representation' }, body: JSON.stringify(patch) });
@@ -143,11 +159,18 @@ export async function adminCatalogRoute(request: Request, env: Env, ctx: AuthCon
       patch.stock_threshold = n;
     }
     if ('pack_size_value' in patch) {
-      const n = Number(patch.pack_size_value);
-      if (!Number.isFinite(n) || n <= 0) throw new Response('Invalid pack_size_value', { status: 400 });
-      patch.pack_size_value = n;
+      if (patch.pack_size_value === null) {
+        patch.pack_size_unit = null;
+      } else {
+        const n = Number(patch.pack_size_value);
+        if (!Number.isFinite(n) || n <= 0) throw new Response('Invalid pack_size_value', { status: 400 });
+        patch.pack_size_value = n;
+      }
     }
     if ('pack_size_unit' in patch && patch.pack_size_unit !== null && !new Set(['g','kg','ml','l','pcs']).has(String(patch.pack_size_unit))) throw new Response('Invalid pack_size_unit', { status: 400 });
+    if ('pack_size_unit' in patch && patch.pack_size_unit !== null && !('pack_size_value' in patch)) {
+      throw new Response('Pack size value is required when changing the unit', { status: 400 });
+    }
     const rows = await supabaseAdminRest<any[]>(env, `product_variants?id=eq.${encodeURIComponent(id)}`, { method: 'PATCH', headers: { Prefer: 'return=representation' }, body: JSON.stringify(patch) });
     return json({ ok: true, variant: rows[0] ?? null });
   }
