@@ -34,3 +34,5 @@ jobs:
           echo
           curl --fail --silent --show-error --retry 8 --retry-delay 5 'https://api.dosatoppings.in/v1/catalog?limit=1'
           echo
+
+# Production redeploy marker
