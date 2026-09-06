@@ -23,7 +23,12 @@ jobs:
       - run: npm install --no-audit --no-fund
       - run: npm run check
       - name: Check admin scripts
-        run: node --check ../../apps/admin/products.js && node --check ../../apps/admin/inventory.js
+        run: |
+          node --check ../../apps/admin/products.js
+          node --check ../../apps/admin/inventory.js
+          node --check ../../apps/admin/recovery.js
+          node --check ../../apps/admin/feature-controls.js
+          node --check ../../apps/admin/live-ops.js
       - name: Deploy to Cloudflare
         run: npx wrangler deploy
         env:
