@@ -29,6 +29,7 @@ jobs:
           node --check ../../apps/admin/recovery.js
           node --check ../../apps/admin/feature-controls.js
           node --check ../../apps/admin/live-ops.js
+          node --check ../../apps/admin/growth-ops.js
       - name: Deploy to Cloudflare
         run: npx wrangler deploy
         env:
