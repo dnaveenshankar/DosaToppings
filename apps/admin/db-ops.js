@@ -1,10 +1,8 @@
 (()=>{
   if(typeof api!=='function') return;
   const esc=v=>String(v??'').replace(/[&<>\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[c]));
-  const msg=(id,t,e=false)=>{const x=document.getElementById(id);if(x){x.textContent=t;x.className='status'+(e?' error':'')}};
   const table=(heads,rows)=>`<div class="table-wrap"><table class="table"><thead><tr>${heads.map(x=>`<th>${x}</th>`).join('')}</tr></thead><tbody>${rows||'<tr><td colspan="20" class="small">No records found.</td></tr>'}</tbody></table></div>`;
 
-  // Category management is backed by the production database and exposed from the Products screen.
   const products=document.getElementById('products');
   const catButton=[...document.querySelectorAll('#products button')].find(b=>/Manage categories/i.test(b.textContent||''));
   if(products&&catButton){
@@ -17,6 +15,34 @@
     document.getElementById('categoryClose').onclick=()=>modal.classList.add('hidden');
     document.getElementById('categoryAdd').onclick=async()=>{const name=prompt('Category name');if(!name)return;const description=prompt('Description','');const sort=prompt('Sort order','0');if(description===null||sort===null)return;try{await api('/v1/admin/catalog/categories',{method:'POST',body:JSON.stringify({name,description,sort_order:Number(sort),is_published:true})});await loadCategories()}catch(e){alert(e.message||'Category creation failed')}};
   }
+
+  // Product/variant deletion is intentionally dependency-aware: historical inventory, orders and carts are never destroyed.
+  const installDeleteActions=()=>{
+    const rows=document.querySelectorAll('#products #prodRows tr');
+    rows.forEach(row=>{
+      if(row.querySelector('[data-delete-product],[data-delete-variant]')) return;
+      const add=row.querySelector('[data-add-var]');
+      const edit=row.querySelector('[data-edit-var]');
+      const actionCell=row.lastElementChild;
+      if(!actionCell) return;
+      if(add){
+        const id=row.querySelector('[data-add-var]')?.dataset.addVar;
+        if(id){const b=document.createElement('button');b.className='ghost';b.dataset.deleteProduct=id;b.textContent='🗑 Delete';b.style.marginLeft='6px';b.style.color='#b42318';actionCell.appendChild(b)}
+      } else if(edit){
+        const id=edit.dataset.editVar;
+        if(id){const b=document.createElement('button');b.className='ghost';b.dataset.deleteVariant=id;b.textContent='🗑 Delete';b.style.marginLeft='6px';b.style.color='#b42318';actionCell.appendChild(b)}
+      }
+    });
+    rows.forEach(row=>{
+      const pb=row.querySelector('[data-delete-product]');
+      if(pb&&!pb.dataset.bound){pb.dataset.bound='1';pb.onclick=async()=>{const product=window.DTProducts?.findProduct?.(pb.dataset.deleteProduct);const label=product?.name||'this product';if(!confirm(`Delete ${label}?\n\nThis permanently removes the product only when it has no inventory, order, or cart history. Historical products are protected.`))return;pb.disabled=true;try{await api('/v1/admin/catalog/products/'+encodeURIComponent(pb.dataset.deleteProduct),{method:'DELETE'});window.DTProducts?.load?.()}catch(e){alert(e.message||'Product could not be deleted')}finally{pb.disabled=false}}}
+      const vb=row.querySelector('[data-delete-variant]');
+      if(vb&&!vb.dataset.bound){vb.dataset.bound='1';vb.onclick=async()=>{if(!confirm('Delete this variant? Historical inventory, orders and carts are protected.'))return;vb.disabled=true;try{await api('/v1/admin/catalog/variants/'+encodeURIComponent(vb.dataset.deleteVariant),{method:'DELETE'});window.DTProducts?.load?.()}catch(e){alert(e.message||'Variant could not be deleted')}finally{vb.disabled=false}}}
+    });
+  };
+  const installStyle=()=>{if(document.getElementById('dtDeleteStyle'))return;const s=document.createElement('style');s.id='dtDeleteStyle';s.textContent='#products [data-delete-product],#products [data-delete-variant]{border:1px solid #f3a5a0;background:#fff7f6;color:#b42318!important;font-weight:800}#products [data-delete-product]:hover,#products [data-delete-variant]:hover{background:#fdeceb}';document.head.appendChild(s)};
+  installStyle();
+  const observer=new MutationObserver(installDeleteActions);const tbody=document.getElementById('prodRows');if(tbody){observer.observe(tbody,{childList:true,subtree:true});installDeleteActions()}
 
   // Replace the remaining security placeholder with a real DB/API-backed RBAC view.
   const security=document.getElementById('security');
