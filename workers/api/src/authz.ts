@@ -5,12 +5,13 @@ export type AppRole =
 
 export type Permission =
   | 'users.read' | 'users.create' | 'users.update' | 'users.disable'
+  | 'users.activity.read'
   | 'products.read' | 'products.write' | 'categories.read' | 'categories.write'
   | 'orders.read' | 'orders.update' | 'orders.print' | 'orders.cancel'
   | 'inventory.read' | 'inventory.adjust' | 'inventory.transfer'
   | 'billing.create' | 'billing.refund' | 'coupons.read' | 'coupons.write'
-  | 'promotions.write' | 'referrals.read' | 'rewards.adjust' | 'reviews.moderate'
-  | 'reports.read' | 'settings.write' | 'audit_logs.read'
+  | 'promotions.write' | 'referrals.read' | 'referrals.write' | 'rewards.adjust' | 'reviews.moderate'
+  | 'reports.read' | 'settings.write' | 'settings.features.write' | 'audit_logs.read'
   | 'content.read' | 'content.write';
 
 export interface AuthContext {
