@@ -22,12 +22,12 @@ jobs:
           node-version: 22
       - run: npm install --no-audit --no-fund
       - run: npm run check
-      - name: Validate print application
+      - name: Validate billing application
         working-directory: .
         run: |
-          node --check -e ""
-          test -s apps/print/index.html
-          test -s apps/print/print.css
+          set -euo pipefail
+          test -s apps/bill/index.html
+          grep -q 'DosaToppings' apps/bill/index.html
       - name: Deploy to Cloudflare
         run: npx wrangler deploy
         env:
