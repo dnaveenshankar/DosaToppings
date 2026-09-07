@@ -1,51 +1,17 @@
 import type { Env } from './types';
 import type { AppRole, AuthContext } from './authz';
 import { requirePermission } from './authz';
-import { supabaseAdminRest, supabaseRpc } from './supabase';
-
-function json(data: unknown, status = 200): Response {
-  return new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
-}
-
-const ROLES: AppRole[] = ['super_admin','admin_manager','store_manager','billing_staff','order_staff','inventory_staff','content_manager','support_staff','review_moderator','report_viewer'];
-function role(value: unknown): AppRole {
-  if (typeof value !== 'string' || !ROLES.includes(value as AppRole)) throw new Response('Invalid role', { status: 400 });
-  return value as AppRole;
-}
-function uuid(value: unknown, field: string): string {
-  if (typeof value !== 'string' || !/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(value)) throw new Response(`Invalid ${field}`, { status: 400 });
-  return value;
-}
-
-export async function adminStaffRoute(request: Request, env: Env, ctx: AuthContext): Promise<Response | null> {
-  const url = new URL(request.url);
-  if (!url.pathname.startsWith('/v1/admin/staff')) return null;
-
-  if (request.method === 'GET' && url.pathname === '/v1/admin/staff') {
-    requirePermission(ctx, 'users.read');
-    const profiles = await supabaseAdminRest<any[]>(env, 'profiles?select=id,email,display_name,phone,is_active,created_at,updated_at&order=created_at.desc&limit=500');
-    const roles = await supabaseAdminRest<any[]>(env, 'staff_roles?select=user_id,role,assigned_by,created_at,updated_at&limit=500');
-    const byUser = new Map(roles.map((item) => [item.user_id, item]));
-    return json({ ok: true, staff: profiles.map((profile) => ({ ...profile, role: byUser.get(profile.id)?.role ?? null, assigned_by: byUser.get(profile.id)?.assigned_by ?? null })) });
-  }
-
-  if (request.method === 'POST' && url.pathname.endsWith('/role')) {
-    requirePermission(ctx, 'users.update');
-    if (ctx.role !== 'super_admin') throw new Response('Super Admin approval required for role changes', { status: 403 });
-    const target = uuid(url.pathname.split('/').filter(Boolean)[3], 'user_id');
-    const body = await request.json() as { role?: unknown };
-    const assigned = await supabaseRpc<any>(env, 'assign_staff_role', { p_target_user: target, p_role: role(body.role), p_actor: ctx.userId });
-    return json({ ok: true, staff_role: assigned });
-  }
-
-  if (request.method === 'POST' && /^\/v1\/admin\/staff\/[^/]+\/active$/.test(url.pathname)) {
-    requirePermission(ctx, 'users.disable');
-    const target = uuid(url.pathname.split('/').filter(Boolean)[3], 'user_id');
-    const body = await request.json() as { is_active?: unknown };
-    if (typeof body.is_active !== 'boolean') throw new Response('is_active must be boolean', { status: 400 });
-    const profile = await supabaseRpc<any>(env, 'set_staff_active', { p_target_user: target, p_active: body.is_active, p_actor: ctx.userId });
-    return json({ ok: true, profile });
-  }
-
-  return json({ error: 'unsupported_staff_route' }, 404);
+import { supabaseAdminRest, supabaseRpc, supabaseAdminHeaders } from './supabase';
+const json=(data:unknown,status=200)=>new Response(JSON.stringify(data),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
+const ROLES:AppRole[]=['super_admin','admin_manager','store_manager','billing_staff','order_staff','inventory_staff','content_manager','support_staff','review_moderator','report_viewer'];
+const role=(v:unknown):AppRole=>{if(typeof v!=='string'||!ROLES.includes(v as AppRole))throw new Response('Invalid role',{status:400});return v as AppRole};
+const uuid=(v:unknown,n:string)=>{if(typeof v!=='string'||!/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v))throw new Response(`Invalid ${n}`,{status:400});return v};
+async function authAdmin(env:Env,path:string,body:unknown){const r=await fetch(`${env.SUPABASE_URL}/auth/v1/${path}`,{method:'POST',headers:supabaseAdminHeaders(env),body:JSON.stringify(body)});const text=await r.text();let data:any={};try{data=text?JSON.parse(text):{}}catch{}if(!r.ok)throw new Response(data.msg||data.message||data.error_description||`Auth request failed (${r.status})`,{status:r.status});return data}
+export async function adminStaffRoute(request:Request,env:Env,ctx:AuthContext):Promise<Response|null>{
+ const url=new URL(request.url);if(!url.pathname.startsWith('/v1/admin/staff'))return null;
+ if(request.method==='GET'&&url.pathname==='/v1/admin/staff'){requirePermission(ctx,'users.read');const profiles=await supabaseAdminRest<any[]>(env,'profiles?select=id,email,display_name,phone,is_active,created_at,updated_at&order=created_at.desc&limit=500');const roles=await supabaseAdminRest<any[]>(env,'staff_roles?select=user_id,role,assigned_by,created_at,updated_at&limit=500');const byUser=new Map(roles.map(x=>[x.user_id,x]));return json({ok:true,roles:ROLES,staff:profiles.map(p=>({...p,role:byUser.get(p.id)?.role??null,assigned_by:byUser.get(p.id)?.assigned_by??null}))})}
+ if(request.method==='POST'&&url.pathname==='/v1/admin/staff'){requirePermission(ctx,'users.create');if(ctx.role!=='super_admin')throw new Response('Super Admin approval required for staff creation',{status:403});const b=await request.json() as any;if(typeof b.email!=='string'||typeof b.password!=='string')throw new Response('Email and password are required',{status:400});const email=b.email.trim().toLowerCase();if(!email||b.password.length<10)throw new Response('Use a valid email and password of at least 10 characters',{status:400});const targetRole=role(b.role||'order_staff');if(targetRole==='super_admin'){const active=await supabaseAdminRest<any[]>(env,"staff_roles?select=user_id,profiles!inner(is_active)&role=eq.super_admin&profiles.is_active=eq.true");if(active.length>=3)throw new Response('Maximum of 3 active Super Admins reached',{status:409})}const created=await authAdmin(env,'admin/users',{email,password:b.password,email_confirm:true,user_metadata:{display_name:typeof b.display_name==='string'?b.display_name.trim().slice(0,120):''}});if(!created.id)throw new Response('Auth user was not created',{status:500});await supabaseAdminRest(env,`profiles?id=eq.${encodeURIComponent(created.id)}`,{method:'PATCH',headers:{Prefer:'return=minimal'},body:JSON.stringify({email,display_name:typeof b.display_name==='string'?b.display_name.trim().slice(0,120):null,phone:typeof b.phone==='string'?b.phone.trim().slice(0,40):null,is_active:true})});const assigned=await supabaseRpc<any>(env,'assign_staff_role',{p_target_user:created.id,p_role:targetRole,p_actor:ctx.userId});return json({ok:true,staff:{id:created.id,email,role:assigned.role}},201)}
+ if(request.method==='POST'&&url.pathname.endsWith('/role')){requirePermission(ctx,'users.update');if(ctx.role!=='super_admin')throw new Response('Super Admin approval required for role changes',{status:403});const target=uuid(url.pathname.split('/').filter(Boolean)[3],'user_id');const b=await request.json() as any;const targetRole=role(b.role);if(targetRole==='super_admin'){const active=await supabaseAdminRest<any[]>(env,"staff_roles?select=user_id,profiles!inner(is_active)&role=eq.super_admin&profiles.is_active=eq.true");if(active.filter(x=>x.user_id!==target).length>=3)throw new Response('Maximum of 3 active Super Admins reached',{status:409})}const assigned=await supabaseRpc<any>(env,'assign_staff_role',{p_target_user:target,p_role:targetRole,p_actor:ctx.userId});return json({ok:true,staff_role:assigned})}
+ if(request.method==='POST'&&/^\/v1\/admin\/staff\/[^/]+\/active$/.test(url.pathname)){requirePermission(ctx,'users.disable');const target=uuid(url.pathname.split('/').filter(Boolean)[3],'user_id');if(target===ctx.userId)throw new Response('You cannot disable your own account',{status:400});const b=await request.json() as any;if(typeof b.is_active!=='boolean')throw new Response('is_active must be boolean',{status:400});const profile=await supabaseRpc<any>(env,'set_staff_active',{p_target_user:target,p_active:b.is_active,p_actor:ctx.userId});return json({ok:true,profile})}
+ return json({error:'unsupported_staff_route'},404);
 }
